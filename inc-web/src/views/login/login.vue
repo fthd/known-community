@@ -1,27 +1,39 @@
 <template>
   <div>
     <div class="login-wrap" v-show="showLogin">
-      <h3>登录</h3>
+      <p class='text'>密码登录</p>
       <p v-show="showTishi">{{tishi}}</p>
-      <input type="text" placeholder="请输入用户名" v-model="username">
-      <input type="password" placeholder="请输入密码" v-model="password">
-      <button v-on:click="login">登录</button>
-      <span v-on:click="ToRegister">没有账号？马上注册</span>
+      <el-input placeholder="请输入用户名" v-model="username"></el-input>
+      <br><br>
+      <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
+      <br><br>
+      <el-row>
+        <el-button type="success" @click="login">登录</el-button>
+      </el-row>
+      <span @click="ToRegister">没有账号？马上注册</span>
     </div>
 
     <div class="register-wrap" v-show="showRegister">
-      <h3>注册</h3>
+      <p class='text'>注册中心</p>
       <p v-show="showTishi">{{tishi}}</p>
-      <input type="text" placeholder="请输入用户名" v-model="newUsername">
-      <input type="password" placeholder="请输入密码" v-model="newPassword">
-      <button v-on:click="register">注册</button>
-      <span v-on:click="ToLogin">已有账号？马上登录</span>
+      <el-input placeholder="请输入用户名" v-model="newUsername"></el-input>
+      <br><br>
+      <el-input placeholder="请输入密码" v-model="newPassword1" show-password></el-input>
+      <br><br>
+      <el-input placeholder="请再次输入密码" v-model="newPassword2" show-password></el-input>
+      <br><br>
+      <el-input placeholder="请输入常用邮箱" v-model="newMail"></el-input>
+      <br><br>
+      <el-row>
+        <el-button type="success" @click="register">注册</el-button>
+      </el-row>
+      <span @click="ToLogin">已有账号？马上登录</span>
     </div>
   </div>
 </template>
 
 <script>
-  import {setCookie,getCookie} from '../../assets/js/cookie.js'
+  import {setCookie,getCookie} from '@/assets/js/cookie.js'
   export default{
     mounted(){
       /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
@@ -106,10 +118,11 @@
 </script>
 
 <style>
-  .login-wrap{text-align:center;}
-  input{display:block; width:250px; height:40px; line-height:40px; margin:0 auto; margin-bottom: 10px; outline:none; border:1px solid #888; padding:10px; box-sizing:border-box;}
+  .login-wrap{text-align:center; width:250px; margin:0 auto;}
+  .register-wrap{text-align:center; width:250px; margin:0 auto;}
+  .text{font-size: 24px;text-shadow: 5px 5px 5px #blue, 2px 2px 2px red, 3px 3px 3px green;color:#41b883}
   p{color:red;}
-  button{display:block; width:250px; height:40px; line-height: 40px; margin:0 auto; border:none; background-color:#41b883; color:#fff; font-size:16px; margin-bottom:5px;}
-  span{cursor:pointer;}
+  button{width:250px; text-align:center;}
+  span{display:block; padding-top:8px; cursor:pointer;}
   span:hover{color:#41b883;}
 </style>
