@@ -1,0 +1,20 @@
+server:
+  port: 8000
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    port: 8761
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+
+
+spring:
+  application:
+    name: inc-web-api
+
+feign:
+  hystrix:
+    enabled: true

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="inc-biz-sso:war">
+    <output-path>$PROJECT_DIR$/inc-biz-sso/target</output-path>
+    <root id="archive" name="inc-biz-sso-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="inc-biz-sso:war exploded" />
+    </root>
+  </artifact>
+</component>

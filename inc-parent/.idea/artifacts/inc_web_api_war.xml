@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="inc-web-api:war">
+    <output-path>$PROJECT_DIR$/inc-web-api/target</output-path>
+    <root id="archive" name="inc-web-api-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="inc-web-api:war exploded" />
+    </root>
+  </artifact>
+</component>

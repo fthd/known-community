@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/inc-common/inc-common.iml" filepath="$PROJECT_DIR$/inc-common/inc-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inc-eureka/inc-eureka.iml" filepath="$PROJECT_DIR$/inc-eureka/inc-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inc-manager/inc-manager.iml" filepath="$PROJECT_DIR$/inc-manager/inc-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inc-parent.iml" filepath="$PROJECT_DIR$/inc-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inc-sso-biz/inc-sso-biz.iml" filepath="$PROJECT_DIR$/inc-sso-biz/inc-sso-biz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inc-web-api/inc-web-api.iml" filepath="$PROJECT_DIR$/inc-web-api/inc-web-api.iml" />
+    </modules>
+  </component>
+</project>
