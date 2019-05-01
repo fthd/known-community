@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="inc-front-web:war">
+    <output-path>$PROJECT_DIR$/inc-front-web/target</output-path>
+    <root id="archive" name="inc-front-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="inc-front-web:war exploded" />
+    </root>
+  </artifact>
+</component>
