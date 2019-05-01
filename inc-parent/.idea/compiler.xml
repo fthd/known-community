@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="inc-common" />
         <module name="inc-eureka" />
-        <module name="inc-front-web" />
         <module name="inc-manager" />
         <module name="inc-sso-biz" />
         <module name="inc-sso-web" />
