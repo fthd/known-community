@@ -1,0 +1,69 @@
+<#include "common/layout/__mainlayout.html">
+<#assign navLink='console:syslog:list' />
+<@mainlayout>
+<div class="row-content am-cf">
+	<div class="row">
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+			<div class="widget am-cf">
+				<div class="widget-head am-cf">
+					<div class="widget-title am-fl"></div>
+						<div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN SAMPLE TABLE PORTLET-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-comments"></i>系统日志
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse"> </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                    <a href="javascript:;" class="reload"> </a>
+                                    <a href="javascript:;" class="remove"> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-scrollable">
+                                    <table class="table-striped table-hover" id="table"
+                                           data-toggle="table"
+                                           data-pagination="true"
+                                           data-search="true"
+                                           data-advanced-search="true"
+                                           data-id-table="advancedTable" 
+                                           data-url="${realpath}/console/syslog/load">
+                                        <thead>
+                                            <tr>
+                                                <th data-checkbox="true"></th>
+                                                <th data-field="id" data-sortable="true">ID</th>
+                                                <th data-field="account" data-sortable="true">用户名</th>
+                                                <th data-field="opContent" data-sortable="true">操作内容</th>
+                                                <th data-field="clientIp" data-sortable="true">ip</th>
+                                                <th data-field="createTime" data-sortable="true">操作时间</th>
+                                                <th data-field="address" data-sortable="true" >用户地址</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE TABLE PORTLET-->
+                    </div>
+					</div>
+				<div class="widget-body  widget-body-lg am-fr">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</@mainlayout>
+<script>
+   function getIds(){
+	   var arr =[];
+	 	var selects = $('#table').bootstrapTable('getSelections');
+		for(var i = 0; i < selects.length; i++){
+			arr.push(selects[i].id);
+		}
+		return arr;
+   }
+</script>
+

@@ -1,0 +1,79 @@
+.myRightNav{
+			position: fixed;
+			width: 64px;
+			right: 20px;
+			top: 20%;
+		}
+		.navpanel{
+			border:#eee 1px solid;
+			filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+			-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+			-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+			box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+			-webkit-border-radius: 10px;
+			border-radius: 10px;
+		}
+		.navpanel ul{
+			list-style:none;
+			margin: 0;
+			padding: 0;
+		}
+		.navpanel ul li{
+			position: relative;
+			width: 64px;
+			height: 64px;
+	        cursor: pointer;
+	        overflow: hidden;
+		}
+		.comment{
+			background: url(../images/comment.png) no-repeat;
+		}
+		.like{
+			margin-top:10px;
+			background: url(../images/like.png) no-repeat;
+		}
+		.collection{
+			margin-top:10px;
+			background: url(../images/collection.png) no-repeat;
+		}
+		.gotop{
+			margin-top:10px;
+			background: url(../images/toTop.png) no-repeat;
+		}
+		.pack{
+			margin-top:10px;
+			background: url(../images/sub.png) no-repeat;
+		}
+		.display{
+			background: url(../images/add.png) no-repeat;
+		}
+		.navpanel li a{
+		    content: attr(data-text);
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 64px;
+		    height: 100%;
+		    line-height: 64px;
+		    font-size: 18px;
+		    font-weight: 700;
+		    color: #fff!important;
+		    background-color: #56abe4;
+		    border-radius: 3px;
+		    text-decoration: none!important;
+		    text-align: center;
+		    -webkit-transform-origin: -50% 50%;
+		    transform-origin: -50% 50%;
+		    -webkit-transform: rotate3d(0,0,1,90deg);
+		    transform: rotate3d(0,0,1,90deg);
+		    -webkit-transition: -webkit-transform .3s ease-in;
+		    transition: transform .3s ease-in;
+		    opacity: 0\9;
+		    filter: alpha(opacity=0)\9;
+		}
+		li:hover a{
+			-webkit-transform: rotate3d(0,0,1,0deg);
+		    transform: rotate3d(0,0,1,0deg);
+			-webkit-transition-timing-function: ease-out;
+			transition-timing-function: ease-out;
+		}

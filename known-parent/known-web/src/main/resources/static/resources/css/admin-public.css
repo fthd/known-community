@@ -1,0 +1,262 @@
+body{
+	font-family: 'Microsoft Yahei','Helvetica Neue',sans-serif,SimHei;
+    font-size: 13px;
+    color: #676a6c;
+    overflow-x: hidden;
+}
+.leftNav{
+	width: 200px;
+    position: fixed;
+    left: 0px;
+    overflow-y: auto;
+    background: #2F4050;
+    height: 100%;
+}
+.theme-item {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+}
+.leftNav ul li{
+	position: relative;
+    display: block;
+}
+.first-nav-level li a{
+	color: #a7b1c2;
+    padding: 14px 20px 14px 25px;
+}
+.first-nav-level li a span{
+    color: #fff;
+}
+.activeNav{
+    border-left: 4px solid #19aa8d;
+    background-color: #293846;
+    color: #fff;
+}
+.first-nav-level li a:visited{
+    background-color: #293846;
+}
+.first-nav-level li a:active{
+    background-color: #293846;
+}
+.first-nav-level li a:link{
+    background-color: #293846;
+}
+.first-nav-level li a:hover{
+	background-color: #293846;
+    color: #fff;
+}
+.second-nav-level li a:hover{
+	background-color:#2F4050;
+	color: #fff;
+}
+.second-nav-level li a {
+    padding: 7px 15px 7px 10px;
+    padding-left: 52px;
+}
+.nav li a {
+    font-size: 14px;
+}
+.nav-header {
+    padding: 33px 25px;
+    background: url(../images/header-profile.png) no-repeat;
+}
+.img{
+	width: 80px;
+
+}
+.adminUser{
+	display: block;
+    color: #fff;
+    padding-left: 25px;
+    padding-top:10px;
+    font-size: 13px;
+    text-shadow: 1px 0 1px #8B4513, 0 1px 1px #8B4513, 
+ 0 -1px 1px #8B4513, -1px 0 1px #8B4513;
+}
+
+
+.arrow {
+    float: right;
+    margin-top: 2px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    vertical-align: middle;
+    font-weight: 700;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.navbar-top-links{
+   margin-right: 10px;
+}
+.navbar-top-links li {
+   display: inline-block;
+}
+.navbar-top-links li a{
+	margin-top: 10px;
+    color: #fff;
+}
+.navbar-top-links li a:hover{
+	background: #18bc9c;
+    color: black;
+}
+
+.mainFrame{
+	margin-left: 220px;
+}
+.container .row {
+    margin-top: 20px;
+}
+.important {
+    color: red;
+    padding: 0px 5px 0px 0px;
+}
+
+
+/**********图标**********/
+.icon{vertical-align:middle;background:url("../images/iconSprite_gray.png") no-repeat;display:inline-block;width:16px;height:16px;cursor: pointer;}
+.i-off{background:url("../images/iconSprite_wihte.png") no-repeat;display:inline-block;width:16px;height:16px;background-position:-16px -144px;margin-right: 10px;}
+.i-on{margin-right: 10px;background:url("../images/iconSprite_wihte.png") no-repeat;display:inline-block;width:16px;height:16px;background-position:-32px -144px;}
+.i-arrow-left{background:url("../images/iconSprite.png") no-repeat;background-position:-48px -144px}
+.i-arrow-up{background:url("../images/iconSprite.png") no-repeat;background-position:-64px -144px}
+.i-arrow-right{background:url("../images/iconSprite.png") no-repeat;background-position:-80px -144px;}
+.i-arrow-down{background:url("../images/iconSprite.png") no-repeat;background-position:-96px -144px;}
+.i-chevron-up{background:url("../images/iconSprite.png") no-repeat;background-position:-112px -144px}
+.i-chevron-down{background-position:-128px -144px}
+.i-close{background-position:-144px -112px}
+.i-change{background-position:-16px -16px}
+.i-build{background-position:-48px -16px}
+.i-preview{background-position:-80px -16px}
+.i-copy{background-position:-112px -16px}
+.i-see{background-position:-144px -16px}
+.i-export{background-position:-176px -16px}
+.i-import{background-position:-208px -16px}
+.i-publish{background-position:-240px -16px}
+.i-audit{background-position:-272px -16px}
+.i-generate{background-position:-304px -16px}
+.i-add{background-position:-16px -48px}
+.i-edit{background-position:-48px -48px}
+.i-del{background-position:-80px -48px}
+.i-empty{background-position:-112px -48px}
+.i-competence{background-position:-144px -48px}
+.i-move{background-position:-176px -48px}
+.i-bind{background-position:-208px -48px}
+.i-unbind{background-position:-240px -48px}
+.i-visit{background-position:-272px -48px}
+.i-set{background-position:-304px -48px}
+.i-maintain{background-position:-16px -80px}
+.i-agree{background-position:-48px -80px}
+.i-reject{background-position:-80px -80px}
+.i-user{background-position:-112px -80px}
+.i-stop{background-position:-144px -80px}
+.i-start{background-position:-176px -80px}
+.i-effectiveness{background-position:-208px -80px}
+.i-disabled{background-position:-240px -80px}
+.i-ban{background-position:-272px -80px}
+.i-sortup{background-position:-16px -112px}
+.i-sortdown{background-position:-48px -112px}
+.i-thsortup{background-position:-80px -112px}
+.i-thsortdown{background-position:-112px -112px}
+
+.i-close:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-144px -112px}
+.i-change:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-16px -16px}
+.i-build:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-48px -16px}
+.i-preview:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-80px -16px}
+.i-copy:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-112px -16px}
+.i-see:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-144px -16px}
+.i-export:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-176px -16px}
+.i-import:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-208px -16px}
+.i-publish:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-240px -16px}
+.i-audit:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-272px -16px}
+.i-generate:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-304px -16px}
+.i-add:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-16px -48px}
+.i-edit:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-48px -48px}
+.i-del:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-80px -48px}
+.i-empty:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-112px -48px}
+.i-competence:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-144px -48px}
+.i-move:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-176px -48px}
+.i-bind:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-208px -48px}
+.i-unbind:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-240px -48px}
+.i-visit:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-272px -48px}
+.i-set:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-304px -48px}
+.i-maintain:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-16px -80px}
+.i-agree:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-48px -80px}
+.i-reject:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-80px -80px}
+.i-user:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-112px -80px}
+.i-stop:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-144px -80px}
+.i-start:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-176px -80px}
+.i-effectiveness:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-208px -80px}
+.i-disabled:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-240px -80px}
+.i-ban:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-272px -80px}
+.i-sortup:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-16px -112px}
+.i-sortdown:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-48px -112px}
+.i-thsortup:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-80px -112px}
+.i-thsortdown:hover{background:url("../images/iconSprite.png") no-repeat;background-position:-112px -112px}
+
+.btn .icon{vertical-align:middle;background:url("../images/iconSprite_wihte.png") no-repeat;display:inline-block;width:16px;height:16px;float:left;margin-top: 2px;margin-right: 5px;}
+.btn .i-close{background-position:-144px -112px}
+.btn .i-change{background-position:-16px -16px}
+.btn .i-build{background-position:-48px -16px}
+.btn .i-preview{background-position:-80px -16px}
+.btn .i-copy{background-position:-112px -16px}
+.btn .i-see{background-position:-144px -16px}
+.btn .i-export{background-position:-176px -16px}
+.btn .i-import{background-position:-208px -16px}
+.btn .i-publish{background-position:-240px -16px}
+.btn .i-audit{background-position:-272px -16px}
+.btn .i-generate{background-position:-304px -16px}
+.btn .i-add{background-position:-16px -48px}
+.btn .i-edit{background-position:-48px -48px}
+.btn .i-del{background-position:-80px -48px}
+.btn .i-empty{background-position:-112px -48px}
+.btn .i-competence{background-position:-144px -48px}
+.btn .i-move{background-position:-176px -48px}
+.btn .i-bind{background-position:-208px -48px}
+.btn .i-unbind{background-position:-240px -48px}
+.btn .i-visit{background-position:-272px -48px}
+.btn .i-set{background-position:-304px -48px}
+.btn .i-maintain{background-position:-16px -80px}
+.btn .i-agree{background-position:-48px -80px}
+.btn .i-reject{background-position:-80px -80px}
+.btn .i-user{background-position:-112px -80px}
+.btn .i-stop{background-position:-144px -80px}
+.btn .i-start{background-position:-176px -80px}
+.btn .i-effectiveness{background-position:-208px -80px}
+.btn .i-disabled{background-position:-240px -80px}
+.btn .i-ban{background-position:-272px -80px}
+.btn .i-sortup{background-position:-16px -112px}
+.btn .i-sortdown{background-position:-48px -112px}
+.btn .i-thsortup{background-position:-80px -112px}
+.btn .i-thsortdown{background-position:-112px -112px}
+.btn-group{margin-top: 10px;}
+
+.left-menu{width: 230px;position:fixed;top:30px;left: 0px;overflow-y: auto;background:#222D32;}
+.left-menu a.go-home{text-decoration: none;color: #fff;display:block;padding: 10px;}
+.left-menu ul li{list-style: none;}
+.left-menu ul li span{display: block;background:#1A2226;color:#B8C7CE;padding: 15px 10px 10px 20px;font-size: 18px;}
+.left-menu ul li ul li a{text-decoration: none;color: #B8C7CE;display:inline-block;padding:8px 5px 8px 45px;border-left: 3px solid #222D32}
+.left-menu ul li ul li a:hover,.left-menu ul li ul li a.active{border-left: 3px solid #3C8DBC;color: #fff}
+.main-right{margin-left: 230px;padding:25px 10px 10px 10px;}
+
+table.table{border-collapse: collapse;border-spacing: 0px;width: 100%}
+table.table a{text-decoration: none;}
+table.table th,table.table td{padding: 7px ;vertical-align: middle;padding-left: 14px;font-size: 13px;}
+table.table-list th,table.table-list td,form table.table-list th,form table.table-list td{border: 1px solid  #ddd;padding:8px;}
+table.table-list th{background: #3C8DBC;color: #fff;text-align: left;}
+table.table-list tr:nth-child(2n) {background-color: #F6F6F6;}
+table.hover tr:hover{background: #E0F3F3}
+td,th{word-break:break-all}
+.table > tbody > tr.blank_tr td{height:0px;padding:0px 8px;}
+.search table.table {border-collapse: collapse;border-spacing: 0px;width: auto;}
+
+.page {
+    text-align: center;
+    padding-top: 15px;
+    background-color: #fff;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}

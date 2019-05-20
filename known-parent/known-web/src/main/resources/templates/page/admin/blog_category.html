@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<#include "../include/top.html">
+	<link rel="stylesheet" href="${realpath}/resources/css/admin-public.css" />
+	<link rel="stylesheet" href="${realpath}/resources/css/blog_category.css" />
+	<script language="javascript" type="text/javascript" src="${realpath}/resources/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/laypage/laypage.js"></script>
+	<script type="text/javascript">
+		known.background = "${user.userBg}";
+	</script>
+	<title>后台管理</title>
+</head>
+<body>
+<div>
+	<nav class="leftNav navbar-default">
+			<ul class="first-nav-level nav">
+				<li class="nav-header">
+					<span><a href="${realpath}/user/${user.userid?c}" style="padding: 0px;"><img alt="image" class="img-circle img" src="${user.userIcon}"></a></span>
+					<span class="adminUser">${user.userName}</span>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+          				<span class="glyphicon glyphicon-user"></span>
+						<span>个人信息管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse">
+						<li><a href="${realpath}/admin" >修改个人资料</a></li>
+						<li><a href="${realpath}/admin/preUpdatePassword">修改登录密码</a></li>
+						<li><a href="${realpath}/admin/preUpdateUserIcon">修改头像</a></li>
+						<li><a href="${realpath}/admin/preUpdateUserBg">修改主页背景</a></li>
+						<!-- <li><a href="${realpath}/admin/preUpdateUserPage">版面设置</a></li> -->
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+						<span class="glyphicon glyphicon-book"></span>
+						<span>话题管理</span>
+						<span class="fa arrow">-</span>
+					</a>
+					<ul class="second-nav-level nav in">
+						<li><a href="${realpath}/admin/blogList" >我的话题</a></li>
+						<li><a href="${realpath}/admin/preAddBlog">发表话题</a></li>
+						<li><a href="${realpath}/admin/draftBlogList">话题草稿箱</a></li>
+						<li><a href="${realpath}/admin/blog_category" class="activeNav">话题分类管理</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse collapse">
+						<span class="glyphicon glyphicon-envelope"></span>
+						<span>消息管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse" id="collapse">
+						<li><a href="${realpath}/admin/messageList">我的消息</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+						<span class="glyphicon glyphicon-heart"></span>
+						<span>收藏管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse" id="collapse">
+						<li><a href="${realpath}/admin/collection_list.action?articleType=T">收藏的话题</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=K">收藏的知识库</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=A">收藏的问答</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=B">收藏的话题</a></li>
+					</ul>
+				</li>
+			</ul>
+	</nav>
+
+
+	<div class="rightTopNav" style="margin-left: 200px;background: #18bc9c;">
+		<nav class="navbar navbar-inverse navbar-static-top" style="">
+				<div class="navbar-header">
+			      <!-- <a class="navbar-brand">JAVABLOG</a> -->
+			   </div>
+		       	<ul class="nav navbar-top-links navbar-right">
+		            <li class=""><a href="${realpath}">首页</a></li>
+			        <li><a href="${realpath}/shuoshuo">说说</a></li>
+			        <li><a href="${realpath}/exam">在线考试</a></li>
+			        <li><a href="${realpath}/bbs">话题中心</a></li>
+			        <li><a href="${realpath}/knowledge">知识库</a></li>
+			        <li><a href="${realpath}/ask">问答</a></li>
+		     	</ul>
+		</nav>
+	</div>
+	<div class="mainFrame">
+
+ 		<a href="javascript:;" id="add-category" class="btn btn-info">新增分类</a>
+	    <div id="categories">
+	    
+	    </div>
+
+	</div>
+</div>
+	<script type="text/javascript" src="${realpath}/resources/js/admin-public.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/js/blog_category.js"></script>
+</body>
+</html>

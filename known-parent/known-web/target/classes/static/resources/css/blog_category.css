@@ -1,0 +1,16 @@
+input{
+	border:1px solid #66afe9;
+	height: 40px;
+	border-radius: 5px;
+}
+#categories .category{border: 1px solid #CCCCCC;margin-top: 10px;padding: 5px;}
+#categories .children{padding-left:358px;}
+#categories .edit-item label{margin-right: 5px;display: inline-block;}
+#categories .edit-item{height: 40px;}
+#categories .edit-item a.edit-btn{display: inline-block;padding-right: 10px;}
+#categories .edit-item a.save-btn{display: none;padding-right: 10px;}
+#categories .edit-item span.cate-rank,#categories .edit-item span.cate-name{margin-right: 5px;}
+#categories .edit-item span.cate-rank input{width:30px;text-align: center;padding-left: 0px;}
+#categories .edit-item span.cate-desc input{width:350px;}
+#categories input.none-input{border: 1px solid #fff}
+#img-upload{position: absolute;width: 100px;height: 30px;display: none;}

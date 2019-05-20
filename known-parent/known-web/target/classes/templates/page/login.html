@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<#include "include/top.html">
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/lrtk.css">
+<script type="text/javascript" src="${realpath}/resources/js/jquery.js"></script>
+<script>
+$(function(){
+	$("#account").focus();
+	
+	$("#account").blur(function(){
+		$.ajax({
+			url: known.realpath + '/findHeadImage',
+			type: 'post',
+			dataType: 'json',
+			data: {account: $(this).val()},
+			success:function(result){
+				var headIcon = result.data==null ? known.realpath+"/resources/images/headIcon.jpg" : result.data;
+				$("#headicon").attr({
+					src: headIcon
+				});
+			}
+		});
+		
+	});
+});
+</script>
+<title>登录</title>
+<style type="text/css">
+body {
+	margin: 0;
+	/*background: url(${realpath}/resources/images/bg.jpg) no-repeat 0px 0px;
+			background-size:cover;
+			-webkit-background-size:cover;
+			-moz-background-size:cover;
+			-o-background-size:cover;*/
+}
+</style>
+</head>
+<body style="background-color: #F4F6F8;" onkeydown="on_return();">
+<#include "include/header.html">
+	<div class="Upper">
+		<table style="width: 100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<tr>
+				<td>
+					<table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
+						<tr>
+							<td style="padding: 70px 0 0" align="left" width="385">
+								<h1 style="color: #f4f2ed"></h1>
+								<p style="color: #d3f1a0"></p>
+							</td>
+							<td style="padding: 15px 0 0" align="right" width="215"><img
+								src="${realpath}/resources/images/Autom-Leaf.png">
+							</td>
+						</tr>
+
+						<tr>
+							<td style="padding: 10px 0" colspan="2" align="right"></td>
+						</tr>
+					</table>
+
+					<table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
+						<tr>
+							<td class="content" style align="left" valign="top" width="600">
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td style="padding: 20px 0 25px 95px" align="left"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<script type="text/javascript">
+		/*$.AutomLeafStart({
+			leafsfolder : "${realpath}/resources/images/",
+			howmanyimgsare : 8,
+			initialleafs : 10,
+			maxYposition : -10,
+			multiplyclick : true,
+			multiplynumber : 2,
+			infinite : true,
+			fallingsequence : 4000
+		});*/
+		$("#botAgregar").on("click", function() {
+			$.AutomLeafAdd({
+				leafsfolder : "${realpath}/resources/images/",
+				add : 8,
+			})
+		});
+	</script>
+
+	<!-- 代码 结束 -->
+
+	<div class="logincontainer">
+	<div class="login">
+		<div class="headimage">
+			<img id="headicon" src="${realpath}/resources/images/headIcon.jpg"
+				class="img-circle" style="width:120px;height:120px;" >
+		</div>
+		<h3></h3>
+		<form id="loginform">
+			<div class="form-group">
+				<input class="form-control" placeholder="请输入账号或者邮箱" name="account"
+					id="account"></input>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" placeholder="请输入密码"
+					name="password" id="password"></input>
+			</div>
+			<div class="checkbox">
+				<label> <input type="checkbox" name="rememberMe" value="1" style="">
+				<span class="text-danger" ><strong>记住我的登录信息(网吧公共场所请勿使用)</strong></span>
+				</label>
+			</div>
+		</form>
+		<button type="button" class="btn btn-info block full-width" id="login">登录</button>
+
+		<p class="foot">
+			<a href="${realpath}/findpassword"> 忘记密码了？</a> | <a
+				href="${realpath}/register">注册一个新账号</a>
+		</p>
+		<br/>
+		<div align="left">
+			<label>其他账号登录：</label>
+			<a href="${realpath}/third_login?t=qq" target="_blank">
+				<img src="${realpath}/resources/images/qq_logo.png">
+			</a>
+		</div>
+	</div>
+	</div>
+<script language="javascript">
+
+    //回车时，默认是登录
+    function on_return(){
+        if(window.event.keyCode == 13){
+           $("#login").click();
+        }
+    }
+</script>
+
+<#include "include/footer.html">
+</body>
+</html>

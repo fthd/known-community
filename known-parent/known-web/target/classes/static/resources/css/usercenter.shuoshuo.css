@@ -1,0 +1,177 @@
+	.user-info,.like-info{
+		margin: 0 10px 10px 0;	
+	}
+	.main-content{
+		 text-indent: 2em;
+    	 line-height: 23px;
+	}
+	.shuoshuo-item-info{
+		border-bottom: 1px solid #DDDEDD;
+	}
+	.shuoshuo-item-info a{
+		margin:0 20;
+	}
+	.user-like{
+		border: 1px solid #e6e6e6;
+		padding: 6px;
+		width: 30px;
+		height: 30px;
+	}
+	.user-like-info{
+		border: 1px solid #e6e6e6;
+		width: 30px;
+		height: 30px;
+		display: inline;
+		border-radius: 2px;
+	}
+	.user-thumbnail img{
+		margin-left: 10px;
+		cursor: url("../images/cur_zin.cur"), pointer;
+}
+	}
+	.user-comment-panel{
+	    padding: 10px 20px 0px 20px;
+		border-bottom: 1px solid #DDDEDD;
+	}
+	.comment-item {
+	    border-bottom: 1px solid #EEEFEE;
+	    padding: 10px 0px;
+	}
+	.comment-user-icon {
+	    float: left;
+	    width: 30px;
+	}
+	.comment-main {
+    	margin-left: 40px;
+	}
+	.comment-content {
+	    word-wrap: break-word;
+	    word-break: normal;
+	    line-height: 20px;
+	}
+	.user-icon-image{
+		width: 30px;
+		height: 30px;
+		display: inline;
+	}
+	.comment-op {
+    	margin-top: 10px;
+	}
+	.comment-op span {
+	    color: #9B9C9B;
+	    font-size: 12px;
+	}
+	.comment-op a {
+   	 	margin-left: 10px;
+    	display: inline-block;
+	}
+	.comment-form {
+	    padding: 10px 20px;
+	    display: none;
+	   
+	}
+	.comment-form-op a{
+		margin-right: 8px;
+	}
+	.comment-form textarea {
+	    width: 442px;
+	    height: 100px;
+	    border-radius: 5px;
+	    padding: 10px;
+	}
+
+	.reply{
+		float: right;
+	}
+	textarea {
+	    border-radius: 5px;
+	    padding: 10px;
+	    border-color: #217dbb;
+	}
+	.send_shuoshuo_op{
+		margin-top: 5px;
+    	height: 30px;
+	}
+	span.img-info {
+    color: #A2A3A2;
+    margin-left: 15px;
+	}
+
+
+	.send_shuoshuo_op  a {
+    display: inline-block;
+    margin-right: 10px;
+    height: 22px;
+    width: 22px;
+    vertical-align: bottom;
+    float: left;
+    margin-top: 0px;
+}
+.icon-op-img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-position: 0px -120px;
+}
+/**
+	重写webloader的样式
+*/
+.webuploader-pick {
+    background: none;
+    padding: 0px;
+}
+/*
+	关于上传中缩列图的显示
+*/
+#image-con{
+	margin:0 250px;
+	text-align: left;
+}
+#image-con span{
+	display:inline-block;
+	position: relative;
+	border: 1px solid #DDDDDD;
+	padding: 2px;
+	margin-right: 10px;
+}
+#image-con span img{
+	max-width:150px;
+	max-height: 150px;
+}
+#image-con span a{
+	position: absolute;
+	top:-7px;
+	right:-7px;
+	width:16px;
+	height:16px;
+}
+.load-more{
+	margin-left: 100px;
+	text-align: center;
+}
+.load-more a {
+    text-decoration: none;
+    color: #5D7895;
+    padding: 10px;
+    display: block;
+}
+a.at_user {
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-left: 5px;
+    width:120px;
+}
+.at_user:hover{
+	background: #D2E8F9;
+}
+.emotion {
+    display: inline-block;
+    border: 1px solid #fff;
+    cursor: pointer;
+    margin: 2px 1px 1px 0px;
+}
+.emotion:hover{
+	border:1px solid #18bc9c;
+}

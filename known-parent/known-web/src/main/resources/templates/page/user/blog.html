@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<#include "../include/top.html">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<link rel="stylesheet" href="${realpath}/resources/css/shuoshuo.css" />
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userhome.css">
+	<#if user.userPage==1>
+		<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userfullhome.css">
+	</#if>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/laypage/laypage.js"></script>
+	<style type="text/css">
+		.page {
+		    text-align: center;
+		    padding-top: 20px;
+		    background-color: #fff;
+		    padding-right: 20px;
+		}
+	</style>
+	<script type="text/javascript">
+		known.center = {
+			userId: "${user.userid?c}",
+		};
+		known.pageTotal = ${result.page.pageTotal!'1'}
+	</script>
+	<title>${user.userName}的话题</title>
+</head>
+<body style="background-color: #fff;">
+	<#include "../include/header.html">
+	<div class="main">
+		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/resources/images/${user.userBg}')">
+		<div class="user-home-icon"><img class="img-circle" src="${user.userIcon}"></div>
+		<div class="user-characters">${user.characters!'这个人很懒，什么也没留下。'}</div>
+		</div>
+
+		<div class="left">
+			<div class="user-home-user-name">${user.userName}</div>
+			<div class="user-home-op-btn">
+				<#if focusType==0>
+					<a href="${realpath}/admin" class="btn btn-sm btn-info">后台管理</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="${realpath}/admin/preAddBlog" class="btn btn-sm btn-info">写写话题</a>
+					<#elseif focusType==1>
+					<a href="javascript:;" focustype="${focusType}" id="focus-btn" class="btn  btn-success">关注</a>
+					<#else>
+					<a href="javascript:;" focustype="${focusType}" id="focus-btn" class="btn  btn-warning">取消关注</a>	
+				</#if>
+			</div>
+			<div class="user-home-friend">
+				<span id="left-fans-count">${fansCount!'0'}</span>粉丝&nbsp;&nbsp;/&nbsp;&nbsp;<span id="left-focus-count">${focusCount!'0'}</span>关注
+			</div>
+			<div class="blog-tit">话题分类</div>
+			<div class="blog-category">
+				<ul>
+					<#assign blogCountTotal=0>
+					<#list categoryList as item>
+						<#assign blogCountTotal=blogCountTotal+item.blogCount>
+					</#list>
+					<li>
+						<a href="${realpath}/user/${user.userid?c}/blog" class="active">全部话题(<span class="blog-count">${blogCountTotal}</span>)</a>
+					</li>
+					<#list categoryList as item>
+						<li>
+							<a href="${realpath}/user/${user.userid?c}/blog?categoryId=${item.categoryId?c}">${item.name}(<span class="blog-count">${item.blogCount}</span>)</a>
+						</li>
+					</#list>
+					<div class="clear"></div>
+				</ul>
+			</div>
+		</div>
+
+<script>
+$(function(){
+    $("#focus-btn").click(function(){
+		if(known.userId==""){
+		    goLogin();
+		    return;
+		}
+		var focusType = $(this).attr("focusType");
+		var url="";
+		if(focusType=="1"){//关注
+		    url=known.realpath+"/user/focus.action";
+		}else if(focusType=="2"){
+		    url=known.realpath+"/user/cancel_focus.action";
+		}
+		var that = $(this);
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'json',
+			data: {friendUserId:"${user.userid?c}"},
+			success:function(res){
+			   if(focusType=="1"){
+			       that.attr("focusType",2);
+			       that.html("取消关注");
+			       that.removeClass('btn-success');
+			       that.addClass('btn-warning');
+			       $("#left-fans-count").text(parseInt($("#left-fans-count").text())+1);
+			   }
+			   else if(focusType=="2"){
+			       that.attr("focusType",1);
+			       that.removeClass('btn-warning');
+			       that.addClass('btn-success');
+			       that.html("&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;");
+			       $("#left-fans-count").text(parseInt($("#left-fans-count").text())-1);
+			   }
+			}
+
+		});
+    });
+})
+</script>	
+
+
+
+		<div class="right">
+			<div class="user-home-tag">
+				<ul class="tag" id="tag">
+					<li type="shuoshuo" ><a href="${realpath}/user/${user.userid?c}">吐槽</a></li>
+					<li type="topic" ><a href="${realpath}/user/${user.userid?c}#topic">讨论</a></li>
+					<li type="ask" ><a href="${realpath}/user/${user.userid?c}#ask">问答</a></li>
+					<li type="knowledge" ><a href="${realpath}/user/${user.userid?c}#knowledge">知识库</a></li>
+					<li type="blog" class="active" style="border-bottom: 1px solid #fff;"><a href="${realpath}/user/${user.userid?c}/blog">话题</a></li>
+					<li type="fans" ><a href="${realpath}/user/${user.userid?c}#fans">Ta的粉丝</a></li>
+					<li type="focus" ><a href="${realpath}/user/${user.userid?c}#focus">Ta关注的人</a></li>
+				</ul>
+				<div class="topic-item-list">
+				<#if (result.page.pageTotal>0)>
+				<#list result.list as item>
+					<div class="topic-item">
+						<div class="topic-item-info">
+							<div class="topic-item-title">
+	                			<a href="${realpath}/user/${item.userId?c}/blog/${(item.blogId)?c}" class="title" target="_blank">${item.title}</a>
+	                			<span class="time">${item.createTimeString!''}</span>
+	                		<#assign name="${item.name!''}">
+							<#if name=="" >
+					            <a class="topic-cate-tag" href="${realpath}/user/${(item.userId)?c}/blog"><span>全部分类</span></a>
+					            <#else>
+					            <a class="topic-cate-tag" href="${realpath}/user/${(item.userId)?c}/blog?categoryId=${item.categoryId}"><span>${item.name}</span></a>
+				            </#if>
+	                		</div>
+							<div class="topic-item-summary">${item.summary}</div>
+							<#if item.blogImageArray??>
+							<div class="image-thum topic-item-images">
+								<#list item.blogImageArray as img>
+								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${img}" /></a>
+								<#if (img_index>=2)>
+									<#break>
+								</#if>
+								</#list>
+								<div class="clear"></div>
+							</div>
+							</#if>
+							<div class="topic-count-info">
+								<span class="count"><i class="icon icon-read"></i><span>阅读：${item.readCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-comment"></i><span>评论：${item.commentCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-like"></i><span>喜欢：${item.likeCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-collection"></i><span>收藏：${item.collectionCount!'0'}</span></span>
+							</div>
+						</div>
+					</div>
+
+					</#list>
+					<#else>
+						<div class="no-data">该分类下没有话题</div>
+					</#if>
+						<div class="clear"></div>				
+					</div>
+					<div id="page" class="page"></div>
+
+			</div>
+						
+			
+		
+		<div class="clear"></div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			    laypage({
+					    cont: 'page',
+					    pages: known.pageTotal, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
+					    skin: 'molv', //皮肤
+					    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
+					        var page = location.search.match(/pageNum=(\d+)/);
+					        return page ? page[1] : 1;
+					    }(), 
+					    jump: function(e, first){ //触发分页后的回调
+					        if(!first){ //一定要加此判断，否则初始时会无限刷新
+					        	var s = location.search.match(/categoryId=(\d+)/);
+					        	s = s ?  "categoryId="+s[1]+"&" : "";
+					            location.href = '?'+ s + "pageNum=" + e.curr;
+					        }
+					    }
+					});
+			});
+		</script>
+
+	</div>
+	<#include "../include/footer.html">
+</body>
+</html>

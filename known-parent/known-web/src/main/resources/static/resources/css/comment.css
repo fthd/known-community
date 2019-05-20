@@ -1,0 +1,97 @@
+img{
+	max-width:1000px;
+	cursor: pointer;
+}
+#page{
+	    text-align: center;
+	    margin:20px;
+}
+.no-data {
+    text-align: center;
+    color: #9A9B9A;
+    padding: 10px;
+    display: block;
+}
+.comment-area {
+    margin: 20px;
+    position: relative;
+}
+.comment-btn-con{
+	float:right;
+	margin-top:10px;
+}
+.comment-title {
+    border: 1px solid #DDDEDD;
+    border-left: none;
+    border-right: none;
+    padding: 10px;
+    margin: 20px;
+    color: #336A9A;
+    font-size: 16px;
+}
+.comment-item{border-bottom: 1px dashed #E0E0E0;padding:10px 10px 20px 10px;margin-left: 10px;}
+.comment-btn-con a{margin-right: 10px;}
+.user-icon{width: 40px;float: left;}
+.user-icon a img{width: 40px;border-radius:20px;}
+.comment-con{margin-left: 50px;}
+.comment-form{display: none;}
+.child-panel{padding-left: 50px;}
+.comment-item .comment-form{margin-left: 50px;margin-top: 10px;width: 700px;}
+.comment-item .comment-form textarea{width:700px;height:150px;border-radius:5px;padding-top: 5px;}
+.comment-item .comment-form-op{margin-top: 5px; margin-bottom:15px;}
+.comment-item .comment-form-op a.op-at{margin-right: 10px;}
+.comment-item .comment-form-op a.post-comment-btn{float: right;}
+.comment-area{margin-top: 20px;position: relative;}
+.comment-panel{margin-top: 10px;}
+.comment-panel .time-op{height: 30px;}
+.comment-panel .time-op span.time{color:#9B9B9B;font-size: 12px;float: left;margin-top: 10px;} 
+.comment-panel .time-op a{margin-left: 10px;display: inline-block;text-decoration: none;font-size: 12px;float: left;margin-top: 10px;}
+.comment-panel .time-op a.accept-btn{padding: 5px 10px;margin-top:3px;display: none;}
+.comment-panel .content_detail{line-height: 20px;word-wrap: break-word;margin-top: 5px;font-size: 13px;}
+.comment-panel .content_detail a{text-decoration: none;}
+.reply{
+	float:right;
+}
+a.at_user {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 12px;
+    width:120px;
+}
+.at_user:hover{
+	background: #D2E8F9;
+}
+
+.icon-op-at {
+	    display: inline-block;
+	    width: 22px;
+	    height: 22px;
+	    background-position: 0px 0px;
+	}
+	.icon-op-at:hover {
+	    background-position: -40px 0px;
+	}
+	.icon-op-emotion:hover {
+	    background-position: -40px -40px;
+	}
+	.icon-op-emotion {
+	    display: inline-block;
+	    width: 22px;
+	    height: 22px;
+	    background-position: 0px -40px;
+	}
+.emotion {
+    display: inline-block;
+    border: 1px solid #fff;
+    cursor: pointer;
+    margin: 2px 1px 1px 0px;
+}
+.emotion:hover{
+	border:1px solid #18bc9c;
+}
+.icon-re {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background-position: 0px -796px;
+}

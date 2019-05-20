@@ -1,0 +1,140 @@
+<script type="text/javascript">
+		var known = {};
+		known.realpath = "${realpath}";
+		<#if Session["session_user_key"]?exists>
+			known.userId = "${session_user_key.userid?c}";
+			<#else>
+			known.userId = 0;
+		</#if>
+		known.curUrl = window.location.href;
+	</script>
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="${realpath}/resources/bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="${realpath}/resources/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/artDialog/css/ui-dialog.css">
+<script type="text/javascript" src="${realpath}/resources/artDialog/dist/dialog-min.js"></script>
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/known.css">
+<script type="text/javascript" src="${realpath}/resources/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/animate/animate.css">
+<meta name="keywords" content="知会问答社区 ，说说，考试专区，话题中心，知识库，问答，投票于一身的互联网平台" />
+<meta name="description" content="知会问答社区 ，说说，考试专区，话题中心，知识库，问答，投票于一身的互联网平台" />
+	<link rel="shortcut icon" href="${realpath}/resources/images/favicon.ico" />
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5d88d3d77d58d89c09f947ecc0f7c535";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+ known.topUrl = {
+		    loadMessage:known.realpath+"/admin/load_user_message_list.action",
+		    loadMessageCount:known.realpath+"/admin/load_user_message_count.action"
+}
+     
+
+     if(known.userId!="0"){
+    	  getMessageCount();
+     }
+ 
+//获取消息数量
+function getMessageCount(){
+
+		$.ajax({
+			url : known.topUrl.loadMessageCount,
+			type: 'POST',
+			dataType: 'json',
+			data:{status:0},
+			success:function(response){
+			   var count = response.data;
+        	   if(count>0){
+        		   $("#message-count").text(count);
+        		   setInterval(function(){
+        			   if($("#message-count").hasClass("shake")){
+        				   $("#message-count").removeClass("shake");
+        			   }else{
+        				   $("#message-count").addClass("shake");
+        			   }
+        		   },1000);
+        	   }
+			}
+		});
+}
+//显示消息框
+function showMessageList(){
+	$("#message-dialog").show();
+	if($("#message-data-list").children().length==0&&!known.isLoading){
+		loadMessage();
+	}
+}
+
+
+
+function MessageItem(data){
+	var item = $("<div class='message-item'></div>");
+	$("<div>"+data.description+"</div>").appendTo(item);
+	var op = $("<div class='message-op'></div>").appendTo(item);
+	$("<span class='time'>发送："+data.createTime+"</span>").appendTo(op);
+	if(data.url!=""){
+	    $('<a href="'+known.realpath+'/admin/readMessage.action?id='+data.id+'" class="message-detail" class="read-message" url="'+data.url+'" messageId="'+data.id+'">查看详情</a>').appendTo(op);
+	}
+	return item;
+}
+
+function loadMessage(page){
+	known.isLoading = true;
+	known.messagePageNo = page;
+    $("#load-more-message").remove();
+    $('<div id="loading-message" class="loading"> <div class="loading-con"><img src="' + known.realpath + '/resources/images/loading.gif"/><span>正在加载.......</span></div></div>').appendTo($("#message-load"));
+
+    $.ajax({
+			url :known.topUrl.loadMessage,
+			type: 'POST',
+			dataType: 'json',
+			data:{status:0},
+			success:function(res){
+			   known.isLoading = false;
+        	$("#loading-message").remove();
+            var list = res.data.list;
+            var simplePage = res.data.page;
+            if(simplePage.count==0){
+            	$("<div class='no-data'>没有消息</div>").appendTo($("#message-data-list"));
+            }else{
+            	for (var i = 0, _len = list.length, data; i < _len, data = list[i]; i++) {
+                    new MessageItem(data).appendTo($("#message-data-list"));
+                }
+	            if (simplePage.pageTotal > simplePage.page) {
+	                 $('<div id="load-more-message" class="load-more"><a href="javascript:;">⇓加载更多</a></div>').appendTo($("#message-load"));
+	            }
+           	 }
+			}
+		});
+}
+$(document).ready(function() {
+	$("#searchBtn").click(function(){
+    	 var keyword = $.trim($("#keyWord").val());
+    	 if(keyword == ""){
+             layer.msg("搜索内容不能为空", {
+                        icon: 5,
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+             return;
+         }
+         if(keyword.lenth > 20){
+             layer.msg("搜索内容不能超过20个字符", {
+                        icon: 5,
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+             return;
+         }
+    	 if(known.curUrl.indexOf("search")==-1){
+    		 searchForm.submit();
+    	 }else{
+    		 searchData();
+    	 }
+     });
+
+});
+
+</script>
+<script type="text/javascript" src="${realpath}/resources/js/known.js"></script>

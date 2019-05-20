@@ -1,0 +1,394 @@
+<#include "common/layout/__mainlayout.html">
+<#assign navLink='console:task:list' />
+<@mainlayout>
+<div class="row-content am-cf">
+	<div class="row">
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+			<div class="widget am-cf">
+				<div class="widget-head am-cf">
+					<div class="widget-title am-fl"></div>
+						<div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN SAMPLE TABLE PORTLET-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-comments"></i>任务管理
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse"> </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                    <a href="javascript:;" class="reload"> </a>
+                                    <a href="javascript:;" class="remove"> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            
+	                            <div id="toolbar" class="btn-group">
+	                             <@hasperm key="console:task:save">
+	                                <button id="btn_add" type="button" class="btn btn-success">
+	                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+	                                </button>
+	                                <button id="btn_edit" type="button" class="btn btn-info">
+	                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+	                                </button>
+	                              </@hasperm>
+	                              <@hasperm key="console:task:excute">
+	                               <button id="btn_excute" type="button" class="btn btn-primary">
+	                                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>执行
+	                                </button>
+	                              </@hasperm>
+	                              <@hasperm key="console:task:pause">
+	                                <button id="btn_pause" type="button" class="btn btn-warning">
+	                                    <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>暂停
+	                                </button>
+	                               </@hasperm>
+	                               <@hasperm key="console:task:delete">
+	                                <button id="btn_delete" type="button" class="btn btn-danger">
+	                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+	                                </button>
+	                                </@hasperm>
+	                            </div>
+                            
+                                <div class="table-scrollable">
+                                    <table class="table-striped table-hover" id="table"
+                                           data-toggle="table"
+                                           data-pagination="true"
+                                           data-search="true"
+                                           data-advanced-search="true"
+                                           data-id-table="advancedTable" data-toolbar="#toolbar"
+                                           data-url="${realpath}/console/task/load">
+                                        <thead>
+                                            <tr>
+                                                <th data-checkbox="true"></th>
+                                                <th data-field="id" data-sortable="true">ID</th>
+                                                <th data-field="taskClassz" data-sortable="true">任务类</th>
+                                                <th data-field="taskMethod" data-sortable="true">任务方法</th>
+                                                <th data-field="taskTime" data-sortable="true">任务执行周期</th>
+                                                <th data-field="lastUpdateTime" data-sortable="true">上次更新时间</th>
+                                                <th data-field="status" data-sortable="true" data-formatter="statusFormatter">任务状态</th>
+                                                <th data-field="des" data-sortable="true">任务描述</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE TABLE PORTLET-->
+                    </div>
+					</div>
+				<div class="widget-body  widget-body-lg am-fr">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <!-- responsive -->
+<div id="model" class="modal fade" tabindex="-1" data-width="760">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+              <form class="form-horizontal" role="form">
+              <input type="hidden" name="id" id="id" > 
+                  <div class="form-body">
+                       <div class="form-group">
+                          <label class="col-md-3 control-label">任务类</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" name="taskClassz" id="taskClassz" value=""> </div>
+                      </div>
+                       <div class="form-group">
+                          <label class="col-md-3 control-label">任务方法</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" name="taskMethod" id="taskMethod" > </div>
+                      </div>
+                       <div class="form-group">
+                          <label class="col-md-3 control-label">任务执行周期(0/1 * * * * ? 每秒执行一次 
+                          <a class="btn" href="javascript:;" id="tip"> 例子</a>)</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" name="taskTime" id="taskTime" > </div>
+                      </div>
+                       <div class="form-group">
+                          <label class="col-md-3 control-label">是否立即执行</label>
+                          <div class="col-md-9">
+                              <select class="form-control" name="isImmediateExcute">
+                                            <option value="true">是</option>
+                                            <option value="false">否</option>
+                   	</select>
+                           </div>
+                      </div>
+                     <div class="form-group">
+                          <label class="col-md-3 control-label">任务描述</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" name="des" id="des"> </div>
+                      </div>
+                  </div>
+              </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-danger">关闭</button>
+        <button type="button" class="btn green" id="btn_save">保存</button>
+    </div>
+</div>
+
+
+
+</@mainlayout>
+<script>
+$("#tip").click(function(event) {
+	layer.open({
+		  type: 1,
+		  title: false,
+		  closeBtn: 0,
+		  shadeClose: true,
+		  content: '<div style="text-indent:2em;"><p><strong>Cron表达式范例</strong></p><p>每隔5秒执行一次：*/5 * * * * ?</p><p>每隔1分钟执行一次：0 */1 * * * ?</p><p>每天23点执行一次：0 0 23 * * ?</p><p>每天凌晨1点执行一次：0 0 1 * * ?</p><p>每月1号凌晨1点执行一次：0 0 1 1 * ?</p><p>每月最后一天23点执行一次：0 0 23 L * ?</p><p>每周星期天凌晨1点实行一次：0 0 1 ? * L</p><p>在26分、29分、33分执行一次：0 26,29,33 * * * ?</p><p>每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 * * ?</p><p>每隔5分钟执行一次：0 0/5 * * * ?</p></div>'
+		});
+});
+
+function statusFormatter(value, row) {
+    if (row.status == "0") {
+        return ' <span class="label label-sm label-success"> 初始状态</span>';
+    }
+    else {
+        return ' <span class="label label-sm label-warning"> 暂停</span>';
+    }
+  
+}
+   
+   $("#btn_delete").click(function(){
+	  	var arr = getIds();
+    	if(arr.length == 0){
+    		layer.msg("请选择要标记的行", {
+				icon: 5,
+				time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			});
+			return;
+    	}
+		del(arr);
+   });
+   
+   function clearInput(){
+	   $("input").val("");
+   }
+   
+   $("#btn_add").click(function(){
+	   $("input").val("");
+	   $('#model').modal('show');		 
+   });
+
+    $("#btn_pause").click(function(){
+  	var arr = getIds();
+    	if(arr.length == 0){
+    		layer.msg("请选择要标记的行", {
+				icon: 5,
+				time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			});
+		return;
+    	}
+    	pause(arr);			 
+   });
+
+ $("#btn_excute").click(function(){
+  	var arr = getIds();
+    	if(arr.length == 0){
+    		layer.msg("请选择要标记的行", {
+				icon: 5,
+				time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			});
+		return;
+    	}
+    	excute(arr);			 
+   });
+
+ function excute(arr){
+ 	 layer.confirm('确认要执行吗？', {
+        btn: ['是', '否'], //按钮
+        shade: false //不显示遮罩
+    }, function() {
+    var d = dialog({
+        content: "<div><img src='${realpath}/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;启动中...</div>",
+    });
+    d.showModal();
+    setTimeout(function() {
+        d.close().remove();
+    }, 1000);
+        $.ajax({
+            url: '${realpath}/console/task/excute',
+            type: 'POST',
+            dataType: 'json',
+            data: arr,
+            success: function(res) {
+                if (res.errorMsg != null) {
+                    layer.msg(res.errorMsg, {
+                        icon: 5,
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+                } else {
+                    layer.msg('执行成功', {
+                        icon: 1,
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function() {
+                        $('#table').bootstrapTable('refresh');
+                    });
+                }
+            }
+        });
+
+
+    }, function() {
+
+    });
+ }
+
+function pause(arr){
+   layer.confirm('确认要暂停吗？', {
+        btn: ['是', '否'], //按钮
+        shade: false //不显示遮罩
+    }, function() {
+    var d = dialog({
+        content: "<div><img src='${realpath}/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;暂停中...</div>",
+    });
+    d.showModal();
+    setTimeout(function() {
+        d.close().remove();
+    }, 1000);
+        $.ajax({
+            url: '${realpath}/console/task/pause',
+            type: 'POST',
+            dataType: 'json',
+            data: arr,
+            success: function(res) {
+                if (res.errorMsg != null) {
+                    layer.msg(res.errorMsg, {
+                        icon: 5,
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+                } else {
+                    layer.msg('暂停成功', {
+                        icon: 1,
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function() {
+                        $('#table').bootstrapTable('refresh');
+                    });
+                }
+            }
+        });
+
+
+    }, function() {
+
+    });
+
+}
+
+   $("#btn_save").click(function(event) {
+   	 $.ajax({
+	 	url: '${realpath}/console/task/save',
+	 	type: 'post',
+	 	dataType: 'json',
+	 	data: $("form").serialize(),
+	 	success:function(res){
+		   if (res.errorMsg != null) {
+		                    layer.msg(res.errorMsg, {
+		                        icon: 5,
+		                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+		                    });
+		                } else {
+		                    layer.msg('保存成功', {
+		                        icon: 1,
+		                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+		                    }, function() {
+		                        $('#table').bootstrapTable('refresh');
+		                        $('#model').modal('hide');	
+		                    });
+		                }	
+	 	}
+	 });
+   });
+   
+   function getIds(){
+	  var ids = "";
+	 var selects = $('#table').bootstrapTable('getSelections');
+		for(var i = 0, _length=selects.length; i < _length ; i++){
+			if(i == _length-1){
+                  ids = ids +"ids=" + selects[i].id;
+              }
+              else{
+            	  ids = ids + "ids=" + selects[i].id + "&";
+              }
+		}
+	return ids;
+   }
+   
+//
+
+$("#btn_edit").click(function(event) {
+	var arr = getIds();
+	var selects = $('#table').bootstrapTable('getSelections');
+    	if(selects.length != 1){
+    		layer.msg("请选择1行进行修改", {
+				icon: 5,
+				time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			});
+		return;
+    	}
+    	update(selects);	
+});
+
+  function update(selects){
+         var select = selects[0];
+          $("#taskClassz").val(select.taskClassz);
+          $("#taskMethod").val(select.taskMethod);
+          $("#taskTime").val(select.taskTime);
+          $("#des").val(select.des);
+          $("#id").val(select.id);
+         $('#model').modal('show');
+  }
+   
+//
+
+ function del(arr){
+     layer.confirm('确认要删除吗？', {
+        btn: ['是', '否'], //按钮
+        shade: false //不显示遮罩
+    }, function() {
+    var d = dialog({
+        content: "<div><img src='${realpath}/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;删除中...</div>",
+    });
+    d.showModal();
+    setTimeout(function() {
+        d.close().remove();
+    }, 1000);
+        $.ajax({
+            url: '${realpath}/console/task/delete',
+            type: 'POST',
+            dataType: 'json',
+            data: arr,
+            success: function(res) {
+                if (res.errorMsg != null) {
+                    layer.msg(res.errorMsg, {
+                        icon: 5,
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+                } else {
+                    layer.msg('删除成功', {
+                        icon: 1,
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function() {
+                        $('#table').bootstrapTable('refresh');
+                    });
+                }
+            }
+        });
+
+
+    }, function() {
+
+    });
+
+    }
+//
+   
+</script>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<#include "../include/top.html">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/addExam.css">
+	<title>试卷添加</title>
+
+</head>
+<body>
+	<#include "../include/header.html">
+	<div class="container">
+		<form id="postExamForm">
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label"><em class="important">*</em>分类:</label>
+				<div class="col-xs-3">
+					<select class="form-control" name="categoryId" id="categoryId">
+						<option value="">请选择分类</option>
+						<#list categoryList as item>
+						<option value="${item.categoryId!''}">${item.name!''}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label"><em class="important">*</em>题目内容:</label>
+				<div class="col-xs-8">
+					<textarea class="form-control" rows="5" name="examTitle" id="examTitle"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label"><em class="important"class="important">*</em>答案:</label>
+				<div class="col-xs-8" id="answerList">
+					<div class="row">
+						<label class="col-xs-1 control-label">A：</label>
+						<div class="col-xs-9">
+							<input name="answer" type="text" class="form-control answer" placeholder="输入答案">
+						</div>
+						<div class="col-xs-2" id="addAnswer"><a href="javascript:;">添加答案</a></div>
+					</div>
+					<div class="row">
+						<label class="col-xs-1 control-label">B：</label>
+						<div class="col-xs-9">
+							<input name="answer" type="text" class="form-control answer" placeholder="输入答案"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label"><em class="important">*</em>选择类型:</label>
+				<div class="col-xs-8">
+				<#list examChooseType as item>
+					<label class="checkbox-inline" style="padding-left: 0;">
+						<input type="radio"<#if item_index==0>checked="checked"</#if> name="chooseType"  
+		         value="${item.getType()}">${item.getDesc()}</label>
+		         </#list>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label"><em class="important">*</em>正确答案:</label>
+				<div class="col-xs-8" id="rightAnswerList">
+					<label class="checkbox-inline">
+				<input name="rightAnswer" class="rightAnswer" type="checkbox" id="" value="0">A</label>
+			<label class="checkbox-inline">
+				<input name="rightAnswer" class="rightAnswer" type="checkbox" id="" value="1">B</label>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label">&nbsp;&nbsp;&nbsp;试题解析:</label>
+				<div class="col-xs-8">
+					<textarea name="analyse" class="form-control analyse" rows="5"></textarea>
+				</div>
+			</div>
+		</div>
+		</form>
+		<div class="row">
+			<div class="col-xs-8"></div>
+			<button class="btn btn-info" id="postExamBtn">发布试题</button>
+		</div>
+		
+	</div>
+	<#include "../include/footer.html">
+		<script type="text/javascript" src="${realpath}/resources/js/addExam.js"></script>
+	</body>
+</html>

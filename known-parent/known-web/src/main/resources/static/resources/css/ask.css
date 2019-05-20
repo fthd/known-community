@@ -1,0 +1,73 @@
+.left{
+	float: left;
+    width: 800px;
+    background: #F3F4F3;
+}
+.tag {
+    background: #F3F4F3;
+    margin: 0px;
+    padding: 0px;
+    margin: 10px 0px 0px 10px;
+}
+
+.tag a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #5F605F;
+}
+
+.tag a:hover, .tag a.active {
+    background: #fff;
+    color: #336a9a;
+}
+.left-main {
+    margin: 10px;
+    margin-top: 0px;
+    background: #fff;
+    padding: 20px;
+}
+
+.icon-mark{width: 15px;height: 15px;display: inline-block;background-position:0px -1078px;}
+
+.title-item{border-bottom: 1px dashed #D5D5D5;padding: 15px 0px;word-wrap : break-word ;}
+.title-item .title a{color: #336a9a;font-size: 16px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width:500px;float: left;}
+.title-item .title span.mark{color:#aaaaaa;display: inline-block;margin-left:10px;float: left;margin-top: 2px; background: #fff;}
+.title-item .title span.time{float: right;color:#aaaaaa;font-size: 12px;display: inline-block;margin-top: 2px;}
+.title-item .title span.answer{float: right;color:#aaaaaa;font-size: 12px;display: inline-block;margin-top: 2px;margin-right: 10px;}
+.title-item .summary{color: #5f5f5f;font-size: 12px;margin-top: 10px;line-height: 15px;}
+
+.right {
+    width: 270px;
+    float: right;
+}
+
+
+.right .count-info p {font-size: 15px;color: #5F605F}
+.right .count-info p .day-count{display: inline-block;width: 150px}
+.toAsk{
+	width:270px;
+	text-align: center;
+    padding: 15px 0px 15px 0px;
+    margin-top: 10px;
+}
+
+.rang{margin-top: 20px;background: #F3F4F3;padding: 10px;}
+.rang .rang-title{height:25px;}
+.rang .rang-title span.rang-bang{color: #336a9a;display: inline-block;float: left;padding-left: 10px;font-size: 16px}
+.rang .rang-title span.rang-count{color: #336a9a;display: inline-block;float:right;padding-right: 10px;font-size: 16px}
+.rang-list{background: #fff;padding:15px 10px;}
+.rang-user{float: left;display: inline-block;margin-bottom: 15px;}
+.rang-user a{display: inline-block;margin-left:10px;}
+.rang-user span.rang-num{display: inline-block;padding:2px;width:18px;border-radius:5px;text-align: center;color: #AAABAA}
+.rang-user span.rang-num1{background: #33699A;color: #fff }
+.rang-user span.rang-num2{background: #5D8AAE;color: #fff }
+.rang-user span.rang-num3{background: #83A7C4;color: #fff }
+.rang-item-count{float: right;display: inline-block;margin-right: 10px;color:#AAABAA }
+
+.page{
+	text-align: center;
+	padding-top:20px;
+	background-color:#fff;
+	padding-right:20px;
+}

@@ -1,0 +1,16 @@
+.container .row{
+			margin-top: 20px;
+		}
+.icon-del {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+.icon {
+    background: url("../images/icon/icon-del.png");
+    vertical-align: middle;
+}
+.important{
+    color: red;
+    padding: 0px 5px 0px 0px;
+}

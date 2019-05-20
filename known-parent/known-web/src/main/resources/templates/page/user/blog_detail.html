@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../include/top.html">
+<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/knowledge_detail.css">
+<script type="text/javascript" src="${realpath}/resources/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+<link rel="stylesheet" href="${realpath}/resources/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+</script>
+<script text="text/javascript">
+	known.topicId = "${topic.blogId}";
+	known.articleType="B";
+	known.articleTitle="${topic.title}";
+	known.articleUserId="${topic.userId?c}";
+</script>
+<title>${topic.title}</title>
+</head>
+<body>
+	<#include "../include/header.html">
+		<div class="main">
+			<div class="arc-shadow">
+				<div class="topic-info-con">
+					<div class="topic-icon"><a href="${realpath}/user/${(topic.userId)?c}"><img class="img-circle" src="${topic.userIcon}"></a></div>
+					<div class="topic-info">
+						<div class="topic-title">
+							<a href="${realpath}/user/${(topic.userId)?c}/blog/${(topic.blogId)?c}" class="title">${topic.title}</a>
+							<span class="time">${topic.createTimeString!''}</span>
+							<#assign name="${topic.name!''}">
+							<#if name=="" >
+				            <a class="topic-cate-tag" href="${realpath}/user/${(topic.userId)?c}/blog"><span>全部分类</span></a>
+				            <#else>
+				            <a class="topic-cate-tag" href="${realpath}/user/${(topic.userId)?c}/blog?categoryId=${topic.categoryId}"><span>${topic.name}</span></a>
+				            </#if>
+						</div>
+						<div class="topic-info-d topic-count-info">
+							<a href="${realpath}/user/${(topic.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${topic.userName}</span></a>
+			       			<span class="count"><i class="icon icon-read"></i><span>阅读：${topic.readCount!'0'}</span></span>
+			       			<span class="count"><i class="icon icon-comment" data-garbage="true"></i><span>评论：<span id="comment-count" >${topic.commentCount!'0'}</span></span></span>
+			       			<span class="count"><i class="icon icon-like"></i><span>喜欢：<span id="like-count">${topic.likeCount!'0'}</span></span></span>
+			       			<span class="count"><i class="icon icon-collection"></i><span>收藏：<span id="collection-count">${topic.collectionCount!'0'}</span></span></span>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="topic-detail">
+					${topic.content}
+				</div>
+				<#if topic.attachment??>
+				<div class="attachment">
+					<div class="attachment-title">附件</div>
+					<div class="attachment-info">
+						<span class="filename"><i class="icon icon-package"></i>${topic.attachment.fileName!''}</span>&nbsp;&nbsp;
+				        <span >所需积分：${topic.attachment.downloadMark!'0'}</span>&nbsp;&nbsp;
+				        <span class="dccount">下载：<a href="javascript:void(0)" attachmentid="${topic.attachment.attachmentId!''}" id="dcount">${topic.attachment.downloadCount!'0'}</a></span>&nbsp;&nbsp;
+				        <a href="javascript:void(0)" class="btn btn-info" name="144" topicid="${topic.blogId!''}" attachmentid="${topic.attachment.attachmentId!''}" id="downloadFile">点击下载</a>
+				        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				        <a href="${realpath}/donate" target="_blank">没有积分？</a>
+					</div>
+					<div class="clear"></div>
+				</div>
+				</#if>
+				
+			<#include "../common/comment.html">
+					
+			</div>
+		</div>
+		
+	<#include "../include/footer.html">
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/js/knowledge_detail.js"></script>
+</body>
+</html>

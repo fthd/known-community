@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="known-common" />
+        <module name="known-manager" />
+        <module name="known-service" />
+        <module name="known-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="inc-eureka" target="1.8" />
+      <module name="inc-front-web" target="1.8" />
+      <module name="inc-sso-biz" target="1.8" />
+      <module name="known-common" target="1.8" />
+      <module name="known-manager" target="1.8" />
+      <module name="known-parent" target="1.8" />
+      <module name="known-service" target="1.8" />
+      <module name="known-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

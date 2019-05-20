@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<#include "../include/top.html">
+<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/knowledge.css">
+	<script type="text/javascript" src="${realpath}/resources/js/knowledge.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/laypage/laypage.js"></script>
+	<script text="text/javascript">
+		known.pageTotal = ${result.page.pageTotal}
+	</script>
+	<title>知识库</title>
+</head>
+<body>
+<#include "../include/header.html">
+	<div class="main">
+		<div class="leftKnowledge whitebk">
+			<div class="contribute">
+				<span><a href="javascript:;" id="publicKnowledgeBtn"><em>我要投稿</em></a></span>
+			</div>
+			<ul class="treelist">
+				<li class="tatalCategory">
+					<a class="maintitle fa" href="${realpath}/knowledge"><i class="fa fa-cubes"></i><em>全部分类</em></a>
+				</li>
+				<li>
+					<ul>
+						<#list categories as category>
+						<#if (category.children?size>0)>
+						<li>
+						<a href="javascript:;" class="slowshow" pCategoryId = "${category.categoryId}"><b></b><em>${category.name}</em><i>-</i></a>
+							<ul style="">
+							<#list category.children as children>
+								<li><a href="${realpath}/knowledge/categoryId/${children.categoryId}" ><b></b><em>${children.name}</em></a></li>
+							</#list>
+							</ul>
+						</li>
+						<#else>
+						<li>
+							<a href="${realpath}/knowledge/pCategoryId/${category.categoryId}"  class=""><b></b><em>${category.name}</em></a>
+						</li>
+						</#if>
+						</#list>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="rightKnowledge whitebk">
+			<div class="rightContent">
+				<div class="knowledgeTitle" style="cursor: default">
+					<div class="title"><a href="">${(KnwoledgeTitleCategory.name)!'JAVA情书'}</a></div>
+					<div class="clear"></div>
+					<p style="text-indent: 2em;">${(KnwoledgeTitleCategory.desc)!'你是静态代码块，执行在类加载，我是局部变量i，无限循环，爱你，痴心不改。'}</p>
+					<div class="mainRightContent">
+						<div class="tab_title" id="tab_title">
+						    <span class="xian bordercolor"></span>最新收录
+						</div>
+						<div class="knwoledgeList">
+							
+							
+				<div class="topic-item-list">
+				<#if (result.page.pageTotal>0)>
+				<#list result.list as item>
+					<div class="topic-item">
+						<div class="topic-item-info">
+							<div class="topic-item-title">
+	                			<a href="${realpath}/knowledge/${(item.topicId)?c}" class="title">${item.title}</a>
+	                			<span class="time">${item.createTimeString!''}</span>
+	                			<a class="topic-cate-tag" href="${realpath}/knowledge/categoryId/${item.categoryId}"><span>${item.categoryName!''}</span></a>
+	                		</div>
+							<div class="topic-item-summary">${item.summary}</div>
+							<#if item.topicImageArray??>
+							<div class="image-thum topic-item-images">
+								<#list item.topicImageArray as img>
+								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${img}" /></a>
+								<#if (img_index>=2)>
+									<#break>
+								</#if>
+								</#list>
+								<div class="clear"></div>
+							</div>
+							</#if>
+							<div class="topic-count-info">
+								<a href="${realpath}/user/${(item.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${item.userName}</span></a>
+								<span class="count"><i class="icon icon-read"></i><span>阅读：${item.readCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-comment"></i><span>评论：${item.commentCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-like"></i><span>喜欢：${item.likeCount!'0'}</span></span>
+								<span class="count"><i class="icon icon-collection"></i><span>收藏：${item.collectionCount!'0'}</span></span>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+
+					</#list>
+					<#else>
+						<div class="no-data">没有话题，赶紧抢沙发吧</div>
+					</#if>
+						<div class="clear"></div>				
+					</div>
+						<div id="page" class="page"></div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	
+	</div>
+	<div class="clear"></div>
+<#include "../include/footer.html">
+</body>
+</html>

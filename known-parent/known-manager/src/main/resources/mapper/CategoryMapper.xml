@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Category" >
+    <id column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="allow_post" property="allowPost" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="todayCount" property="todayCount" jdbcType="INTEGER" />
+    <result column="show_in_bbs" property="showInBbs" jdbcType="CHAR" />
+    <result column="show_in_question" property="showInQuestion" jdbcType="CHAR" />
+    <result column="show_in_knowledge" property="showInKnowledge" jdbcType="CHAR" />
+    <result column="show_in_exam" property="showInExam" jdbcType="CHAR" />
+  </resultMap>
+
+<sql id="Base_Condition" >
+    <where >
+    	<if test="null!= categoryId">
+     		and category_id = #{categoryId}
+     	</if>
+     	<if test="null!= pid">
+     		and pid = #{pid}
+     	</if>
+     	<if test="null!= showInBbs">
+     		and show_in_bbs = #{showInBbs}
+     	</if>
+     	<if test="null!= showInQuestion">
+     		and show_in_question = #{showInQuestion}
+     	</if>
+     	<if test="null!= showInKnowledge">
+     		and show_in_knowledge = #{showInKnowledge}
+     	</if>
+     	<if test="null!= showInExam">
+     		and show_in_exam = #{showInExam}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    category_id, pid, name, `desc`, rank, allow_post, show_in_bbs, show_in_question, show_in_knowledge, 
+    show_in_exam
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from known_category <include refid="Base_Condition"/> order by rank
+  </select>
+
+ 
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_category
+    where category_id = #{param.categoryId,jdbcType=INTEGER} or pid =  #{param.pid,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.known.common.model.Category" >
+  		<selectKey keyProperty="category_id" resultType="int" order="AFTER">
+  				SELECT LAST_INSERT_ID()
+  		</selectKey>
+    insert into known_category (category_id, pid, name, 
+      desc, rank, allow_post, 
+      show_in_bbs, show_in_question, show_in_knowledge, 
+      show_in_exam)
+    values (#{categoryId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, #{allowPost,jdbcType=INTEGER}, 
+      #{showInBbs,jdbcType=CHAR}, #{showInQuestion,jdbcType=CHAR}, #{showInKnowledge,jdbcType=CHAR}, 
+      #{showInExam,jdbcType=CHAR})
+  </insert>
+
+  
+  <update id="update" parameterType="com.known.common.model.Category" >
+    update known_category
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+        show_in_bbs = #{showInBbs,jdbcType=CHAR},
+        show_in_question = #{showInQuestion,jdbcType=CHAR},
+        show_in_knowledge = #{showInKnowledge,jdbcType=CHAR},
+        show_in_exam = #{showInExam,jdbcType=CHAR},
+    </set>
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectCategory4TopicCount" resultMap="BaseResultMap">
+	<![CDATA[ 
+		SELECT c.*, t.* FROM known_category c LEFT JOIN(
+	SELECT  COUNT(1) count,
+	category_id,
+	(
+		SELECT COUNT(1)
+		FROM
+		known_topic t
+		WHERE 
+		t.category_id = c.category_id
+		AND create_time >= STR_TO_DATE(
+			'${startDate} 00:00:00',
+			'%Y-%m-%d %H:%i:%s'
+		)
+		AND create_time <= STR_TO_DATE(
+			'${endDate} 23:59:59',
+			'%Y-%m-%d %H:%i:%s'
+		)		
+	)todayCount
+	FROM 
+	known_topic c
+	GROUP BY 
+	category_id
+)t ON c.category_id=t.category_id ORDER BY rank   		]]>
+	</select>
+</mapper>

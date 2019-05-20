@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<#include "../include/top.html">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/doExam.css">
+	<script type="text/javascript">
+		known.categoryId = ${categoryId!''}
+	</script>
+	<title>考试中</title>
+</head>
+<body>
+	<#include "../include/header.html">
+	<div class="mymark" id="mymark">
+		<div class="themark">
+			&nbsp;&nbsp;
+			<span id="realMark"></span>
+		</div> <i><img src="${realpath}/resources/images/icon/grade.png"></i>
+	</div>
+
+	<div class="mainFrame">
+		<div class="examList" id="examList"></div>
+		<div class="doMark">
+			<button id="doTheExam" class="btn btn-info">交卷</button>
+			<a href="${realpath}/exam" class="btn btn-info">重选试题</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="timeCount">
+		<div class="panel panel-info">
+			<div class="panel-body" style="width: 100px;height: 75px;background: #4590CE;">
+				<div class="totalExam">
+					共
+					<span class="totalExamNumber"></span>
+					题
+				</div>
+				<div class="lastExam">
+					第
+					<span class="currentExamNumber">1</span>
+					题
+				</div>
+			</div>
+		</div>
+	</div>
+	<#include "../include/footer.html">
+	<script type="text/javascript" src="${realpath}/resources/js/doExam.js"></script>
+</body>
+</html>

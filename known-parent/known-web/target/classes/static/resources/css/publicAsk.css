@@ -1,0 +1,21 @@
+	.container .row{
+			margin-top: 20px;
+		}
+		.important{
+		    color: red;
+		    padding: 0px 5px 0px 0px;
+		}
+		span.info {
+		    color: #666;
+		    font-size: 12px;
+		    padding-left: 20px;
+		}
+		span.info {
+		    color: #666;
+		    font-size: 12px;
+		    padding-left: 20px;
+		}
+		.left-mark {
+		    color: #1dabfd;
+		    font-size: 26px;
+		}

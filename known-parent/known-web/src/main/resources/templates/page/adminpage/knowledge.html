@@ -1,0 +1,220 @@
+<#include "common/layout/__mainlayout.html">
+<#assign navLink='content:knowledge:list' />
+<@mainlayout>
+<div class="row-content am-cf">
+	<div class="row">
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+			<div class="widget am-cf">
+				<div class="widget-head am-cf">
+					<div class="widget-title am-fl"></div>
+						<div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN SAMPLE TABLE PORTLET-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-comments"></i>知识管理
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse"> </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                    <a href="javascript:;" class="reload"> </a>
+                                    <a href="javascript:;" class="remove"> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            
+	                            <div id="toolbar" class="btn-group">
+	                            <@hasperm key="content:knowledge:updatestatus">
+	     								<button id="btn_edit" type="button" class="btn btn-success">
+	                                    	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>审核
+	                                	</button>	
+	                                	</@hasperm>
+	                               <@hasperm key="content:knowledge:delete">                            
+	                                	<button id="btn_delete" type="button" class="btn btn-danger">
+	                                   		 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+	                               		 </button>
+	                               	</@hasperm>
+	                            </div>
+                            
+                                <div class="table-scrollable">
+                                    <table class="table-striped table-hover" id="table"
+                                           data-toggle="table"
+                                           data-pagination="true"
+                                           data-search="true"
+                                           data-advanced-search="true"
+                                           data-id-table="advancedTable" data-toolbar="#toolbar"
+                                           data-url="${realpath}/content/knowledge/load">
+                                        <thead>
+                                            <tr>
+                                                <th data-checkbox="true"></th>
+                                                <th data-field="topicId" data-sortable="true">ID</th>
+                                                <th data-field="title" data-sortable="true"  data-formatter="titleFormatter">标题</th>
+                                                <th data-field="commentCount" data-sortable="true" >评论数</th>
+                                                <th data-field="likeCount" data-sortable="true" >赞数</th>
+                                                <th data-field="userName" data-sortable="true" >发布人</th>
+                                                <th data-field="createTime" data-sortable="true" >发布时间</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE TABLE PORTLET-->
+                    </div>
+					</div>
+				<div class="widget-body  widget-body-lg am-fr">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</@mainlayout>
+<script>
+
+function titleFormatter(value,row){
+	return "<a href='${realpath}/knowledge/"  + row.topicId +"' target='_blank'>" + row.title + "</a>"; 
+}
+
+
+
+
+//
+
+   
+
+   function getIds(){
+ 	  var ids = "";
+ 	 var selects = $('#table').bootstrapTable('getSelections');
+ 		for(var i = 0, _length=selects.length; i < _length ; i++){
+ 			if(i == _length-1){
+                   ids = ids +"ids=" + selects[i].topicId;
+               }
+               else{
+             	  ids = ids + "ids=" + selects[i].topicId + "&";
+               }
+ 		}
+ 	return ids;
+    }
+   
+
+   
+   //
+   $("#btn_delete").click(function(){
+   	var arr = getIds();
+   	if(arr.length == 0){
+   		layer.msg("请选择要标记的行", {
+				icon: 5,
+				time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			});
+			return;
+   	}
+       del(arr);
+   });
+   
+   //
+   $("#btn_edit").click(function(){
+	   	var arr = getIds();
+	   	if(arr.length == 0){
+	   		layer.msg("请选择要标记的行", {
+					icon: 5,
+					time: 1500 //2秒关闭（如果不配置，默认是3秒）
+				});
+				return;
+	   	}
+	       update(arr);
+	   });
+   
+   
+   //
+   function del(arr){
+           layer.confirm('是否删除？', {
+       btn: ['是', '否'], //按钮
+       shade: false //不显示遮罩
+   }, function() {
+   var d = dialog({
+       content: "<div><img src='${realpath}/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;删除中...</div>",
+   });
+   d.showModal();
+   setTimeout(function() {
+       d.close().remove();
+   }, 1000);
+       $.ajax({
+           url: '${realpath}/content/knowledge/delete',
+           type: 'POST',
+           dataType: 'json',
+           data: arr,
+           success: function(res) {
+               if (res.errorMsg != null) {
+                   layer.msg(res.errorMsg, {
+                       icon: 5,
+                       time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                   });
+               } else {
+                   layer.msg('删除成功', {
+                       icon: 1,
+                       time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                   }, function() {
+                       $('#table').bootstrapTable('refresh');
+                   });
+               }
+           }
+       });
+
+
+   }, function() {
+
+   });
+
+   }
+   
+   //
+   
+    //
+   function update(arr){
+           layer.confirm('是否全部审核通过？', {
+       btn: ['是', '否'], //按钮
+       shade: false //不显示遮罩
+   }, function() {
+   var d = dialog({
+       content: "<div><img src='${realpath}/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;审核中...</div>",
+   });
+   d.showModal();
+   setTimeout(function() {
+       d.close().remove();
+   }, 1000);
+       $.ajax({
+           url: '${realpath}/content/knowledge/updateStatus',
+           type: 'POST',
+           dataType: 'json',
+           data: arr,
+           success: function(res) {
+               if (res.errorMsg != null) {
+                   layer.msg(res.errorMsg, {
+                       icon: 5,
+                       time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                   });
+               } else {
+                   layer.msg('审核成功', {
+                       icon: 1,
+                       time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                   }, function() {
+                       $('#table').bootstrapTable('refresh');
+                   });
+               }
+           }
+       });
+
+
+   }, function() {
+
+   });
+
+   }
+   
+   //
+
+</script>
+

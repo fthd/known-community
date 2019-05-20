@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<#include "../include/top.html">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<link rel="stylesheet" href="${realpath}/resources/css/shuoshuo.css" />
+	<script type="text/javascript" src="${realpath}/resources/js/shuoshuo.js"></script>
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userhome.css">
+	<#if user.userPage==1>
+		<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userfullhome.css">
+		<#else>
+		<style type="text/css">
+		.comment-form textarea {
+		  width: 320px;
+		}
+		</style>
+	</#if>
+	
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/laypage/laypage.js"></script>
+	<script type="text/javascript">
+		known.center = {
+			userId: "${user.userid?c}",
+		};
+	</script>
+	<title></title>
+</head>
+<body>
+	<#include "../include/header.html">
+	<div class="main">
+		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/resources/images/${user.userBg}')">
+		<div class="user-home-icon"><img id="headicon" class="img-circle" src="${user.userIcon}"></div>
+		<div class="user-characters">${user.characters!'这个人很懒，什么也没留下。'}</div>
+		</div>
+
+		<div class="left">
+			<#include "../include/left.html">
+		</div>
+
+
+		<div class="right">
+			<div class="user-home-tag">
+				<ul class="tag" id="tag">
+					<li type="shuoshuo" index="0" class="active"><a href="javascript:void(0)">吐槽</a></li>
+					<li type="topic" index="1"><a href="javascript:void(0)">讨论</a></li>
+					<li type="ask" index="2"><a href="javascript:void(0)">问答</a></li>
+					<li type="knowledge" index="3"><a href="javascript:void(0)">知识库</a></li>
+					<li type="blog" index="4"><a href="${realpath}/user/${user.userid?c}/blog">话题</a></li>
+					<li type="fans" index="5"><a href="javascript:void(0)">Ta的粉丝</a></li>
+					<li type="focus" index="6"><a href="javascript:void(0)">Ta关注的人</a></li>
+				</ul>
+			</div>
+						<!-- 说说 -->
+			<div class="tag-content">
+			</div>
+			<!-- 讨论 -->
+			<div class="tag-content">
+				<div id="topic-pager-top"></div>
+				<div id="topic-content"></div>
+				<div id="topic-page" class="page"></div>
+			</div>
+			<!-- 问答 -->
+			<div class="tag-content">
+				<div id="ask-pager-top"></div>
+				<div id="ask-content"></div>
+				<div id="ask-pager-footer"></div>
+			</div>
+			<!-- 知识库 -->
+			<div class="tag-content">
+				<div id="knowledge-pager-top"></div>
+				<div id="knowledge-content"></div>
+				<div id="knowledge-pager-footer"></div>
+			</div>
+			<div class="tag-content"></div>
+			<!-- Ta的粉丝 -->
+			<div class="tag-content">
+				<div class="user-con-s-f">
+					<ul id="fans-content" >
+					
+					</ul>
+				</div>
+			</div>
+			<!-- Ta关注的人 -->
+			<div class="tag-content">
+				<div class="user-con-s-f">
+					<ul id="focus-content" >
+					
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+
+	</div>
+<script type="text/javascript" src="${realpath}/resources/js/userhome.js"></script>
+	<#include "../include/footer.html">
+</body>
+</html>

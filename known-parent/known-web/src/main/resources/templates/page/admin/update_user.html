@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<#include "../include/top.html">
+	<link rel="stylesheet" href="${realpath}/resources/css/admin-public.css" />
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/MyActionUrl.js"></script>
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script language="javascript" type="text/javascript" src="${realpath}/resources/datePicker/WdatePicker.js"></script>
+
+	<title>后台管理</title>
+</head>
+<body>
+<div>
+	<nav class="leftNav navbar-default">
+			<ul class="first-nav-level nav">
+				<li class="nav-header">
+					<span><a href="${realpath}/user/${user.userid?c}" style="padding: 0px;"><img alt="image" class="img-circle img" src="${user.userIcon}"></a></span>
+					<span class="adminUser">${user.userName}</span>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+          				<span class="glyphicon glyphicon-user"></span>
+						<span>个人信息管理</span>
+						<span class="fa arrow">-</span>
+					</a>
+					<ul class="second-nav-level nav in" id="collapse">
+						<li><a href="${realpath}/admin" class="activeNav">修改个人资料</a></li>
+						<li><a href="${realpath}/admin/preUpdatePassword" >修改登录密码</a></li>
+						<li><a href="${realpath}/admin/preUpdateUserIcon" >修改头像</a></li>
+						<li><a href="${realpath}/admin/preUpdateUserBg">修改主页背景</a></li>
+						<!-- <li><a href="${realpath}/admin/preUpdateUserPage">版面设置</a></li> -->
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+						<span class="glyphicon glyphicon-book"></span>
+						<span>话题管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse" id="collapse">
+						<li><a href="${realpath}/admin/blogList" >我的话题</a></li>
+						<li><a href="${realpath}/admin/preAddBlog">发表话题</a></li>
+						<li><a href="${realpath}/admin/draftBlogList">话题草稿箱</a></li>
+						<li><a href="${realpath}/admin/blog_category">话题分类管理</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse collapse">
+						<span class="glyphicon glyphicon-envelope"></span>
+						<span>消息管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse" id="collapse">
+						<li><a href="${realpath}/admin/messageList">我的消息</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="mycollapse">
+						<span class="glyphicon glyphicon-heart"></span>
+						<span>收藏管理</span>
+						<span class="fa arrow">+</span>
+					</a>
+					<ul class="second-nav-level nav collapse" id="collapse">
+						<li><a href="${realpath}/admin/collection_list.action?articleType=T">收藏的话题</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=K">收藏的知识库</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=A">收藏的问答</a></li>
+						<li><a href="${realpath}/admin/collection_list.action?articleType=B">收藏的话题</a></li>
+					</ul>
+				</li>
+			</ul>
+	</nav>
+	<div class="rightTopNav" style="margin-left: 200px;background: #18bc9c;">
+		<nav class="navbar navbar-inverse navbar-static-top" style="">
+				<div class="navbar-header">
+			      <!-- <a class="navbar-brand">JAVABLOG</a> -->
+			   </div>
+		       	<ul class="nav navbar-top-links navbar-right">
+		            <li class=""><a href="${realpath}">首页</a></li>
+			        <li><a href="${realpath}/shuoshuo">说说</a></li>
+			        <li><a href="${realpath}/exam">在线考试</a></li>
+			        <li><a href="${realpath}/bbs">话题中心</a></li>
+			        <li><a href="${realpath}/knowledge">知识库</a></li>
+			        <li><a href="${realpath}/ask">问答</a></li>
+		     	</ul>
+		</nav>
+	</div>
+	<div class="mainFrame">
+		<div class="container">
+		<form id="updateUserForm"> 
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						唯一ID:
+					</label>
+					<div class="col-xs-10">
+						${user.userid?c}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						邮箱:
+					</label>
+					<div class="col-xs-10">
+						${user.email!''}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						用户名:
+					</label>
+					<div class="col-xs-10">
+						${user.userName}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label">性别:</label>
+				<div class="col-xs-8">
+				<#assign sex="${user.sex!''}">
+					<label class="checkbox-inline" style="padding-left: 0;">
+						<input type="radio" <#if sex=="男">checked="checked"</#if> name="sex" value="男">男</label>
+					<label class="checkbox-inline" style="padding-left: 0;">
+						<input type="radio" <#if sex=="女">checked="checked"</#if> name="sex" value="女">女</label>
+				</div>
+			</div>
+			</div>
+			<div class="row" id="enddate">
+					<div class="form-group">
+					<label class="col-xs-1 control-label">出生日期:</label>
+						<div class="col-xs-2">
+								<input  id="birthday" value="${(user.birthday?date)!''}" name="birthday" class="form-control" type="text" onFocus="WdatePicker({isShowClear:false,readOnly:true})"/>
+						</div>
+					</div>				
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						居住地:
+					</label>
+					<div class="col-xs-10">
+						<input name="address" class="form-control" type="text" value="${user.address!''}" />	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						职业:
+					</label>
+					<div class="col-xs-10">
+						<input  name="work" class="form-control" type="text" value="${user.work!''}"/>	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						个性签名:
+					</label>
+					<div class="col-xs-10">
+						<input name="characters" class="form-control" type="text" value="${user.characters!''}" />	
+					</div>
+				</div>
+			</div>
+		</form>
+			<div class="row">
+				<div class="col-xs-10"></div>
+				<a href="javascript:;" id="saveUserInfo" class="btn btn-info">保存信息</a>
+			</div>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="${realpath}/resources/js/admin-public.js"></script>
+</body>
+</html>

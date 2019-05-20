@@ -1,0 +1,115 @@
+.mainFrame{
+			max-width: 900px;
+			margin: 0px auto;
+		    padding: 20px 0px;
+		    min-height: 500px;
+		}
+		.examItem:hover{
+			    background-color: #F8F8F8;
+		}
+		.examItem{
+			    border-bottom: 1px dashed #ccc;
+    			position: relative;
+		}
+		.itemNum{
+			padding: 5px;
+    		font-size: 16px;
+		}
+		.itemNum-no{
+			font-size: 18px;
+			color: #eeac03;
+			font-weight: bold;
+    		padding: 0px 3px;
+		}
+		.itemChooseType{
+			    font-weight: bold;
+    			padding: 0px 5px;
+		}
+		.postExamUser{
+			font-size: 12px;
+    		color: #666;
+    		padding-left: 10px;
+		}
+		.itemTitle p{
+			text-indent: 2em;
+		}
+		.itemAnswer{
+			text-indent: 2em;
+		}
+		.timeCount{
+			position: fixed;
+			top: 200px;
+			left: 0px;
+
+		}
+		.totalExamNumber{
+			padding: 5px 5px;
+			color: #eeac03;
+			margin: 0 5px;
+			font-size: 16px;
+			font-style: normal;
+		}
+		.currentExamNumber{
+			padding: 5px 7px;
+			color: yellow;
+			margin: 0 5px;
+			font-size: 16px;
+			font-style: normal;
+		}
+		.totalExam{
+			color:#fff;
+		}
+		.lastExam{
+			color: #fff;
+		}
+		.doMark{
+			float: right;
+			padding: 5px;
+		}
+		.clear{
+			clear:both;
+		}
+		.no-data{
+			text-align:center;
+			color: #9A9B9A;
+			padding: 10px;
+			display:block;
+		}
+
+
+		.mymark{
+			display: none;
+			float: right;
+			top: 100px;
+			right: 100px;
+		}
+		.themark{
+			font-size: 26px;
+			color: red;
+			text-indent: 1em;
+		}
+
+		.exam-right{
+			width: 70px;
+			height: 70px;
+			display:inline-block;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			background: url(../images/icon/right.png) no-repeat;
+		}
+
+		.exam-wrong{
+			width: 70px;
+			height: 70px;
+			display:inline-block;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			background: url(../images/icon/wrong.png)no-repeat;
+		}
+		/****正确答案*****/
+.right-answer {border: 1px solid red; padding: 5px; margin-bottom: 5px;}
+/********答案解析***********/
+.analyse {border: 1px solid green;padding: 5px;margin-bottom: 5px;}
+.analyse-tit {font-weight: bold;}

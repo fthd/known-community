@@ -1,0 +1,46 @@
+<#include "common/layout/__mainlayout.html">
+<#assign navLink='console:statistics:list' />
+<@mainlayout>
+<div class="row-content am-cf">
+	<div class="row">
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+			<div class="widget am-cf">
+				<div class="widget-head am-cf">
+					<div class="widget-title am-fl"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+						<div class="main" style="width: 800px;height:400px;"></div>
+					</div>
+			</div>
+		</div>	
+</div>
+</@mainlayout>
+<script src="${realpath}/resources/echarts/echarts.js"></script>
+<script src="${realpath}/resources/echarts/macarons.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        
+      $(document).ready(function() {
+      	$.ajax({
+      		url: '${realpath}/console/statistics/load',
+      		type: 'post',
+      		dataType: 'json',
+      		success:function(result){
+      			var list = result .data;
+      			for(var i = 0 , _length = list.length; i < _length; i++){
+      				var myChart = echarts.init($(".main").eq(i)[0],'macarons');
+      				myChart.setOption(list[i]);
+      			}
+      		}
+      	});
+      	
+      });
+        
+        // 使用刚指定的配置项和数据显示图表。
+        
+    </script>

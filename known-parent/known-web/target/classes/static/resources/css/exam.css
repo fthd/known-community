@@ -1,0 +1,33 @@
+	.main a,button{
+			margin-left: 10px;
+		}
+		.examiers{
+			padding: 10px 10px 5px 10px;
+		    border-bottom: 1px solid #B3B4B3;
+		    font-size: 16px;
+		}
+		.examiers-detail{
+			padding-top: 5px;
+		}
+		a span{
+			display: block;
+		}
+		.examiers-detail a{
+		    margin-top: 10px;
+		    display: inline-block;
+		    width: 140px;
+		    height: 140px;
+		    padding: 15px 0px;
+		    text-decoration: none;
+		    color: #5D7895;
+		    text-align: center;
+		}
+		.examiers-detail a:hover{
+			background:#D9EBF4;
+		}
+		span.examiers-count {
+		    margin-top: 0px;
+		    display: block;
+		    font-size: 14px;
+		    color: #494949;
+		}

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_bg" property="userBg" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="characters" property="characters" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+    <result column="user_page" property="userPage" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="work" property="work" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap id="UserVoResultMap" type="com.known.common.vo.UserVo" >
+	    <id column="userid" property="userid" jdbcType="INTEGER" />
+	    <result column="email" property="email" jdbcType="VARCHAR" />
+	    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+	    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+	    <result column="age" property="age" jdbcType="VARCHAR" />
+	    <result column="sex" property="sex" jdbcType="VARCHAR" />
+	    <result column="characters" property="characters" jdbcType="VARCHAR" />
+	    <result column="mark" property="mark" jdbcType="INTEGER" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="work" property="work" jdbcType="VARCHAR" />
+	    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+	    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+	    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+	    <collection property="rolesList" ofType="com.known.common.model.SysRole">
+	     	 <id column="roleId" property="id"/>
+            <result column="roleName" property="name"/>
+	    </collection>
+  </resultMap>
+  
+  <sql id="Base_Condition" >
+    <where >
+     	<if test="null!= userName and ''!= userName">
+     		and user_name=#{userName}
+     	</if>
+     	<if test="null!= email and ''!= email">
+     		and email=#{email}
+     	</if>
+     	<if test="null!= userid">
+     		and userid = #{userid}
+     	</if>
+    	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and register_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and register_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+     	<if test="null!= loginStartDate and ''!= loginStartDate">
+     		<![CDATA[ 
+     				and last_login_time >= STR_TO_DATE('${loginStartDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= loginEndDate and ''!= loginEndDate">
+     		<![CDATA[ 
+     				and last_login_time <= STR_TO_DATE('${loginEndDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List" >
+    userid, email, user_name, password, user_icon, user_bg, age, sex, characters, mark, 
+    address, work, birthday,register_time, last_login_time, activation_code,user_page
+  </sql>
+  
+  
+  <select id="selectUserVoList" resultMap="UserVoResultMap">
+  SELECT u.*,sr.id as roleId,sr.name as roleName FROM known_user u LEFT JOIN sys_user_role sur ON u.userid=sur.user_id 
+	LEFT JOIN sys_role sr ON sur.role_id=sr.id 
+  </select>
+  
+  <delete id="delete" >
+    delete from known_user
+     where  userid in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>) 
+  </delete>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_user <include refid="Base_Condition"/>
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_user <include refid="Base_Condition"/>
+  </select>
+  
+  <insert id="insert" parameterType="com.known.common.model.User" >
+  	<selectKey keyProperty="userid" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_user (email, user_name, 
+      password, user_icon, user_bg, birthday,
+      register_time, last_login_time)
+    values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP},
+       #{lastLoginTime,jdbcType=TIMESTAMP})
+  </insert>
+ 
+  <update id="update" parameterType="com.known.common.model.User" >
+    update known_user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userBg != null" >
+        user_bg = #{userBg,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="userPage != null" >
+        user_page = #{userPage,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="characters != null" >
+        characters = #{characters,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null" >
+        work = #{work,jdbcType=VARCHAR},
+      </if>
+        <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activationCode != null" >
+        activation_code = #{activationCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="changeUserMark">
+  		update known_user set mark = mark + #{changeMark}
+  		where (mark + #{changeMark}) >= 0 and userid = #{userId}
+  </update>
+
+
+    <!--  -->
+    <select id="queryUserIdByThirdParty" >
+        select user_id from wda_user_thirdparty where
+        provider_=#{provider} and open_id=#{openId}
+    </select>
+
+
+    <insert id="insertThird" parameterType="com.known.common.model.ThirdUser" >
+        <selectKey keyProperty="userid" resultType="java.lang.Integer" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+        insert into wda_user_thirdparty (user_id, provider,
+        open_id, enable, remark,
+        create_time, update_time)
+        values (#{userId,jdbcType=INTEGER}, #{provider,jdbcType=VARCHAR},
+        #{openId,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+
+</mapper>

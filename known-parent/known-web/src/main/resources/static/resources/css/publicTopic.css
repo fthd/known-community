@@ -1,0 +1,31 @@
+	.container .row{
+			margin-top: 20px;
+		}
+		.important{
+		    color: red;
+		    padding: 0px 5px 0px 0px;
+		}
+		span.info {
+		    color: #666;
+		    font-size: 12px;
+		    padding-left: 20px;
+		}
+		#votePanel{
+			display:none;
+		}
+		.icon-del {
+		    width: 15px;
+		    height: 15px;
+		    display: inline-block;
+		}
+		.icon {
+		    background: url("../images/icon/icon-del.png");
+		    vertical-align: middle;
+		}
+		/**
+	重写webloader的样式
+*/
+.webuploader-pick {
+    background: none;
+    padding: 0px;
+}

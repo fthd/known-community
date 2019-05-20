@@ -1,0 +1,40 @@
+<#macro mainlayout>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <#include "../inc/_css.html">
+    <#include "../inc/_header_js.html">
+</head>
+
+<body data-type="widgets">
+    <script src="${realpath}/resources/amazeuiadmin/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+      <!-- 头部 -->
+ 		<header>
+	    	<#include "../inc/_navbarusermenu.html">
+	    </header>
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+	    	<#include "../inc/_settingbox.html">
+        </div>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+				<#include "../inc/_sidebar.html">
+        </div>
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+			<#nested>
+    	</div>
+    </div>
+    <#include "../inc/_foot_js.html">
+    
+</body>
+</html>
+</#macro>

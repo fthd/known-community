@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<#include "../include/top.html">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/MyActionUrl.js"></script>
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/publicKnowledge.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<meta charset="UTF-8">
+	<title>知识库投稿</title>
+</head>
+<body>
+<#include "../include/header.html">
+	<div class="main">
+		<div class="container">
+		<form id="postBbsForm">
+		<input type="hidden" name="content" id="richContent" />
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label"> <em class="important">*</em>
+						标题:
+					</label>
+					<div class="col-xs-10">
+						<input class="form-control"  name="title" id="title"></input>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group" id="category">
+					<label class="col-xs-1 control-label"> <em class="important">*</em>
+						分类:
+					</label>
+					<div class="col-xs-3">
+						<select class="form-control" name="pCategoryId" id="pCategoryId">
+							<option value="">请选择一级分类</option>
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<select class="form-control" name="categoryId" id="categoryId">
+							<option value="">请选择二级分类</option>
+						</select>
+					</div>
+					<input id="categoryName" name="categoryName" type="hidden" />
+			</div>
+		</div>
+
+	
+			<div class="row">
+				<div class="form-group" id="ueContent">
+					<label class="col-xs-1 control-label"> <em class="important">*</em>
+						内容:
+					</label>
+					<div class="col-xs-10">
+						<script id="editor" type="text/plain" style="width:950px;height:300px;"></script>
+					</div>
+				</div>
+			</div>
+			
+			<input type="hidden" name="fileName" id="attached_file_name" />
+			<input type="hidden" name="fileUrl" id="attached_file" />
+			
+			<div class="row">
+				<div class="form-group">
+					<label class="col-xs-1 control-label">&nbsp;&nbsp;&nbsp;
+						附件:
+					</label>
+					<div class="col-xs-1" id="filePicker">
+							<a class="btn btn-info">上传附件</a>
+					</div>
+					<div class="col-xs-4" id="fileuploadtip">
+							<span class="info">大小不能超过2M,只能是.rar、.zip文件</span>
+					</div>
+					<div id="loading-upload" class="col-xs-1" style="display:none">
+							<img src="${realpath}/resources/images/loading.gif">
+					</div>
+					<div class="col-xs-4" id="file-list">
+							
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group" id="needMark">
+					<label class="col-xs-1 control-label">&nbsp;&nbsp;&nbsp;
+						积分:
+					</label>
+					<div class="col-xs-1">
+						<input class="form-control"  name="downloadMark" id="mark" value="0"></input>
+					</div>
+					<div class="col-xs-2">
+					 <a href="${realpath}/faq">为什么需要积分</a>
+					 </div>
+				</div>
+			</div>
+		</form>
+
+
+		<div class="row">
+			<div class="col-xs-10"></div>
+			<button class="btn btn-info" id="postExamBtn">知识投稿</button>
+		</div>
+
+		</div>
+
+	</div>
+<script type="text/javascript" src="${realpath}/resources/js/publicKnowledge.js"></script>
+<#include "../include/footer.html">
+</body>
+</html>

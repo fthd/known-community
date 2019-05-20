@@ -1,0 +1,27 @@
+.left{width:790px;float: left;}
+.part-title{padding:5px 5px 0px 10px;text-align: left;}
+.part-title a.part{text-decoration: none;color: #000;font-weight: 400;font-size: 18px;padding-bottom: 3px;display: inline-block;}
+.part-title a.cate{font-size: 13px;text-decoration: none;display: inline-block;margin-left: 10px;}
+.part-title a.cate:hover{text-decoration: underline;}
+.data-list{margin-bottom:10px;border: 1px solid #ccc;padding: 5px;padding-bottom: 10px;border-radius:8px;}
+.data-list:hover{
+	-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+	-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+	box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+}
+.ad{margin-bottom: 10px;}
+.ad img{;border-radius:8px}
+.data-item{padding: 10px 5px 8px 10px;border-bottom: 1px dashed #ccc}
+.data-item a.tit{text-decoration: none;color: #494949;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;max-width:450px;float: left;}
+.data-item a.tit:hover{color:#CC0000}
+.data-item span.time{padding-left: 10px;font-size: 12px;color: #888}
+.data-item div.read{display: inline-block;float: right;font-size: 12px;color: #888}
+.data-item a.new{background: url("../images/new.png"); background-repeat: no-repeat;padding-left: 20px;}
+.right{float: right;width:300px}
+.data-item a.blog-tit{text-decoration: none;color: #494949;display: block;}
+.data-item a.blog-tit:hover{color:#CC0000}
+.data-item span.blog-time{font-size: 12px;color: #888;display: block;margin-top: 5px;text-align: right;}
+.data-item span.blog-time .blog-time-name{float: left;display: inline-block;}
+.data-item span.blog-time .blog-time-time{float: right;display: inline-block;}
+.home-tools a{display:inline-block;padding: 5px;border:1px solid #ccc;text-decoration: none;float: left;margin-left:5px;margin-top: 5px;text-align: center;border-radius:3px}
+.home-tools a:hover{background: #888;color: #fff}

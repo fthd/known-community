@@ -1,0 +1,22 @@
+#postBbsForm .row{
+			margin-top: 20px;
+		}
+		.important{
+		    color: red;
+		    padding: 0px 5px 0px 0px;
+		}
+		span.info {
+		    color: #666;
+		    font-size: 12px;
+		    padding-left: 20px;
+		}
+		/**
+	重写webloader的样式
+*/
+.webuploader-pick {
+    background: none;
+    padding: 0px;
+}
+#publicBtn{
+	margin-bottom: 20px;
+}
