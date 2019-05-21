@@ -3,15 +3,16 @@ package com.known.manager.handler;
 import com.known.common.enums.ArticleType;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedTypes;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@MappedTypes({ArticleType.class})
 public class ArticleTypeHandler extends BaseTypeHandler<ArticleType> {
 
-	
 
 	@Override
 	public ArticleType getNullableResult(ResultSet rs, String columnName)

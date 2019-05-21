@@ -6,7 +6,10 @@ import com.known.exception.BussinessException;
 import com.known.manager.mapper.TaskMapper;
 import com.known.manager.query.TaskQuery;
 import com.known.quartz.TaskMessage;
+import com.known.quartz.trigger.CronTriggerManager;
 import com.known.service.TaskService;
+import org.quartz.CronExpression;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,9 @@ import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-	
-	/*@Autowired
-	private CronTriggerManager cronTriggerManager;*/
+
+	@Autowired
+	private CronTriggerManager cronTriggerManager;
 
 	@Autowired
 	private TaskMapper<Task, TaskQuery> taskMapper;
@@ -37,11 +40,11 @@ public class TaskServiceImpl implements TaskService {
 		for(int id : ids){
 			Task task = findTaskById(id);
 			TaskMessage taskMessage = convert2TaskMessage(task);
-			/*try {
+			try {
 				cronTriggerManager.delJob(taskMessage);
 			} catch (SchedulerException e) {
 				throw new BussinessException("删除任务失败，请重试");
-			}*/
+			}
 		}
 	}
 
@@ -58,9 +61,9 @@ public class TaskServiceImpl implements TaskService {
 			throw new BussinessException("参数错误");
 		}
 		
-		/*if(!CronExpression.isValidExpression(task.getTaskTime())){
+		if(!CronExpression.isValidExpression(task.getTaskTime())){
 			throw new BussinessException("时间格式错误");
-		}*/
+		}
 		
 		Class<?> clazz = null;
 		try {
@@ -89,11 +92,11 @@ public class TaskServiceImpl implements TaskService {
 		taskMapper.insert(task);
 	
 		TaskMessage taskMessage = convert2TaskMessage(task);
-		/*try {
+		try {
 			cronTriggerManager.addJob(taskMessage, isImmediateExcute);
 		} catch (SchedulerException e) {
 			throw new BussinessException("任务调度失败，请重试");
-		}*/
+		}
 		
 		return task;
 	}
@@ -119,9 +122,9 @@ public class TaskServiceImpl implements TaskService {
 			throw new BussinessException("参数错误");
 		}
 
-		/*if(!CronExpression.isValidExpression(task.getTaskTime())){
+		if(!CronExpression.isValidExpression(task.getTaskTime())){
 			throw new BussinessException("时间格式错误");
-		}*/
+		}
 		
 		Class<?> clazz = null;
 		try {
@@ -148,11 +151,11 @@ public class TaskServiceImpl implements TaskService {
 		taskMapper.update(task);
 		
 		TaskMessage taskMessage = convert2TaskMessage(task);
-		/*try {
+		try {
 			cronTriggerManager.addJob(taskMessage, isImmediateExcute);
 		} catch (SchedulerException e) {
 			throw new BussinessException("任务调度失败，请重试");
-		}*/
+		}
 		
 	}
 
@@ -164,12 +167,12 @@ public class TaskServiceImpl implements TaskService {
 			task.setStatus(1);
 			updateTask(task, false);
 			TaskMessage taskMessage = convert2TaskMessage(task);
-			/*try {
+			try {
 				cronTriggerManager.pauseJob(taskMessage);
 			} catch (SchedulerException e) {
 				throw new BussinessException("暂停任务失败，请重试");
-			}*/
-		}
+			}
+	}
 		
 	}
 	

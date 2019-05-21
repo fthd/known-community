@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="10 minutes">
+	<property name="LOG_HOME" value="/known/logs"/>
+
+	<appender name="stdot" class="ch.qos.logback.core.ConsoleAppender">        
+		<layout class="ch.qos.logback.classic.PatternLayout">           
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>        
+		</layout>
+	</appender>
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">       
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">           
+			<FileNamePattern>${LOG_HOME}/log.%d{yyyy-MM-dd}(%i).log</FileNamePattern>           
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>          
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">              
+				<MaxFileSize>200MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>      
+		</rollingPolicy>       
+		<encoder>       
+			 <charset>utf-8</charset>           
+			 <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>  
+		</encoder>       
+		<append>false</append>       
+		<prudent>false</prudent>
+	</appender>
+	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		　　　<file>${LOG_HOME}/known-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			　　　<fileNamePattern>
+			　　　${log.path}/known-error.%i.log
+			　　　</fileNamePattern>
+			　　　<minIndex>1</minIndex>
+			　　　<maxIndex>10</maxIndex>
+			　　　</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			　　　　　　　<maxFileSize>100MB</maxFileSize>
+			　　　　</triggeringPolicy>
+		　　　　<encoder>
+		　　　　　　　　<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		　　　　</encoder>
+		<!-- 此日志文件只记录debug级别，不记录大于debug级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		　</appender>
+	<logger name="org.mortbay.log" additivity="false"  level="ERROR">
+       <appender-ref ref="stdot" />
+	</logger>
+	
+	<logger name="org.mybatis.spring" additivity="false"  level="ERROR">
+       <appender-ref ref="stdot" />
+	</logger>
+	
+	<root level="INFO">
+		<appender-ref ref="stdot" />
+		<appender-ref ref="file" />
+		<appender-ref ref="error" />
+	</root>
+
+</configuration>

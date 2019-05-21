@@ -3,12 +3,14 @@ package com.known.manager.handler;
 import com.known.common.enums.ExamChooseType;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedTypes;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@MappedTypes({ExamChooseType.class})
 public class ChooseTypeHandler extends BaseTypeHandler<ExamChooseType> {
 
 	@Override

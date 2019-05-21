@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@ServletComponentScan //扫描servlet组件 否则过滤器不生效
+@ServletComponentScan //扫描servlet组件 否则过滤器, 监听器不生效
 @MapperScan(value = "com.known.manager.mapper")
 public class KnownWebApplication {
 
