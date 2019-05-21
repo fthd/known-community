@@ -1,6 +1,6 @@
 package com.known.web.controller;
 
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.*;
 import com.known.annotation.RequirePermissions;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("content")
+@RequestMapping("/content")
 public class ContentController {
 
 	@Autowired
@@ -49,33 +49,33 @@ public class ContentController {
 	@RequirePermissions(key="content:exam:delete")
 	@ResponseBody
 	@RequestMapping("/exam/delete")
-	public AjaxResponse<Object> examDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> examDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			examService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:exam:updatestatus")
 	@ResponseBody
 	@RequestMapping("/exam/updateStatus")
-	public AjaxResponse<Object> updateStatus(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> updateStatus(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			examService.updateStatusBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	
@@ -95,17 +95,17 @@ public class ContentController {
 	@RequirePermissions(key="content:shuoshuo:delete")
 	@ResponseBody
 	@RequestMapping("/shuoshuo/delete")
-	public AjaxResponse<Object> shuoshuoDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> shuoshuoDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			shuoshuoService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	
@@ -125,17 +125,17 @@ public class ContentController {
 	@RequirePermissions(key="content:blog:delete")
 	@ResponseBody
 	@RequestMapping("/blog/delete")
-	public AjaxResponse<Object> blogDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> blogDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			blogService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:knowledge:list")
@@ -155,34 +155,34 @@ public class ContentController {
 	@RequirePermissions(key="content:knowledge:delete")
 	@ResponseBody
 	@RequestMapping("/knowledge/delete")
-	public AjaxResponse<Object> knowledgeDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> knowledgeDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			knowledgeService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	
 	@RequirePermissions(key="content:knowledge:updatestatus")
 	@ResponseBody
 	@RequestMapping("/knowledge/updateStatus")
-	public AjaxResponse<Object> updateKnowledgeStatus(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> updateKnowledgeStatus(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			knowledgeService.updateStatusBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	
@@ -204,81 +204,81 @@ public class ContentController {
 	@RequirePermissions(key="content:topic:delete")
 	@ResponseBody
 	@RequestMapping("/topic/delete")
-	public AjaxResponse<Object> topicDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> topicDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 
 	@RequirePermissions(key="content:topic:essence")
 	@ResponseBody
 	@RequestMapping("/topic/essence")
-	public AjaxResponse<Object> topicEssence(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> topicEssence(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicEssence(ids, 1);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:topic:unessence")
 	@ResponseBody
 	@RequestMapping("/topic/unessence")
-	public AjaxResponse<Object> topicunEssence(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> topicunEssence(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicEssence(ids, 0);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:topic:stick")
 	@ResponseBody
 	@RequestMapping("/topic/stick")
-	public AjaxResponse<Object> topicstick(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> topicstick(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicStick(ids, 1);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:topic:unstick")
 	@ResponseBody
 	@RequestMapping("/topic/unstick")
-	public AjaxResponse<Object> topicunstick(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> topicunstick(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicStick(ids, 0);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 	
 	@RequirePermissions(key="content:ask:list")
@@ -298,16 +298,16 @@ public class ContentController {
 	@RequirePermissions(key="content:ask:delete")
 	@ResponseBody
 	@RequestMapping("/ask/delete")
-	public AjaxResponse<Object> askDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> askDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			askService.deleteBatch(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return ajaxResponse;
+		 return outResponse;
 	}
 }

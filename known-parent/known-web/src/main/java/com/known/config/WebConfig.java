@@ -1,6 +1,5 @@
 package com.known.config;
 
-import com.known.common.enums.ArticleType;
 import com.known.web.converter.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;

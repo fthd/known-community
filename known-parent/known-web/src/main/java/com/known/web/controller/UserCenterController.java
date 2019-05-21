@@ -1,10 +1,10 @@
 package com.known.web.controller;
 
 import com.known.common.enums.BlogStatusEnum;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.model.*;
 import com.known.common.utils.Constants;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.query.*;
@@ -23,10 +23,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("user")
-public class UserHomeController extends BaseController {
+@RequestMapping("/userCenter")
+public class UserCenterController extends BaseController {
 	
-	private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
+	private Logger logger = LoggerFactory.getLogger(UserCenterController.class);
 	
 	@Autowired
 	private UserService userService;
@@ -80,179 +80,179 @@ public class UserHomeController extends BaseController {
 	
 	
 	@ResponseBody
-	@RequestMapping("loadShuoShuos")
-	public AjaxResponse<Object> loadShuoShuos(HttpSession session, ShuoShuoQuery shuoShuoQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/loadShuoShuos")
+	public OutResponse<Object> loadShuoShuos(HttpSession session, ShuoShuoQuery shuoShuoQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<ShuoShuo> pageResult = this.shuoShuoService.findShuoShuoList(shuoShuoQuery);
-			ajaxResponse.setData(pageResult);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(pageResult);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载说说异常", e);
-			ajaxResponse.setErrorMsg("加载说说出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载说说出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping("loadShuoShuoDetail")
-	public AjaxResponse<Object> loadShuoShuoDetail(HttpSession session, ShuoShuoQuery shuoShuoQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/loadShuoShuoDetail")
+	public OutResponse<Object> loadShuoShuoDetail(HttpSession session, ShuoShuoQuery shuoShuoQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			ShuoShuo shuoShuo = this.shuoShuoService.findShuoShuo(shuoShuoQuery);
-			ajaxResponse.setData(shuoShuo);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(shuoShuo);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载说说异常", e);
-			ajaxResponse.setErrorMsg("加载说说出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载说说出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
-	@RequestMapping("publicShuoShuoComment")
-	public AjaxResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/publicShuoShuoComment")
+	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		try {
 			this.setUserBaseInfo(ShuoShuoComment.class, shuoShuoComment, session);
 			this.shuoShuoService.addShuoShuoComment(shuoShuoComment);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			ajaxResponse.setData(shuoShuoComment);
+			outResponse.setCode(Code.SUCCESS);
+			outResponse.setData(shuoShuoComment);
 		} catch (BussinessException e) {
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
 			logger.error("{}评论出错", shuoShuoComment.getUserName());
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadUserFriend")
-	public AjaxResponse<Object> loadUserFriend(HttpSession session, int pageNum){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		int userId = this.getUserid(session);
 		UserFriendQuery userFriendQuery = new UserFriendQuery();
 		userFriendQuery.setUserId(userId);
 		userFriendQuery.setPageNum(pageNum);
 		PageResult<UserFriend> pageResult = this.userFriendService.findFriendList(userFriendQuery);
-		ajaxResponse.setData(pageResult);
-		return ajaxResponse;
+		outResponse.setData(pageResult);
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("doShuoShuoLike")
-	public AjaxResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		this.setUserBaseInfo(ShuoShuoLike.class, shuoShuoLike, session);
 		try {
 			this.shuoShuoService.doShuoShuoLike(shuoShuoLike);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			ajaxResponse.setData(shuoShuoLike);
+			outResponse.setCode(Code.SUCCESS);
+			outResponse.setData(shuoShuoLike);
 		} catch (BussinessException e) {
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
 			logger.error("{}点赞出错", shuoShuoLike.getUserName());
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadTopic")
-	public AjaxResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Topic> pageResult = this.topicService.findTopicByPage(topicQuery);
-			ajaxResponse.setData(pageResult);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(pageResult);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载话题异常", e);
-			ajaxResponse.setErrorMsg("加载话题出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载话题出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadAsk")
-	public AjaxResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Ask> pageResult = this.askService.findAskByPage(askQuery);
-			ajaxResponse.setData(pageResult);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(pageResult);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载问答异常", e);
-			ajaxResponse.setErrorMsg("加载问答出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载问答出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadKnowledge")
-	public AjaxResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Knowledge> pageResult = this.knowledgeService.findKnowledgeByPage(knowledgeQuery);
-			ajaxResponse.setData(pageResult);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(pageResult);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载知识库异常", e);
-			ajaxResponse.setErrorMsg("加载知识库出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载知识库出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadFocus")
-	public AjaxResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery userFriendQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery userFriendQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
 			PageResult<UserFriend> pageResult = this.userFriendService.findFriendList(userFriendQuery);
-			ajaxResponse.setData(pageResult);
+			outResponse.setData(pageResult);
 		} catch (Exception e) {
 			logger.error("加载关注用户异常", e);
-			ajaxResponse.setErrorMsg("加载关注用户出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载关注用户出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("loadFans")
-	public AjaxResponse<Object> loadUserFans(HttpSession session, UserFriendQuery userFriendQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery userFriendQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
 			PageResult<UserFriend> pageResult = this.userFriendService.findFansList(userFriendQuery);
-			ajaxResponse.setData(pageResult);
+			outResponse.setData(pageResult);
 		} catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
-			ajaxResponse.setErrorMsg("加载粉丝出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载粉丝出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping(value = "/{userId}/blog", method = RequestMethod.GET)
@@ -329,42 +329,42 @@ public class UserHomeController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("focus.action")
-	public AjaxResponse<Object> focus(HttpSession session, UserFriend userFriend){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> focus(HttpSession session, UserFriend userFriend){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
 			this.setUserBaseInfo(UserFriend.class, userFriend, session);
 			this.userFriendService.addFocus(userFriend);
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.SERVERERROR);
 		} 
 		catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
-			ajaxResponse.setErrorMsg("关注出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("关注出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("cancel_focus.action")
-	public AjaxResponse<Object> cancel_focus(HttpSession session, UserFriend userFriend){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> cancel_focus(HttpSession session, UserFriend userFriend){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
 			this.setUserBaseInfo(UserFriend.class, userFriend, session);
 			this.userFriendService.cancelFocus(userFriend);
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.SERVERERROR);
 		} 
 		catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
-			ajaxResponse.setErrorMsg("关注出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("关注出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 }

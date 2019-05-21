@@ -1,8 +1,8 @@
 known.searchParam = "";
 known.url = {
-	loadMessage: known.realpath + "/admin/load_user_message_list.action",
-	delMessage: known.realpath + "/admin/del_message.action",
-	markMessage: known.realpath + "/admin/mark_message_read.action"
+	loadMessage: known.realpath + "/userAdmin/load_user_message_list.action",
+	delMessage: known.realpath + "/userAdmin/del_message.action",
+	markMessage: known.realpath + "/userAdmin/mark_message_read.action"
 }
 $(function() {
 	demo(1);
@@ -82,8 +82,8 @@ function del(messageId) {
 			dataType: 'json',
 			data: messageId,
 			success: function(res) {
-				if (res.errorMsg != null) {
-					layer.msg(res.errorMsg, {
+				if (res.msg != null) {
+					layer.msg(res.msg, {
 						icon: 5,
 						time: 1500 //2秒关闭（如果不配置，默认是3秒）
 					});
@@ -124,8 +124,8 @@ function mark(messageId) {
 			dataType: 'json',
 			data: messageId,
 			success: function(res) {
-				if (res.errorMsg != null) {
-					layer.msg(res.errorMsg, {
+				if (res.msg != null) {
+					layer.msg(res.msg, {
 						icon: 5,
 						time: 1500 //2秒关闭（如果不配置，默认是3秒）
 					});
@@ -169,7 +169,7 @@ function demo(curr) {
 			for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {
 				var edit = "";
 				if (d.url != "") {
-					edit = edit + '<a href="' + known.realpath + '/admin/readMessage.action?id=' + d.id + '" title="查看" target="_blank" class="read-btn" url="' + d.url + '" messageId="' + d.id + '"><i class="icon i-preview"></i>&nbsp;&nbsp;&nbsp;&nbsp;'
+					edit = edit + '<a href="' + known.realpath + '/userAdmin/readMessage.action?id=' + d.id + '" title="查看" target="_blank" class="read-btn" url="' + d.url + '" messageId="' + d.id + '"><i class="icon i-preview"></i>&nbsp;&nbsp;&nbsp;&nbsp;'
 				}
 				edit = edit + '<a href="javascript:;" title="标记为已读" class="mark-btn" messageId="' + d.id + '"><i class="icon i-start"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;'
 				edit = edit + '<a href="javascript:;" title="删除" class="del-btn"  messageId="' + d.id + '"><i class="icon i-del"></i></a>';

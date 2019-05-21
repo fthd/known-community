@@ -16,7 +16,7 @@ var uploader = WebUploader.create({
     swf : known.realpath + '/resources/webuploader/Uploader.swf',
 
     // 文件接收服务端。
-    server : known.realpath + '/fileUpload.action',
+    server : known.realpath + '/fileUploader/fileUpload.action',
 
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -69,7 +69,7 @@ uploader.on('error', function(handler) {
 
 deleteFile = function() {
 	$.ajax({
-		url: known.realpath + '/fileDelete.action',
+		url: known.realpath + '/fileUploader/fileDelete.action',
 		type: 'POST',
 		dataType: 'json',
 		data: { "fileName" : $("#attached_file").val()},

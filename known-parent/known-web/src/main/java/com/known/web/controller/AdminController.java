@@ -3,7 +3,7 @@ package com.known.web.controller;
 
 import com.known.common.model.SysRes;
 import com.known.common.model.SysRole;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.common.vo.Tree;
 import com.known.exception.BussinessException;
 import com.known.service.SysResService;
@@ -66,52 +66,52 @@ public class AdminController {
 	@RequirePermissions(key="manage:user:delete")
 	@ResponseBody
 	@RequestMapping("/user/delete")
-	public AjaxResponse<Object> deleteUser(Integer[] userIds){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> deleteUser(Integer[] userIds){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.userService.deleteUser(userIds);
 		} catch (BussinessException e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg("操作失败，请刷新重试");
+			outResponse.setMsg("操作失败，请刷新重试");
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="manage:user:updateUserRole")
 	@ResponseBody
 	@RequestMapping("/user/updateUserRole")
-	public AjaxResponse<Object> deleteUser(Integer[] userIds, Integer[] roleIds){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> deleteUser(Integer[] userIds, Integer[] roleIds){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			userService.updateBatchUserRole(userIds, roleIds);
 		} catch (BussinessException e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg("操作失败，请刷新重试");
+			outResponse.setMsg("操作失败，请刷新重试");
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="manage:user:markChange")
 	@ResponseBody
 	@RequestMapping("/user/markChange")
-	public AjaxResponse<Object> markChange(Integer[] userIds, Integer mark, String des){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> markChange(Integer[] userIds, Integer mark, String des){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			userService.markChangeAdvice(userIds, mark, des);
 		} catch (BussinessException e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
-			ajaxResponse.setErrorMsg("操作失败，请刷新重试");
+			outResponse.setMsg("操作失败，请刷新重试");
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -147,24 +147,24 @@ public class AdminController {
 	@RequirePermissions(key="manage:res:delete")
 	@ResponseBody
 	@RequestMapping("/res/delete")
-	public AjaxResponse<Object> resDelete(Integer[] ids) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> resDelete(Integer[] ids) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			sysResService.deleteSysRes(ids);
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@RequirePermissions(key="manage:res:save")
 	@ResponseBody
 	@RequestMapping("/res/save")
-	public AjaxResponse<Object> resSave(SysRes sysRes) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> resSave(SysRes sysRes) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			if(sysRes.getId() == null){
 				sysResService.addSysRes(sysRes);
@@ -173,11 +173,11 @@ public class AdminController {
 				sysResService.updateSysRes(sysRes);
 			}
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -204,24 +204,24 @@ public class AdminController {
 	@RequirePermissions(key="manage:role:delete")
 	@ResponseBody
 	@RequestMapping("/role/delete")
-	public AjaxResponse<Object> roleDelete(Integer[] ids) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> roleDelete(Integer[] ids) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			sysRoleService.deleteSysRole(ids);
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@RequirePermissions(key="manage:role:save")
 	@ResponseBody
 	@RequestMapping("/role/save")
-	public AjaxResponse<Object> roleSave(SysRole sysRole) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> roleSave(SysRole sysRole) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			if(sysRole.getId() == null){
 				sysRoleService.addSysRole(sysRole);
@@ -230,41 +230,41 @@ public class AdminController {
 				sysRoleService.updateSysRole(sysRole);
 			}
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/role/getResourceId")
-	public AjaxResponse<Object> getResourceId(Integer id) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> getResourceId(Integer id) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			List<Integer> list = sysRoleService.findResourceIdByRoleId(id);
-			ajaxResponse.setData(list);
+			outResponse.setData(list);
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	 
 	@RequirePermissions(key="manage:role:updateAuthority")
 	@ResponseBody
 	@RequestMapping("/role/updateAuthority")
-	public AjaxResponse<Object> roleUpdateAuthority(Integer roleId, Integer[] resIds) {
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> roleUpdateAuthority(Integer roleId, Integer[] resIds) {
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			sysRoleService.updateAuthority(roleId, resIds);
 		}catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	

@@ -19,8 +19,8 @@ function acceptAnswer(commentid){
 		dataType: 'json',
 		data: {bestAnswerId : commentid,askId:known.topicId},
 		success:function(res){
-		if(res.errorMsg != null){
-			layer.alert(res.errorMsg, {
+		if(res.msg != null){
+			layer.alert(res.msg, {
 			  icon: 5,
 			  skin: 'layer-ext-moon' 
 			});

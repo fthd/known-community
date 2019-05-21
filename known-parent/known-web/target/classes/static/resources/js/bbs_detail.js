@@ -28,7 +28,7 @@ function checkDownload(topicid,attachmentid){
 					    $("#dcount").text(parseInt(dcount) + 1);
 				    }
 				    else{
-				    	layer.alert(res.errorMsg, {
+				    	layer.alert(res.msg, {
 							  icon: 5,
 							  skin: 'layer-ext-moon' 
 							});
@@ -53,8 +53,8 @@ function loadTopicVote() {
 		topicId : known.topicId
 	    }, 
 	    success : function(res) {
-	    	if(res.errorMsg != null){
-	    		layer.alert(res.errorMsg, {
+	    	if(res.msg != null){
+	    		layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
@@ -157,8 +157,8 @@ function vote(obj) {
 	type: 'POST',
 	dataType: 'json',
 	  success : function(res) {
-	    	if(res.errorMsg != null){
-	    		layer.alert(res.errorMsg, {
+	    	if(res.msg != null){
+	    		layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});

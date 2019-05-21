@@ -30,8 +30,8 @@ $("#saveUserInfo").click(function(event) {
 		data: $("#updateUserForm").serialize(),
 
 		success:function(res){
-			if(res.errorMsg != null){
-					layer.msg(res.errorMsg, {icon: 5,time:1500});   
+			if(res.msg != null){
+					layer.msg(res.msg, {icon: 5,time:1500});
 					return;
 				}
 			else{
@@ -104,8 +104,8 @@ $("#updatePWD").click(function(event) {
 				newPassword:newPWD
 			},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.msg(res.errorMsg, {icon: 5,time:1500});   
+				if(res.msg != null){
+					layer.msg(res.msg, {icon: 5,time:1500});
 					return;
 				}
 				else{

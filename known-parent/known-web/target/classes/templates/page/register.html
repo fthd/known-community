@@ -140,7 +140,7 @@
                     success: function(data) {
                         $("#register").removeAttr("disabled");
                        // layer.close(loadingindex);
-                        if (data.errorMsg == null) {
+                        if (data.msg == null) {
                             var d = dialog({
                                 content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,登录中......</div>",
                             });
@@ -152,7 +152,7 @@
                         } else {
                             var d = dialog({
                                 width: 200,
-                                content: data.errorMsg,
+                                content: data.msg,
                                 quickClose: true // 点击空白处快速关闭
                             });
                             d.show();
@@ -170,7 +170,7 @@
     };
     // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
     $.ajax({
-        url: "geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "${realpath}/geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {

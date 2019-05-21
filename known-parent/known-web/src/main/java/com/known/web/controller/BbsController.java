@@ -2,13 +2,13 @@ package com.known.web.controller;
 
 import com.known.cache.CategoryCache;
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.enums.TopicType;
 import com.known.common.enums.VoteType;
 import com.known.common.model.*;
 import com.known.common.utils.Constants;
 import com.known.common.utils.DateUtil;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.query.CategoryQuery;
@@ -20,6 +20,7 @@ import com.known.service.TopicVoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,9 @@ public class BbsController extends BaseController {
 	
 	@Autowired
 	private CategoryCache categoryCache;
+
+	@Value("${SESSION_USER_KEY}")
+	private String SESSION_USER_KEY;
 	
 	@RequestMapping
 	public ModelAndView bbs(HttpSession session){
@@ -78,9 +82,9 @@ public class BbsController extends BaseController {
 		return view;
 	}
 	
-	@RequestMapping("prePublicTopic")
+	@RequestMapping("/prePublicTopic")
 	public ModelAndView prePublicTopic(HttpSession session){
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
 		if(sessionUser==null){
 			ModelAndView view = new ModelAndView("/page/login");
 			return view;
@@ -95,41 +99,41 @@ public class BbsController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("loadCategories")
-	public AjaxResponse<List<Category>> loadCategories(){
-		AjaxResponse<List<Category>> ajaxResponse = new AjaxResponse<List<Category>>();
+	public OutResponse<List<Category>> loadCategories(){
+		OutResponse<List<Category>> outResponse = new OutResponse<List<Category>>();
 		try {
-			ajaxResponse.setData(this.categoryCache.getBbsCategories());
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			return ajaxResponse;
+			outResponse.setData(this.categoryCache.getBbsCategories());
+			outResponse.setCode(Code.SUCCESS);
+			return outResponse;
 		} catch (Exception e) {
-			ajaxResponse.setErrorMsg("加载分类出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("加载分类出错");
+			outResponse.setCode(Code.SERVERERROR);
 			logger.error("{}加载分类出错",e);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping("publicTopic")
-	public AjaxResponse<Integer> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
+	@RequestMapping("/publicTopic")
+	public OutResponse<Integer> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
 											 String[] voteContent, Attachment attachment){
-		AjaxResponse<Integer> ajaxResponse = new AjaxResponse<>();
+		OutResponse<Integer> outResponse = new OutResponse<>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			this.setUserBaseInfo(Topic.class, topic, session);
 			this.topicService.addTopic(topic, topicVote, voteContent, attachment);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			ajaxResponse.setData(topic.getTopicId());
+			outResponse.setCode(Code.SUCCESS);
+			outResponse.setData(topic.getTopicId());
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 			logger.error("{}发表话题失败", sessionUser.getUserName());
 		} catch (Exception e) {
-			ajaxResponse.setErrorMsg("服务器出错,话题发表失败");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("服务器出错,话题发表失败");
+			outResponse.setCode(Code.SERVERERROR);
 			logger.error("{}发表话题失败", sessionUser.getUserName());
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -190,45 +194,45 @@ public class BbsController extends BaseController {
 	
 	
 	@ResponseBody
-	@RequestMapping("loadVote")
-	public AjaxResponse<Object> loadVote(HttpSession session, Integer topicId){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/loadVote")
+	public OutResponse<Object> loadVote(HttpSession session, Integer topicId){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		Integer userId = null;
 		try {
 			userId = sessionUser==null ? null : sessionUser.getUserid();
 			TopicVote topicVote = this.topicVoteService.getTopicVote(topicId, userId);
-			ajaxResponse.setData(topicVote);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(topicVote);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("{}投票加载出错", e);
-			ajaxResponse.setErrorMsg("投票加载失败");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("投票加载失败");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
-	@RequestMapping("doVote")
-	public AjaxResponse<Object> doVote(HttpSession session, TopicVote  topicVote, Integer[] voteDtlId){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/doVote")
+	public OutResponse<Object> doVote(HttpSession session, TopicVote  topicVote, Integer[] voteDtlId){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		try {
 			TopicVote topicVote2 = this.topicVoteService.doVote(topicVote.getVoteId(), 
 					topicVote.getVoteType().getType(), voteDtlId, sessionUser.getUserid(), topicVote.getTopicId());
-			ajaxResponse.setData(topicVote2);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(topicVote2);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("{}投票出错", e);
-			ajaxResponse.setErrorMsg("投票失败");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("投票失败");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 
 	@ResponseBody

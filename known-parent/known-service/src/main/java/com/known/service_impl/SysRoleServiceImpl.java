@@ -114,9 +114,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public Set<Integer> findRoleIdsByUserId(Integer userId) {
-		if(userId == null){
-			return null;
-		}
-		return sysUserRoleMapper.selectRoleIdsByUserId(userId);
+		return userId != null ? sysUserRoleMapper.selectRoleIdsByUserId(userId) :  null;
 	}
 }

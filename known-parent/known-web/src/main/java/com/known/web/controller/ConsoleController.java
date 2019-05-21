@@ -4,7 +4,7 @@ import com.known.common.echart.Echart;
 import com.known.common.model.LoginLog;
 import com.known.common.model.SysLog;
 import com.known.common.model.Task;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.IStatisticalDataService;
 import com.known.service.LoginLogService;
@@ -43,18 +43,18 @@ public class ConsoleController {
 	@RequirePermissions(key="console:statistics:list")
 	@ResponseBody
 	@RequestMapping("/statistics/load")
-	public AjaxResponse<Object> statisticsLoad(){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> statisticsLoad(){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<Echart> list = this.iStatisticalDataService.findEcharts();
-			ajaxResponse.setData(list);
+			outResponse.setData(list);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -68,73 +68,73 @@ public class ConsoleController {
 	@RequirePermissions(key="console:task:list")
 	@ResponseBody
 	@RequestMapping("/task/load")
-	public AjaxResponse<Object> taskLoad(){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskLoad(){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<Task> tasks = this.taskService.findTaskList();
-			ajaxResponse.setData(tasks);
+			outResponse.setData(tasks);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:task:delete")
 	@ResponseBody
 	@RequestMapping("/task/delete")
-	public AjaxResponse<Object> taskDelete(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskDelete(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.taskService.deleteTask(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:task:pause")
 	@ResponseBody
 	@RequestMapping("/task/pause")
-	public AjaxResponse<Object> taskPause(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskPause(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.taskService.pauseTask(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:task:excute")
 	@ResponseBody
 	@RequestMapping("/task/excute")
-	public AjaxResponse<Object> taskExcute(Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskExcute(Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.taskService.excuteTask(ids);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:task:save")
 	@ResponseBody
 	@RequestMapping("/task/save")
-	public AjaxResponse<Object> taskAdd(Task task, boolean isImmediateExcute){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskAdd(Task task, boolean isImmediateExcute){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			if(task.getId() == null){
 				this.taskService.addTask(task, isImmediateExcute);
@@ -143,27 +143,27 @@ public class ConsoleController {
 				this.taskService.updateTask(task, isImmediateExcute);
 			}
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/task/update")
-	public AjaxResponse<Object> taskUpdate(Task task, boolean isImmediateExcute){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> taskUpdate(Task task, boolean isImmediateExcute){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.taskService.updateTask(task, isImmediateExcute);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
+			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:loginlog:list")
@@ -175,15 +175,15 @@ public class ConsoleController {
 	@RequirePermissions(key="console:loginlog:list")
 	@ResponseBody
 	@RequestMapping("/loginlog/load")
-	public AjaxResponse<Object> loginLogLoad(){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loginLogLoad(){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<LoginLog> list = loginLogService.findLoginLog();
-			ajaxResponse.setData(list);
+			outResponse.setData(list);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -198,15 +198,15 @@ public class ConsoleController {
 	@RequirePermissions(key="console:syslog:list")
 	@ResponseBody
 	@RequestMapping("/syslog/load")
-	public AjaxResponse<Object> sysLogLoad(){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> sysLogLoad(){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<SysLog> list = sysLogService.findSysLogList();
-			ajaxResponse.setData(list);
+			outResponse.setData(list);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:userlocation:list")
@@ -218,15 +218,15 @@ public class ConsoleController {
 	@RequirePermissions(key="console:userlocation:list")
 	@ResponseBody
 	@RequestMapping("/userlocation/load")
-	public AjaxResponse<Object> userlocationLoad(){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> userlocationLoad(){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<LoginLog> list = loginLogService.findLoginLogGroupByIp();
-			ajaxResponse.setData(list);
+			outResponse.setData(list);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequirePermissions(key="console:druid:list")

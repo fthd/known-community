@@ -13,15 +13,15 @@
      	<if test="null!= userid">
      		and userid = #{userid}
      	</if>
-     	<if test="null!= curDate and ''!= curDate">
+     	<if test="null!= curDate">
      		and sign_date = DATE_FORMAT(#{curDate}, '%Y-%m-%d')
      	</if>
-     	<if test="null!= startDate and ''!= startDate">
+     	<if test="null!= startDate">
      		<![CDATA[ 
      				and sign_date >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
      		]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and sign_date <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')
      		]]>

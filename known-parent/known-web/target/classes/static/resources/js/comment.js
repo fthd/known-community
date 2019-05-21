@@ -129,8 +129,8 @@ function showAtUser(targetObj, textarea){
 		dataType: 'json',
 		data: {"pageNum": 1},
 		success:function(res){
-			if(res.errorMsg != null){
-				layer.alert(res.errorMsg, {
+			if(res.msg != null){
+				layer.alert(res.msg, {
 				  icon: 5,
 				  skin: 'layer-ext-moon' 
 				});
@@ -236,8 +236,8 @@ function postPComment() {
 	    pageNum:known.commentPageNum
 	},
 	success : function(res) {
-		if(res.errorMsg != null){
-			layer.alert(res.errorMsg, {
+		if(res.msg != null){
+			layer.alert(res.msg, {
 			  icon: 5,
 			  skin: 'layer-ext-moon' 
 			});
@@ -287,8 +287,8 @@ function postComment(curObj) {
 	    pageNum:known.commentPageNum
 	}, 
 	success : function(res) {
-		if(res.errorMsg != null){
-			layer.alert(res.errorMsg, {
+		if(res.msg != null){
+			layer.alert(res.msg, {
 			  icon: 5,
 			  skin: 'layer-ext-moon' 
 			});

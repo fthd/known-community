@@ -28,8 +28,8 @@ $(function(){
 				articleType:articleType
 			    },
 			success: function(res) {
-				if (res.errorMsg != null) {
-					layer.msg(res.errorMsg, {
+				if (res.msg != null) {
+					layer.msg(res.msg, {
 						icon: 5,
 						time: 1500 //2秒关闭（如果不配置，默认是3秒）
 					});

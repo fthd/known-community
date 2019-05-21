@@ -20,8 +20,8 @@ known.letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 				dataType: 'json',
 				data: {"categoryId": known.categoryId},
 				success:function(res){
-					if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+					if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
@@ -106,8 +106,8 @@ known.letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 							"rightAnswers": rightAnswers
 						},
 					success:function(res){
-						if(res.errorMsg != null){
-							layer.alert(res.errorMsg, {
+						if(res.msg != null){
+							layer.alert(res.msg, {
 							  icon: 5,
 							  skin: 'layer-ext-moon' 
 							});

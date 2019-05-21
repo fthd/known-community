@@ -1,5 +1,5 @@
 known.userUrl={
-	saveUserPage:known.realpath+"/admin/saveUserPage"
+	saveUserPage:known.realpath+"/userAdmin/saveUserPage"
 }
 $(function(){
 	$("#saveUserPage").click(function(){
@@ -17,8 +17,8 @@ function saveUserPage(){
 	    	userPage:$(".not-input:checked").val()
 	    },
 	    success:function(res){
-	    	if(res.errorMsg != null){
-					layer.msg(res.errorMsg, {icon: 5,time:1500});   
+	    	if(res.msg != null){
+					layer.msg(res.msg, {icon: 5,time:1500});
 					return;
 				}
 			else{

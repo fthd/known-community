@@ -473,7 +473,7 @@ CREATE TABLE `known_user_friend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for login_log
+-- 登录日志表
 -- ----------------------------
 DROP TABLE IF EXISTS `login_log`;
 CREATE TABLE `login_log` (
@@ -488,7 +488,7 @@ CREATE TABLE `login_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=347 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for sys_log
+-- 系统日志表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
@@ -502,7 +502,7 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24205 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for sys_res
+-- 系统角色结果表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_res`;
 CREATE TABLE `sys_res` (
@@ -522,7 +522,7 @@ CREATE TABLE `sys_res` (
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- Table structure for sys_role
+-- 系统角色表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
@@ -536,7 +536,7 @@ CREATE TABLE `sys_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- Table structure for sys_role_res
+-- 系统角色与结果关系表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_res`;
 CREATE TABLE `sys_role_res` (
@@ -549,7 +549,7 @@ CREATE TABLE `sys_role_res` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5116 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- Table structure for sys_user_role
+-- 系统用户与角色关系表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (

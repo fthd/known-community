@@ -97,8 +97,8 @@ UE.I18N['zh-cn'] = {
     'loadconfigHttpError': '请求后台配置项http错误，上传功能将不能正常使用！',
     'snapScreen_plugin':{
         'browserMsg':"仅支持IE浏览器！",
-        'callBackErrorMsg':"服务器返回数据有误，请检查配置项之后重试。",
-        'uploadErrorMsg':"截图上传失败，请检查服务器端环境! "
+        'callBackMsg':"服务器返回数据有误，请检查配置项之后重试。",
+        'uploadMsg':"截图上传失败，请检查服务器端环境! "
     },
     'insertcode':{
         'as3':'ActionScript 3',
@@ -571,7 +571,7 @@ UE.I18N['zh-cn'] = {
             lang_dynamicmap:"插入动态地图"
         },
         cityMsg:"请选择城市",
-        errorMsg:"抱歉，找不到该位置！"
+        msg:"抱歉，找不到该位置！"
     },
     'searchreplace':{
         'static':{
@@ -632,7 +632,7 @@ UE.I18N['zh-cn'] = {
         captionName:'表格名称',
         titleName:'标题',
         cellsName:'内容',
-        errorMsg:'有合并单元格，不可排序'
+        msg:'有合并单元格，不可排序'
     },
     'edittip':{
         'static':{

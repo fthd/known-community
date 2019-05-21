@@ -8076,19 +8076,19 @@ UE.Editor.defaultOptions = function(editor){
                             me.fireEvent('serverConfigLoaded');
                             me._serverConfigLoaded = true;
                         } catch (e) {
-                            showErrorMsg(me.getLang('loadconfigFormatError'));
+                            showMsg(me.getLang('loadconfigFormatError'));
                         }
                     },
                     'onerror':function(){
-                        showErrorMsg(me.getLang('loadconfigHttpError'));
+                        showMsg(me.getLang('loadconfigHttpError'));
                     }
                 });
             } catch(e){
-                showErrorMsg(me.getLang('loadconfigError'));
+                showMsg(me.getLang('loadconfigError'));
             }
         });
 
-        function showErrorMsg(msg) {
+        function showMsg(msg) {
             console && console.error(msg);
             //me.fireEvent('showMessage', {
             //    'title': msg,
@@ -23306,7 +23306,7 @@ UE.plugin.register('snapscreen', function (){
                                 alert(rs.state);
                             }
                         }catch(e){
-                            alert(lang.callBackErrorMsg);
+                            alert(lang.callBackMsg);
                         }
                     }
                     url = me.getActionUrl(me.getOpt('snapscreenActionName'));

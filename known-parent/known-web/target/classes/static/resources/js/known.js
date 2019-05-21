@@ -34,91 +34,87 @@ $(document).ready(function() {
 		d.show(document.getElementById(doc));
 	}
 
-	/*
-		注册验证
-	*/
-//	$('#register').click(function(event) {
-//		var username = $('#username').val();
-//		var email = $('#email').val();
-//		var password = $('#password').val();
-//		var confirmPassword = $('#confirmPassword').val();
-//		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-//		var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
-//
-//		if (username == null || $.trim(username) == '') {
-//			checkForm('用户名不能是空串', 'username');
-//			$("#username").parent().parent().addClass('has-error');
-//		} else if (username.indexOf(" ") > -1) {
-//			checkForm('用户名不能含有空格', 'username');
-//			$("#username").parent().parent().addClass('has-error');
-//		} else if (username.length < 1) {
-//			checkForm('用户名长度不能小于1个字符', 'username');
-//			$("#username").parent().parent().addClass('has-error');
-//		} else if (username.length > 20) {
-//			checkForm('用户名长度不能大于20个字符', 'username');
-//			$("#username").parent().parent().addClass('has-error');
-//		} else if (!emailreg.test(email)) {
-//			$("#username").parent().parent().removeClass('has-error');
-//			checkForm('请输入正确的常用邮箱', "email");
-//			$("#email").parent().parent().addClass('has-error');
-//		} else if (password == null || $.trim(password) == '') {
-//			$("#email").parent().parent().removeClass('has-error');
-//			checkForm('密码不能是空串', 'password');
-//			$("#password").parent().parent().addClass('has-error');
-//		} else if (password.indexOf(" ") > -1) {
-//			checkForm('密码不能含有空格', 'password');
-//			$("#password").parent().parent().addClass('has-error');
-//		} else if (password.length < 6) {
-//			checkForm('密码长度不能小于6个字符', 'password');
-//			$("#password").parent().parent().addClass('has-error');
-//		} else if (password.length > 16) {
-//			checkForm('密码长度不能大于16个字符', 'password');
-//			$("#password").parent().parent().addClass('has-error');
-//		} else if (!passwordreg.test(password)) {
-//			checkForm('密码必须含有字母和数字', 'password');
-//			$("#password").parent().parent().addClass('has-error');
-//		} else if (confirmPassword != password) {
-//			$("#password").parent().parent().removeClass('has-error');
-//			checkForm('两次输入密码必须一致', 'confirmPassword');
-//			$("#confirmPassword").parent().parent().addClass('has-error');
-//		} else {
-//			$("#confirmPassword").parent().parent().removeClass('has-error');
-//			var loadingindex = layer.load(0, {
-//			  shade: [0.1,'#fff'] //0.1透明度的白色背景
-//			});
-//			$.ajax({
-//				url: known.realpath + '/register.do',
-//				type: 'post',
-//				dataType: 'json',
-//				data: $('#registerform').serialize(),
-//				success: function(data) {
-//					layer.close(loadingindex);
-//					if (data.errorMsg == null) {
-//						var d = dialog({
-//							content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,登录中......</div>",
-//						});
-//						d.showModal();
-//						setTimeout(function() {
-//							d.close().remove();
-//							document.location.href = known.realpath;
-//						}, 1000);
-//					} else {
-//						var d = dialog({
-//							width: 200,
-//							content: data.errorMsg,
-//							quickClose: true // 点击空白处快速关闭
-//						});
-//						d.show();
-//					}
-//				}
-//			});
-//		}
-//	});
 
-	/*
-		登录验证
-	*/
+// 注册验证
+	$('#register').click(function(event) {
+		var username = $('#username').val();
+		var email = $('#email').val();
+		var password = $('#password').val();
+		var confirmPassword = $('#confirmPassword').val();
+		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
 
+		if (username == null || $.trim(username) == '') {
+			checkForm('用户名不能是空串', 'username');
+			$("#username").parent().parent().addClass('has-error');
+		} else if (username.indexOf(" ") > -1) {
+			checkForm('用户名不能含有空格', 'username');
+			$("#username").parent().parent().addClass('has-error');
+		} else if (username.length < 1) {
+			checkForm('用户名长度不能小于1个字符', 'username');
+			$("#username").parent().parent().addClass('has-error');
+		} else if (username.length > 20) {
+			checkForm('用户名长度不能大于20个字符', 'username');
+			$("#username").parent().parent().addClass('has-error');
+		} else if (!emailreg.test(email)) {
+			$("#username").parent().parent().removeClass('has-error');
+			checkForm('请输入正确的常用邮箱', "email");
+			$("#email").parent().parent().addClass('has-error');
+		} else if (password == null || $.trim(password) == '') {
+			$("#email").parent().parent().removeClass('has-error');
+			checkForm('密码不能是空串', 'password');
+			$("#password").parent().parent().addClass('has-error');
+		} else if (password.indexOf(" ") > -1) {
+			checkForm('密码不能含有空格', 'password');
+			$("#password").parent().parent().addClass('has-error');
+		} else if (password.length < 6) {
+			checkForm('密码长度不能小于6个字符', 'password');
+			$("#password").parent().parent().addClass('has-error');
+		} else if (password.length > 16) {
+			checkForm('密码长度不能大于16个字符', 'password');
+			$("#password").parent().parent().addClass('has-error');
+		} else if (!passwordreg.test(password)) {
+			checkForm('密码必须含有字母和数字', 'password');
+			$("#password").parent().parent().addClass('has-error');
+		} else if (confirmPassword != password) {
+			$("#password").parent().parent().removeClass('has-error');
+			checkForm('两次输入密码必须一致', 'confirmPassword');
+			$("#confirmPassword").parent().parent().addClass('has-error');
+		} else {
+			$("#confirmPassword").parent().parent().removeClass('has-error');
+			var loadingindex = layer.load(0, {
+			  shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+			$.ajax({
+				url: known.realpath + '/user/register.do',
+				type: 'post',
+				dataType: 'json',
+				data: $('#registerform').serialize(),
+				success: function(data) {
+					layer.close(loadingindex);
+					if (data.msg == null) {
+						var d = dialog({
+							content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,登录中......</div>",
+						});
+						d.showModal();
+						setTimeout(function() {
+							d.close().remove();
+							document.location.href = known.realpath;
+						}, 1000);
+					} else {
+						var d = dialog({
+							width: 200,
+							content: data.msg,
+							quickClose: true // 点击空白处快速关闭
+						});
+						d.show();
+					}
+				}
+			});
+		}
+	});
+
+	// 登录验证
 	$('#login').click(function(event) {
 		var account = $('#account').val();
 		var password = $('#password').val();
@@ -135,13 +131,13 @@ $(document).ready(function() {
 			  shade: [0.1,'#fff'] //0.1透明度的白色背景
 			});
 			$.ajax({
-				url: known.realpath + '/login.do',
+				url: known.realpath + '/user/login.do',
 				type: 'POST',
 				dataType: 'json',
 				data: $('#loginform').serialize(),
 				success: function(data) {
 					layer.close(loadingindex);
-					if (data.errorMsg == null) {
+					if (data.msg == null) {
 						var d = dialog({
 							content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;登录成功,跳转中...</div>",
 						});
@@ -156,7 +152,7 @@ $(document).ready(function() {
 					} else {
 						var d = dialog({
 							width: 200,
-							content: data.errorMsg,
+							content: data.msg,
 							quickClose: true // 点击空白处快速关闭
 						});
 						d.show();
@@ -168,120 +164,119 @@ $(document).ready(function() {
 		}
 	});
 
-	/*
-		对找回密码的邮箱进行验证
-	*/
 
-//	$('#findpassword').click(function(event) {
-//		var email = $('#email').val();
-//		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-//		if (email == null || $.trim(email) == '') {
-//			checkForm('邮箱不能为空', 'email');
-//			$("#email").parent().addClass('has-error');
-//		} else if (!emailreg.test(email)) {
-//			checkForm('请输入正确的邮箱', "email");
-//			$("#email").parent().addClass('has-error');
-//		} else {
-//			$("#email").parent().removeClass('has-error');
-//			var loadingindex = layer.load(0, {
-//			  shade: [0.1,'#fff'] //0.1透明度的白色背景
-//			});
-//			$.ajax({
-//				url: known.realpath + '/sendCheckCode',
-//				type: 'POST',
-//				dataType: 'json',
-//				data: $('#findPassword').serialize(),
-//				success: function(data) {
-//					layer.close(loadingindex);
-//					if (data.errorMsg == null) {
-//						var content = '<form id="modifyPassword"><div class="form-group"><input class="form-control" type="password" placeholder="请输入新密码" name="password" id="password"></input></div><div class="form-group"><input class="form-control" type="password" placeholder="请确认新密码" name="confirmPassword" id="confirmPassword"></input></div><div class="form-group"><input class="form-control" placeholder="验证码" name="checkcode" id="checkcode"></input></div></form>';
-//						var d = dialog({
-//							title: '修改密码',
-//							width: 300,
-//							content: content,
-//							okValue: '确定',
-//							ok: function() {
-//								var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
-//								var password = $('#password').val();
-//								var confirmPassword = $('#confirmPassword').val();
-//								var checkcode = $("#checkcode").val();
-//								if (password == null || $.trim(password) == '') {
-//									checkForm('密码不能是空串', 'password');
-//									$("#password").parent().addClass('has-error');
-//									return false;
-//								} else if (password.indexOf(" ") > -1) {
-//									checkForm('密码不能含有空格', 'password');
-//									$("#password").parent().addClass('has-error');
-//									return false;
-//								} else if (password.length < 6) {
-//									checkForm('密码长度不能小于6个字符', 'password');
-//									$("#password").parent().addClass('has-error');
-//									return false;
-//								} else if (password.length > 16) {
-//									checkForm('密码长度不能大于16个字符', 'password');
-//									$("#password").parent().addClass('has-error');
-//									return false;
-//								} else if (!passwordreg.test(password)) {
-//									checkForm('密码必须含有字母和数字', 'password');
-//									$("#password").parent().addClass('has-error');
-//									return false;
-//								} else if (confirmPassword != password) {
-//									$("#password").parent().removeClass('has-error');
-//									checkForm('两次输入密码必须一致', 'confirmPassword');
-//									$("#confirmPassword").parent().addClass('has-error');
-//									return false;
-//								} else if (checkcode == null || $.trim(checkcode) == '') {
-//									$("#confirmPassword").parent().removeClass('has-error');
-//									checkForm("验证码不能为空串", "checkcode");
-//									$("#checkcode").parent().addClass('has-error');
-//									return false;
-//								} else {
-//									$.ajax({
-//										url: known.realpath+ '/findPassword.do',
-//										type: 'POST',
-//										dataType: 'json',
-//										data: {
-//											"email": email,
-//											"password": password,
-//											"checkcode": checkcode
-//										},
-//										success: function(data) {
-//											if (data.errorMsg == null) {
-//												var d = dialog({
-//													content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;修改成功,跳转中...</div>",
-//												});
-//												d.showModal();
-//												setTimeout(function() {
-//													d.close().remove();
-//													document.location.href = known.realpath + "/login";
-//												}, 1000);
-//											} else {
-//												checkForm(data.errorMsg, "checkcode");
-//											}
-//										}
-//									});
-//									return false;
-//
-//								}
-//							},
-//							cancelValue: '取消',
-//							cancel: function() {}
-//						});
-//						d.show();
-//
-//					} else {
-//						checkForm(data.errorMsg, "email");
-//					}
-//				}
-//			});
-//
-//
-//		}
-//	});
+// 对找回密码的邮箱进行验证
+	$('#findpassword').click(function(event) {
+		var email = $('#email').val();
+		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		if (email == null || $.trim(email) == '') {
+			checkForm('邮箱不能为空', 'email');
+			$("#email").parent().addClass('has-error');
+		} else if (!emailreg.test(email)) {
+			checkForm('请输入正确的邮箱', "email");
+			$("#email").parent().addClass('has-error');
+		} else {
+			$("#email").parent().removeClass('has-error');
+			var loadingindex = layer.load(0, {
+			  shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+			$.ajax({
+				url: known.realpath + '/user/sendCheckCode',
+				type: 'POST',
+				dataType: 'json',
+				data: $('#findPassword').serialize(),
+				success: function(data) {
+					layer.close(loadingindex);
+					if (data.msg == null) {
+						var content = '<form id="modifyPassword"><div class="form-group"><input class="form-control" type="password" placeholder="请输入新密码" name="password" id="password"></input></div><div class="form-group"><input class="form-control" type="password" placeholder="请确认新密码" name="confirmPassword" id="confirmPassword"></input></div><div class="form-group"><input class="form-control" placeholder="验证码" name="checkcode" id="checkcode"></input></div></form>';
+						var d = dialog({
+							title: '修改密码',
+							width: 300,
+							content: content,
+							okValue: '确定',
+							ok: function() {
+								var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+								var password = $('#password').val();
+								var confirmPassword = $('#confirmPassword').val();
+								var checkcode = $("#checkcode").val();
+								if (password == null || $.trim(password) == '') {
+									checkForm('密码不能是空串', 'password');
+									$("#password").parent().addClass('has-error');
+									return false;
+								} else if (password.indexOf(" ") > -1) {
+									checkForm('密码不能含有空格', 'password');
+									$("#password").parent().addClass('has-error');
+									return false;
+								} else if (password.length < 6) {
+									checkForm('密码长度不能小于6个字符', 'password');
+									$("#password").parent().addClass('has-error');
+									return false;
+								} else if (password.length > 16) {
+									checkForm('密码长度不能大于16个字符', 'password');
+									$("#password").parent().addClass('has-error');
+									return false;
+								} else if (!passwordreg.test(password)) {
+									checkForm('密码必须含有字母和数字', 'password');
+									$("#password").parent().addClass('has-error');
+									return false;
+								} else if (confirmPassword != password) {
+									$("#password").parent().removeClass('has-error');
+									checkForm('两次输入密码必须一致', 'confirmPassword');
+									$("#confirmPassword").parent().addClass('has-error');
+									return false;
+								} else if (checkcode == null || $.trim(checkcode) == '') {
+									$("#confirmPassword").parent().removeClass('has-error');
+									checkForm("验证码不能为空串", "checkcode");
+									$("#checkcode").parent().addClass('has-error');
+									return false;
+								} else {
+									$.ajax({
+										url: known.realpath+ '/user/findPassword.do',
+										type: 'POST',
+										dataType: 'json',
+										data: {
+											"email": email,
+											"password": password,
+											"checkcode": checkcode
+										},
+										success: function(data) {
+											if (data.msg == null) {
+												var d = dialog({
+													content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;修改成功,跳转中...</div>",
+												});
+												d.showModal();
+												setTimeout(function() {
+													d.close().remove();
+													document.location.href = known.realpath + "/login";
+												}, 1000);
+											} else {
+												checkForm(data.msg, "checkcode");
+											}
+										}
+									});
+									return false;
+
+								}
+							},
+							cancelValue: '取消',
+							cancel: function() {}
+						});
+						d.show();
+
+					} else {
+						checkForm(data.msg, "email");
+					}
+				}
+			});
+
+
+		}
+	});
+
 //控制用户信息显示  加载用户签到信息
 	$("#userheadicon").mouseenter(function(){
 		$.ajax({
-	 		url:  known.realpath + '/loadSignInfo',
+	 		url:  known.realpath + '/signIn/loadSignInfo',
 	 		type: 'POST',
 	 		dataType: 'json',
 	 		success:function(result){
@@ -318,7 +313,7 @@ $(document).ready(function() {
 	//进行签到
 	 $(".unsigninimage").click(function(event) {
 			$.ajax({
-				url: known.realpath + '/signIn',
+				url: known.realpath + '/signIn/signIn',
 				type: 'POST',
 				dataType: 'json',
 				success:function(result){
@@ -336,7 +331,7 @@ $(document).ready(function() {
 					else{
 						var d = dialog({
 								width: 200,
-								content: result.errorMsg,
+								content: result.msg,
 								quickClose: true // 点击空白处快速关闭
 							});
 							d.show();
@@ -355,7 +350,7 @@ function showEmotion(targetObj, textarea){
 	var emotion_panel = $("<div></div>")
 	var emotions = known.emotion_data;
 	for (var i = 0, _len = emotions.length; i < _len; i++) {
-		var item = $("<div data=" + emotions[i] + " class='emotion' title=" + emotions[i] + "><img src='../resources/images/emotions/" + i + ".gif'></div>").appendTo(emotion_panel).bind("click", function() {
+		var item = $("<div data=" + emotions[i] + " class='emotion' title=" + emotions[i] + "><img src='${realpath}/resources/images/emotions/" + i + ".gif'></div>").appendTo(emotion_panel).bind("click", function() {
 			d.close();
 			textarea.val(textarea.val() + $(this).attr("data")).focus();
 		});
@@ -371,13 +366,13 @@ function showAtUser(targetObj, textarea){
 	});
 	var at_panel = $("<div></div>");
 	$.ajax({
-		url: known.realpath + '/loadUserFriend',
+		url: known.realpath + '/userFriend/loadUserFriend',
 		type: 'POST',
 		dataType: 'json',
 		data: {"pageNum": 1},
 		success:function(res){
-			if(res.errorMsg != null){
-				layer.alert(res.errorMsg, {
+			if(res.msg != null){
+				layer.alert(res.msg, {
 				  icon: 5,
 				  skin: 'layer-ext-moon' 
 				});

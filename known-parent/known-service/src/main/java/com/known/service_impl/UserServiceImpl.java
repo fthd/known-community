@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 		if(StringUtils.isEmpty(account) || StringUtils.isEmpty(password)){
 			throw new BussinessException("输入参数不合法");
 		}
-		User user = null;
+		User user;
 		if(account.contains("@")){
 			user = this.findUserByEmail(account);
 		}
@@ -141,11 +141,10 @@ public class UserServiceImpl implements UserService {
 		if(StringUtils.isEmpty(account)){
 			throw new BussinessException("用户名或者邮箱不能为空");
 		}
-		User user = null;
+		User user;
 		if(account.contains("@")){
 			user = this.findUserByEmail(account);
-		}
-		else {
+		} else {
 			user = this.findUserByUserName(account);
 		}
 		if(user == null){
@@ -199,7 +198,7 @@ public class UserServiceImpl implements UserService {
 			String subject = "知会问答社区系统通知邮件";
 			
 			StringBuffer content = new StringBuffer("亲爱的 【" + user.getUserName() + "】用户<br><br>");
-			content.append("欢迎您使用<a href='#'>81问答BLOG</a>的找回密码功能<br><br>");
+			content.append("欢迎您使用<a href='#'>知会问答社区</a>的找回密码功能<br><br>");
 			content.append("您的验证码是<h3 style='color:red;'>" + checkCode + "</h3>");
 			try {
 				MailUtils.sendMail(mailConfig.getSendUserName(), mailConfig.getSendPassword(), email,

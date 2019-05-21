@@ -10,7 +10,7 @@ function searchData(curr){
 	}
 	$(".seartch-tit").eq(0).text($("#select").find("option:selected").text());
 	known.curr = curr;
-    $.getJSON(known.realpath+"/searchArticle", {
+    $.getJSON(known.realpath+"/search/searchArticle", {
         pageNum: curr || 1 ,//向服务端传的参数，此处只是演示
         articleType:articleType,
         keyword:keyword,

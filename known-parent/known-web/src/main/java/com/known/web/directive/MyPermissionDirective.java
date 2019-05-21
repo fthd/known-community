@@ -8,6 +8,7 @@ import com.known.service.SysRoleService;
 import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -33,24 +34,32 @@ public class MyPermissionDirective implements TemplateDirectiveModel {
 	
 	@Autowired
 	private SysRoleService sysRoleService;
+
+	@Value("${SESSION_USER_KEY}")
+	private String  SESSION_USER_KEY;
 	
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
                         TemplateDirectiveBody body) throws TemplateException, IOException {
+
 			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 			HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-			UserRedis sessionUser = (UserRedis) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			TemplateModel templateModel = null;
+
+			UserRedis sessionUser = (UserRedis) request.getSession().getAttribute(SESSION_USER_KEY);
+			TemplateModel templateModel;
+
 			if(sessionUser!= null){
+				//查找系统用户角色id集合 role_id
 				Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
+
+				//查找角色结果集 sys_res
 				List<SysRes> list = sysResService.findMenuByRoleIds(roleSet);
 				if(list != null){
 					templateModel	 = ObjectWrapper.DEFAULT_WRAPPER.wrap(list);
 					env.setGlobalVariable("menu",templateModel);
 					body.render(env.getOut());
 				}
-			}
-			else{
+			} else{
 				response.sendRedirect("/login?redirect=" + request.getRequestURI());
 			}
 

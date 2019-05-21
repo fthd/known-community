@@ -9,15 +9,19 @@ import com.known.exception.BussinessException;
 import java.util.List;
 
 public interface UserService {
+
 	void register(User user) throws BussinessException;
 	
 	User findUserByUserName(String userName);
 	
 	User findUserByEmail(String email);
+
 	User findUserByUserid(Integer userid);
 	
 	User login(String account, String password) throws BussinessException;
+
 	User login(String account, String password, boolean isNeedEncoder) throws BussinessException;
+
 	void sendCheckCode(String email) throws BussinessException;
 
 	void modifyPassword(String email, String password, String checkcode) throws BussinessException;
@@ -25,6 +29,7 @@ public interface UserService {
 	void addMark(int mark, int userid);
 
 	Integer changeMark(int userid, int mark);
+
 	User findUserInfo4UserHome(Integer userId) throws BussinessException;
 
 	void updateUserInfo(User user) throws BussinessException;

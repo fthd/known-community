@@ -47,8 +47,8 @@ function saveUserBackground(curObj){
 	    	background:$(".system-icon-s span.icon-check").parent().attr("data")
 	    },
 	    success:function(res){
-	    	if(res.errorMsg != null){
-					layer.msg(res.errorMsg, {icon: 5,time:1500});   
+	    	if(res.msg != null){
+					layer.msg(res.msg, {icon: 5,time:1500});
 					return;
 				}
 			else{

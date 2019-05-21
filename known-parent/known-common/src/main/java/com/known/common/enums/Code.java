@@ -2,7 +2,7 @@ package com.known.common.enums;
 
 
 
-public enum ResponseCode {
+public enum Code {
 	SUCCESS(200, "请求成功"),
 	
 	NOPERMISSION(403, "没有权限"),
@@ -17,7 +17,7 @@ public enum ResponseCode {
 	private int code;
 	private String desc;
 	
-	private ResponseCode(int code, String desc) {
+	private Code(int code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -38,8 +38,8 @@ public enum ResponseCode {
 		this.desc = desc;
 	}
 	
-	public static ResponseCode getResponseByCode(Integer code){
-		for(ResponseCode rc : ResponseCode.values()){
+	public static Code getResponseByCode(Integer code){
+		for(Code rc : Code.values()){
 			if(rc.code == code){
 				return rc;
 			}

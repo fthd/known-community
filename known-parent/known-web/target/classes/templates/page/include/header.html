@@ -24,8 +24,8 @@
 
 	<ul class="nav navbar-nav navbar-right">
 			<#if !Session["session_user_key"]?exists>
-			 	<li><a href="${realpath}/login">登录</a></li>
-        		<li><a href="register">注册</a></li>
+			 	<li><a href="${realpath}/user/login">登录</a></li>
+        		<li><a href="${realpath}/user/register">注册</a></li>
         		<#else>
 				<li class="message" style="margin-right: 40px;">
 			      <a href="#" class="dropdown-toggle" id="dropdown" data-toggle="dropdown" role="button" aria-expanded="true">
@@ -71,7 +71,7 @@
 					    		<a href="${realpath}/user/${session_user_key.userid?c}">个人中心</a>
 					    	</div>
 					    	<div class="usre-action-panel">
-					    		<a href="${realpath}/logout">退出</a>
+					    		<a href="${realpath}/user/logout">退出</a>
 					    	</div>
 					    </div>
 					  </div>

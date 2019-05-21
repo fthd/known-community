@@ -1,51 +1,54 @@
 package com.known.web.controller;
 
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.model.Collection;
 import com.known.common.model.UserRedis;
-import com.known.common.utils.Constants;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.CollectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/collention")
 public class CollectionController extends BaseController {
 	
 	private Logger logger = LoggerFactory.getLogger(CollectionController.class);
 	
 	@Autowired
 	private CollectionService collectionService;
-	
-	@ResponseBody
-	@RequestMapping("doCollection")
-	public AjaxResponse<Object> doCollection(HttpSession session, Collection collection){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+
+	@Value("${SESSION_USER_KEY}")
+	private String SESSION_USER_KEY;
+
+
+	@RequestMapping("/doCollection")
+	public OutResponse<Object> doCollection(HttpSession session, Collection collection){
+		OutResponse<Object> outResponse = new OutResponse<>();
+		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		try {
 			this.collectionService.addCollection(collection);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 			logger.error("{}收藏出错{}", sessionUser.getUserName(), e.getLocalizedMessage());
 		}catch (Exception e) {
 			logger.error("{}收藏出错{}", sessionUser.getUserName(), e.getLocalizedMessage());
-			ajaxResponse.setErrorMsg("服务器出错");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("服务器出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 }

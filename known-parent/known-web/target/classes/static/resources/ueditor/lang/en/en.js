@@ -97,8 +97,8 @@ UE.I18N['en'] = {
     'loadconfigHttpError': 'Get server config http error.',
     'snapScreen_plugin':{
         'browserMsg':"Only IE supported!",
-        'callBackErrorMsg':"The callback data is wrong,please check the config!",
-        'uploadErrorMsg':"Upload error,please check your server environment! "
+        'callBackMsg':"The callback data is wrong,please check the config!",
+        'uploadMsg':"Upload error,please check your server environment! "
     },
     'insertcode':{
         'as3':'ActionScript 3',
@@ -569,7 +569,7 @@ UE.I18N['en'] = {
             lang_dynamicmap:"Dynamic map"
         },
         cityMsg:"Please enter the city name!",
-        errorMsg:"Can't find the place!"
+        msg:"Can't find the place!"
     },
     searchreplace:{
         'static':{
@@ -630,7 +630,7 @@ UE.I18N['en'] = {
         captionName:'Caption',
         titleName:'Title',
         cellsName:'text',
-        errorMsg:'There are merged cells, can not sort.'
+        msg:'There are merged cells, can not sort.'
     },
     'edittip':{
         'static':{

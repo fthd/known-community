@@ -3,12 +3,12 @@ package com.known.web.controller;
 import com.aliyun.oss.OSSClient;
 import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.OrderByEnum;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.model.*;
 import com.known.common.utils.AliyunOSSClientUtil;
 import com.known.common.utils.Constants;
 import com.known.common.utils.StringUtils;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.query.BlogQuery;
@@ -31,10 +31,10 @@ import java.io.File;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/userAdmin")
 public class UserAdminController extends BaseController {
 	
-private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
+private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	@Autowired
 	private UserService userService;
@@ -78,23 +78,23 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("updateUserInfo")
-	public AjaxResponse<Object> updateUserInfo(HttpSession session, User user){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> updateUserInfo(HttpSession session, User user){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		user.setUserid(sessionUser.getUserid());
 		try {
 			this.userService.updateUserInfo(user);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
 			logger.error("修改出错", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}catch (Exception e) {
 			logger.error("修改出错{}", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("preUpdateUserPage")
@@ -119,8 +119,8 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("saveUserPage")
-	public AjaxResponse<Object> saveUserPage(HttpSession session, Integer userPage){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> saveUserPage(HttpSession session, Integer userPage){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		Integer userId = this.getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
@@ -128,13 +128,13 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 			userPage = userPage == null ? 0 : userPage;
 			user.setUserPage(userPage);
 			this.userService.updateUserWithoutValidate(user);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
@@ -160,22 +160,22 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("modifyPassword")
-	public AjaxResponse<Object> modifyPassword(HttpSession session, String oldPassword, String newPassword){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> modifyPassword(HttpSession session, String oldPassword, String newPassword){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			this.userService.updatePassword(sessionUser.getUserid(), oldPassword, newPassword);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
 			logger.error("修改出错", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}catch (Exception e) {
 			logger.error("修改出错", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试{}");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试{}");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("preUpdateUserIcon")
@@ -199,8 +199,8 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("saveSysUserIcon")
-	public AjaxResponse<Object> saveSysUserIcon(HttpSession session, String userIcon){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> saveSysUserIcon(HttpSession session, String userIcon){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		Integer userId = this.getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
@@ -209,24 +209,24 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 			this.userService.copyUserIcon(user,userIcon, dest,userId+"");
 			//user.setUserIcon(dest);
 			this.userService.updateUserWithoutValidate(user);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("saveUserIcon")
-	public AjaxResponse<Object> saveUserIcon(HttpSession session, String img, Integer x1,
+	public OutResponse<Object> saveUserIcon(HttpSession session, String img, Integer x1,
                                              Integer y1, Integer width, Integer height){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		if(StringUtils.isEmpty(img)){
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
-			return ajaxResponse;
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
+			return outResponse;
 		}
 		Integer userId = this.getUserid(session);
 		User user = new User();
@@ -246,13 +246,13 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 			this.userService.updateUserWithoutValidate(user);
 			file.delete();
 			destFile.delete();
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("preUpdateUserBg")
@@ -276,21 +276,21 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("saveSysUserBg")
-	public AjaxResponse<Object> saveSysUserBg(HttpSession session, String background){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> saveSysUserBg(HttpSession session, String background){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		Integer userId = this.getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
 		try {
 			user.setUserBg(background);
 			this.userService.updateUserWithoutValidate(user);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
-			ajaxResponse.setErrorMsg("修改出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("修改出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("preAddBlog")
@@ -315,8 +315,8 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("addBlog")
-	public AjaxResponse<Integer> addBlog(HttpSession session, Blog blog, Attachment attachment){
-		AjaxResponse<Integer> ajaxResponse = new AjaxResponse<Integer>();
+	public OutResponse<Integer> addBlog(HttpSession session, Blog blog, Attachment attachment){
+		OutResponse<Integer> outResponse = new OutResponse<Integer>();
 		try {
 			blog.setStatus(BlogStatusEnum.PUBLIC);
 			this.setUserBaseInfo(Blog.class, blog, session);
@@ -326,25 +326,25 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 			else{
 				this.blogService.addBlog(blog, attachment);
 			}
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			ajaxResponse.setData(blog.getBlogId());
+			outResponse.setCode(Code.SUCCESS);
+			outResponse.setData(blog.getBlogId());
 		}catch(BussinessException e){
 			logger.error("添加话题出错", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}
 		catch (Exception e) {
 			logger.error("添加话题出错{}", e);
-			ajaxResponse.setErrorMsg("添加话题出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("添加话题出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("addDraftBlog")
-	public AjaxResponse<Integer> addDraftBlog(HttpSession session, Blog blog){
-		AjaxResponse<Integer> ajaxResponse = new AjaxResponse<Integer>();
+	public OutResponse<Integer> addDraftBlog(HttpSession session, Blog blog){
+		OutResponse<Integer> outResponse = new OutResponse<Integer>();
 		try {
 			blog.setStatus(BlogStatusEnum.DRAFT);
 			this.setUserBaseInfo(Blog.class, blog, session);
@@ -354,19 +354,19 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 			else{
 				this.blogService.addBlog(blog, new Attachment());
 			}
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
-			ajaxResponse.setData(blog.getBlogId());
+			outResponse.setCode(Code.SUCCESS);
+			outResponse.setData(blog.getBlogId());
 		}catch(BussinessException e){
 			logger.error("添加话题草稿出错{}", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}
 		catch (Exception e) {
 			logger.error("添加话题草稿出错{}", e);
-			ajaxResponse.setErrorMsg("添加话题草稿出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("添加话题草稿出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("blogList")
@@ -391,40 +391,40 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("loadBlog")
-	public AjaxResponse<Object> loadBlog(HttpSession session, BlogQuery blogQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadBlog(HttpSession session, BlogQuery blogQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			blogQuery.setUserId(this.getUserid(session));
 			blogQuery.setStatus(BlogStatusEnum.PUBLIC);
 			PageResult<Blog> result = this.blogService.findBlogByPage(blogQuery);
-			ajaxResponse.setData(result);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(result);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取话题列表出错{}", e);
-			ajaxResponse.setErrorMsg("获取话题列表出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取话题列表出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("del_blog.action")
-	public AjaxResponse<Object> deleteBlog(HttpSession session, Integer blogId){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> deleteBlog(HttpSession session, Integer blogId){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.blogService.deleteBlog(blogId);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch(BussinessException e){
 			logger.error("删除话题出错", e);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}
 		catch (Exception e) {
 			logger.error("删除话题出错{}", e);
-			ajaxResponse.setErrorMsg("删除出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("删除出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("edit_blog.action")
@@ -451,17 +451,17 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("deleteBlogAttachment")
-	public AjaxResponse<Object> deleteBlogAttachment(HttpSession session, Integer attachmentId){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> deleteBlogAttachment(HttpSession session, Integer attachmentId){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.attachmentService.deleteFile(attachmentId);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
 			logger.error("删除文件失败{}", e);
-			ajaxResponse.setErrorMsg("删除文件失败");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("删除文件失败");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("draftBlogList")
@@ -486,20 +486,20 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("loadDraftBlog")
-	public AjaxResponse<Object> loadDraftBlog(HttpSession session, BlogQuery blogQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadDraftBlog(HttpSession session, BlogQuery blogQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			blogQuery.setUserId(this.getUserid(session));
 			blogQuery.setStatus(BlogStatusEnum.DRAFT);
 			PageResult<Blog> result = this.blogService.findBlogByPage(blogQuery);
-			ajaxResponse.setData(result);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(result);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取话题列表出错{}", e);
-			ajaxResponse.setErrorMsg("获取话题列表出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取话题列表出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("blog_category")
@@ -524,50 +524,50 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("loadBlogCategories.action")
-	public AjaxResponse<Object> loadBlogCategories(HttpSession session){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> loadBlogCategories(HttpSession session){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			List<BlogCategory> list = this.blogCategoryService.findBlogCategoryList(this.getUserid(session));
-			ajaxResponse.setData(list);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(list);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取话题分类出错{}", e);
-			ajaxResponse.setErrorMsg("获取话题分类出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取话题分类出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping("delBlogCategory.action")
-	public AjaxResponse<Object> delBlogCategory(HttpSession session, Integer categoryId){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> delBlogCategory(HttpSession session, Integer categoryId){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.blogCategoryService.deleteBlogCategory(categoryId);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("删除话题分类出错{}", e);
-			ajaxResponse.setErrorMsg("删除话题分类出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("删除话题分类出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("saveBlogCategory.action")
-	public AjaxResponse<Object> saveBlogCategory(HttpSession session, BlogCategory blogCategory){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> saveBlogCategory(HttpSession session, BlogCategory blogCategory){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			blogCategory.setUserId(this.getUserid(session));
 			this.blogCategoryService.saveOrUpdate(blogCategory);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("保存话题分类出错{}", e);
-			ajaxResponse.setErrorMsg("保存话题分类出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("保存话题分类出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("messageList")
@@ -591,71 +591,71 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	
 	@ResponseBody
-	@RequestMapping("load_user_message_list.action")
-	public AjaxResponse<Object> load_user_message_list(HttpSession session, MessageQuery messageQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	@RequestMapping("/load_user_message_list.action")
+	public OutResponse<Object> load_user_message_list(HttpSession session, MessageQuery messageQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			messageQuery.setReceivedUserId(this.getUserid(session));
 			messageQuery.setOrderBy(OrderByEnum.MESSAGE_STATUS_ASC_CREATE_TIME_DESC);
 			PageResult<Message> result = this.messageService.findMessageByPage(messageQuery);
-			ajaxResponse.setData(result);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(result);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取消息列表出错{}", e);
-			ajaxResponse.setErrorMsg("获取消息列表出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取消息列表出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping("mark_message_read.action")
-	public AjaxResponse<Object> mark_message_read(HttpSession session, Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> mark_message_read(HttpSession session, Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.messageService.update(ids, this.getUserid(session));
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("消息标记已读出错{}", e);
-			ajaxResponse.setErrorMsg("标记已读出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("标记已读出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("load_user_message_count.action")
-	public AjaxResponse<Object> load_user_message_count(HttpSession session, MessageQuery messageQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> load_user_message_count(HttpSession session, MessageQuery messageQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			messageQuery.setReceivedUserId(this.getUserid(session));
 			messageQuery.setOrderBy(OrderByEnum.MESSAGE_STATUS_ASC_CREATE_TIME_DESC);
 			Integer count = this.messageService.findMessageCount(messageQuery);
-			ajaxResponse.setData(count);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(count);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取消息列表出错{}", e);
-			ajaxResponse.setErrorMsg("获取消息列表出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取消息列表出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping("del_message.action")
-	public AjaxResponse<Object> del_message(HttpSession session, Integer[] ids){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> del_message(HttpSession session, Integer[] ids){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			this.messageService.delMessage(this.getUserid(session), ids);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("消息删除出错{}", e);
-			ajaxResponse.setErrorMsg("消息删除出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("消息删除出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping("readMessage.action")
@@ -701,33 +701,33 @@ private Logger logger = LoggerFactory.getLogger(UserHomeController.class);
 	
 	@ResponseBody
 	@RequestMapping("load_collection.action")
-	public AjaxResponse<Object>load_collection(HttpSession session, CollectionQuery collectionQuery){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object>load_collection(HttpSession session, CollectionQuery collectionQuery){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Collection> result = this.collectionService.findCollectionByPage(collectionQuery);
-			ajaxResponse.setData(result);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(result);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("获取收藏列表出错{}", e);
-			ajaxResponse.setErrorMsg("获取收藏列表出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("获取收藏列表出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@ResponseBody
 	@RequestMapping("del_collection.action")
-	public AjaxResponse<Object> del_collection(HttpSession session, Collection collection){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<>();
+	public OutResponse<Object> del_collection(HttpSession session, Collection collection){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.collectionService.deleteCollection(collection);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		}catch (Exception e) {
 			logger.error("收藏删除出错{}", e);
-			ajaxResponse.setErrorMsg("收藏删除出错,请重试");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("收藏删除出错,请重试");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	

@@ -8,15 +8,16 @@
 <script>
 $(function(){
 	$("#account").focus();
-	
+
+	//获取用户头像
 	$("#account").blur(function(){
 		$.ajax({
-			url: known.realpath + '/findHeadImage',
+			url: known.realpath + '/user/findHeadImage',
 			type: 'post',
 			dataType: 'json',
 			data: {account: $(this).val()},
 			success:function(result){
-				var headIcon = result.data==null ? known.realpath+"/resources/images/headIcon.jpg" : result.data;
+				var headIcon = result.data==null ? known.realpath+"/resources/images/headIcon.jpg" : known.realpath+result.data;
 				$("#headicon").attr({
 					src: headIcon
 				});
@@ -123,16 +124,16 @@ body {
 		<button type="button" class="btn btn-info block full-width" id="login">登录</button>
 
 		<p class="foot">
-			<a href="${realpath}/findpassword"> 忘记密码了？</a> | <a
-				href="${realpath}/register">注册一个新账号</a>
+			<a href="${realpath}/user/findpassword"> 忘记密码了？</a> | <a
+				href="${realpath}/user/register">注册一个新账号</a>
 		</p>
-		<br/>
+		<!--<br/>
 		<div align="left">
 			<label>其他账号登录：</label>
-			<a href="${realpath}/third_login?t=qq" target="_blank">
+			<a href="${realpath}/user/third_login?t=qq" target="_blank">
 				<img src="${realpath}/resources/images/qq_logo.png">
 			</a>
-		</div>
+		</div>-->
 	</div>
 	</div>
 <script language="javascript">

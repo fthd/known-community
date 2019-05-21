@@ -14,7 +14,7 @@ function checkDownload(topicid,attachmentid){
 		d.close().remove();
 	}, 1200);
 	 	$.ajax({
-			url : known.realpath+"/checkDownload", 
+			url : known.realpath+"/attachment/checkDownload",
 			type: 'POST',
 			dataType: 'json',
 			data : {
@@ -22,12 +22,12 @@ function checkDownload(topicid,attachmentid){
 			},
 			success: function(res) {
 				    if(res.data){
-				    	document.location.href = known.realpath + "/downloadAction" + "?attachmentId=" + attachmentid;
+				    	document.location.href = known.realpath + "/attachment/downloadAction" + "?attachmentId=" + attachmentid;
 					    var dcount = $("#dcount").text();
 					    $("#dcount").text(parseInt(dcount) + 1);
 				    }
 				    else{
-				    	layer.alert(res.errorMsg, {
+				    	layer.alert(res.msg, {
 							  icon: 5,
 							  skin: 'layer-ext-moon' 
 							});

@@ -46,8 +46,8 @@ $(function() {
 				   "articleUserId":known.articleUserId
 			},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+				if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
@@ -85,8 +85,8 @@ $(function() {
 				   "title":known.articleTitle
 			},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.msg(res.errorMsg, {icon: 5,time:1500});   
+				if(res.msg != null){
+					layer.msg(res.msg, {icon: 5,time:1500});
 					return;
 				}
 				else{

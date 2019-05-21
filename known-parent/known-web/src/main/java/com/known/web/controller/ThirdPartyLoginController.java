@@ -13,11 +13,12 @@ import java.io.IOException;
 
 /**
  * 第三方登录控制类
- * @Author:
- * @Description:
- * @Date: Create in 2018-06-13 13:06
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-05-22 00:12
  */
 @Controller
+@RequestMapping("/thirdPartyLogin")
 public class ThirdPartyLoginController extends BaseController {
     @Autowired
     private Configuration configuration;

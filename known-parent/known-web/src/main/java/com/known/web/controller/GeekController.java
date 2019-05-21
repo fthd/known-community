@@ -6,19 +6,20 @@ import com.known.web.geeklib.GeetestLib;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletRequest;
 
 
-@Controller
-@RequestMapping("geetest")
+@RestController
+@RequestMapping("/geetest")
 public class GeekController {
 
-	@RequestMapping("register")
-	@ResponseBody
+	@RequestMapping("/register")
 	public Object getValidate(HttpServletRequest request){
 		GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key());
 
-		String resStr = "{}";
+		String resStr;
 		
 		//自定义userid
 		String userid = "test";
@@ -36,8 +37,7 @@ public class GeekController {
 	}
 	
 	
-	@RequestMapping("validate")
-	@ResponseBody
+	@RequestMapping("/validate")
 	public Object validate(HttpServletRequest request){
 		GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key());
 		

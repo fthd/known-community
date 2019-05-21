@@ -2,7 +2,7 @@ package com.known.web.controller;
 
 import com.aliyun.oss.OSSClient;
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.utils.AliyunOSSClientUtil;
 import com.known.common.utils.DateUtil;
 import com.known.common.vo.UeditorResponse;
@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/imageUploader")
 public class ImageUploader{
 
 	private static final int MAX_FILE_MAX = 3 * 1024 * 1024;
@@ -31,7 +32,7 @@ public class ImageUploader{
 	private String ABSOLUTE_PATH;
 
 	@ResponseBody
-	@RequestMapping("imageUpload.action")
+	@RequestMapping("/imageUpload.action")
 	public Map<String, Object> imageUpload(HttpSession session, MultipartHttpServletRequest multirequest,
 										   HttpServletResponse response){
 			/*	String realPath = ServerUtils.getRealPath() + "/upload";*/
@@ -46,7 +47,7 @@ public class ImageUploader{
 					MultipartFile multipartFile = multirequest.getFile(itr.next());
 					long size = multipartFile.getSize();
 					if(size > MAX_FILE_MAX){
-						map.put("responseCode", ResponseCode.BUSSINESSERROR);
+						map.put("responseCode", Code.BUSSINESSERROR);
 						map.put("msg", "文件不能超过3M");
 						return map;
 					}
@@ -54,7 +55,7 @@ public class ImageUploader{
 					String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 					if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 							!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-						map.put("responseCode", ResponseCode.BUSSINESSERROR);
+						map.put("responseCode", Code.BUSSINESSERROR);
 						map.put("msg", "只能上传图片");
 						return map;
 					}
@@ -73,11 +74,11 @@ public class ImageUploader{
 					try {
 						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 						//multipartFile.transferTo(file);
-						map.put("responseCode", ResponseCode.SUCCESS);
+						map.put("responseCode", Code.SUCCESS);
 						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", ResponseCode.SERVERERROR);
+							map.put("responseCode", Code.SERVERERROR);
 							map.put("msg", "服务器异常,上传失败");
 							return map;
 					}
@@ -87,7 +88,7 @@ public class ImageUploader{
 	
 	
 	@ResponseBody
-	@RequestMapping("ueditorImageUpload.action")
+	@RequestMapping("/ueditorImageUpload.action")
 	public UeditorResponse ueditorImageUpload(HttpSession session, MultipartHttpServletRequest multirequest,
 											  HttpServletResponse response){
 				//String realPath = ServerUtils.getRealPath() + "/upload";
@@ -155,7 +156,7 @@ public class ImageUploader{
 					MultipartFile multipartFile = multirequest.getFile(itr.next());
 					long size = multipartFile.getSize();
 					if(size > MAX_FILE_MAX){
-						map.put("responseCode", ResponseCode.BUSSINESSERROR);
+						map.put("responseCode", Code.BUSSINESSERROR);
 						map.put("msg", "文件不能超过3M");
 						return map;
 					}
@@ -163,7 +164,7 @@ public class ImageUploader{
 					String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 					if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 							!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-						map.put("responseCode", ResponseCode.BUSSINESSERROR);
+						map.put("responseCode", Code.BUSSINESSERROR);
 						map.put("msg", "只能上传图片");
 						return map;
 					}
@@ -182,11 +183,11 @@ public class ImageUploader{
 					try {
 						//multipartFile.transferTo(file);
 						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
-						map.put("responseCode", ResponseCode.SUCCESS);
+						map.put("responseCode", Code.SUCCESS);
 						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", ResponseCode.SERVERERROR);
+							map.put("responseCode", Code.SERVERERROR);
 							map.put("msg", "服务器异常,上传失败");
 							return map;
 					}
@@ -195,7 +196,7 @@ public class ImageUploader{
 	}*/
 
 	@ResponseBody
-	@RequestMapping("imageUpload2Temp.action")
+	@RequestMapping("/imageUpload2Temp.action")
 	public Map<String, Object> imageUpload2Temp(HttpSession session, MultipartHttpServletRequest multirequest,
                                                 HttpServletResponse response){
 
@@ -206,7 +207,7 @@ public class ImageUploader{
 			MultipartFile multipartFile = multirequest.getFile(itr.next());
 			long size = multipartFile.getSize();
 			if(size > MAX_FILE_MAX){
-				map.put("responseCode", ResponseCode.BUSSINESSERROR);
+				map.put("responseCode", Code.BUSSINESSERROR);
 				map.put("msg", "文件不能超过3M");
 				return map;
 			}
@@ -214,7 +215,7 @@ public class ImageUploader{
 			String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 			if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 					!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-				map.put("responseCode", ResponseCode.BUSSINESSERROR);
+				map.put("responseCode", Code.BUSSINESSERROR);
 				map.put("msg", "只能上传图片");
 				return map;
 			}
@@ -231,11 +232,11 @@ public class ImageUploader{
 			File file = new File(filePath);
 			try {
 				multipartFile.transferTo(file);
-				map.put("responseCode", ResponseCode.SUCCESS);
+				map.put("responseCode", Code.SUCCESS);
 				map.put("savePath", savePath);
 				return map;
 			} catch (Exception e) {
-				map.put("responseCode", ResponseCode.SERVERERROR);
+				map.put("responseCode", Code.SERVERERROR);
 				map.put("msg", "服务器异常,上传失败");
 				return map;
 			}

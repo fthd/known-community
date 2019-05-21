@@ -1,11 +1,11 @@
 known.tags=["shuoshuo","topic","ask","knowledge","blog","fans","focus"]
 known.centerUrl={
-    loadShuoShuos:known.realpath+"/user/loadShuoShuos",
-    loadTopic:known.realpath+"/user/loadTopic",
-    loadAsk:known.realpath+"/user/loadAsk",
-    loadKnowledge:known.realpath+"/user/loadKnowledge",
-    loadFans:known.realpath+"/user/loadFans",
-    loadFoucs:known.realpath+"/user/loadFocus"
+    loadShuoShuos:known.realpath+"/userCenter/loadShuoShuos",
+    loadTopic:known.realpath+"/userCenter/loadTopic",
+    loadAsk:known.realpath+"/userCenter/loadAsk",
+    loadKnowledge:known.realpath+"/userCenter/loadKnowledge",
+    loadFans:known.realpath+"/userCenter/loadFans",
+    loadFoucs:known.realpath+"/userCenter/loadFocus"
 }
 $(function(){
     tag({
@@ -127,7 +127,7 @@ function dispatchLoad(type) {
 			type: 'POST',
 			dataType: 'json',
 			data: {"pageNum": known.pageNum,
-					"userId": known.center.userId
+					"userCenterId": known.center.userCenterId
 					},
 			success:function(res){
 				 $("#loading").remove();
@@ -201,7 +201,7 @@ function loadTopic(page){
     	dataType: 'json',
     	data: { 
     	 pageNum : page,
-	   	 userId: known.center.userId
+	   	 userCenterId: known.center.userCenterId
 	   	},
 	   	success:function(res){
 		   	$("#loading").remove();
@@ -280,7 +280,7 @@ function loadAsk(page){
 	    	dataType: 'json',
 	    	data: { 
 	    	 pageNum : page,
-		   	 userId: known.center.userId
+		   	 userCenterId: known.center.userCenterId
 		   	},
 		   	success:function(res){
 			   	$("#loading").remove();
@@ -345,7 +345,7 @@ function loadKnowledge(page){
 	    	dataType: 'json',
 	    	data: { 
 	    	 pageNum : page,
-		   	 userId: known.center.userId
+		   	 userCenterId: known.center.userCenterId
 		   	},
 		   	success:function(res){
 			   	$("#loading").remove();
@@ -379,7 +379,7 @@ function loadFans(){
 	 type: 'POST',
 	 dataType: 'json',
 		data : {
-	    	friendUserId:known.center.userId
+	    	friendUserId:known.center.userCenterId
 		}, 
 		success:function(res) {
 	    $("#loading").remove();
@@ -389,7 +389,7 @@ function loadFans(){
 		$("<span class='no-data'>没有粉丝</span>").appendTo(topic_content);
 	    }
 	    for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {
-		$("<li><a href='"+known.realpath+"/user/"+d.userId+"'><img  src='"+d.userIcon+"'><span>"+d.userName+"</span></a></li>").appendTo(topic_content);
+		$("<li><a href='"+known.realpath+"/userCenter/"+d.userCenterId+"'><img  src='"+d.userCenterIcon+"'><span>"+d.userCenterName+"</span></a></li>").appendTo(topic_content);
 	    }
 	}
     });
@@ -403,7 +403,7 @@ function loadFocus(){
 		type: 'POST',
 		dataType: 'json',	
 		data:{
-		    userId:known.center.userId
+		    userCenterId:known.center.userCenterId
 		}, 
 		success:function(res){
 			 $("#loading").remove();
@@ -413,7 +413,7 @@ function loadFocus(){
 			$("<span class='no-data'>没有关注的人</span>").appendTo(topic_content);
 		    }
 		    for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {
-			$("<li><a href='"+known.realpath+"/user/"+d.friendUserId+"'><img   src='"+d.friendUserIcon+"'><span>"+d.friendUserName+"</span></a></li>").appendTo(topic_content);
+			$("<li><a href='"+known.realpath+"/userCenter/"+d.friendUserId+"'><img   src='"+d.friendUserIcon+"'><span>"+d.friendUserName+"</span></a></li>").appendTo(topic_content);
 		    }
 		}
     });

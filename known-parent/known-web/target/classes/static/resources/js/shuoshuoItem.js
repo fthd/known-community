@@ -3,7 +3,7 @@ var loadingindex ={};
 var uploader = WebUploader.create({
 	auto: true,
 	swf: known.realpath+ '/resources/webuploader/Uploader.swf',
-	server: 'imageUpload.action',
+	server: '/imageUploader/imageUpload.action',
 	pick: {
 		id: '#upload-image',
 		multiple: false
@@ -130,13 +130,13 @@ $(document).on("click", ".op-at", function() {
 		var userlikepanel = curObj.parent().parent().parent().find('.user-like-panel').find('.like-info').eq(0);
 		var shuoShuoId = curObj.attr('shuoshuoid');
 		$.ajax({
-			url: known.realpath + '/doShuoShuoLike',
+			url: known.realpath + '/shuoShuo/doShuoShuoLike',
 			type: 'POST',
 			dataType: 'json',
 			data: {"shuoshuoId": shuoShuoId},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+				if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					})
@@ -185,15 +185,15 @@ $(document).on("click", ".op-at", function() {
 			return;
 		}
 		$.ajax({
-			url: known.realpath + '/publicShuoShuoComment',
+			url: known.realpath + '/shuoShuo/publicShuoShuoComment',
 			type: 'POST',
 			dataType: 'json',
 			data: {"shuoshuoId": shuoshuoId,
 					"content" : content
 				},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+				if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					})
@@ -256,13 +256,13 @@ $(document).on("click", ".op-at", function() {
 		});
 		var at_panel = $("<div></div>");
 		$.ajax({
-			url: known.realpath + '/loadUserFriend',
+			url: known.realpath + '/userFriend/loadUserFriend',
 			type: 'POST',
 			dataType: 'json',
 			data: {"pageNum": 1},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+				if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
@@ -313,7 +313,7 @@ $(document).on("click", ".op-at", function() {
 			return;
 		}
 		$.ajax({
-			url: known.realpath + '/publicShuoShuo',
+			url: known.realpath + '/shuoShuo/publicShuoShuo',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -321,8 +321,8 @@ $(document).on("click", ".op-at", function() {
 				imageUrl: imageArry.join("|")
 			},
 			success:function(res){
-				if(res.errorMsg != null){
-					layer.alert(res.errorMsg, {
+				if(res.msg != null){
+					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					})
@@ -351,7 +351,7 @@ $(document).on("click", ".op-at", function() {
 	function loadShuoShuos(pageNum){
 		known.pageNum = pageNum;
 		$.ajax({
-			url: 'loadShuoShuos',
+			url: '/shuoShuo/loadShuoShuos',
 			type: 'POST',
 			dataType: 'json',
 			data: {"pageNum": pageNum},

@@ -9,8 +9,8 @@ $(document).ready(function() {
 					dataType: 'json',
 					data: {"pageNum": pageNum},
 					success:function(res){
-						if(res.errorMsg != null){
-							layer.alert(res.errorMsg, {
+						if(res.msg != null){
+							layer.alert(res.msg, {
 							  icon: 5,
 							  skin: 'layer-ext-moon' 
 							});

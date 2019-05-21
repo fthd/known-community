@@ -1,14 +1,14 @@
 package com.known.web.controller;
 
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.enums.SolveEnum;
 import com.known.common.model.Ask;
 import com.known.common.model.UserRedis;
 import com.known.common.utils.Constants;
 import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtils;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.query.AskQuery;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @Controller
-@RequestMapping("ask")
+@RequestMapping("/ask")
 public class AskController extends BaseController {
 
 	@Autowired
@@ -79,23 +79,23 @@ public class AskController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("publicAsk")
-	public AjaxResponse<Integer> publicAsk(HttpSession session, Ask ask){
-		AjaxResponse<Integer> ajaxResponse = new AjaxResponse<Integer>();
+	public OutResponse<Integer> publicAsk(HttpSession session, Ask ask){
+		OutResponse<Integer> outResponse = new OutResponse<Integer>();
 		this.setUserBaseInfo(Ask.class, ask, session);
 		try {
 			this.askService.addAsk(ask);
-			ajaxResponse.setData(ask.getAskId());
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(ask.getAskId());
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 			logger.error("{}提问出错{}", ask.getUserName(), e);
 		}catch (Exception e) {
-			ajaxResponse.setErrorMsg("服务器出错，提问失败");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("服务器出错，提问失败");
+			outResponse.setCode(Code.SERVERERROR);
 			logger.error("{}提问出错{}", ask.getUserName(), e);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
 	@RequestMapping(value="/{askId}", method= RequestMethod.GET)
@@ -117,21 +117,21 @@ public class AskController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("acceptAnswer")
-	public AjaxResponse<Object> acceptAnswer(HttpSession session, Ask ask){
-		AjaxResponse<Object> ajaxResponse = new AjaxResponse<Object>();
+	public OutResponse<Object> acceptAnswer(HttpSession session, Ask ask){
+		OutResponse<Object> outResponse = new OutResponse<Object>();
 		this.setUserBaseInfo(Ask.class, ask, session);
 		try {
 			this.askService.setBestAnswer(ask.getBestAnswerId(), ask.getAskId(), ask.getUserId());
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 			logger.error("采纳答案出错{}", e);
 		}catch (Exception e) {
-			ajaxResponse.setErrorMsg("服务器出错了");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setMsg("服务器出错了");
+			outResponse.setCode(Code.SERVERERROR);
 			logger.error("采纳答案出错{}", e);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 }

@@ -1,12 +1,12 @@
 package com.known.web.controller;
 
 import com.aliyun.oss.OSSClient;
-import com.known.common.enums.ResponseCode;
+import com.known.common.enums.Code;
 import com.known.common.model.Attachment;
 import com.known.common.model.UserRedis;
 import com.known.common.utils.AliyunOSSClientUtil;
 import com.known.common.utils.Constants;
-import com.known.common.vo.AjaxResponse;
+import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.AttachmentService;
 import org.slf4j.Logger;
@@ -24,6 +24,7 @@ import java.io.OutputStream;
 
 
 @Controller
+@RequestMapping("/attachment")
 public class AttachmentController extends BaseController{
 	private Logger logger  = LoggerFactory.getLogger(AttachmentController.class);
 	
@@ -31,34 +32,34 @@ public class AttachmentController extends BaseController{
 	private AttachmentService attachmentService;
 	
 	@ResponseBody
-	@RequestMapping("checkDownload")
-	public AjaxResponse<Boolean> checkDownload(HttpSession session, Integer topicId, Integer attachmentId){
-		AjaxResponse<Boolean> ajaxResponse = new AjaxResponse<Boolean>();
+	@RequestMapping("/checkDownload")
+	public OutResponse<Boolean> checkDownload(HttpSession session, Integer topicId, Integer attachmentId){
+		OutResponse<Boolean> outResponse = new OutResponse<Boolean>();
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
 		if(sessionUser==null){
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
-			ajaxResponse.setErrorMsg("请先登录");
-			return ajaxResponse;
+			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setMsg("请先登录");
+			return outResponse;
 		}
 		try {
 			this.attachmentService.checkDownload(attachmentId, topicId, sessionUser);
-			ajaxResponse.setData(Boolean.TRUE);
-			ajaxResponse.setResponseCode(ResponseCode.SUCCESS);
+			outResponse.setData(Boolean.TRUE);
+			outResponse.setCode(Code.SUCCESS);
 		} catch (BussinessException e) {
 			logger.error("{}获取下载权限异常", e);
-			ajaxResponse.setData(Boolean.FALSE);
-			ajaxResponse.setErrorMsg(e.getLocalizedMessage());
-			ajaxResponse.setResponseCode(ResponseCode.BUSSINESSERROR);
+			outResponse.setData(Boolean.FALSE);
+			outResponse.setMsg(e.getLocalizedMessage());
+			outResponse.setCode(Code.BUSSINESSERROR);
 		}catch (Exception e) {
 			logger.error("{}获取下载权限异常", e);
-			ajaxResponse.setData(Boolean.FALSE);
-			ajaxResponse.setErrorMsg("系统异常");
-			ajaxResponse.setResponseCode(ResponseCode.SERVERERROR);
+			outResponse.setData(Boolean.FALSE);
+			outResponse.setMsg("系统异常");
+			outResponse.setCode(Code.SERVERERROR);
 		}
-		return ajaxResponse;
+		return outResponse;
 	}
 	
-	@RequestMapping("downloadAction")
+	@RequestMapping("/downloadAction")
 	public ModelAndView downloadAttachment(HttpSession session, HttpServletRequest request,
                                            HttpServletResponse response, Integer attachmentId){
 		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
