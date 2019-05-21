@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.UserFriendMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.UserFriend" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="friend_user_id" property="friendUserId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="friend_user_icon" property="friendUserIcon" jdbcType="VARCHAR" />
+    <result column="friend_user_name" property="friendUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= userId">
+     		and user_id = #{userId,jdbcType=INTEGER}
+     	</if>
+     	<if test="null!= friendUserId">
+     		and friend_user_id = #{friendUserId,jdbcType=INTEGER}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    user_id, friend_user_id, user_icon, user_name, friend_user_icon, friend_user_name, 
+    create_time
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+ 		select <include refid="Base_Column_List"/> from known_user_friend <include refid="Base_Condition"/>
+ 		order by create_time desc 
+ 		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+  
+    <select id="selectCount" resultType="java.lang.Integer" >
+ 		select count(1) from known_user_friend <include refid="Base_Condition"/>
+  </select>
+  
+  <delete id="delete" >
+    delete from known_user_friend
+    where user_id = #{userId,jdbcType=INTEGER}
+      and friend_user_id = #{friendUserId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.known.common.model.UserFriend" >
+    insert into known_user_friend (user_id, friend_user_id, user_icon, 
+      user_name, friend_user_icon, friend_user_name, 
+      create_time)
+    values (#{userId,jdbcType=INTEGER}, #{friendUserId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{friendUserIcon,jdbcType=VARCHAR}, #{friendUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+</mapper>

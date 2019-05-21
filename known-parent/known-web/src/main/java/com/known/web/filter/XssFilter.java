@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class XssFilter implements Filter {
       
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }  
   
     public void doFilter(ServletRequest request, ServletResponse response,

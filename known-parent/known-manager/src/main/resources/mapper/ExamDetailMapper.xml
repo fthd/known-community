@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.ExamDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.ExamDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="exam_id" property="examId" jdbcType="INTEGER" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="is_right_answer" property="isRightAnswer" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, exam_id, answer
+  </sql>
+  
+  <insert id="insertBatch" parameterType="java.util.List">
+  	insert into known_exam_detail (exam_id, answer, is_right_answer) values
+  		<foreach collection="list" separator=","  item="item">
+  	(		
+  		#{item.examId}, #{item.answer}, #{item.isRightAnswer}
+  	)
+  	</foreach>
+  </insert>
+	
+	<select id="selectListWithRightAnswer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/>, is_right_answer  from known_exam_detail 
+		where exam_id = #{examId}
+	</select>
+	
+	<select id="selectList" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from known_exam_detail 
+		where exam_id = #{examId}
+	</select>
+	
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_exam_detail
+    where examId = #{examId}
+  </delete>
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.SignInMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.SignIn" >
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="sign_date" property="signDate" jdbcType="DATE" />
+    <result column="sign_time" property="signTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Condition" >
+       <where >
+     	<if test="null!= userid">
+     		and userid = #{userid}
+     	</if>
+     	<if test="null!= curDate and ''!= curDate">
+     		and sign_date = DATE_FORMAT(#{curDate}, '%Y-%m-%d')
+     	</if>
+     	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and sign_date >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+     		]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and sign_date <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+     		]]>
+     	</if>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List" >
+    userid, user_icon, user_name, sign_date, sign_time
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from known_sign_in <include refid="Base_Condition"/> order by sign_time desc
+  </select>
+
+ <select id="selectCount" resultType="java.lang.Integer" >
+    select count(1) from known_sign_in <include refid="Base_Condition"/>
+  </select>
+  
+  <insert id="insert" parameterType="com.known.common.model.SignIn" >
+    insert into known_sign_in (userid, user_icon, user_name, 
+      sign_date, sign_time)
+    values (#{userid,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=DATE}, #{signTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+
+  <update id="update" parameterType="com.known.common.model.SignIn"  >
+    update known_sign_in
+    <set >
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="signTime != null" >
+        sign_time = #{signTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER} and sign_date = DATE_FORMAT(#{curDate}, '%Y-%m-%d')
+  </update>
+</mapper>

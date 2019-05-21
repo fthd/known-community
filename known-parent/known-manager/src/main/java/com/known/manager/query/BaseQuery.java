@@ -2,7 +2,7 @@ package com.known.manager.query;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.utils.Page;
+import com.known.common.vo.Page;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

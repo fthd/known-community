@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.ShuoShuoMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="image_url_small" property="imageUrlSmall" jdbcType="VARCHAR" />
+    <result column="music_url" property="musicUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+   <collection column="id" property="commentList" ofType="com.known.common.model.ShuoShuoComment" select="com.known.manager.mapper.ShuoShuoCommentMapper.selectListByShuoShuoId"></collection>
+   <collection column="id" property="shuoShuoLikeList" ofType="com.known.common.model.ShuoShuoLike" select="com.known.manager.mapper.ShuoShuoLikeMapper.selectListByShuoShuoId"></collection>
+  </resultMap>
+
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= id">
+     		and id = #{id}
+     	</if>
+     	<if test="null!= userId">
+     		and user_id = #{userId}
+     	</if>
+     	 <if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, user_id, user_icon, user_name, image_url, image_url_small, music_url, content, create_time, 
+    comment_count, like_count
+  </sql>
+    
+  <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_shuoshuo <include refid="Base_Condition"/>
+  		order by create_time desc 
+  		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_shuoshuo <include refid="Base_Condition"/>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_shuoshuo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.known.common.model.ShuoShuo" >
+  	<selectKey keyProperty="id" resultType="int" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_shuoshuo (user_id, user_icon, 
+      user_name, image_url, image_url_small, 
+      music_url, create_time, comment_count, 
+      like_count, content)
+    values (#{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{imageUrlSmall,jdbcType=VARCHAR}, 
+      #{musicUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
+      #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+
+
+  <update id="update" parameterType="com.known.common.model.ShuoShuo" >
+    update known_shuoshuo
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlSmall != null" >
+        image_url_small = #{imageUrlSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="musicUrl != null" >
+        music_url = #{musicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null" >
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    
+  <update id="updateShuoShuoCommentCount">
+  	update known_shuoshuo set comment_count = (comment_count + 1) where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <update id="updateShuoShuoLikeCount">
+  	update known_shuoshuo set like_count = (like_count + 1) where id = #{id,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectActiveUser4ShuoShuo" resultMap="BaseResultMap">
+		select user_id,count(1) c,max(user_name) user_name,max(user_icon) user_icon
+		from known_shuoshuo b group by user_id order by c desc limit #{page.start},#{page.end}
+	</select>  
+</mapper>

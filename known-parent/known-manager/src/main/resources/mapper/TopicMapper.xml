@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.TopicMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Topic" >
+    <id column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="topic_type" property="topicType" jdbcType="INTEGER" typeHandler="com.known.manager.handler.TopicTypeHandler" />
+    <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="topic_image" property="topicImage" jdbcType="VARCHAR" />
+    <result column="topic_image_thum" property="topicImageThum" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_comment_time" property="lastCommentTime" jdbcType="TIMESTAMP" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="collection_count" property="collectionCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="essence" property="essence" jdbcType="INTEGER" />
+    <result column="topicCount" property="topicCount" jdbcType="INTEGER" />
+  </resultMap>
+
+
+<sql id="Base_Condition" >
+    <where >
+    	<if test="topicId!=null and topicId!=''">
+    		and topic_id = #{topicId}
+    	</if>
+    	<if test="userId!=null and userId!=''">
+    		and user_id = #{userId}
+    	</if>
+    	<if test="categoryId!=null and categoryId!=''">
+    		and category_id = #{categoryId}
+    	</if>
+    	<if test="pCategoryId!=null and pCategoryId!=''">
+    		and p_category_id = #{pCategoryId}
+    	</if>
+    	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>  
+ 
+  <sql id="Base_Column_List" >
+    topic_id, topic_type, p_category_id, category_id, title, summary, topic_image, topic_image_thum, user_id, user_icon, user_name, 
+    create_time, last_comment_time, read_count, comment_count, collection_count, like_count, grade, essence
+  </sql>
+ 
+   <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/>
+  		<if test="showContent">
+  		 ,content
+  		 </if>
+  		  from known_topic <include refid="Base_Condition"/>
+  		<if test="null!= orderBy">
+     		order by ${orderBy.orderBy}
+     	</if>
+  		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+
+ <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_topic <include refid="Base_Condition"/>
+  </select>
+  
+  <delete id="delete">
+  		delete from known_topic where 
+	topic_id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+  </delete>
+  
+  <insert id="insert" parameterType="com.known.common.model.Topic" >
+  	<selectKey keyProperty="topicId" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_topic (topic_type, p_category_id, 
+      category_id, title, user_id, 
+      user_icon, user_name, create_time, 
+      last_comment_time, read_count, grade, 
+      essence, content, summary, 
+      topic_image, topic_image_thum)
+    values (#{topicType.type,jdbcType=INTEGER}, #{pCategoryId,jdbcType=INTEGER}, 
+      #{categoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastCommentTime,jdbcType=TIMESTAMP}, #{readCount,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+      #{essence,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR}, 
+      #{topicImage,jdbcType=LONGVARCHAR}, #{topicImageThum,jdbcType=LONGVARCHAR})
+  </insert>
+ 
+
+  <update id="update" parameterType="com.known.common.model.Topic" >
+    update known_topic
+    <set >
+      <if test="topicType != null" >
+        topic_type = #{topicType.type,jdbcType=INTEGER},
+      </if>
+      <if test="pCategoryId != null" >
+        p_category_id = #{pCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentTime != null" >
+        last_comment_time = #{lastCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readCount != null" >
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="essence != null" >
+        essence = #{essence,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="topicImage != null" >
+        topic_image = #{topicImage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="topicImageThum != null" >
+        topic_image_thum = #{topicImageThum,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </update>
+  
+	<update id="updateInfoCount" >
+	    update known_topic
+	    <set>
+	    		<if test="addReadCount">
+	    				read_count = read_count + 1
+	    		</if>
+	    		<if test="addLikeCount">
+	    				like_count = like_count + 1
+	    		</if>
+	    		<if test="addCommentCount">
+	    				comment_count = comment_count + 1
+	    		</if>
+	    		<if test="addCollectionCount">
+	    				collection_count = collection_count + 1
+	    		</if>
+	    </set>
+	    where topic_id = #{articleId}
+	</update>
+	
+	<select id="selectActiveUser4Topic" resultMap="BaseResultMap">
+		select count(1) topicCount, user_id, max(user_name) user_name,max(user_icon) user_icon
+		from known_topic  group by user_id order by topicCount desc limit 0,20
+	</select>
+	
+	
+</mapper>

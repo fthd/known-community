@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.AskMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Ask" >
+    <id column="ask_id" property="askId" jdbcType="INTEGER" />
+    <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="ask_image" property="askImage" jdbcType="VARCHAR" />
+    <result column="ask_image_thum" property="askImageThum" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="collection_count" property="collectionCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+    <result column="solveCount" property="solveCount" jdbcType="INTEGER" />
+    <result column="best_answer_id" property="bestAnswerId" jdbcType="INTEGER" />
+    <result column="best_answer_user_id" property="bestAnswerUserId" jdbcType="INTEGER" />
+    <result column="best_answer_user_name" property="bestAnswerUserName" jdbcType="VARCHAR" />
+    <result column="best_answer_user_icon" property="bestAnswerUserIcon" jdbcType="VARCHAR" />
+    <result column="solve_type" property="solveType" jdbcType="INTEGER"  typeHandler="com.known.manager.handler.SolveTypeHandler"/>
+  </resultMap>
+
+<sql id="Base_Condition" >
+    <where >
+    	<if test="askId!=null and askId!=''">
+    		and ask_id = #{askId}
+    	</if>
+    	<if test="userId!=null and userId!=''">
+    		and user_id = #{userId}
+    	</if>
+    	<if test="solveType!=null">
+    		and solve_type = #{solveType.type}
+    	</if>
+    	<if test="categoryId!=null and categoryId!=''">
+    		and category_id = #{categoryId}
+    	</if>
+    	<if test="pCategoryId!=null and pCategoryId!=''">
+    		and p_category_id = #{pCategoryId}
+    	</if>
+    	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>  
+  
+  <sql id="Base_Column_List" >
+    ask_id, p_category_id, category_id, title,  summary, ask_image, ask_image_thum, user_id, user_icon, user_name, create_time, 
+    comment_count, read_count, collection_count, like_count, mark, best_answer_id, best_answer_user_id, 
+    best_answer_user_name, best_answer_user_icon, solve_type
+  </sql>
+
+   <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/>
+  		<if test="showContent">
+  		 ,content
+  		 </if>
+  		  from known_ask <include refid="Base_Condition"/>
+  		<if test="null!= orderBy">
+     		order by ${orderBy.orderBy}
+     	</if>
+  		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+
+ <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_ask <include refid="Base_Condition"/>
+  </select>
+  
+  <delete id="delete">
+    delete from known_ask
+     where ask_id=#{askId}
+  </delete>
+  
+  <insert id="insert" parameterType="com.known.common.model.Ask" >
+  	<selectKey keyProperty="askId" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_ask (p_category_id, category_id, 
+      title, user_id, user_icon, 
+      user_name, create_time, comment_count, 
+      read_count, collection_count, like_count, 
+      mark, best_answer_id, best_answer_user_id, 
+      best_answer_user_name, best_answer_user_icon, solve_type, content, 
+      summary, ask_image, ask_image_thum
+      )
+    values (#{pCategoryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
+      #{readCount,jdbcType=INTEGER}, #{collectionCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
+      #{mark,jdbcType=INTEGER}, #{bestAnswerId,jdbcType=INTEGER}, #{bestAnswerUserId,jdbcType=INTEGER}, 
+      #{bestAnswerUserName,jdbcType=VARCHAR}, #{bestAnswerUserIcon,jdbcType=VARCHAR}, #{solveType.type,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, 
+      #{summary,jdbcType=LONGVARCHAR}, #{askImage,jdbcType=LONGVARCHAR}, #{askImageThum,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  
+  <update id="updateInfoCount" >
+	    update known_ask
+	    <set>
+	    		<if test="addReadCount">
+	    				read_count = read_count + 1
+	    		</if>
+	    		<if test="addLikeCount">
+	    				like_count = like_count + 1
+	    		</if>
+	    		<if test="addCommentCount">
+	    				comment_count = comment_count + 1
+	    		</if>
+	    		<if test="addCollectionCount">
+	    				collection_count = collection_count + 1
+	    		</if>
+	    </set>
+	    where ask_id = #{articleId}
+	</update>
+	
+	<select id="selectTopUser" resultMap="BaseResultMap">
+		SELECT 
+  best_answer_user_id user_id,
+  COUNT(1) solveCount,
+  MAX(best_answer_user_name) user_name
+FROM
+  known_ask b
+WHERE solve_type = 1 
+GROUP BY best_answer_user_id 
+ORDER BY solveCount DESC 
+LIMIT 0, #{topCount}
+	</select>
+	
+	<update id="updateBestAnswer">
+		update known_ask set best_answer_id = #{bestAnswerId}, best_answer_user_id = #{bestAnswerUserId},
+		best_answer_user_name = #{bestAnswerUserName}, best_answer_user_icon = #{bestAnswerUserIcon}, solve_type = #{solveType.type} 
+		where ask_id = #{askId} and user_id = #{userId}
+	</update>
+  
+</mapper>

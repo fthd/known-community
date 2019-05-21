@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <collection column="id" property="children" ofType="com.known.common.model.Comment" select="com.known.manager.mapper.CommentMapper.selectChildren"></collection>
+  </resultMap>
+  
+    <sql id="Base_Condition" >
+    <where >
+  	  <if test="null!= commentId">
+     		and id = #{commentId}
+     	</if>
+     	<if test="null!= pid">
+     		and pid = #{pid}
+     	</if>
+     	<if test="null!= articleId">
+     		and article_id = #{articleId}
+     	</if>
+     	<if test="null!= articleType">
+     		and article_type = #{articleType.type}
+     	</if>
+    	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, pid, article_id, user_id, create_time, content, user_name, 
+    user_icon
+  </sql>
+  
+  <select id="selectChildren" resultType="com.known.common.model.Comment">
+  	select id, pid, article_id articleId, user_id userId, create_time createTime, content, user_name userName, 
+    user_icon userIcon from known_comment where pid = #{id}
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from known_comment <include refid="Base_Condition"/>
+  		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_comment <include refid="Base_Condition"/>
+  </select>
+ 
+  <insert id="insert" parameterType="com.known.common.model.Comment" >
+  <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_comment (pid, article_id, 
+      user_id, create_time, source_from, 
+      article_type, user_name, user_icon, 
+      content)
+    values (#{pid,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{sourceFrom,jdbcType=CHAR}, 
+      #{articleType.type,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  
+  
+</mapper>

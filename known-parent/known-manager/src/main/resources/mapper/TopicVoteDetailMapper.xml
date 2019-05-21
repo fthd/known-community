@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.TopicVoteDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.TopicVoteDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vote_id" property="voteId" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  
+     <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= voteId">
+     		and vote_id = #{voteId}
+     	</if>
+     	<if test="null!= id">
+     		and id = #{voteDetailId}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, vote_id, title, count
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_topic_vote_detail 
+  		where vote_id = #{voteId}
+  </select>
+  
+    <insert id="insertBatch" parameterType="java.util.List">
+  	insert into known_topic_vote_detail (vote_id, title) values
+  		<foreach collection="voteDetailList" separator=","  item="item">
+  	(		
+  		#{item.voteId,  jdbcType=INTEGER}, #{item.title,  jdbcType=VARCHAR}
+  	)
+  	</foreach>
+  </insert>
+
+	<update id="updateVoteCountBatch">
+		update known_topic_vote_detail set count = count + 1 where id in (
+					<foreach collection="list" separator=","  item="item">
+							#{item}
+					</foreach>
+		)
+	</update>
+
+</mapper>

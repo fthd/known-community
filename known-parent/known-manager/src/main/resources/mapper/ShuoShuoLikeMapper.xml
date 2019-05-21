@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.ShuoShuoLikeMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuoLike" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shuoshuo_id" property="shuoshuoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= shuoShuoId">
+     		and shuoshuo_id = #{shuoShuoId}
+     	</if>
+     	<if test="null!= userId">
+     		and user_id = #{userId}
+     	</if>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List" >
+    id, shuoshuo_id, user_id, user_icon, user_name, create_time
+  </sql>
+  
+   <select id="selectListByShuoShuoId" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_shuoshuo_like where shuoshuo_id = #{shuoShuoId}
+  		order by create_time desc  <!--  直接全部取出来，后续可以改成先取五条limit 0,5-->
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_shuoshuo_like <include refid="Base_Condition"/>
+  		order by create_time desc
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_shuoshuo_like where shuoshuo_id = #{shuoShuoId}
+  </select>
+  
+  <insert id="insert" parameterType="com.known.common.model.ShuoShuoLike" >
+    insert into known_shuoshuo_like (shuoshuo_id, user_id, 
+      user_icon, user_name, create_time
+      )
+    values (#{shuoshuoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+ 
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.LoginLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= id">
+     		and id = #{id,jdbcType=INTEGER}
+     	</if>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List" >
+    id, account, login_ip, login_time, address, lat, lng
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from login_log
+    <include refid="Base_Condition"></include>
+    order by login_time desc
+  </select>
+  
+  
+  <select id="selectListGroupByIp"  resultMap="BaseResultMap">
+      select 
+    <include refid="Base_Column_List" />
+    from login_log
+    <include refid="Base_Condition"></include>
+  	GROUP BY login_ip
+  </select>
+  
+  <insert id="insert" parameterType="com.known.common.model.LoginLog" >
+    insert into login_log (account, login_ip, 
+      login_time, address, lat, 
+      lng)
+    values (#{account,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

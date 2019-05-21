@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.StatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Statistics" >
+    <result column="statistics_date" property="statisticsDate" jdbcType="DATE" />
+    <result column="signin_count" property="signinCount" jdbcType="INTEGER" />
+    <result column="shuoshuo_count" property="shuoshuoCount" jdbcType="INTEGER" />
+    <result column="shuoshuo_comment_count" property="shuoshuoCommentCount" jdbcType="INTEGER" />
+    <result column="topic_count" property="topicCount" jdbcType="INTEGER" />
+    <result column="topic_comment_count" property="topicCommentCount" jdbcType="INTEGER" />
+    <result column="knowledge_count" property="knowledgeCount" jdbcType="INTEGER" />
+    <result column="knowledge_comment_count" property="knowledgeCommentCount" jdbcType="INTEGER" />
+    <result column="ask_count" property="askCount" jdbcType="INTEGER" />
+    <result column="ask_comment_count" property="askCommentCount" jdbcType="INTEGER" />
+    <result column="blog_count" property="blogCount" jdbcType="INTEGER" />
+    <result column="blog_comment_count" property="blogCommentCount" jdbcType="INTEGER" />
+    <result column="exam_count" property="examCount" jdbcType="INTEGER" />
+    <result column="user_count" property="userCount" jdbcType="INTEGER" />
+    <result column="active_user_count" property="activeUserCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Condition" >
+    <where >
+     	   	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and statistics_date >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+     		]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and statistics_date <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+     		]]>
+     	</if>
+    </where>
+  </sql>  
+  
+  <sql id="Base_Column_List" >
+    statistics_date, signin_count, shuoshuo_count, shuoshuo_comment_count, topic_count, 
+    topic_comment_count, knowledge_count, knowledge_comment_count, ask_count, ask_comment_count, 
+    blog_count, blog_comment_count, exam_count, user_count, active_user_count
+  </sql>
+  
+  
+  <select id="selectList" resultMap="BaseResultMap" parameterType="com.known.common.model.Statistics" >
+    select
+    <include refid="Base_Column_List" />
+    from known_statistics 
+   <include refid="Base_Condition"/>
+  </select>
+
+  <insert id="insert" parameterType="com.known.common.model.Statistics" >
+    insert into known_statistics (statistics_date, signin_count, shuoshuo_count, 
+      shuoshuo_comment_count, topic_count, topic_comment_count, 
+      knowledge_count, knowledge_comment_count, 
+      ask_count, ask_comment_count, blog_count, 
+      blog_comment_count, exam_count, user_count, 
+      active_user_count)
+    values (#{statisticsDate,jdbcType=DATE}, #{signinCount,jdbcType=INTEGER}, #{shuoshuoCount,jdbcType=INTEGER}, 
+      #{shuoshuoCommentCount,jdbcType=INTEGER}, #{topicCount,jdbcType=INTEGER}, #{topicCommentCount,jdbcType=INTEGER}, 
+      #{knowledgeCount,jdbcType=INTEGER}, #{knowledgeCommentCount,jdbcType=INTEGER}, 
+      #{askCount,jdbcType=INTEGER}, #{askCommentCount,jdbcType=INTEGER}, #{blogCount,jdbcType=INTEGER}, 
+      #{blogCommentCount,jdbcType=INTEGER}, #{examCount,jdbcType=INTEGER}, #{userCount,jdbcType=INTEGER}, 
+      #{activeUserCount,jdbcType=INTEGER})
+      ON DUPLICATE KEY UPDATE signin_count=VALUES(signin_count), shuoshuo_count = VALUES(shuoshuo_count),
+      shuoshuo_comment_count=Values(shuoshuo_comment_count), topic_count=VALUES(topic_count),
+      topic_comment_count=VALUES(topic_comment_count), knowledge_count=VALUES(knowledge_count),
+      knowledge_comment_count=VALUES(knowledge_comment_count),ask_count=VALUES(ask_count),
+      ask_comment_count=VALUES(ask_comment_count),blog_count=VALUES(blog_count),
+      blog_comment_count=VALUES(blog_comment_count), exam_count=VALUES(exam_count),
+      user_count=VALUES(user_count), active_user_count=VALUES(active_user_count)
+  </insert>
+  
+  
+  <select id="selectCount" parameterType="com.known.common.model.Statistics" resultType="java.lang.Integer" >
+    select count(*) from known_statistics
+  </select>
+  
+ 
+</mapper>

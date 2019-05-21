@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.TopicVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.TopicVote" >
+    <id column="vote_id" property="voteId" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="vote_type" property="voteType" jdbcType="INTEGER" typeHandler="com.known.manager.handler.VoteTypeHandler"/>
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <collection column="vote_id" property="topicVoteDetailList" select="com.known.manager.mapper.TopicVoteDetailMapper.selectList"></collection>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    vote_id, topic_id, vote_type, end_date
+  </sql>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_topic_vote
+    where vote_id = #{voteId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.known.common.model.TopicVote" >
+  <selectKey keyProperty="voteId" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_topic_vote (topic_id, vote_type, 
+      end_date)
+    values (#{topicId,jdbcType=INTEGER}, #{voteType.type,jdbcType=INTEGER}, 
+      #{endDate,jdbcType=DATE})
+  </insert>
+  
+  <select id="selectVoteByTopicId" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_topic_vote where topic_id = #{topicId}
+  </select>
+  
+</mapper>

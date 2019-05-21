@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.SysUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.SysUserRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  
+     <sql id="Base_Condition">
+	  		<where>
+	  		<if test="id != null and id!='' ">
+	  			and id = #{id}
+	  		</if>
+	  		<if test="roleId != null and roleId!='' ">
+	  			and role_id = #{roleId}
+	  		</if>
+	  		<if test="userId != null and userId!='' ">
+	  			and user_id = #{userId}
+	  		</if>
+	  	</where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, user_id, role_id
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user_role
+   <include refid="Base_Condition"></include>
+  </select>
+  
+  <select id="selectRoleIdsByUserId" resultType="java.lang.Integer" >
+  	SELECT role_id FROM known_user u, sys_user_role sur WHERE u.userid=sur.user_id AND u.userid=#{userId}
+  </select>
+  
+  <delete id="delete" >
+	    delete from sys_user_role
+	  <include refid="Base_Condition"></include>
+  </delete>
+  
+
+  
+  <insert id="insert" parameterType="com.known.common.model.SysUserRole" >
+    insert into sys_user_role (user_id, role_id
+      )
+    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
+  </insert>
+  
+      <insert id="insertBatch">
+  	 	insert ignore into sys_user_role (user_id, role_id)
+  		 values
+  		 <foreach collection="roleIds" separator="," item="roleId">
+  		 	(
+  		 		#{userId},#{roleId}
+  		 	)
+  		 </foreach>
+       
+ 	 </insert>
+  
+</mapper>

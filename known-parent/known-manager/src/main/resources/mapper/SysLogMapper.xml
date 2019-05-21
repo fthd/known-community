@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.SysLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="op_content" property="opContent" jdbcType="VARCHAR" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= id">
+     		and id = #{id,jdbcType=INTEGER}
+     	</if>
+    </where>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, account, op_content, client_ip, address, create_time
+  </sql>
+ 
+  <select id="selectList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+   <include refid="Base_Condition"></include>
+   order by create_time desc
+  </select>
+  
+  
+  <insert id="insert" parameterType="com.known.common.model.SysLog" >
+    insert into sys_log (account, op_content, 
+      client_ip, address, create_time
+      )
+    values (#{account,jdbcType=VARCHAR}, #{opContent,jdbcType=VARCHAR}, 
+      #{clientIp,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+ 
+</mapper>

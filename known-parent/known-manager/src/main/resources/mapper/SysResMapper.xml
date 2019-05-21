@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.SysResMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.SysRes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="iconCls" property="iconcls" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= id">
+     		and id = #{id,jdbcType=INTEGER}
+     	</if>
+     	<if test="null!= pid">
+     		and pid = #{pid,jdbcType=INTEGER}
+     	</if>
+     	<if test="null!= type">
+     		and type = #{type,jdbcType=INTEGER}
+     	</if>
+     	<if test="null!= enabled">
+     		and enabled = #{enabled,jdbcType=INTEGER}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, pid, name, des, url, iconCls, seq, type, modifydate, enabled, level, `key` 
+  </sql>
+  
+ 
+  
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_res
+    <include refid="Base_Condition" />
+    order by seq asc
+  </select>
+  
+  <select id="selectMenuByRoleIds" resultMap="BaseResultMap">
+  	SELECT DISTINCT sres.* FROM sys_role sr LEFT JOIN sys_role_res srr  ON sr.id = srr.role_id 
+  	LEFT JOIN sys_res sres ON srr.res_id=sres.id 
+  	WHERE sr.id IN(
+  	<foreach collection="roleIds" item="roleId" separator=",">
+			#{roleId}
+		</foreach>)
+		order by sres.seq asc
+  </select>
+  
+  
+  <delete id="delete" >
+    delete from sys_res
+  	where id  in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>) 
+  	or pid in(<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+  </delete>
+  
+ <delete id="deletePermission">
+DELETE FROM sys_res
+  	WHERE id  IN (
+		SELECT a.id FROM (
+				SELECT id FROM sys_res  WHERE pid IN (
+				SELECT id FROM sys_res WHERE pid IN(
+						<foreach collection="ids" separator="," item="id"> #{id}</foreach>
+						)
+						) 
+				)a
+ 	
+ 	)
+ </delete>
+
+  
+  <insert id="insert" parameterType="com.known.common.model.SysRes" >
+    insert into sys_res (pid, name, 
+      des, url, iconCls, 
+      seq, type, modifydate, 
+      enabled, level,`key` 
+      )
+    values (#{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{des,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{enabled,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  
+  <select id="selectCount" parameterType="com.known.common.model.SysRes" resultType="java.lang.Integer" >
+    select count(*) from sys_res
+  </select>
+
+
+  <update id="update" parameterType="com.known.common.model.SysRes" >
+    update sys_res
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null" >
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null" >
+        iconCls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="modifydate != null" >
+        modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="key != null" >
+        `key`  = #{key,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

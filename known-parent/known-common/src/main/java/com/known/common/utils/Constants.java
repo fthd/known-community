@@ -46,7 +46,9 @@ public class Constants {
 	public static final String CACHE_KEY_ASK_CATEGORY = "askCategoryCache";
 	
 	public static final String CACHE_KEY_CATEGORY = "CategoryCache";
-	
+	/**
+	 * 错误页面
+	 */
 	public static final String ERROR_404 = "/page/error/404.html";
 	
 	public static final String LOGINABSOLUTEPATH = "/login";

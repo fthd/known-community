@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -31,9 +32,30 @@ import java.net.URLDecoder;
  */
 @WebFilter(urlPatterns = "/*", filterName = "authorityFilter")
 public class AuthorityFilter implements Filter {
+
 	private Logger logger = LoggerFactory.getLogger(AuthorityFilter.class);
+
+	/**
+	 * 项目路径统一设置
+	 */
 	private static String realPath = null;
+
+	/**
+	 * 附件类型
+	 */
 	private static final String[] ATTACHMENTTYPE = {"zip", "rar"};
+
+	@Value("${ERROR_404}")
+	private String ERROR_404;
+
+	@Value("${SESSION_USER_KEY}")
+	private String SESSION_USER_KEY;
+
+	@Value("${COOKIE_USER_INFO}")
+	private String COOKIE_USER_INFO;
+
+	@Value("${REALPATH}")
+	private String REALPATH;
 
 	@Autowired
 	private UserService userService;
@@ -45,28 +67,34 @@ public class AuthorityFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
+
 		ServletContext servletContext = req.getSession().getServletContext();
+
 		String req_uri = req.getRequestURI();
+
 		String type = req_uri.substring(req_uri.lastIndexOf(".") + 1);
+
+		//  如果请求路径以rar, zip结尾, 直接返回404页面
 		if(ArrayUtils.contains(ATTACHMENTTYPE, type)){
-			resp.sendRedirect(Constants.ERROR_404);
+			resp.sendRedirect(ERROR_404);
 			return ;
 		}
 		if(realPath == null){
 			realPath = getRealPath(req);
 		}
-		if(servletContext.getAttribute(Constants.REALPATH) == null){
-			servletContext.setAttribute(Constants.REALPATH,realPath);
+		if(servletContext.getAttribute(REALPATH) == null){
+			servletContext.setAttribute(REALPATH,realPath);
 		}
 		HttpSession session = req.getSession();
-		Object sessionUserObj = session
-				.getAttribute(Constants.SESSION_USER_KEY);
+
+		Object sessionUserObj = session.getAttribute(SESSION_USER_KEY);
 		// 自动登录
 		if (null == sessionUserObj) {
 			autoLogin(req, resp);
-			sessionUserObj = session.getAttribute(Constants.SESSION_USER_KEY);
+			sessionUserObj = session.getAttribute(SESSION_USER_KEY);
 		}
 		chain.doFilter(request, response);
 	}
@@ -74,13 +102,12 @@ public class AuthorityFilter implements Filter {
 	private String getRealPath(HttpServletRequest request){
 		String port = request.getServerPort() == 80 ? "": ":" + request.getServerPort();
 		String realpath = "http://" + request.getServerName() + port;
-		System.out.println("=============================="+realpath);
 		return realpath;
 	}
 	
 	private void autoLogin(HttpServletRequest req, HttpServletResponse response) {
 		try {
-			Cookie cookieInfo = getCookieByName(req, Constants.COOKIE_USER_INFO);	
+			Cookie cookieInfo = getCookieByName(req, COOKIE_USER_INFO);
 			if (cookieInfo != null) {
 				String info = URLDecoder.decode(cookieInfo.getValue(), "utf-8");
 				if (info != null && !"".equals(info)) {
@@ -92,14 +119,14 @@ public class AuthorityFilter implements Filter {
 						loginUser.setUserid(user.getUserid());
 						loginUser.setUserName(user.getUserName());
 						loginUser.setUserIcon(user.getUserIcon());
-						req.getSession().setAttribute(
-								Constants.SESSION_USER_KEY, loginUser);
+						req.getSession().setAttribute(SESSION_USER_KEY, loginUser);
 					}
 				}
 			}
 		} catch (Exception e) {
 			// 清楚cookie信息
-			Cookie cookie = new Cookie(Constants.COOKIE_USER_INFO, null);
+			Cookie cookie = new Cookie(
+					COOKIE_USER_INFO, null);
 			cookie.setMaxAge(0);
 			cookie.setPath("/");
 			response.addCookie(cookie);

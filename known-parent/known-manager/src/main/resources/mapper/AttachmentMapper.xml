@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Attachment" >
+    <id column="attachment_id" property="attachmentId" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="download_mark" property="downloadMark" jdbcType="INTEGER" />
+    <result column="download_count" property="downloadCount" jdbcType="INTEGER" />
+    <result column="topic_type"  property="fileTopicType" jdbcType="VARCHAR" typeHandler="com.known.manager.handler.FileTopicTypeHandler"/>
+  </resultMap>
+  
+   <sql id="Base_Condition" >
+    <where >
+    		<if test="null!= topicId">
+     		and topic_id = #{topicId}
+     	</if>
+     	<if test="null!= attachmentId">
+     		and attachment_id = #{attachmentId}
+     	</if>
+     	<if test="null!= fileTopicType">
+     		and topic_type = #{fileTopicType.type}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    attachment_id, topic_id, file_name, topic_type, file_url, download_mark, download_count
+  </sql>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_attachment
+    where attachment_id = #{attachmentId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.known.common.model.Attachment" >
+    insert into known_attachment (topic_id, file_name, 
+      file_url, download_mark, download_count, 
+      topic_type)
+    values (#{topicId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileUrl,jdbcType=VARCHAR}, #{downloadMark,jdbcType=INTEGER}, #{downloadCount,jdbcType=INTEGER}, 
+      #{fileTopicType.type,jdbcType=CHAR})
+  </insert>
+  
+   <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_attachment <include refid="Base_Condition"/>
+  </select>
+  
+  <update id="updateDownloadCount">
+  				update known_attachment set download_count = download_count +1
+  				where attachment_id = #{attachmentId}
+  </update>
+ 
+</mapper>

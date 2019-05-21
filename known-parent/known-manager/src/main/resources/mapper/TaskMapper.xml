@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="task_classz" property="taskClassz" jdbcType="VARCHAR" />
+    <result column="task_method" property="taskMethod" jdbcType="VARCHAR" />
+    <result column="task_time" property="taskTime" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= id">
+     		and id = #{id,jdbcType=INTEGER}
+     	</if>
+     	<if test="null!= taskClassz">
+     		and task_classz = #{taskClassz,jdbcType=VARCHAR}
+     	</if>
+     	<if test="null!= taskMethod">
+     		and task_method = #{taskMethod,jdbcType=VARCHAR}
+     	</if>
+    </where>
+  </sql>
+  
+  
+  <sql id="Base_Column_List" >
+    id, task_classz, task_method, task_time, last_update_time, status, des
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from known_task
+   <include refid="Base_Condition" />
+  </select>
+  
+    <select id="selectCount" resultType="java.lang.Integer"  >
+    select count(1) from known_task <include refid="Base_Condition" />
+  </select>
+  
+  <delete id="delete" >
+    delete from known_task where
+    id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>) 
+  </delete>
+
+  <insert id="insert" parameterType="com.known.common.model.Task" >
+    <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
+    insert into known_task (task_classz, task_method, 
+      task_time, last_update_time, status, 
+      des)
+    values (#{taskClassz,jdbcType=VARCHAR}, #{taskMethod,jdbcType=VARCHAR}, 
+      #{taskTime,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{des,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <update id="update" parameterType="com.known.common.model.Task" >
+    update known_task
+    <set >
+      <if test="taskClassz != null" >
+        task_classz = #{taskClassz,jdbcType=VARCHAR},
+      </if>
+      <if test="taskMethod != null" >
+        task_method = #{taskMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTime != null" >
+        task_time = #{taskTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="des != null" >
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

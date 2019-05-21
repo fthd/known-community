@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Message" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="received_user_id" property="receivedUserId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" typeHandler="com.known.manager.handler.MessageStatusHandler" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Condition" >
+    <where >
+    	<if test="id!=null and id!=''">
+    		and id = #{id}
+    	</if>
+    	<if test="status!=null">
+    		and status = #{status.type}
+    	</if>
+    	<if test="receivedUserId!=null and receivedUserId!=''">
+    		and received_user_id = #{receivedUserId}
+    	</if>
+    	<if test="null != ids">
+    		and id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+    	</if>
+    	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>  
+  
+  <sql id="Base_Column_List" >
+    id, received_user_id, create_time, status, description, url
+  </sql>
+  
+   <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_message <include refid="Base_Condition"/>
+  </select>
+  
+     <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/>
+  		  from known_message <include refid="Base_Condition"/>
+  		<if test="null!= orderBy">
+     		order by ${orderBy.orderBy}
+     	</if>
+  		<if test="null!= page">
+     		limit #{page.start},#{page.end}
+     	</if>
+  </select>
+  
+  <delete id="delete" >
+    delete from known_message
+     where received_user_id = #{userId}
+     and  id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>) 
+  </delete>
+  
+  
+   	<insert id="insertBatch" parameterType="java.util.List">
+  	insert into known_message (received_user_id, create_time, description, url)values
+  		<foreach collection="list" separator=","  item="item">
+  	(		
+  		#{item.receivedUserId}, #{item.createTime}, #{item.description}, #{item.url}
+  	)
+  	</foreach>
+  </insert>
+  
+  <insert id="insert" parameterType="com.known.common.model.Message" >
+    insert into known_message (received_user_id, create_time, description, url
+      )
+    values (#{receivedUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+     #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+    <update id="update">
+    update known_message
+    <set >
+     status = 1
+    </set>
+       where  received_user_id = #{userId} 
+      and  id in (<foreach collection="ids" separator="," item="item"> #{item}</foreach>) 
+    
+  </update>
+  
+</mapper>

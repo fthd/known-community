@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.ShuoShuoCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuoComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shuoshuo_id" property="shuoshuoId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <sql id="Base_Condition" >
+    <where >
+    	<if test="null!= shuoshuoId">
+     		and shuoshuo_id = #{shuoshuoId}
+     	</if>
+     	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, shuoshuo_id, content, create_time, user_id, user_icon, user_name
+  </sql>
+  
+   <select id="selectListByShuoShuoId" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_shuoshuo_comment where shuoshuo_id = #{shuoshuoId}
+  		order by create_time desc  <!--  直接全部取出来，后续可以改成先取五条limit 0,5-->
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"/> from known_shuoshuo_comment <include refid="Base_Condition"/>
+  		order by create_time desc
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  		select count(1) from known_shuoshuo_comment <include refid="Base_Condition"/>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from known_shuoshuo_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.known.common.model.ShuoShuoComment" >
+    insert into known_shuoshuo_comment (shuoshuo_id, content, 
+      create_time, user_id, user_icon, 
+      user_name)
+    values (#{shuoshuoId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>

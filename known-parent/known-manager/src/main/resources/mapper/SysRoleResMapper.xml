@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.SysRoleResMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.SysRoleRes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="res_id" property="resId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+ <sql id="Base_Condition">
+  	<where>
+  		<if test="id != null and id!='' ">
+  			and id = #{id}
+  		</if>
+  		<if test="roleId != null and roleId!='' ">
+  			and role_id = #{roleId}
+  		</if>
+  		<if test="resId != null and resId!='' ">
+  			and res_id = #{resId}
+  		</if>
+  	</where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, res_id, role_id
+  </sql>
+  
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from sys_role_res
+   <include refid="Base_Condition"></include>
+  </delete>
+
+  
+  <insert id="insert" parameterType="com.known.common.model.SysRoleRes" >
+    insert into sys_role_res (res_id, role_id
+      )
+    values (#{resId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
+  </insert>
+  
+    <insert id="insertBatch">
+  	 insert into sys_role_res (role_id, res_id)
+  		 values
+  		 <foreach collection="resIds" separator="," item="resId">
+  		 	(
+  		 		#{roleId},#{resId}
+  		 	)
+  		 </foreach>
+       
+ 	 </insert>
+</mapper>

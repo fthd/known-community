@@ -14,10 +14,6 @@
     <name>known-manager</name>
 
     <dependencies>
-        <dependency> <!--添加Web依赖 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency> <!--添加Mybatis依赖 -->
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>

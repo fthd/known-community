@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.known.manager.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.known.common.model.Collection" >
+    <id column="article_id" property="articleId" jdbcType="INTEGER" />
+    <id column="article_type" property="articleType" jdbcType="CHAR" typeHandler="com.known.manager.handler.ArticleTypeHandler" />
+    <id column="article_user_id" property="articleUserId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+<sql id="Base_Condition" >
+    <where >
+    	<if test="null!= articleId and articleId != ''">
+     		and article_id = #{articleId}
+     	</if>
+     	<if test="null!= userId and userId != ''">
+     		and user_id = #{userId}
+     	</if>
+     	<if test="null!= articleType">
+     		and article_type = #{articleType.type}
+     	</if>
+     	<if test="null!= title and title != ''">
+     		and title like '%${title}%'
+     	</if>
+     	<if test="null!= startDate and ''!= startDate">
+     		<![CDATA[ 
+     				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
+     				]]>
+     	</if>
+     	 <if test="null!= endDate and ''!= endDate">
+     		<![CDATA[ 
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+     				]]>
+     	</if>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List" >
+    article_id, article_type, article_user_id, user_id, title, create_time
+  </sql>
+ 
+ <select id="selectList" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List"/> from known_collection
+ 	<include refid="Base_Condition"/>
+ 	<if test="null!= orderBy">
+     		order by ${orderBy.orderBy}
+     	</if>
+ 	<if test="page!=null">
+ 		limit #{page.start},#{page.end}
+ 	</if>
+ </select>
+ 
+ <select id="selectCount" resultType="java.lang.Integer">
+ 	select count(1) from known_collection <include refid="Base_Condition"/>
+ </select>
+ 
+  <delete id="delete">
+    delete from known_collection
+	where article_type = #{articleType.type} and article_id = #{articleId}
+  </delete>
+
+  <insert id="insert" parameterType="com.known.common.model.Collection" >
+    insert into known_collection (article_id, article_type, article_user_id, user_id, 
+      title, create_time)
+    values (#{articleId,jdbcType=INTEGER}, #{articleType.type,jdbcType=CHAR}, #{articleUserId,jdbcType=INTEGER}, 
+     #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+</mapper>
