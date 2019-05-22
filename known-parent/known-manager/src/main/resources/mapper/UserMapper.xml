@@ -12,13 +12,13 @@
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="characters" property="characters" jdbcType="VARCHAR" />
     <result column="mark" property="mark" jdbcType="INTEGER" />
-    <result column="user_page" property="userPage" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="work" property="work" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
     <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
+    <result column="user_page" property="userPage" jdbcType="INTEGER" />
   </resultMap>
   
     <resultMap id="UserVoResultMap" type="com.known.common.vo.UserVo" >
@@ -52,22 +52,22 @@
      	<if test="null!= userid">
      		and userid = #{userid}
      	</if>
-    	<if test="null!= startDate and ''!= startDate">
+    	<if test="null!= startDate">
      		<![CDATA[ 
      				and register_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and register_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
      	</if>
-     	<if test="null!= loginStartDate and ''!= loginStartDate">
+     	<if test="null!= loginStartDate">
      		<![CDATA[ 
      				and last_login_time >= STR_TO_DATE('${loginStartDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= loginEndDate and ''!= loginEndDate">
+     	 <if test="null!= loginEndDate">
      		<![CDATA[ 
      				and last_login_time <= STR_TO_DATE('${loginEndDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -105,13 +105,19 @@
   	</selectKey>
     insert into known_user (email, user_name, 
       password, user_icon, user_bg, birthday,
-      register_time, last_login_time)
+      register_time, last_login_time, activation_code)
     values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP},
-       #{lastLoginTime,jdbcType=TIMESTAMP})
+      #{lastLoginTime,jdbcType=TIMESTAMP},#{activationCode,jdbcType=VARCHAR})
   </insert>
- 
+
+    <update id="updateUserPage">
+        update known_user set user_page = 1
+        where user_name = #{userName,jdbcType=VARCHAR}
+        and activation_code=#{activationCode,jdbcType=VARCHAR}
+    </update>
+
   <update id="update" parameterType="com.known.common.model.User" >
     update known_user
     <set >

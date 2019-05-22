@@ -1,8 +1,9 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.SignInfo;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -33,8 +35,8 @@ public class SignInController extends BaseController {
 	@Autowired
 	private SignInService signInService;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 
 	/**
 	 * 加载签到信息
@@ -59,7 +61,7 @@ public class SignInController extends BaseController {
 	@RequestMapping("/signIn")
 	public OutResponse<Object> signIn(HttpSession session){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
 			this.signInService.doSignIn(sessionUser);
 			outResponse.setCode(Code.SUCCESS);

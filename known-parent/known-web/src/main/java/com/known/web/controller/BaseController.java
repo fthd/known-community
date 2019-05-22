@@ -1,8 +1,10 @@
 package com.known.web.controller;
 
-import com.known.common.model.UserRedis;
+import com.known.common.config.UserConfig;
+import com.known.common.model.SessionUser;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
@@ -16,11 +18,11 @@ import java.lang.reflect.Method;
  */
 public class BaseController {
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 	
 	public void setUserBaseInfo(Class<?> clazz, Object obj, HttpSession session){
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		Integer userId = sessionUser.getUserid();
 		String userName = sessionUser.getUserName();
 		String userIcon = sessionUser.getUserIcon();
@@ -39,9 +41,9 @@ public class BaseController {
 
 	
 	public Integer getUserid(HttpSession session){
-		Object sessionObject = session.getAttribute(SESSION_USER_KEY);
+		Object sessionObject = session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionObject != null){
-			return ((UserRedis)sessionObject).getUserid();
+			return ((SessionUser)sessionObject).getUserid();
 		}
 		return null;
 	}

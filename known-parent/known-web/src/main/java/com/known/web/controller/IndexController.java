@@ -49,6 +49,7 @@ public class IndexController extends  BaseController {
      */
     @RequestMapping("/")
     public ModelAndView index(HttpSession session) {
+
         Integer userid = this.getUserid(session);
         ModelAndView view = new ModelAndView("/page/index");
         if (userid != null) {
@@ -82,5 +83,38 @@ public class IndexController extends  BaseController {
         return view;
     }
 
+    /**
+     * 关于站长
+     * @author tangjunxiang
+     * @version 1.0
+     * @date 2019-05-22 21:26
+     */
+    @RequestMapping("/aboutWebmaster")
+    public ModelAndView aboutWebmaster(HttpSession session) {
+        Integer userid = this.getUserid(session);
+        ModelAndView view = new ModelAndView("/page/aboutWebmaster");
+        if (userid != null) {
+            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            view.addObject("signInfo", signInfo);
+        }
+        return view;
+    }
+
+    /**
+     * 常见问题
+     * @author tangjunxiang
+     * @version 1.0
+     * @date 2019-05-22 21:26
+     */
+    @RequestMapping("/faq")
+    public ModelAndView faq(HttpSession session) {
+        Integer userid = this.getUserid(session);
+        ModelAndView view = new ModelAndView("/page/FAQ");
+        if (userid != null) {
+            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            view.addObject("signInfo", signInfo);
+        }
+        return view;
+    }
 
 }

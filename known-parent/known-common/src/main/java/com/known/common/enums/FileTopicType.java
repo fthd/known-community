@@ -1,7 +1,7 @@
 package com.known.common.enums;
 
 
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 
 public enum FileTopicType {
 	TOPIC("T", "论坛附件"), KNOWLEDGE("K", "论坛附件"),  BLOG("B", "话题附件");
@@ -26,7 +26,7 @@ public enum FileTopicType {
 	}
 	
 	public static FileTopicType getFileTopicTypeByType(String type){
-		if(StringUtils.isEmpty(type)){
+		if(StringUtil.isEmpty(type)){
 			return null;
 		}
 		for(FileTopicType fileTopicType : FileTopicType.values()){

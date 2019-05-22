@@ -5,7 +5,7 @@ import com.known.common.enums.ArticleType;
 import com.known.common.enums.PageSize;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -42,7 +42,7 @@ public class CollectionServiceImpl implements CollectionService {
 	public void addCollection(Collection collection)
 			throws BussinessException {
 		if(collection.getArticleId() == null || collection.getArticleType() == null 
-				|| StringUtils.isEmpty(collection.getTitle()) ||
+				|| StringUtil.isEmpty(collection.getTitle()) ||
 				collection.getTitle().length() > TextLengthEnum.TEXT_300_LENGTH.getLength()){
 			throw new BussinessException("参数错误");
 		}

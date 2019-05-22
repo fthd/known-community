@@ -1,7 +1,9 @@
 package com.known.web.filter;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.model.User;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.service.UserService;
 import org.apache.commons.lang3.ArrayUtils;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
@@ -45,17 +48,11 @@ public class AuthorityFilter implements Filter {
 	 */
 	private static final String[] ATTACHMENTTYPE = {"zip", "rar"};
 
-	@Value("${ERROR_404}")
-	private String ERROR_404;
+	@Resource
+	private UrlConfig urlConfig;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
-
-	@Value("${COOKIE_USER_INFO}")
-	private String COOKIE_USER_INFO;
-
-	@Value("${REALPATH}")
-	private String REALPATH;
+	@Resource
+	private UserConfig userConfig;
 
 	@Autowired
 	private UserService userService;
@@ -79,22 +76,22 @@ public class AuthorityFilter implements Filter {
 
 		//  如果请求路径以rar, zip结尾, 直接返回404页面
 		if(ArrayUtils.contains(ATTACHMENTTYPE, type)){
-			resp.sendRedirect(ERROR_404);
+			resp.sendRedirect(urlConfig.getError_404());
 			return ;
 		}
 		if(realPath == null){
 			realPath = getRealPath(req);
 		}
-		if(servletContext.getAttribute(REALPATH) == null){
-			servletContext.setAttribute(REALPATH,realPath);
+		if(servletContext.getAttribute(urlConfig.getRealPath()) == null){
+			servletContext.setAttribute(urlConfig.getRealPath(),realPath);
 		}
 		HttpSession session = req.getSession();
 
-		Object sessionUserObj = session.getAttribute(SESSION_USER_KEY);
+		Object sessionUserObj = session.getAttribute(userConfig.getSession_User_Key());
 		// 自动登录
 		if (null == sessionUserObj) {
-			autoLogin(req, resp);
-			sessionUserObj = session.getAttribute(SESSION_USER_KEY);
+			 autoLogin(req, resp);
+			 session.getAttribute(userConfig.getSession_User_Key());
 		}
 		chain.doFilter(request, response);
 	}
@@ -107,7 +104,7 @@ public class AuthorityFilter implements Filter {
 	
 	private void autoLogin(HttpServletRequest req, HttpServletResponse response) {
 		try {
-			Cookie cookieInfo = getCookieByName(req, COOKIE_USER_INFO);
+			Cookie cookieInfo = getCookieByName(req, userConfig.getCookie_User_Info());
 			if (cookieInfo != null) {
 				String info = URLDecoder.decode(cookieInfo.getValue(), "utf-8");
 				if (info != null && !"".equals(info)) {
@@ -115,18 +112,17 @@ public class AuthorityFilter implements Filter {
 
 					User user = userService.login(infos[0], infos[1],false);
 					if (user != null) {
-						UserRedis loginUser = new UserRedis();
+						SessionUser loginUser = new SessionUser();
 						loginUser.setUserid(user.getUserid());
 						loginUser.setUserName(user.getUserName());
 						loginUser.setUserIcon(user.getUserIcon());
-						req.getSession().setAttribute(SESSION_USER_KEY, loginUser);
+						req.getSession().setAttribute(userConfig.getSession_User_Key(), loginUser);
 					}
 				}
 			}
 		} catch (Exception e) {
 			// 清楚cookie信息
-			Cookie cookie = new Cookie(
-					COOKIE_USER_INFO, null);
+			Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);
 			cookie.setMaxAge(0);
 			cookie.setPath("/");
 			response.addCookie(cookie);

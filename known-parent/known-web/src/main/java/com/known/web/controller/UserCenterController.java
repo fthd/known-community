@@ -1,5 +1,7 @@
 package com.known.web.controller;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.Code;
 import com.known.common.model.*;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -51,7 +54,13 @@ public class UserCenterController extends BaseController {
 	
 	@Autowired
 	private BlogService blogService;
-	
+
+	@Resource
+	private UserConfig userConfig;
+
+	@Resource
+	private UrlConfig urlConfig;
+
 	@RequestMapping(value="/{userId}")
 	public ModelAndView user(HttpSession session, @PathVariable Integer userId){
 		ModelAndView view = new ModelAndView("/page/user/home");
@@ -72,7 +81,7 @@ public class UserCenterController extends BaseController {
 			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：", e);
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 			return view;
 		}
 		return view;
@@ -116,7 +125,7 @@ public class UserCenterController extends BaseController {
 	@RequestMapping("/publicShuoShuoComment")
 	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -136,10 +145,10 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadUserFriend")
+	@RequestMapping("/loadUserFriend")
 	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -155,10 +164,10 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("doShuoShuoLike")
+	@RequestMapping("/doShuoShuoLike")
 	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -178,7 +187,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadTopic")
+	@RequestMapping("/loadTopic")
 	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
@@ -194,7 +203,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadAsk")
+	@RequestMapping("/loadAsk")
 	public OutResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
@@ -210,7 +219,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadKnowledge")
+	@RequestMapping("/loadKnowledge")
 	public OutResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
@@ -226,7 +235,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadFocus")
+	@RequestMapping("/loadFocus")
 	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery userFriendQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
@@ -241,7 +250,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("loadFans")
+	@RequestMapping("/loadFans")
 	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery userFriendQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
@@ -280,7 +289,7 @@ public class UserCenterController extends BaseController {
 			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
 		} catch (Exception e) {
 			logger.error("获取话题信息失败：", e);
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 			return view;
 		}
 		return view;
@@ -294,7 +303,7 @@ public class UserCenterController extends BaseController {
 			view.addObject("topic", blog);
 		} catch (Exception e) {
 			logger.error("获取话题信息失败：", e);
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 			return view;
 		}
 		return view;
@@ -321,14 +330,14 @@ public class UserCenterController extends BaseController {
 			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
 		} catch (Exception e) {
 			logger.error("获取说说信息失败：", e);
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 			return view;
 		}
 		return view;
 	}
 	
 	@ResponseBody
-	@RequestMapping("focus.action")
+	@RequestMapping("/focus.action")
 	public OutResponse<Object> focus(HttpSession session, UserFriend userFriend){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
@@ -348,7 +357,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("cancel_focus.action")
+	@RequestMapping("/cancel_focus.action")
 	public OutResponse<Object> cancel_focus(HttpSession session, UserFriend userFriend){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{

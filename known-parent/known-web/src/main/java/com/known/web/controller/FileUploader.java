@@ -3,11 +3,8 @@ package com.known.web.controller;
 import com.aliyun.oss.OSSClient;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.Code;
-import com.known.common.utils.AliyunOSSClientUtil;
 import com.known.common.utils.DateUtil;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -30,7 +27,7 @@ public class FileUploader {
 	public Map<String, Object> fileUpload(HttpSession session, MultipartHttpServletRequest multirequest,
                                           HttpServletResponse response){
 				//初始化OSSClient
-				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
+//				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
 				//String realPath = ServerUtils.getRealPath() + "/upload";
 				String realPath = "upload/";
 				Map<String, Object> map = new HashMap<>();
@@ -62,7 +59,7 @@ public class FileUploader {
 					String filePath = fileDir + "/" + fileName;
 					File file = new File(filePath);*/
 					try {
-						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
+//						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 					//	multipartFile.transferTo(file);
 						map.put("responseCode", Code.SUCCESS);
 					//	map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));

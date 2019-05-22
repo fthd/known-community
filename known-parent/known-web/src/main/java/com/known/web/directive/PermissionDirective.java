@@ -1,8 +1,8 @@
 package com.known.web.directive;
 
+import com.known.common.config.UserConfig;
+import com.known.common.model.SessionUser;
 import com.known.common.model.SysRes;
-import com.known.common.model.UserRedis;
-import com.known.common.utils.Constants;
 import com.known.service.SysResService;
 import com.known.service.SysRoleService;
 import freemarker.core.Environment;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +37,9 @@ public class PermissionDirective implements TemplateDirectiveModel {
 	
 	@Autowired
 	private SysRoleService sysRoleService;
+
+	@Resource
+	private UserConfig userConfig;
 	
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
@@ -44,8 +47,8 @@ public class PermissionDirective implements TemplateDirectiveModel {
 		if(params != null && params.containsKey("key")){
 			String key = params.get("key").toString();
 			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-			HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-			UserRedis sessionUser = (UserRedis) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+			SessionUser sessionUser = (SessionUser) request.getSession().getAttribute(userConfig.getSession_User_Key());
 			if(sessionUser!= null){
 				Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
 				List<SysRes> list = sysResService.findMenuByRoleIds(roleSet);

@@ -1,10 +1,11 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.ExamChooseType;
 import com.known.common.enums.Code;
 import com.known.common.model.Category;
 import com.known.common.model.Exam;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -22,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/exam")
-
 public class ExamController extends BaseController{
 
 	private Logger logger = LoggerFactory.getLogger(ExamController.class);
@@ -37,16 +38,13 @@ public class ExamController extends BaseController{
 	@Autowired
 	private ExamService examService;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
-
-	@Value("${Y}")
-	private String Y;
+	@Resource
+	private UserConfig userConfig;
 	
-	@RequestMapping("/")
+	@RequestMapping("/exam")
 	public ModelAndView exam(HttpSession session){
 		CategoryQuery categoryQuery = new CategoryQuery();
-		categoryQuery.setShowInExam(Y);
+		categoryQuery.setShowInExam(Constants.Y);
 		List<Category> categoryList = this.categoryService.findCategoryList(categoryQuery);
 		ModelAndView view = new ModelAndView("/page/exam/exam");
 		view.addObject("categoryList", categoryList);
@@ -72,7 +70,7 @@ public class ExamController extends BaseController{
 	@RequestMapping("/addExam")
 	public ModelAndView addExam(HttpSession session){
 		CategoryQuery categoryQuery = new CategoryQuery();
-		categoryQuery.setShowInExam(Y);
+		categoryQuery.setShowInExam(Constants.Y);
 		List<Category> categoryList = this.categoryService.findCategoryList(categoryQuery);
 		ModelAndView view = new ModelAndView("/page/exam/addExam");
 		view.addObject("categoryList", categoryList);
@@ -84,7 +82,7 @@ public class ExamController extends BaseController{
 	@RequestMapping("/postExam")
 	public OutResponse<Object> postExam(HttpSession session, Exam exam, String[] answer, Integer[] rightAnswer){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -118,7 +116,7 @@ public class ExamController extends BaseController{
 	@RequestMapping("/loadAllExam")
 	public OutResponse<List<Exam>> loadAllExam(HttpSession session, Integer categoryId){
 		OutResponse<List<Exam>> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -140,7 +138,7 @@ public class ExamController extends BaseController{
 	@RequestMapping("/doMark")
 	public OutResponse<List<Exam>> doMark(HttpSession session, String examIds, String rightAnswers){
 		OutResponse<List<Exam>> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

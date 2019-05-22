@@ -41,6 +41,7 @@ body {
 </head>
 <body style="background-color: #F4F6F8;" onkeydown="on_return();">
 <#include "include/header.html">
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
 	<div class="Upper">
 		<table style="width: 100%" border="0" cellspacing="0" cellpadding="0" align="center">
 			<tr>
@@ -109,12 +110,13 @@ body {
 		<form id="loginform">
 			<div class="form-group">
 				<input class="form-control" placeholder="请输入账号或者邮箱" name="account"
-					id="account"></input>
+					id="account" />
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control" placeholder="请输入密码"
-					name="password" id="password"></input>
+					name="password" id="password" />
 			</div>
+			<div id="popup-captcha" align="center"></div>
 			<div class="checkbox">
 				<label> <input type="checkbox" name="rememberMe" value="1" style="">
 				<span class="text-danger" ><strong>记住我的登录信息(网吧公共场所请勿使用)</strong></span>
@@ -136,12 +138,97 @@ body {
 		</div>-->
 	</div>
 	</div>
-<script language="javascript">
+
+<script language="JavaScript">
+    function checkForm(content, doc) {
+        var d = dialog({
+            content: content,
+            align: 'right',
+            quickClose: true // 点击空白处快速关闭
+        });
+        d.show(document.getElementById(doc));
+    }
+    // 登录验证
+    var handlerPopup = function (captchaObj) {
+		$('#login').click(function(event) {
+			var account = $('#account').val();
+			var password = $('#password').val();
+			if (account == null || $.trim(account) == '') {
+				checkForm('用户名不能为空', 'account');
+				$("#account").parent().addClass('has-error');
+			} else if (password == null || $.trim(password) == '') {
+				$("#account").parent().removeClass('has-error');
+				checkForm('密码不能为空', 'password');
+				$("#password").parent().addClass('has-error');
+			} else {
+				// 先校验是否点击了验证码
+				var validate = captchaObj.getValidate();
+				if (!validate) {
+                    checkForm('请先完成验证', 'popup-captcha');
+					return;
+				}
+                $("#password").parent().removeClass('has-error');
+				var loadingindex = layer.load(0, {
+					shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});
+				$.ajax({
+					url: known.realpath + '/user/login.do',
+					type: 'POST',
+					dataType: 'json',
+					data: $('#loginform').serialize(),
+					success: function(data) {
+						layer.close(loadingindex);
+						if (data.msg == null) {
+							var d = dialog({
+								content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;登录成功,跳转中...</div>",
+							});
+							d.showModal();
+							setTimeout(function() {
+								d.close().remove();
+								if (null == known.redirect || known.redirect == "") {
+									known.redirect = known.realpath;
+								}
+								document.location.href = known.redirect;
+							}, 1000);
+						} else {
+							var d = dialog({
+								width: 200,
+								content: data.msg,
+								quickClose: true // 点击空白处快速关闭
+							});
+							d.show();
+						}
+					}
+				});
+			}
+		});
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#popup-captcha");
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+    };
+    // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
+    $.ajax({
+        url: "${realpath}/geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handlerPopup);
+        }
+    });
 
     //回车时，默认是登录
     function on_return(){
         if(window.event.keyCode == 13){
-           $("#login").click();
+            $("#login").click();
         }
     }
 </script>

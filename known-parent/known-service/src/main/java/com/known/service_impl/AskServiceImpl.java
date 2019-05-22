@@ -5,8 +5,8 @@ import com.known.common.model.Ask;
 import com.known.common.model.Comment;
 import com.known.common.model.MessageParams;
 import com.known.common.model.User;
-import com.known.common.utils.ImageUtils;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.ImageUtil;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -63,7 +63,7 @@ public class AskServiceImpl implements AskService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
 	public void addAsk(Ask ask) throws BussinessException {
 		User user = this.userService.findUserByUserid(ask.getUserId());
-		if(user == null || StringUtils.isEmpty(ask.getContent()) || StringUtils.isEmpty(ask.getTitle()) || 
+		if(user == null || StringUtil.isEmpty(ask.getContent()) || StringUtil.isEmpty(ask.getTitle()) ||
 				 ask.getTitle().length() > TextLengthEnum.TEXT_200_LENGTH
 				.getLength() || ask.getContent().length() > TextLengthEnum.LONGTEXT.getLength()){
 			throw new BussinessException("参数错误");
@@ -74,7 +74,7 @@ public class AskServiceImpl implements AskService {
 		String title = ask.getTitle();
 		ask.setTitle(HtmlUtils.htmlEscape(title));
 		String content = ask.getContent();
-		String summary = StringUtils.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
+		String summary = StringUtil.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
 		if (summary.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()) {
 			summary = summary.substring(0,
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
@@ -86,9 +86,9 @@ public class AskServiceImpl implements AskService {
 		// TODO 给用户发消息
 		ask.setSummary(summary);
 		ask.setContent(formatContent);
-		String askImage = ImageUtils.getImages(content);
+		String askImage = ImageUtil.getImages(content);
 		ask.setAskImage(askImage);
-		String askImageSmall = ImageUtils.createThumbnail(askImage, false);
+		String askImageSmall = ImageUtil.createThumbnail(askImage, false);
 		ask.setAskImageThum(askImageSmall);
 		ask.setCreateTime(new Date());
 		ask.setSolveType(SolveEnum.WAIT_SOLVE);
@@ -160,7 +160,7 @@ public class AskServiceImpl implements AskService {
 		if(ask.getSolveType() == SolveEnum.SOLVED){
 			ask.setBestAnswer(this.commentService.getCommentById(ask.getBestAnswerId()));
 		}
-		if(StringUtils.isEmpty(flag)){
+		if(StringUtil.isEmpty(flag)){
 			UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 			updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 			updateQuery4ArticleCount.setArticleId(ask.getAskId());

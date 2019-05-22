@@ -1,7 +1,7 @@
 package com.known.service_impl;
 
 import com.known.common.model.Task;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.TaskMapper;
 import com.known.manager.query.TaskQuery;
@@ -55,8 +55,8 @@ public class TaskServiceImpl implements TaskService {
 		}
 		
 		task.setLastUpdateTime(new Date());
-		if(StringUtils.isEmpty(task.getTaskClassz()) || StringUtils.isEmpty(task.getTaskMethod()) 
-				|| StringUtils.isEmpty(task.getTaskTime())
+		if(StringUtil.isEmpty(task.getTaskClassz()) || StringUtil.isEmpty(task.getTaskMethod())
+				|| StringUtil.isEmpty(task.getTaskTime())
 				) {
 			throw new BussinessException("参数错误");
 		}
@@ -116,8 +116,8 @@ public class TaskServiceImpl implements TaskService {
 		}
 		
 		task.setLastUpdateTime(new Date());
-		if(StringUtils.isEmpty(task.getTaskClassz()) || StringUtils.isEmpty(task.getTaskMethod()) 
-				|| StringUtils.isEmpty(task.getTaskTime())
+		if(StringUtil.isEmpty(task.getTaskClassz()) || StringUtil.isEmpty(task.getTaskMethod())
+				|| StringUtil.isEmpty(task.getTaskTime())
 				) {
 			throw new BussinessException("参数错误");
 		}

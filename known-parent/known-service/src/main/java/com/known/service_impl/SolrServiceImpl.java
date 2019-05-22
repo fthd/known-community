@@ -47,7 +47,7 @@ public class SolrServiceImpl implements SolrService {
 	public PageResult<SolrBean> findSolrBeanByPage(String keyWord,
 												   String articleType, Integer pageNum, Integer countTotal)
 			throws BussinessException {
-		/*if(StringUtils.isEmpty(keyWord.trim()) || keyWord.trim().length() > KEYWORDMAXLENGTH){
+		/*if(StringUtil.isEmpty(keyWord.trim()) || keyWord.trim().length() > KEYWORDMAXLENGTH){
 			throw new BussinessException("参数错误");
 		}
 		countTotal = countTotal == null ? 0 : countTotal; 

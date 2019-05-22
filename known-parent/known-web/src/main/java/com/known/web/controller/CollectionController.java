@@ -1,8 +1,9 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.Collection;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.CollectionService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -24,14 +26,14 @@ public class CollectionController extends BaseController {
 	@Autowired
 	private CollectionService collectionService;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 
 
 	@RequestMapping("/doCollection")
 	public OutResponse<Object> doCollection(HttpSession session, Collection collection){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

@@ -1,12 +1,15 @@
 package com.known.quartz.trigger;
 
 
+import com.known.common.config.Config;
 import com.known.common.utils.Constants;
 import com.known.quartz.TaskMessage;
 import com.known.quartz.job.MyJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Cron表达式控制任务运行
@@ -20,7 +23,9 @@ public class CronTriggerManager {
 	private static final String TASKNAME = "task_";
 	
 	private static final String GROUPNAME = "group_";
-	
+
+	@Resource
+    private Config config;
 
 	/**
 	 * 
@@ -40,7 +45,7 @@ public class CronTriggerManager {
 			JobDetail jobDetail = JobBuilder.newJob(MyJob.class)//通过任务构造器构造任务详情对象
 													.withIdentity(TASKNAME + task.getId(), GROUPNAME + task.getId()).build();
 			
-			jobDetail.getJobDataMap().put(Constants.TASKKEY, task);//加入到jobDetailMap当中，供给实现job接口的类获取
+			jobDetail.getJobDataMap().put(config.getTaskKey(), task);//加入到jobDetailMap当中，供给实现job接口的类获取
 
 			CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(task.getTaskTime());//表达式调度构造器
 			

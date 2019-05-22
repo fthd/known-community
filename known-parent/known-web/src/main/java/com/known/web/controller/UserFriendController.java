@@ -1,8 +1,10 @@
 package com.known.web.controller;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.UserFriend;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -15,21 +17,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/userFriend")
 public class UserFriendController extends BaseController {
+
 	@Autowired
 	private UserFriendService userFriendService;
-	
+
+
+	@Resource
+	private UserConfig userConfig;
+
+	@Resource
+	private UrlConfig urlConfig;
+
+
 	private Logger logger = LoggerFactory.getLogger(UserFriendController.class);
 	
 	@ResponseBody
 	@RequestMapping("/loadUserFriend")
 	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

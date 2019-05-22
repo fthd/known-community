@@ -7,7 +7,7 @@ import com.known.common.model.TopicVote;
 import com.known.common.model.TopicVoteDetail;
 import com.known.common.model.TopicVoteUser;
 import com.known.common.utils.DateUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.TopicVoteDetailMapper;
 import com.known.manager.mapper.TopicVoteMapper;
@@ -45,13 +45,13 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 			throws BussinessException {
 		if(voteTitle == null || voteTitle.length > MAX_VOTE_TITLE_LENGTH ||
 				voteTitle.length < MIN_VOTE_TITLE_LENGTH || 
-				StringUtils.isEmpty(topicVote.getEndDateString()) ||
+				StringUtil.isEmpty(topicVote.getEndDateString()) ||
 				topicVote.getVoteType() == null
 				){
 			throw new BussinessException("参数错误");
 		}
 		for(String voteItem : voteTitle){
-			if(StringUtils.isEmpty(voteItem) || voteItem.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()){
+			if(StringUtil.isEmpty(voteItem) || voteItem.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()){
 				throw new BussinessException("参数错误");
 			}
 		}

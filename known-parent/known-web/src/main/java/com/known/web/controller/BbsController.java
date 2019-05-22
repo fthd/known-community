@@ -1,6 +1,8 @@
 package com.known.web.controller;
 
 import com.known.cache.CategoryCache;
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.Code;
 import com.known.common.enums.TopicType;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,11 +56,14 @@ public class BbsController extends BaseController {
 	@Autowired
 	private CategoryCache categoryCache;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
+
+	@Resource
+	private UrlConfig urlConfig;
 	
-	@RequestMapping
-	public ModelAndView bbs(HttpSession session){
+	@RequestMapping("/bbs")
+	public ModelAndView bbs(){
 		ModelAndView view = new ModelAndView("/page/bbs/bbs");
 		CategoryQuery categoryQuery = new CategoryQuery();
 		Date date = new Date();
@@ -84,7 +90,7 @@ public class BbsController extends BaseController {
 	
 	@RequestMapping("/prePublicTopic")
 	public ModelAndView prePublicTopic(HttpSession session){
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			ModelAndView view = new ModelAndView("/page/login");
 			return view;
@@ -118,7 +124,7 @@ public class BbsController extends BaseController {
 	public OutResponse<Integer> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
 											 String[] voteContent, Attachment attachment){
 		OutResponse<Integer> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
 			this.setUserBaseInfo(Topic.class, topic, session);
 			this.topicService.addTopic(topic, topicVote, voteContent, attachment);
@@ -187,7 +193,7 @@ public class BbsController extends BaseController {
 			view.addObject("topic", topic);
 		} catch (Exception e) {
 			logger.error("{}话题加载出错", e);
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 		}
 		return view;
 	}
@@ -197,7 +203,7 @@ public class BbsController extends BaseController {
 	@RequestMapping("/loadVote")
 	public OutResponse<Object> loadVote(HttpSession session, Integer topicId){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		Integer userId = null;
 		try {
 			userId = sessionUser==null ? null : sessionUser.getUserid();
@@ -216,7 +222,7 @@ public class BbsController extends BaseController {
 	@RequestMapping("/doVote")
 	public OutResponse<Object> doVote(HttpSession session, TopicVote  topicVote, Integer[] voteDtlId){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

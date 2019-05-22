@@ -5,8 +5,8 @@ import com.known.common.model.Attachment;
 import com.known.common.model.MessageParams;
 import com.known.common.model.Topic;
 import com.known.common.model.TopicVote;
-import com.known.common.utils.ImageUtils;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.ImageUtil;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -68,7 +68,7 @@ public class TopicServiceImpl implements TopicService {
 				|| topic.getTitle().length() > TextLengthEnum.TEXT_200_LENGTH
 						.getLength()
 				|| topic.getCategoryId() == null
-				|| StringUtils.isEmpty(topic.getContent())
+				|| StringUtil.isEmpty(topic.getContent())
 				|| topic.getContent().length() > TextLengthEnum.LONGTEXT
 						.getLength()) {
 			throw new BussinessException("参数错误");
@@ -76,7 +76,7 @@ public class TopicServiceImpl implements TopicService {
 		String title = topic.getTitle();
 		topic.setTitle(HtmlUtils.htmlEscape(title));
 		String content = topic.getContent();
-		String summary = StringUtils.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
+		String summary = StringUtil.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
 		if (summary.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()) {
 			summary = summary.substring(0,
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
@@ -88,9 +88,9 @@ public class TopicServiceImpl implements TopicService {
 		// TODO 给用户发消息
 		topic.setSummary(summary);
 		topic.setContent(formatContent);
-		String topicImage = ImageUtils.getImages(content);
+		String topicImage = ImageUtil.getImages(content);
 		topic.setTopicImage(topicImage);
-		String topicImageSmall = ImageUtils.createThumbnail(topicImage, true);
+		String topicImageSmall = ImageUtil.createThumbnail(topicImage, true);
 		topic.setTopicImageThum(topicImageSmall);
 		Date curDate = new Date();
 		topic.setCreateTime(curDate);
@@ -102,8 +102,8 @@ public class TopicServiceImpl implements TopicService {
 			topicVote.setTopicId(topic.getTopicId());
 			this.topicVoteService.addVote(topicVote, voteTitle);
 		}
-		if(!StringUtils.isEmpty(attachment.getFileName()) &&
-				!StringUtils.isEmpty(attachment.getFileUrl())){
+		if(!StringUtil.isEmpty(attachment.getFileName()) &&
+				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setTopicId(topic.getTopicId());
 			attachment.setFileTopicType(FileTopicType.TOPIC);
 			this.attachmentService.addAttachment(attachment);

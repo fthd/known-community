@@ -351,7 +351,7 @@ $(document).on("click", ".op-at", function() {
 	function loadShuoShuos(pageNum){
 		known.pageNum = pageNum;
 		$.ajax({
-			url: '/shuoShuo/loadShuoShuos',
+			url: known.realpath + '/shuoShuo/loadShuoShuos',
 			type: 'POST',
 			dataType: 'json',
 			data: {"pageNum": pageNum},
@@ -369,7 +369,7 @@ $(document).on("click", ".op-at", function() {
 	}
 	function ShuoShuoItem(data){
 		var item = $('<div class="cd-timeline-block"></div>');
-		$('<a href="../user/' + data.userId+ '"><img src="' + data.userIcon + '" class="cd-timeline-img img-circle"></a>').appendTo(item);
+		$('<a href="../userCenter/' + data.userId+ '"><img src="' + data.userIcon + '" class="cd-timeline-img img-circle"></a>').appendTo(item);
 		var shuoshuocontent = $('<div class="cd-timeline-content"></div>').appendTo(item);
 		$('<div class="main-content">' + data.showContent + '</div>').appendTo(shuoshuocontent);
 		if (data.imageUrlSmall != null && data.imageUrlSmall != ""){
@@ -384,7 +384,7 @@ $(document).on("click", ".op-at", function() {
 		}
 		var useroppanel = $('<div class="user-op-panel"></div>').appendTo(shuoshuocontent);
 		var shuoshuoiteminfo = $('<p class="shuoshuo-item-info"></p>').appendTo(useroppanel);
-		var userinfo = $('<a href="' + known.realpath + '/user/' + data.userId + '" class="user-info"><i class="glyphicon glyphicon-user"></i><span>' + data.userName + '</span></a>').appendTo(shuoshuoiteminfo);
+		var userinfo = $('<a href="' + known.realpath + '/userCenter/' + data.userId + '" class="user-info"><i class="glyphicon glyphicon-user"></i><span>' + data.userName + '</span></a>').appendTo(shuoshuoiteminfo);
 		var likeinfo = $('<a shuoshuoid="' + data.id + '" href="javascript:;" class="like-info"><i class="glyphicon glyphicon-thumbs-up"></i>赞(<span>'+ data.likeCount +'</span>)</a>').appendTo(shuoshuoiteminfo);
 		var commentinfo = $('<a href="javascript:;" class="comment-info"><i class="glyphicon glyphicon-pencil"></i>评论(<span>'+ data.commentCount +'</span>)</a>').appendTo(shuoshuoiteminfo);
 
@@ -410,16 +410,16 @@ $(document).on("click", ".op-at", function() {
 		return item;
 	}
 	function LikeItem(like){
-		var likeItem = $('<a href="' + known.realpath + '/user/' + like.userId + '" class="like-info"><img class="user-like-info img-responsive" src="' +  like.userIcon + '"></a>');
+		var likeItem = $('<a href="' + known.realpath + '/userCenter/' + like.userId + '" class="like-info"><img class="user-like-info img-responsive" src="' +  like.userIcon + '"></a>');
 		return likeItem;
 	}
 	function CommentItem(comment){
 		var usercommentpanel = $('<div class="user-comment-panel"></div>');
 		var commentitem = $('<div class="comment-item"></div>').appendTo(usercommentpanel);
 		var commentusericon = $('<div class="comment-user-icon"></div>').appendTo(commentitem);
-		$('<a href="' + known.realpath + '/user/' + comment.userId + '"><img src="' + comment.userIcon + '" class="user-icon-image img-circle"></a>').appendTo(commentusericon);
+		$('<a href="' + known.realpath + '/userCenter/' + comment.userId + '"><img src="' + comment.userIcon + '" class="user-icon-image img-circle"></a>').appendTo(commentusericon);
 		var commentmain = $('<div class="comment-main"></a>').appendTo(commentitem);
-		var commentcontent = $('<div class="comment-content"><a href="' + known.realpath + '/user/' + comment.userId + '">' + comment.userName + '</a>：' + comment.showContent +'</div>').appendTo(commentmain);
+		var commentcontent = $('<div class="comment-content"><a href="' + known.realpath + '/userCenter/' + comment.userId + '">' + comment.userName + '</a>：' + comment.showContent +'</div>').appendTo(commentmain);
 		var commentop = $('<div class="comment-op"><span>' + comment.createTime + '</span><a class="comment-at" username="' + comment.userName + '" href="javascript:;">回复</a></div>').appendTo(commentmain);
 		return usercommentpanel;
 	}

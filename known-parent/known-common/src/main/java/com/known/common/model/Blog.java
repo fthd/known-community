@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.utils.DateUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -58,7 +58,7 @@ public class Blog {
     private String blogImageThum;
 
 	public String[] getBlogImageArray() {
-    	if(StringUtils.isEmpty(this.blogImage)){
+    	if(StringUtil.isEmpty(this.blogImage)){
 			return null;
 		}
 		return blogImage.split("\\|");

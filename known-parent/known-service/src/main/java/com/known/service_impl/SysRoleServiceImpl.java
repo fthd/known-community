@@ -3,7 +3,7 @@ package com.known.service_impl;
 import com.known.common.model.SysRole;
 import com.known.common.model.SysRoleRes;
 import com.known.common.model.SysUserRole;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.SysRoleMapper;
 import com.known.manager.mapper.SysRoleResMapper;
@@ -49,7 +49,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void addSysRole(SysRole sysRole) throws BussinessException {
-		if(sysRole == null || StringUtils.isEmpty(sysRole.getName())
+		if(sysRole == null || StringUtil.isEmpty(sysRole.getName())
 				|| sysRole.getSeq() == null || sysRole.getStatus() == null
 				){
 			throw new BussinessException("参数错误");
@@ -61,7 +61,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void updateSysRole(SysRole sysRole) throws BussinessException {
-		if(sysRole == null || StringUtils.isEmpty(sysRole.getName()) 
+		if(sysRole == null || StringUtil.isEmpty(sysRole.getName())
 				|| sysRole.getSeq() == null || sysRole.getStatus() == null
 				){
 			throw new BussinessException("参数错误");

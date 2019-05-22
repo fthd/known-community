@@ -1,10 +1,12 @@
 package com.known.web.controller;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.ShuoShuo;
 import com.known.common.model.ShuoShuoComment;
 import com.known.common.model.ShuoShuoLike;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -30,12 +33,13 @@ public class ShuoShuoController extends BaseController {
 	@Autowired
 	private ShuoShuoService shuoShuoService;
 
+
 	private Logger logger = LoggerFactory.getLogger(ShuoShuoController.class);
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 
-	@RequestMapping("/shuoshuo")
+	@RequestMapping("/shuoShuo")
 	public ModelAndView ShuoShuo(){
 		ModelAndView view = new ModelAndView("/page/shuoshuo");
 		return view;
@@ -56,7 +60,7 @@ public class ShuoShuoController extends BaseController {
 	@RequestMapping("/publicShuoShuo")
 	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuo shuoShuo){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -93,7 +97,7 @@ public class ShuoShuoController extends BaseController {
 	@RequestMapping("/publicShuoShuoComment")
 	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -116,7 +120,7 @@ public class ShuoShuoController extends BaseController {
 	@RequestMapping("/doShuoShuoLike")
 	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

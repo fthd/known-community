@@ -2,7 +2,7 @@ package com.known.service;
 
 import com.known.common.enums.FileTopicType;
 import com.known.common.model.Attachment;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.exception.BussinessException;
 
 public interface AttachmentService {
@@ -13,12 +13,12 @@ public interface AttachmentService {
 	
 	Attachment getAttachmentById(Integer attachmentId);
 	
-	Attachment downloadAttachment(UserRedis sessionUser, Integer attachmentId) throws BussinessException;
+	Attachment downloadAttachment(SessionUser sessionUser, Integer attachmentId) throws BussinessException;
 	
 	void checkDownloadPermission(Integer topicUserId, Integer userId, Integer downloadMark,
                                         Integer attachmentId) throws BussinessException;
 	
-	void checkDownload(Integer attachmentId, Integer topicId, UserRedis sessionUser) throws BussinessException;
+	void checkDownload(Integer attachmentId, Integer topicId, SessionUser sessionUser) throws BussinessException;
 	
 	void deleteFile(Integer attachmentId);
 	

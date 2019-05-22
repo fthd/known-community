@@ -4,7 +4,7 @@ package com.known.service_impl;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.BlogCategory;
 import com.known.common.model.User;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.BlogCategoryMapper;
 import com.known.manager.query.BlogCategoryQuery;
@@ -31,8 +31,8 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
 	public void addBlogCategory(BlogCategory blogCategory)
 			throws BussinessException {
 		User user = this.userService.findUserByUserid(blogCategory.getUserId());
-		if(user == null || StringUtils.isEmpty(blogCategory.getName()) || blogCategory.getName().length() > 
-			TextLengthEnum.TEXT_50_LENGTH.getLength() || !StringUtils.isNumber(blogCategory.getRank().toString())
+		if(user == null || StringUtil.isEmpty(blogCategory.getName()) || blogCategory.getName().length() >
+			TextLengthEnum.TEXT_50_LENGTH.getLength() || !StringUtil.isNumber(blogCategory.getRank().toString())
 				){
 			throw new BussinessException("参数不合法");
 		}

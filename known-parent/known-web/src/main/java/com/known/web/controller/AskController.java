@@ -1,13 +1,14 @@
 package com.known.web.controller;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.Code;
 import com.known.common.enums.SolveEnum;
 import com.known.common.model.Ask;
-import com.known.common.model.UserRedis;
-import com.known.common.utils.Constants;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.DateUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -36,12 +38,18 @@ public class AskController extends BaseController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Resource
+	private UserConfig userConfig;
+
+	@Resource
+	private UrlConfig urlConfig;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(AskController.class);
 
 	
-	@RequestMapping
+	@RequestMapping("/ask")
 	public ModelAndView ask(HttpSession session, AskQuery askQuery){
 		ModelAndView view = new ModelAndView("/page/ask/ask");
 		if(askQuery.getSolveType() == null){
@@ -68,7 +76,7 @@ public class AskController extends BaseController {
 	@RequestMapping("/prePublicAsk")
 	public ModelAndView prePublicAsk(HttpSession session){
 		ModelAndView view = new ModelAndView("/page/ask/publicAsk");
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			 view = new ModelAndView("/page/login");
 			return view;
@@ -78,9 +86,9 @@ public class AskController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("publicAsk")
+	@RequestMapping("/publicAsk")
 	public OutResponse<Integer> publicAsk(HttpSession session, Ask ask){
-		OutResponse<Integer> outResponse = new OutResponse<Integer>();
+		OutResponse<Integer> outResponse = new OutResponse<>();
 		this.setUserBaseInfo(Ask.class, ask, session);
 		try {
 			this.askService.addAsk(ask);
@@ -101,24 +109,24 @@ public class AskController extends BaseController {
 	@RequestMapping(value="/{askId}", method= RequestMethod.GET)
 	public ModelAndView askDetail(@PathVariable Integer askId, HttpSession session){
 		ModelAndView view = new ModelAndView("/page/ask/ask_detail");
-		UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
 			String flag = (String) session.getAttribute(sessionUser==null?"Y":sessionUser.getUserid()+"_ready");
 			view.addObject("ask", this.askService.showAsk(askId,flag));
-			if(StringUtils.isEmpty(flag)){
+			if(StringUtil.isEmpty(flag)){
 				session.setAttribute(sessionUser==null?"Y":sessionUser.getUserid()+"_ready","flag");
 			}
 		} catch (BussinessException e) {
 			logger.error("{}问题加载出错{}", sessionUser.getUserName(), e.getLocalizedMessage());
-			view.setViewName("redirect:" + Constants.ERROR_404);
+			view.setViewName("redirect:" + urlConfig.getError_404());
 		}
 		return view;
 	}
 	
 	@ResponseBody
-	@RequestMapping("acceptAnswer")
+	@RequestMapping("/acceptAnswer")
 	public OutResponse<Object> acceptAnswer(HttpSession session, Ask ask){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		this.setUserBaseInfo(Ask.class, ask, session);
 		try {
 			this.askService.setBestAnswer(ask.getBestAnswerId(), ask.getAskId(), ask.getUserId());

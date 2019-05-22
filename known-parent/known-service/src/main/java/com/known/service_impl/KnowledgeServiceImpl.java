@@ -5,8 +5,8 @@ import com.known.common.enums.*;
 import com.known.common.model.Attachment;
 import com.known.common.model.Knowledge;
 import com.known.common.model.MessageParams;
-import com.known.common.utils.ImageUtils;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.ImageUtil;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -102,13 +102,13 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	public void addKnowledge(Knowledge knowledge, Attachment attachment) throws BussinessException {
 		if(knowledge.getTitle() == null || knowledge.getTitle().length() > TextLengthEnum.TEXT_300_LENGTH.getLength()
 				|| knowledge.getpCategoryId() == null || knowledge.getCategoryId() == null ||
-				StringUtils.isEmpty(knowledge.getContent()) || knowledge.getContent().length() > TextLengthEnum.LONGTEXT.getLength()
+				StringUtil.isEmpty(knowledge.getContent()) || knowledge.getContent().length() > TextLengthEnum.LONGTEXT.getLength()
 				){
 			throw new BussinessException("参数错误");
 		}
 		String title = HtmlUtils.htmlUnescape(knowledge.getTitle());
 		String content = knowledge.getContent();
-		String summary = StringUtils.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
+		String summary = StringUtil.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
 		if (summary.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()) {
 			summary = summary.substring(0,
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
@@ -121,9 +121,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		knowledge.setSummary(summary);
 		knowledge.setTitle(title);
 		knowledge.setContent(formatContent);
-		String topicImage = ImageUtils.getImages(content);
+		String topicImage = ImageUtil.getImages(content);
 		knowledge.setTopicImage(topicImage);
-//		String knowledgeImageSmall = ImageUtils.createThumbnail(topicImage, true);
+//		String knowledgeImageSmall = ImageUtil.createThumbnail(topicImage, true);
 //		knowledge.setTopicImageThum(knowledgeImageSmall);
 		Date curDate = new Date();
 		knowledge.setCreateTime(curDate);
@@ -133,8 +133,8 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		this.userService.changeMark(knowledge.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
 		
-		if(!StringUtils.isEmpty(attachment.getFileName()) &&
-				!StringUtils.isEmpty(attachment.getFileUrl())){
+		if(!StringUtil.isEmpty(attachment.getFileName()) &&
+				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setTopicId(knowledge.getTopicId());
 			attachment.setFileTopicType(FileTopicType.KNOWLEDGE);
 			this.attachmentService.addAttachment(attachment);

@@ -1,7 +1,7 @@
 package com.known.common.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ArticleType {
@@ -33,7 +33,7 @@ public enum ArticleType {
 	}
 
 	public static ArticleType getArticleTypeByType(String type){
-		if(StringUtils.isEmpty(type)){
+		if(StringUtil.isEmpty(type)){
 			return null;
 		}
 		for(ArticleType articleType : ArticleType.values()){

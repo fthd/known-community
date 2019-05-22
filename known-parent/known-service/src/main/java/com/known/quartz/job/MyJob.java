@@ -1,6 +1,7 @@
 package com.known.quartz.job;
 
 
+import com.known.common.config.Config;
 import com.known.common.utils.Constants;
 import com.known.quartz.TaskMessage;
 import org.quartz.Job;
@@ -8,6 +9,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -19,11 +21,13 @@ import java.lang.reflect.Method;
  */
 public class MyJob implements Job {
 
+	@Resource
+	private Config config;
 
 	public void execute(JobExecutionContext context)  {
 		JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
 		
-		TaskMessage task = (TaskMessage) jobDataMap.get(Constants.TASKKEY);
+		TaskMessage task = (TaskMessage) jobDataMap.get(config.getTaskKey());
 		Class<?> classz = null;
 		try {
 			classz = Class.forName(task.getTaskClassz());//得到对应的类

@@ -21,7 +21,7 @@ public class PointUtil {
 	private static Map<String,Object> map = new HashMap<>();
 	public static Point getPoint(String ip){
 		String jsonResult = request(ip);
-		if(StringUtils.isEmpty(jsonResult)){
+		if(StringUtil.isEmpty(jsonResult)){
 			return null;
 		}
 		map.put("data", JSON.parseObject(jsonResult).get("showapi_res_body"));
@@ -76,7 +76,7 @@ public class PointUtil {
 		querys.put("ip", ip);
 		String result = null;
 		try {
-			HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+			HttpResponse response = HttpUtil.doGet(host, path, method, headers, querys);
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
 				result = inputStreamToString(entity.getContent());

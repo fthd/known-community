@@ -1,4 +1,6 @@
 package com.known.common.utils;
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -32,7 +34,7 @@ public class IpUtil {
         if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        if(org.apache.commons.lang3.StringUtils.isNotBlank(ip)) {
+        if(StringUtils.isNotBlank(ip)) {
             ip = ip.split(",")[0];
         }
 		return ip;

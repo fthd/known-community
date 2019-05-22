@@ -3,9 +3,10 @@ package com.known.aspect;
 
 
 import com.known.annotation.RequirePermissions;
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Logical;
 import com.known.common.model.SysRes;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.service.SysResService;
 import com.known.service.SysRoleService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -34,11 +36,14 @@ public class AuthorityAspect {
 	@Autowired
 	private SysResService sysResService;
 
+	@Resource
+	private UserConfig userConfig;
+
 	@Around(value="@annotation(com.known.annotation.RequirePermissions)&&@annotation(perm)")
 	public Object hasPermission(ProceedingJoinPoint point, RequirePermissions perm) throws Throwable{
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-		UserRedis sessionUser = (UserRedis) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) request.getSession().getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser!= null){
 			Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
 			List<SysRes> list = sysResService.findMenuByRoleIds(roleSet);

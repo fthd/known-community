@@ -2,7 +2,7 @@ package com.known.service_impl;
 
 import com.known.common.enums.FileTopicType;
 import com.known.common.model.*;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.AttachmentDownloadMapper;
 import com.known.manager.mapper.AttachmentMapper;
@@ -38,8 +38,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 		Integer mark = attachment.getDownloadMark();
 		mark = mark == null ? 0 : mark;
 		attachment.setDownloadMark(mark);
-		if(StringUtils.isEmpty(attachment.getFileName()) ||
-			StringUtils.isEmpty(attachment.getFileUrl()) ||
+		if(StringUtil.isEmpty(attachment.getFileName()) ||
+			StringUtil.isEmpty(attachment.getFileUrl()) ||
 			mark > MAXMARK
 				){
 			throw new BussinessException("参数错误");
@@ -73,7 +73,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
-	public Attachment downloadAttachment(UserRedis sessionUser,
+	public Attachment downloadAttachment(SessionUser sessionUser,
 										 Integer attachmentId) throws BussinessException {
 		Attachment attachment = this.getAttachmentById(attachmentId);
 		if(attachment == null){
@@ -122,7 +122,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	public void checkDownload(Integer attachmentId, Integer topicId,
-			UserRedis sessionUser) throws BussinessException {
+			SessionUser sessionUser) throws BussinessException {
 		if(attachmentId == null || topicId == null){
 			throw new BussinessException("参数错误");
 		}

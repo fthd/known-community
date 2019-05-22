@@ -4,7 +4,10 @@ import com.known.common.model.Category;
 import com.known.common.utils.Constants;
 import com.known.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,37 +17,36 @@ import java.util.Map;
 public class CategoryCache {
 	
 	@Autowired
-	private CategoryService categoryService;
-	
+	private CategoryService categoryService;	
 	private static Map<String, List<Category>> categoryCache;
 	private static Map<String, Category> singleCategoryCache;
 	
 	static{
 		categoryCache = new HashMap<>();
 		singleCategoryCache = new HashMap<>();
-		categoryCache.put(Constants.CACHE_KEY_BBS_CATEGORY, new ArrayList<>());
-		categoryCache.put(Constants.CACHE_KEY_KNOWLEDGE_CATEGORY, new ArrayList<>());
-		categoryCache.put(Constants.CACHE_KEY_ASK_CATEGORY, new ArrayList<>());
-		categoryCache.put(Constants.CACHE_KEY_EXAM_CATEGORY, new ArrayList<>());
+		categoryCache.put(Constants.Cache_Key_Bbs_Category, new ArrayList<>());
+		categoryCache.put(Constants.Cache_Key_Knowledge_Category, new ArrayList<>());
+		categoryCache.put(Constants.Cache_Key_Ask_Category, new ArrayList<>());
+		categoryCache.put(Constants.Cache_Key_Exam_Category, new ArrayList<>());
 	}
 	
 	public void filterChildren(Category c, String show){
 		List<Category> filterChildren = new ArrayList<>();
 		List<Category> children = c.getChildren();
 		for(Category category : children){
-			if(show.equals(Constants.CACHE_KEY_BBS_CATEGORY) && Constants.Y.equals(category.getShowInBbs())){
+			if(show.equals(Constants.Cache_Key_Bbs_Category) && Constants.Y.equals(category.getShowInBbs())){
 				filterChildren.add(category);
 			}
-			if(show.equals(Constants.CACHE_KEY_ASK_CATEGORY) && Constants.Y.equals(category.getShowInQuestion())){
+			if(show.equals(Constants.Cache_Key_Ask_Category) && Constants.Y.equals(category.getShowInQuestion())){
 				filterChildren.add(category);
 			}
-			if(show.equals(Constants.CACHE_KEY_KNOWLEDGE_CATEGORY) && Constants.Y.equals(category.getShowInKnowledge())){
+			if(show.equals(Constants.Cache_Key_Knowledge_Category) && Constants.Y.equals(category.getShowInKnowledge())){
 				filterChildren.add(category);
 			}
-			if(show.equals(Constants.CACHE_KEY_EXAM_CATEGORY) && Constants.Y.equals(category.getShowInExam())){
+			if(show.equals(Constants.Cache_Key_Exam_Category) && Constants.Y.equals(category.getShowInExam())){
 				filterChildren.add(category);
 			}
-			singleCategoryCache.put(Constants.CACHE_KEY_CATEGORY + category.getCategoryId(), category);
+			singleCategoryCache.put(Constants.Cache_Key_Category+ category.getCategoryId(), category);
 		}
 		c.setChildren(filterChildren);
 	}
@@ -53,32 +55,32 @@ public class CategoryCache {
 		List<Category> list = this.categoryService.findCategoryList(null);
 		for(Category category : list){
 			if(Constants.Y.equals(category.getShowInBbs())){
-				categoryCache.get(Constants.CACHE_KEY_BBS_CATEGORY).add(category);
-				filterChildren(category, Constants.CACHE_KEY_BBS_CATEGORY);
+				categoryCache.get(Constants.Cache_Key_Bbs_Category).add(category);
+				filterChildren(category, Constants.Cache_Key_Bbs_Category);
 			}
 			if(Constants.Y.equals(category.getShowInExam())){
-				categoryCache.get(Constants.CACHE_KEY_EXAM_CATEGORY).add(category);
-				filterChildren(category, Constants.CACHE_KEY_EXAM_CATEGORY);
+				categoryCache.get(Constants.Cache_Key_Exam_Category).add(category);
+				filterChildren(category, Constants.Cache_Key_Exam_Category);
 			}
 			if(Constants.Y.equals(category.getShowInKnowledge())){
-				categoryCache.get(Constants.CACHE_KEY_KNOWLEDGE_CATEGORY).add(category);
-				filterChildren(category, Constants.CACHE_KEY_KNOWLEDGE_CATEGORY);
+				categoryCache.get(Constants.Cache_Key_Knowledge_Category).add(category);
+				filterChildren(category, Constants.Cache_Key_Knowledge_Category);
 			}
 			if(Constants.Y.equals(category.getShowInQuestion())){
-				categoryCache.get(Constants.CACHE_KEY_ASK_CATEGORY).add(category);
-				filterChildren(category, Constants.CACHE_KEY_ASK_CATEGORY);
+				categoryCache.get(Constants.Cache_Key_Ask_Category).add(category);
+				filterChildren(category, Constants.Cache_Key_Ask_Category);
 			}
-			singleCategoryCache.put(Constants.CACHE_KEY_CATEGORY + category.getCategoryId(), category);
+			singleCategoryCache.put(Constants.Cache_Key_Category + category.getCategoryId(), category);
 		}
 	}
 	
 	public List<Category> getBbsCategories(){
-		return categoryCache.get(Constants.CACHE_KEY_BBS_CATEGORY);
+		return categoryCache.get(Constants.Cache_Key_Bbs_Category);
 	}
 	public List<Category> getKnowledgeCategories(){
-		return categoryCache.get(Constants.CACHE_KEY_KNOWLEDGE_CATEGORY);
+		return categoryCache.get(Constants.Cache_Key_Knowledge_Category);
 	}
 	public static Category getCategoryById(Integer categoryId){
-		return singleCategoryCache.get(Constants.CACHE_KEY_CATEGORY + categoryId);
+		return singleCategoryCache.get(Constants.Cache_Key_Category + categoryId);
 	}
 }

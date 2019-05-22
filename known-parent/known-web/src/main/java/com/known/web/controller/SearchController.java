@@ -1,5 +1,6 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.SignInfo;
 import com.known.common.model.SolrBean;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -35,11 +37,8 @@ public class SearchController extends BaseController {
     @Autowired
     private SolrService solrService;
 
-    @Value("${SESSION_USER_KEY}")
-    private String SESSION_USER_KEY;
-
-    @Value("${COOKIE_USER_INFO}")
-    private String COOKIE_USER_INFO;
+    @Resource
+    private UserConfig userConfig;
 
     private Logger logger = LoggerFactory.getLogger(SearchController.class);
 

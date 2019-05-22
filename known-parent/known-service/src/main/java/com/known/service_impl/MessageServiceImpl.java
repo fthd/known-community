@@ -241,11 +241,11 @@ public class MessageServiceImpl implements MessageService {
 		}
 		switch (params.getArticleType()) {
 		case TOPIC:
-			return Constants.DOMAIN + "/bbs/" + params.getArticleId() + location; 
+			return Constants.DOMAIN + "/bbs/" + params.getArticleId() + location;
 		case Ask:
-			return Constants.DOMAIN + "/ask/" + params.getArticleId() + location; 
+			return Constants.DOMAIN + "/ask/" + params.getArticleId() + location;
 		case KNOWLEDGE:
-			return Constants.DOMAIN + "/knowledge/" + params.getArticleId() + location; 
+			return Constants.DOMAIN + "/knowledge/" + params.getArticleId() + location;
 		case BLOG:
 			return Constants.DOMAIN + "/user/" + params.getArticleUserId() + "/blog/" + params.getArticleId() + location;
 		case SHUOSHUO:

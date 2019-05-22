@@ -1,6 +1,5 @@
 package com.known.web.controller;
-
-import com.known.common.config.Configuration;
+import com.known.common.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/thirdPartyLogin")
 public class ThirdPartyLoginController extends BaseController {
     @Autowired
-    private Configuration configuration;
+    private Config config;
     @RequestMapping(value = "/third_login",method = RequestMethod.GET)
     public void thirdLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("t") String type) {
         String url = getRedirectUrl(request, type);
@@ -35,9 +34,9 @@ public class ThirdPartyLoginController extends BaseController {
     private String getRedirectUrl(HttpServletRequest request, String type) {
         String url = "";
         String host = request.getHeader("host");
-        url = configuration.getAuthorizeURLQq() + "?client_id=" + configuration.getAppIdQq()+ "&response_type=code&scope="
-                + configuration.getScopeQq() + "&redirect_uri=http://" + host
-                + configuration.getRedirectUrlQq();
+        url = config.getAuthorizeURLQq() + "?client_id=" + config.getAppIdQq()+ "&response_type=code&scope="
+                + config.getScopeQq() + "&redirect_uri=http://" + host
+                + config.getRedirectUrlQq();
         return url;
     }
 

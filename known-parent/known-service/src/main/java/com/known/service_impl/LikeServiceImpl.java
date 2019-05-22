@@ -4,7 +4,7 @@ package com.known.service_impl;
 import com.known.common.enums.ArticleType;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.*;
@@ -40,7 +40,7 @@ public class LikeServiceImpl implements LikeService {
 	public void addLike(Like like) throws BussinessException {
 		
 		if(like.getArticleId() == null || like.getArticleType() == null 
-				|| StringUtils.isEmpty(like.getTitle()) ||
+				|| StringUtil.isEmpty(like.getTitle()) ||
 				like.getTitle().length() > TextLengthEnum.TEXT_300_LENGTH.getLength()){
 			throw new BussinessException("参数错误");
 		}

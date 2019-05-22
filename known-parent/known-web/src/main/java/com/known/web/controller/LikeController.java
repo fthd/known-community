@@ -1,8 +1,9 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.Like;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -26,14 +28,14 @@ public class LikeController extends BaseController {
 	@Autowired
 	private LikeService likeService;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 	
 	@ResponseBody
 	@RequestMapping("doLike")
 	public OutResponse<Object> doLike(HttpSession session, Like like){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

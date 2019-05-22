@@ -3,7 +3,6 @@ package com.known.web.controller;
 import com.aliyun.oss.OSSClient;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.Code;
-import com.known.common.utils.AliyunOSSClientUtil;
 import com.known.common.utils.DateUtil;
 import com.known.common.vo.UeditorResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +27,8 @@ public class ImageUploader{
 
 	private static final int MAX_FILE_MAX = 3 * 1024 * 1024;
 
-	@Value("${ABSOLUTE_PATH}")
-	private String ABSOLUTE_PATH;
+	@Value("${Absolute_Path}")
+	private String Absolute_Path;
 
 	@ResponseBody
 	@RequestMapping("/imageUpload.action")
@@ -38,7 +37,7 @@ public class ImageUploader{
 			/*	String realPath = ServerUtils.getRealPath() + "/upload";*/
 				//String realPath = ServerUtils.getRealPath() + "/upload";
 				//初始化OSSClient
-				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
+//				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
 				//String realPath = ServerUtils.getRealPath() + "/upload";
 				String realPath = "upload/";
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -72,10 +71,10 @@ public class ImageUploader{
 					String filePath = fileDir + "/" + fileName;
 					File file = new File(filePath);*/
 					try {
-						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
+//						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 						//multipartFile.transferTo(file);
 						map.put("responseCode", Code.SUCCESS);
-						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
+//						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return map;
 						} catch (Exception e) {
 							map.put("responseCode", Code.SERVERERROR);
@@ -93,7 +92,7 @@ public class ImageUploader{
 											  HttpServletResponse response){
 				//String realPath = ServerUtils.getRealPath() + "/upload";
 				//初始化OSSClient
-				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
+//				OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
 				//String realPath = ServerUtils.getRealPath() + "/upload";
 				String realPath = "upload/";
 				UeditorResponse ueditorResponse = new UeditorResponse();
@@ -127,10 +126,10 @@ public class ImageUploader{
 					File file = new File(filePath);*/
 					try {
 						//multipartFile.transferTo(file);
-						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
+//						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 						ueditorResponse.setState("SUCCESS");
 						//ueditorResponse.setUrl(this.getRealPath(multirequest) + "/upload/" + savePath);
-						ueditorResponse.setUrl(AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
+//						ueditorResponse.setUrl(AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return ueditorResponse;
 						} catch (Exception e) {
 							ueditorResponse.setState("上传参数出错");
@@ -200,7 +199,7 @@ public class ImageUploader{
 	public Map<String, Object> imageUpload2Temp(HttpSession session, MultipartHttpServletRequest multirequest,
                                                 HttpServletResponse response){
 
-		String realPath = ABSOLUTE_PATH + "/upload";
+		String realPath = Absolute_Path + "/upload";
 		Map<String, Object> map = new HashMap<String, Object>();
 		Iterator<String> itr = multirequest.getFileNames();
 		if(itr.hasNext()){

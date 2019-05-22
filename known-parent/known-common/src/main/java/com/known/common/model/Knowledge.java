@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.StatusEnum;
 import com.known.common.utils.DateUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.text.SimpleDateFormat;
@@ -77,7 +77,7 @@ public class Knowledge {
 	}
 
 	public String[] getTopicImageArray() {
-		if(StringUtils.isEmpty(this.topicImage)){
+		if(StringUtil.isEmpty(this.topicImage)){
 			return null;
 		}
 		return topicImage.split("\\|");

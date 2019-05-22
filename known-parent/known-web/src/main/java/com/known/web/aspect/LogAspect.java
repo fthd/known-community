@@ -1,12 +1,14 @@
 package com.known.web.aspect;
 
+import com.known.common.config.UrlConfig;
+import com.known.common.config.UserConfig;
 import com.known.common.model.LoginLog;
 import com.known.common.model.SysLog;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.utils.IpUtil;
 import com.known.common.utils.PointUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Data;
 import com.known.common.vo.Point;
 import com.known.service.LoginLogService;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -37,9 +40,10 @@ public class LogAspect {
 
 	@Autowired
 	private SysLogService sysLogService;
-	
-	@Autowired
-	private UserService userService;
+
+	@Resource
+	private UserConfig userConfig;
+
 
 	private ExecutorService executorService = Executors.newFixedThreadPool(30);
 
@@ -68,7 +72,7 @@ public class LogAspect {
 						value = request.getParameter(key);
 						bfParams.append(key).append("=").append(value).append("&");
 					}
-					if (StringUtils.isEmpty(bfParams.toString())) {
+					if (StringUtil.isEmpty(bfParams.toString())) {
 						bfParams.append(request.getQueryString());
 					}
 				}
@@ -96,12 +100,12 @@ public class LogAspect {
 					String strMessage = String.format("[类名]:%s,[方法]:%s,[参数]:%s", strClassName, strMethodName,
 							bfParams.toString());
 					HttpSession session = request.getSession();
-					UserRedis sessionUser = (UserRedis) session.getAttribute(Constants.SESSION_USER_KEY);
-					/*Point ipPoint = PointUtil.getPoint(ip);
+					SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
+					Point ipPoint = PointUtil.getPoint(ip);
 					Data data = ipPoint.getData();
 					if(data != null){
 						sysLog.setAddress(data.getCity());
-					}*/
+					}
 					sysLog.setCreateTime(new Date());
 					sysLog.setClientIp(ip);
 					sysLog.setOpContent(strMessage);

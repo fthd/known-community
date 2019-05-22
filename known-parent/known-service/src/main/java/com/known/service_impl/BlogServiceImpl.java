@@ -4,8 +4,8 @@ import com.known.common.enums.*;
 import com.known.common.model.Attachment;
 import com.known.common.model.Blog;
 import com.known.common.model.MessageParams;
-import com.known.common.utils.ImageUtils;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.ImageUtil;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -88,14 +88,14 @@ public class BlogServiceImpl implements BlogService {
 	public void addBlog(Blog blog, Attachment attachment)
 			throws BussinessException {
 		if(blog.getTitle() == null || blog.getTitle().length() > TextLengthEnum.TEXT_100_LENGTH.getLength()
-				||StringUtils.isEmpty(blog.getContent()) || blog.getContent().length() > TextLengthEnum.LONGTEXT.getLength()
+				||StringUtil.isEmpty(blog.getContent()) || blog.getContent().length() > TextLengthEnum.LONGTEXT.getLength()
 				){
 			throw new BussinessException("参数错误");
 		}
 		String title = HtmlUtils.htmlUnescape(blog.getTitle());
 		String content = blog.getContent();
-		content = StringUtils.replaceLast(content.replaceFirst("<p>", ""), "</p>", "");
-		String summary = StringUtils.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
+		content = StringUtil.replaceLast(content.replaceFirst("<p>", ""), "</p>", "");
+		String summary = StringUtil.cleanHtmlTag(HtmlUtils.htmlUnescape(content));
 		if (summary.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()) {
 			summary = summary.substring(0,
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
@@ -108,9 +108,9 @@ public class BlogServiceImpl implements BlogService {
 		blog.setTitle(title);
 		blog.setSummary(summary);
 		blog.setContent(formatContent);
-		String blogImage = ImageUtils.getImages(content);
+		String blogImage = ImageUtil.getImages(content);
 		blog.setBlogImage(blogImage);
-//		String blogImageSmall = ImageUtils.createThumbnail(topicImage, true);
+//		String blogImageSmall = ImageUtil.createThumbnail(topicImage, true);
 //		blog.setTopicImageThum(blogImageSmall);
 		Date curDate = new Date();
 		blog.setCreateTime(curDate);
@@ -118,8 +118,8 @@ public class BlogServiceImpl implements BlogService {
 		this.userService.changeMark(blog.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
 		
-		if(!StringUtils.isEmpty(attachment.getFileName()) &&
-				!StringUtils.isEmpty(attachment.getFileUrl())){
+		if(!StringUtil.isEmpty(attachment.getFileName()) &&
+				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setTopicId(blog.getBlogId());
 			attachment.setFileTopicType(FileTopicType.BLOG);
 			this.attachmentService.addAttachment(attachment);
@@ -142,8 +142,8 @@ public class BlogServiceImpl implements BlogService {
 			throw new BussinessException("话题不存在或已删除");
 		}
 		this.blogMapper.update(blog);
-		if(!StringUtils.isEmpty(attachment.getFileName()) &&
-				!StringUtils.isEmpty(attachment.getFileUrl())){
+		if(!StringUtil.isEmpty(attachment.getFileName()) &&
+				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setTopicId(blog.getBlogId());
 			attachment.setFileTopicType(FileTopicType.BLOG);
 			this.attachmentService.addAttachment(attachment);

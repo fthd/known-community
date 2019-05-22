@@ -29,8 +29,8 @@
 <body>
 	<#include "../include/header.html">
 	<div class="main">
-		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/resources/images/${user.userBg}')">
-		<div class="user-home-icon"><img id="headicon" class="img-circle" src="${user.userIcon}"></div>
+		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/${user.userBg}')">
+		<div class="user-home-icon"><img id="headicon" class="img-circle" src="${realpath}/${user.userIcon}"></div>
 		<div class="user-characters">${user.characters!'这个人很懒，什么也没留下。'}</div>
 		</div>
 

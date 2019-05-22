@@ -35,136 +35,6 @@ $(document).ready(function() {
 	}
 
 
-// 注册验证
-	$('#register').click(function(event) {
-		var username = $('#username').val();
-		var email = $('#email').val();
-		var password = $('#password').val();
-		var confirmPassword = $('#confirmPassword').val();
-		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-		var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
-
-		if (username == null || $.trim(username) == '') {
-			checkForm('用户名不能是空串', 'username');
-			$("#username").parent().parent().addClass('has-error');
-		} else if (username.indexOf(" ") > -1) {
-			checkForm('用户名不能含有空格', 'username');
-			$("#username").parent().parent().addClass('has-error');
-		} else if (username.length < 1) {
-			checkForm('用户名长度不能小于1个字符', 'username');
-			$("#username").parent().parent().addClass('has-error');
-		} else if (username.length > 20) {
-			checkForm('用户名长度不能大于20个字符', 'username');
-			$("#username").parent().parent().addClass('has-error');
-		} else if (!emailreg.test(email)) {
-			$("#username").parent().parent().removeClass('has-error');
-			checkForm('请输入正确的常用邮箱', "email");
-			$("#email").parent().parent().addClass('has-error');
-		} else if (password == null || $.trim(password) == '') {
-			$("#email").parent().parent().removeClass('has-error');
-			checkForm('密码不能是空串', 'password');
-			$("#password").parent().parent().addClass('has-error');
-		} else if (password.indexOf(" ") > -1) {
-			checkForm('密码不能含有空格', 'password');
-			$("#password").parent().parent().addClass('has-error');
-		} else if (password.length < 6) {
-			checkForm('密码长度不能小于6个字符', 'password');
-			$("#password").parent().parent().addClass('has-error');
-		} else if (password.length > 16) {
-			checkForm('密码长度不能大于16个字符', 'password');
-			$("#password").parent().parent().addClass('has-error');
-		} else if (!passwordreg.test(password)) {
-			checkForm('密码必须含有字母和数字', 'password');
-			$("#password").parent().parent().addClass('has-error');
-		} else if (confirmPassword != password) {
-			$("#password").parent().parent().removeClass('has-error');
-			checkForm('两次输入密码必须一致', 'confirmPassword');
-			$("#confirmPassword").parent().parent().addClass('has-error');
-		} else {
-			$("#confirmPassword").parent().parent().removeClass('has-error');
-			var loadingindex = layer.load(0, {
-			  shade: [0.1,'#fff'] //0.1透明度的白色背景
-			});
-			$.ajax({
-				url: known.realpath + '/user/register.do',
-				type: 'post',
-				dataType: 'json',
-				data: $('#registerform').serialize(),
-				success: function(data) {
-					layer.close(loadingindex);
-					if (data.msg == null) {
-						var d = dialog({
-							content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,登录中......</div>",
-						});
-						d.showModal();
-						setTimeout(function() {
-							d.close().remove();
-							document.location.href = known.realpath;
-						}, 1000);
-					} else {
-						var d = dialog({
-							width: 200,
-							content: data.msg,
-							quickClose: true // 点击空白处快速关闭
-						});
-						d.show();
-					}
-				}
-			});
-		}
-	});
-
-	// 登录验证
-	$('#login').click(function(event) {
-		var account = $('#account').val();
-		var password = $('#password').val();
-		if (account == null || $.trim(account) == '') {
-			checkForm('用户名不能为空', 'account');
-			$("#account").parent().addClass('has-error');
-		} else if (password == null || $.trim(password) == '') {
-			$("#account").parent().removeClass('has-error');
-			checkForm('密码不能为空', 'password');
-			$("#password").parent().addClass('has-error');
-		} else {
-			$("#password").parent().removeClass('has-error');
-			var loadingindex = layer.load(0, {
-			  shade: [0.1,'#fff'] //0.1透明度的白色背景
-			});
-			$.ajax({
-				url: known.realpath + '/user/login.do',
-				type: 'POST',
-				dataType: 'json',
-				data: $('#loginform').serialize(),
-				success: function(data) {
-					layer.close(loadingindex);
-					if (data.msg == null) {
-						var d = dialog({
-							content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;登录成功,跳转中...</div>",
-						});
-						d.showModal();
-						setTimeout(function() {
-							d.close().remove();
-							if (null == known.redirect || known.redirect == "") {
-								known.redirect = known.realpath;
-							    }
-							    document.location.href = known.redirect;
-						}, 1000);
-					} else {
-						var d = dialog({
-							width: 200,
-							content: data.msg,
-							quickClose: true // 点击空白处快速关闭
-						});
-						d.show();
-					}
-				}
-			});
-
-
-		}
-	});
-
-
 // 对找回密码的邮箱进行验证
 	$('#findpassword').click(function(event) {
 		var email = $('#email').val();
@@ -247,7 +117,7 @@ $(document).ready(function() {
 												d.showModal();
 												setTimeout(function() {
 													d.close().remove();
-													document.location.href = known.realpath + "/login";
+													document.location.href = known.realpath + "/user/login";
 												}, 1000);
 											} else {
 												checkForm(data.msg, "checkcode");
@@ -400,8 +270,9 @@ function showAtUser(targetObj, textarea){
 	
 }
 
+//用户没有登录，都需要跳转到这里登录
 function goLogin() {
 	var url = known.curUrl;
 	url = encodeURI(url);
-	document.location.href = known.realpath + "/login?redirect=" + url;
+	document.location.href = known.realpath + "/user/login?redirect=" + url;
 }

@@ -2,7 +2,7 @@ package com.known.service_impl;
 
 import com.known.common.enums.*;
 import com.known.common.model.*;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -73,15 +73,15 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
 	public void addComment(Comment comment) throws BussinessException {
 		String content = comment.getContent();
-		content = StringUtils.replaceLast(content.replaceFirst("<p>", ""), "</p>", "");
-		if(StringUtils.isEmpty(content) || content.length() > TextLengthEnum.LONGTEXT.getLength()
+		content = StringUtil.replaceLast(content.replaceFirst("<p>", ""), "</p>", "");
+		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.LONGTEXT.getLength()
 				|| comment.getArticleId() == null || comment.getArticleType() == null){
 			throw new BussinessException("参数错误");
 		}
 		Integer pid = comment.getPid();
 		pid = pid == null ? 0 : pid;
 		if(pid!=0){
-			content = StringUtils.addLink(content);//给网页加链接
+			content = StringUtil.addLink(content);//给网页加链接
 			content = HtmlUtils.htmlEscape(content);
 		}
 		if(pid != 0 && content.length() > TextLengthEnum.TEXT_500_LENGTH.getLength()){

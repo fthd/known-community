@@ -34,14 +34,20 @@ public interface UserService {
 
 	void updateUserInfo(User user) throws BussinessException;
 
-	void updatePassword(Integer userId, String oldPassword, String newPassword) throws BussinessException;
+	/**
+	 * 激活用户状态
+	 * @param userName 用户名
+	 * @param activationCode 激活码
+	 * @throws BussinessException
+	 */
+	void updateUserActivate(String userName, String activationCode) throws BussinessException;
 
-	void copyUserIcon(User user, String source, String dest, String userId);
+	void updatePassword(Integer userId, String oldPassword, String newPassword) throws BussinessException;
 	
 	void updateUserWithoutValidate(User user);
 	
 	String findHeadIcon(String account)throws BussinessException;
-	
+
 	List<User> findAllUsers();
 	
 	void deleteUser(Integer[] userIds) throws BussinessException;

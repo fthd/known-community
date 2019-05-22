@@ -2,7 +2,7 @@ package com.known.service_impl;
 
 import com.known.common.model.SysRes;
 import com.known.common.utils.CollectionUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.State;
 import com.known.common.vo.Tree;
 import com.known.exception.BussinessException;
@@ -43,10 +43,10 @@ public class SysResServiceImpl implements SysResService {
 
 	@Override
 	public void addSysRes(SysRes sysRes) throws BussinessException {
-		if(StringUtils.isEmpty(sysRes.getName()) || sysRes.getPid() == null
-				|| StringUtils.isEmpty(sysRes.getUrl()) || sysRes.getSeq() == null
+		if(StringUtil.isEmpty(sysRes.getName()) || sysRes.getPid() == null
+				|| StringUtil.isEmpty(sysRes.getUrl()) || sysRes.getSeq() == null
 				|| sysRes.getType() == null || sysRes.getEnabled() == null
-				|| StringUtils.isEmpty(sysRes.getKey())){
+				|| StringUtil.isEmpty(sysRes.getKey())){
 			throw new BussinessException("参数错误");
 		}
 		
@@ -58,10 +58,10 @@ public class SysResServiceImpl implements SysResService {
 	
 	@Override
 	public void updateSysRes(SysRes sysRes) throws BussinessException {
-		if(sysRes.getId() == null || StringUtils.isEmpty(sysRes.getName()) || 
-				sysRes.getPid() == null || StringUtils.isEmpty(sysRes.getUrl()) 
+		if(sysRes.getId() == null || StringUtil.isEmpty(sysRes.getName()) ||
+				sysRes.getPid() == null || StringUtil.isEmpty(sysRes.getUrl())
 				|| sysRes.getSeq() == null|| sysRes.getType() == null 
-				|| sysRes.getEnabled() == null	|| StringUtils.isEmpty(sysRes.getKey())){
+				|| sysRes.getEnabled() == null	|| StringUtil.isEmpty(sysRes.getKey())){
 				throw new BussinessException("参数错误");
 		}
 		

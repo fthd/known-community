@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.TopicType;
 import com.known.common.utils.DateUtil;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -82,7 +82,7 @@ public class Topic {
 
 
 	public String[] getTopicImageArray() {
-		if(StringUtils.isEmpty(this.topicImage)){
+		if(StringUtil.isEmpty(this.topicImage)){
 			return null;
 		}
 		return topicImage.split("\\|");

@@ -1,6 +1,6 @@
 package com.known.web.filter;
 
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,11 +39,11 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }  
     
     private String clearXss(String html){
-    	if(StringUtils.isEmpty(html)){
+    	if(StringUtil.isEmpty(html)){
     		return html;
     	}
     	html = StringEscapeUtils.escapeHtml4(html);
-    	html = StringUtils.escapeHtml(html);
+    	html = StringUtil.escapeHtml(html);
     	return html;
     }
       

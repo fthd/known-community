@@ -1,12 +1,14 @@
 package com.known.service_impl;
 
 
+import com.known.common.config.UrlConfig;
 import com.known.common.model.User;
 import com.known.common.utils.Constants;
 import com.known.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,11 +18,13 @@ public class FormateAtService {
 	
 	@Autowired
 	private UserService userService;
-	private static String userUrl = Constants.DOMAIN + "/user/";
+
+	private String userUrl = Constants.DOMAIN + "/user/";
 	//private static Pattern referer_pattern = Pattern.compile("@.+?[\\s:]");@([^@\\s\\:\\;\\,\\\\.\\<\\?\\？\\{\\}\\&]{1,})
 	private static Pattern referer_pattern = Pattern.compile("@([^@\\s\\:\\;\\,\\\\.\\<\\?\\？\\{\\}\\&]{1,})");//
 	public String generateRefererLinks(String msg, Set<Integer> userIds){
 		StringBuilder html = new StringBuilder();
+
 		int lastIdx = 0;
 		Matcher matcher = referer_pattern.matcher(msg);
 		while (matcher.find()) {

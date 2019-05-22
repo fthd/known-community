@@ -1,8 +1,9 @@
 package com.known.web.controller;
 
+import com.known.common.config.UserConfig;
 import com.known.common.enums.Code;
 import com.known.common.model.Comment;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -29,8 +31,8 @@ public class CommentController extends BaseController {
 	@Autowired
 	private CommentService commentService;
 
-	@Value("${SESSION_USER_KEY}")
-	private String SESSION_USER_KEY;
+	@Resource
+	private UserConfig userConfig;
 
 	@RequestMapping("/loadComment")
 	public OutResponse<PageResult<Comment>> loadComment(HttpSession session, CommentQuery commentQuery){
@@ -51,7 +53,7 @@ public class CommentController extends BaseController {
 	@RequestMapping("/addComment")
 	public OutResponse<Object> addComment(HttpSession session, Comment comment){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
@@ -78,7 +80,7 @@ public class CommentController extends BaseController {
 	@RequestMapping("/addComment2")
 	public OutResponse<Object> addComment2(HttpSession session, Comment comment){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		UserRedis sessionUser = (UserRedis) session.getAttribute(SESSION_USER_KEY);
+		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");

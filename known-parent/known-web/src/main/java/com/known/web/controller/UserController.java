@@ -1,8 +1,9 @@
 package com.known.web.controller;
 
 
+import com.known.common.config.UserConfig;
 import com.known.common.model.User;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -24,6 +25,7 @@ import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.Code;
 import com.known.common.model.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,18 +47,8 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SignInService signInService;
-
-
-    @Autowired
-    private SolrService solrService;
-
-    @Value("${SESSION_USER_KEY}")
-    private String SESSION_USER_KEY;
-
-    @Value("${COOKIE_USER_INFO}")
-    private String COOKIE_USER_INFO;
+    @Resource
+    private UserConfig userConfig;
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -80,15 +72,12 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/register.do")
     public OutResponse<Object> registerdo(HttpSession session, User user) {
+
         OutResponse<Object> outResponse = new OutResponse<>();
         try {
             userService.register(user);
             outResponse.setCode(Code.SUCCESS);
-            UserRedis sessionUser = new UserRedis();
-            sessionUser.setUserid(user.getUserid());
-            sessionUser.setUserName(user.getUserName());
-            sessionUser.setUserIcon(user.getUserIcon());
-            session.setAttribute(Constants.SESSION_USER_KEY, sessionUser);
+
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
             outResponse.setCode(Code.BUSSINESSERROR);
@@ -101,26 +90,26 @@ public class UserController extends BaseController {
         return outResponse;
     }
 
+    @RequestMapping("/activate")
+    public ModelAndView activate(String userName, String activationCode) {
 
-    @RequestMapping("/aboutWebmaster")
-    public ModelAndView aboutWebmaster(HttpSession session) {
-        Integer userid = this.getUserid(session);
-        ModelAndView view = new ModelAndView("/page/aboutWebmaster");
-        if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
-            view.addObject("signInfo", signInfo);
+        OutResponse<Object> outResponse = new OutResponse<>();
+        ModelAndView view = new ModelAndView("/page/active");
+        try {
+            userService.updateUserActivate(userName, activationCode);
+            outResponse.setCode(Code.SUCCESS);
+            outResponse.setMsg("尊敬的【"+userName+"】用户，恭喜您账户激活成功");
+        } catch (BussinessException e) {
+            outResponse.setMsg(e.getLocalizedMessage());
+            outResponse.setCode(Code.BUSSINESSERROR);
+            logger.error("用户激活失败,用户名:{}", userName);
+        } catch (Exception e) {
+            outResponse.setMsg(Code.SERVERERROR.getDesc());
+            outResponse.setCode(Code.SERVERERROR);
+            logger.error("用户激活失败,用户名:{}", userName);
         }
-        return view;
-    }
+        view.addObject("outResponse", outResponse);
 
-    @RequestMapping("/faq")
-    public ModelAndView faq(HttpSession session) {
-        Integer userid = this.getUserid(session);
-        ModelAndView view = new ModelAndView("/page/FAQ");
-        if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
-            view.addObject("signInfo", signInfo);
-        }
         return view;
     }
 
@@ -153,30 +142,26 @@ public class UserController extends BaseController {
             user.setLastLoginTime(new Date());
             outResponse.setCode(Code.SUCCESS);
 
-            //用户信息存入Redis
-            UserRedis userRedis = new UserRedis(user.getUserid(), user.getUserName(), user.getUserIcon());
-
-
-            UserRedis sessionUser = new UserRedis();
+            SessionUser sessionUser = new SessionUser();
             sessionUser.setUserid(user.getUserid());
             sessionUser.setUserName(user.getUserName());
             sessionUser.setUserIcon(user.getUserIcon());
-            session.setAttribute(SESSION_USER_KEY, sessionUser);
+            session.setAttribute(userConfig.getSession_User_Key(), sessionUser);
 
 
             if (REMEMBERME.equals(rememberMe)) {    // 清除之前的Cookie 信息
                 String infor = URLEncoder.encode(account.toString(), "utf-8") + "|" + user.getPassword();
-                Cookie cookie = new Cookie(COOKIE_USER_INFO, null);
+                Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);
                 cookie.setPath("/");
                 cookie.setMaxAge(0);
                 // 建用户信息保存到Cookie中
-                cookie = new Cookie(COOKIE_USER_INFO, infor);
+                cookie = new Cookie(userConfig.getCookie_User_Info(), infor);
                 cookie.setPath("/");
                 // 设置最大生命周期为1年。
                 cookie.setMaxAge(31536000);
                 response.addCookie(cookie);
             } else {
-                Cookie cookie = new Cookie(COOKIE_USER_INFO, null);
+                Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -251,7 +236,7 @@ public class UserController extends BaseController {
     public ModelAndView logout(HttpSession session, HttpServletResponse response) {
         ModelAndView view = new ModelAndView("page/login");
         session.invalidate();
-        Cookie cookie = new Cookie(COOKIE_USER_INFO, null);
+        Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);

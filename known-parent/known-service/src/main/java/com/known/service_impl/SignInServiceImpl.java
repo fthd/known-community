@@ -5,7 +5,7 @@ import com.known.common.enums.MarkEnum;
 import com.known.common.model.SignIn;
 import com.known.common.model.SignInfo;
 import com.known.common.model.User;
-import com.known.common.model.UserRedis;
+import com.known.common.model.SessionUser;
 import com.known.common.utils.Constants;
 import com.known.common.utils.DateUtil;
 import com.known.exception.BussinessException;
@@ -23,10 +23,14 @@ import java.util.Date;
 
 @Service
 public class SignInServiceImpl implements SignInService {
+
 	@Autowired
 	private SignInMapper<SignIn, SignInQuery> signInMapper;
+
 	@Autowired
 	private UserService userService;
+
+
 	public SignInfo findSignInfoByUserid(Integer userid) {
 		SignInQuery signInQuery = new SignInQuery();
 		SignInfo signInfo = new SignInfo();
@@ -66,7 +70,7 @@ public class SignInServiceImpl implements SignInService {
 	}
 	//签到是事物，配置开启新事物，并且只有在发生BussinessException才回滚
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
-	public SignIn doSignIn(UserRedis sessionUser) throws BussinessException {
+	public SignIn doSignIn(SessionUser sessionUser) throws BussinessException {
 		Integer userid = sessionUser.getUserid();
 		Date curDate = new Date();
 		SignInQuery signInQuery = new SignInQuery();

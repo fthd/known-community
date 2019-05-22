@@ -61,7 +61,7 @@
 
               </form>
            
-           <script>
+     <script>
        	function checkForm(content, doc) {
     		var d = dialog({
     			content: content,
@@ -72,13 +72,7 @@
     	}
            
     var handlerPopup = function (captchaObj) {
-        // 成功的回调
-      /*  captchaObj.onSuccess(function () {
-                       	var loadingindex = layer.load(0, {
-          			  shade: [0.1,'#fff'] //0.1透明度的白色背景
-          			});
 
-            });*/
         $("#register").click(function () {
         	var username = $('#username').val();
     		var email = $('#email').val();
@@ -127,13 +121,13 @@
                 // 先校验是否点击了验证码
                 var validate = captchaObj.getValidate();
                 if (!validate) {
-                    alert('请先完成验证！');
+                    checkForm('请先完成验证', 'popup-captcha');
                     return;
                 }
                 $("#confirmPassword").parent().parent().removeClass('has-error');
                 $("#register").attr('disabled',true);
                 $.ajax({
-                    url: known.realpath + '/register.do',
+                    url: known.realpath + '/user/register.do',
                     type: 'post',
                     dataType: 'json',
                     data: $('#registerform').serialize(),
@@ -142,7 +136,7 @@
                        // layer.close(loadingindex);
                         if (data.msg == null) {
                             var d = dialog({
-                                content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,登录中......</div>",
+                                content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,请尽快登录邮箱激活账户......</div>",
                             });
                             d.showModal();
                             setTimeout(function() {
@@ -159,8 +153,6 @@
                         }
                     }
                 });
-
-            		//captchaObj.show();
     		}
 
         });

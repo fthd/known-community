@@ -5,8 +5,8 @@ import com.known.common.model.MessageParams;
 import com.known.common.model.ShuoShuo;
 import com.known.common.model.ShuoShuoComment;
 import com.known.common.model.ShuoShuoLike;
-import com.known.common.utils.ImageUtils;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.ImageUtil;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -50,14 +50,14 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
 	public void addShuoShuo(ShuoShuo shuoShuo) throws BussinessException {
 		String content = shuoShuo.getContent();
-		if(StringUtils.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
+		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
 			throw new BussinessException("参数错误");
 		}
-		content = StringUtils.addLink(content);//给网页加链接
+		content = StringUtil.addLink(content);//给网页加链接
 		Set<Integer> userIdSet = new HashSet<Integer>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息
-		String thumnail = ImageUtils.createThumbnail(shuoShuo.getImageUrl(), false);
+		String thumnail = ImageUtil.createThumbnail(shuoShuo.getImageUrl(), false);
 		shuoShuo.setImageUrlSmall(thumnail);
 		shuoShuo.setContent(formatContent);
 		shuoShuo.setCreateTime(new Date());
@@ -88,10 +88,10 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	public void addShuoShuoComment(ShuoShuoComment shuoShuoComment)
 			throws BussinessException {
 		String content = shuoShuoComment.getContent();
-		if(StringUtils.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
+		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
 			throw new BussinessException("参数错误");
 		}
-		content = StringUtils.addLink(content);//给网页加链接
+		content = StringUtil.addLink(content);//给网页加链接
 		Set<Integer> userIdSet = new HashSet<Integer>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息

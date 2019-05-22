@@ -7,7 +7,7 @@ import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.Exam;
 import com.known.common.model.ExamDetail;
 import com.known.common.utils.Constants;
-import com.known.common.utils.StringUtils;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -52,7 +52,7 @@ public class ExamServiceImpl implements ExamService {
 	public void saveExam(Exam exam, String[] answers, Integer[] rightAnswers)
 			throws BussinessException {
 		if (exam.getCategoryId() == null
-				|| StringUtils.isEmpty(exam.getExamTitle())
+				|| StringUtil.isEmpty(exam.getExamTitle())
 				|| exam.getExamTitle().length() > TextLengthEnum.TEXT
 						.getLength()
 				|| exam.getChooseType() == null
@@ -62,7 +62,7 @@ public class ExamServiceImpl implements ExamService {
 				|| (rightAnswers.length > MAX_RIGHT_ANSWER_COUNT && exam
 						.getChooseType() == ExamChooseType.SingleSelection)
 				|| rightAnswers.length == answers.length
-				|| (!StringUtils.isEmpty(exam.getAnalyse()) && exam
+				|| (!StringUtil.isEmpty(exam.getAnalyse()) && exam
 						.getAnalyse().length() > TextLengthEnum.TEXT
 						.getLength())) {
 			throw new BussinessException("参数错误");
@@ -82,7 +82,7 @@ public class ExamServiceImpl implements ExamService {
 			}
 		List<ExamDetail> examDetails = new ArrayList<ExamDetail>();
 		for(int i = 0; i < answers_length; i++){
-			if(StringUtils.isEmpty(answers[i]) || answers[i].length() > TextLengthEnum.TEXT.getLength()){
+			if(StringUtil.isEmpty(answers[i]) || answers[i].length() > TextLengthEnum.TEXT.getLength()){
 				throw new BussinessException("参数错误");
 			}
 			ExamDetail examDetail = new ExamDetail();
@@ -104,7 +104,7 @@ public class ExamServiceImpl implements ExamService {
 
 	public List<Exam> doMark(String examIds, String rightAnswers)
 			throws BussinessException {
-		if(StringUtils.isEmpty(examIds) || StringUtils.isEmpty(rightAnswers)){
+		if(StringUtil.isEmpty(examIds) || StringUtil.isEmpty(rightAnswers)){
 			throw new BussinessException("参数错误");
 		}
 		String[] examids = examIds.split(",");

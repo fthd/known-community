@@ -15,4 +15,7 @@ public class MailConfig {
 	@Value("${mail.sendPassword}")
 	private String sendPassword;
 
+	@Value("${Mail_Real_Path}")
+	private String Mail_Real_Path;
+
 }
