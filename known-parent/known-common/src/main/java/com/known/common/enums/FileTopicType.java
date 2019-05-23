@@ -4,7 +4,7 @@ package com.known.common.enums;
 import com.known.common.utils.StringUtil;
 
 public enum FileTopicType {
-	TOPIC("T", "论坛附件"), KNOWLEDGE("K", "论坛附件"),  BLOG("B", "话题附件");
+	TOPIC("T", "话题附件"), KNOWLEDGE("K", "知识库附件");
 	private String type;
 	private String desc;
 

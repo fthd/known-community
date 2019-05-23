@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
 	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
 	<link rel="stylesheet" href="${realpath}/resources/css/shuoshuo.css" />
-	<script type="text/javascript" src="${realpath}/resources/js/shuoshuo.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/js/shuoshuoItem.js"></script>
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userhome.css">
 	<#if user.userPage==1>
 		<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userfullhome.css">
@@ -43,18 +43,17 @@
 			<div class="user-home-tag">
 				<ul class="tag" id="tag">
 					<li type="shuoshuo" index="0" class="active"><a href="javascript:void(0)">吐槽</a></li>
-					<li type="topic" index="1"><a href="javascript:void(0)">讨论</a></li>
+					<li type="topic" index="1"><a href="javascript:void(0)">话题</a></li>
 					<li type="ask" index="2"><a href="javascript:void(0)">问答</a></li>
 					<li type="knowledge" index="3"><a href="javascript:void(0)">知识库</a></li>
-					<li type="blog" index="4"><a href="${realpath}/user/${user.userid?c}/blog">话题</a></li>
 					<li type="fans" index="5"><a href="javascript:void(0)">Ta的粉丝</a></li>
 					<li type="focus" index="6"><a href="javascript:void(0)">Ta关注的人</a></li>
 				</ul>
 			</div>
-						<!-- 说说 -->
+			<!-- 说说 -->
 			<div class="tag-content">
 			</div>
-			<!-- 讨论 -->
+			<!-- 话题 -->
 			<div class="tag-content">
 				<div id="topic-pager-top"></div>
 				<div id="topic-content"></div>

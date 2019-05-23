@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
 public class StatisticalDataServiceImpl implements IStatisticalDataService {
 	
@@ -45,13 +46,6 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 	
 	@Autowired
 	private AskMapper<Ask, AskQuery> askMapper;
-	
-	@Autowired
-	private BlogMapper<Blog, BlogQuery> blogMapper;
-	
-	@Autowired
-	private ExamMapper<Exam, ExamQuery> examMapper;
-	
 	@Autowired
 	private UserMapper<User, UserQuery> userMapper;
 
@@ -97,11 +91,7 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 		
 		commentQuery.setArticleType(ArticleType.Ask);
 		int askCommentCount = commentMapper.selectCount(commentQuery);
-		statistics.setAskCommentCount(askCommentCount);
-		
-		commentQuery.setArticleType(ArticleType.BLOG);
-		int blogCommentCount = commentMapper.selectCount(commentQuery);
-		statistics.setBlogCommentCount(blogCommentCount);
+		statistics.setAskCommentCount(askCommentCount);;
 		
 		KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
 		knowledgeQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
@@ -114,19 +104,7 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 		askQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));	
 		int askcount = askMapper.selectCount(askQuery);
 		statistics.setAskCount(askcount);
-		
-		BlogQuery blogQuery = new BlogQuery();
-		blogQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		blogQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		int blogcount = blogMapper.selectCount(blogQuery);
-		statistics.setBlogCount(blogcount);
-		
-		ExamQuery examQuery = new ExamQuery();
-		examQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		examQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		int examCount = examMapper.selectCount(examQuery);
-		statistics.setExamCount(examCount);
-		
+
 		UserQuery userQuery = new UserQuery();
 		userQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		userQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));		
@@ -145,24 +123,24 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 	@Override
 	public List<Echart> findEcharts() throws BussinessException {
 		List<Statistics> list = findStatistics();
-		List<Echart> echarts = new ArrayList<Echart>();
+		List<Echart> echarts = new ArrayList<>();
 		
 		XAxis xAxis = new XAxis();
-		List<String> dates = new ArrayList<String>();
-		List<Integer> signInCounts	= new ArrayList<Integer>();	
-		List<Integer> shuoshuoCounts	= new ArrayList<Integer>();	
-		List<Integer> shuoshuoCommentCounts	= new ArrayList<Integer>();	
-		List<Integer> topicCounts	= new ArrayList<Integer>();	
-		List<Integer> topicCommentCounts	= new ArrayList<Integer>();	
-		List<Integer> knowledgeCounts	= new ArrayList<Integer>();	
-		List<Integer> knowledgeCommentCounts	= new ArrayList<Integer>();	
-		List<Integer> askCounts	= new ArrayList<Integer>();	
-		List<Integer> askCommentCounts	= new ArrayList<Integer>();	
-		List<Integer> blogCounts	= new ArrayList<Integer>();	
-		List<Integer> blogCommentCounts	= new ArrayList<Integer>();
-		List<Integer> examCounts	= new ArrayList<Integer>();
-		List<Integer> userCounts	= new ArrayList<Integer>();
-		List<Integer> activeUserCounts	= new ArrayList<Integer>();
+		List<String> dates = new ArrayList<>();
+		List<Integer> signInCounts	= new ArrayList<>();
+		List<Integer> shuoshuoCounts	= new ArrayList<>();
+		List<Integer> shuoshuoCommentCounts	= new ArrayList<>();
+		List<Integer> topicCounts	= new ArrayList<>();
+		List<Integer> topicCommentCounts	= new ArrayList<>();
+		List<Integer> knowledgeCounts	= new ArrayList<>();
+		List<Integer> knowledgeCommentCounts	= new ArrayList<>();
+		List<Integer> askCounts	= new ArrayList<>();
+		List<Integer> askCommentCounts	= new ArrayList<>();
+		List<Integer> blogCounts	= new ArrayList<>();
+		List<Integer> blogCommentCounts	= new ArrayList<>();
+		List<Integer> examCounts	= new ArrayList<>();
+		List<Integer> userCounts	= new ArrayList<>();
+		List<Integer> activeUserCounts	= new ArrayList<>();
 		for(Statistics statistics : list){
 			dates.add(DateUtil.format(statistics.getStatisticsDate(), DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 			signInCounts.add(statistics.getSigninCount());

@@ -6,7 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
 	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
 	<link rel="stylesheet" href="${realpath}/resources/css/shuoshuo.css" />
-	<script type="text/javascript" src="${realpath}/resources/js/shuoshuoItem.js"></script>
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userhome.css">
 	<#if user.userPage==1>
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/userfullhome.css">
@@ -28,8 +27,8 @@
 <body>
 	<#include "../include/header.html">
 	<div class="main">
-		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/resources/images/${user.userBg}')">
-		<div class="user-home-icon"><img class="img-circle" src="${user.userIcon}"></div>
+		<div class="user-center-bg" style="background-color:#42332E;background-image: url('${realpath}/${user.userBg}')">
+		<div class="user-home-icon"><img class="img-circle" src="${realpath}/${user.userIcon}"></div>
 		<div class="user-characters">${user.characters!'这个人很懒，什么也没留下。'}</div>
 		</div>
 
@@ -45,12 +44,12 @@
 					<li type="topic" ><a href="${realpath}/user/${user.userid?c}#topic">讨论</a></li>
 					<li type="ask" ><a href="${realpath}/user/${user.userid?c}#ask">问答</a></li>
 					<li type="knowledge" ><a href="${realpath}/user/${user.userid?c}#knowledge">知识库</a></li>
-					<li type="blog" style="border-bottom: 1px solid #fff;"><a href="${realpath}/user/${user.userid?c}/blog">话题</a></li>
+					<li type="topic" style="border-bottom: 1px solid #fff;"><a href="${realpath}/user/${user.userid?c}/topic">话题</a></li>
 					<li type="fans" ><a href="${realpath}/user/${user.userid?c}#fans">Ta的粉丝</a></li>
 					<li type="focus" ><a href="${realpath}/user/${user.userid?c}#focus">Ta关注的人</a></li>
 				</ul>
 			</div>
-						<!-- 说说 -->
+			<!-- 说说 -->
 <section id="cd-timeline" class="cd-container">
 	
 
@@ -62,7 +61,7 @@
 
 	</div>
 	<#include "../include/footer.html">
-
+	<script type="text/javascript" src="${realpath}/resources/js/shuoshuoItem.js"></script>
 	<script type="text/javascript">
 $(function(){
     loadShuoShuo();

@@ -38,9 +38,6 @@ public class CommentServiceImpl implements CommentService {
 	private AskMapper<Ask, AskQuery> askMapper;
 	
 	@Autowired
-	private BlogMapper<Blog, BlogQuery> blogMapper;
-	
-	@Autowired
 	private FormateAtService formateAtService;
 	
 	@Autowired
@@ -115,12 +112,6 @@ public class CommentServiceImpl implements CommentService {
 			AskQuery askQuery = new AskQuery();
 			askQuery.setAskId(comment.getArticleId());
 			articleUserId = this.askMapper.selectList(askQuery).get(0).getUserId();
-		}
-		else if(comment.getArticleType() == ArticleType.BLOG){
-			this.blogMapper.updateInfoCount(updateQuery4ArticleCount);
-			BlogQuery blogQuery = new BlogQuery();
-			blogQuery.setBlogId(comment.getArticleId());
-			articleUserId = this.blogMapper.selectList(blogQuery).get(0).getUserId();
 		}
 		else{
 			throw new BussinessException("参数错误");

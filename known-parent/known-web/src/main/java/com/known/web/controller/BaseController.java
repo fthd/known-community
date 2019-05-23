@@ -22,10 +22,12 @@ public class BaseController {
 	private UserConfig userConfig;
 	
 	public void setUserBaseInfo(Class<?> clazz, Object obj, HttpSession session){
+
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		Integer userId = sessionUser.getUserid();
 		String userName = sessionUser.getUserName();
 		String userIcon = sessionUser.getUserIcon();
+
 		try {
 			Method UserIdMethod = clazz.getDeclaredMethod("setUserId", Integer.class);
 			UserIdMethod.invoke(obj, userId);

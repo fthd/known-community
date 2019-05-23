@@ -80,13 +80,13 @@ function search(){
 			var edit = '<a href="javascript:;" title="删除" class="del" articleId="'+d.articleId+'" articleType="'+d.articleType.type+'"><i class="icon i-del"></i></a>';
 			var url = "";
 			if(d.articleType.type=="T"){
-			    url = known.realpath+"/bbs/"+d.articleId;
+			    url = known.realpath+"/topic/"+d.articleId;
 			}else if(d.articleType.type=="K"){
 			    url = known.realpath+"/knowledge/"+d.articleId;
 			}else if(d.articleType.type=="A"){
 			    url = known.realpath+"/ask/"+d.articleId;
 			}else if(d.articleType.type=="B"){
-			    url = known.realpath+"/user/"+d.articleUserId+"/blog/"+d.articleId;
+			    url = known.realpath+"/user/"+d.articleUserId+"/topic/"+d.articleId;
 			}
 			$("<tr><td valign='center'><a href='"+url+"' target='_blank'>"+d.title+"</a></td><td>"+d.createTimeString+"</td><td>" + edit + "</td></tr>").appendTo($("#data-list"));
 		    }

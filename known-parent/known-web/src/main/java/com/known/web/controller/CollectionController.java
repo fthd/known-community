@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 收藏
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-05-24 00:09
+ */
 @Controller
 @RequestMapping("/collention")
 public class CollectionController extends BaseController {

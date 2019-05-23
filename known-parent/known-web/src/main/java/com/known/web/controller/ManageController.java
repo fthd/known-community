@@ -34,18 +34,18 @@ public class ManageController {
 
 	@RequestMapping("/noperm")
 	public String noperm(){
-		return "page/noperm";
+		return "/page/noperm";
 	}
 	
 	@RequestMapping("/manage")
 	public String index(){
-		return "page/adminpage/index";
+		return "/page/adminpage/index";
 	}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		session.invalidate();
-		return "page/adminpage/login";
+		return "/page/adminpage/login";
 	}
 	
 	

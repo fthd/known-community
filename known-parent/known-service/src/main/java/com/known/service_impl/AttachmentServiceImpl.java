@@ -89,9 +89,6 @@ public class AttachmentServiceImpl implements AttachmentService {
 			}
 			this.checkDownloadPermission(topic.getUserId(), sessionUser.getUserid(), attachment.getDownloadMark(), attachmentId);
 		}
-		else if(fileTopicType == FileTopicType.BLOG){
-			
-		}
 		AttachmentDownload attachmentDownload = new AttachmentDownload();
 		attachmentDownload.setAttachmentId(attachmentId);
 		attachmentDownload.setUserId(sessionUser.getUserid());
@@ -139,9 +136,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 				}
 			topicUserId = topic.getUserId();
 			}
-			else if(fileTopicType == FileTopicType.BLOG){
-				
-			}
+
 		AttachmentDownloadQuery attachmentDownloadQuery = new AttachmentDownloadQuery();
 		attachmentDownloadQuery.setUserId(sessionUser.getUserid());
 		attachmentDownloadQuery.setAttachmentId(attachmentId);

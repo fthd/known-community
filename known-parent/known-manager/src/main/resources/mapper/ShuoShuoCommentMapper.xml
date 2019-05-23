@@ -3,7 +3,7 @@
 <mapper namespace="com.known.manager.mapper.ShuoShuoCommentMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuoComment" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="shuoshuo_id" property="shuoshuoId" jdbcType="INTEGER" />
+    <result column="shuoshuo_id" property="shuoShuoId" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
@@ -13,8 +13,8 @@
   
    <sql id="Base_Condition" >
     <where >
-    	<if test="null!= shuoshuoId">
-     		and shuoshuo_id = #{shuoshuoId}
+    	<if test="null!= shuoShuoId">
+     		and shuoshuo_id = #{shuoShuoId}
      	</if>
      	<if test="null!= startDate and ''!= startDate">
      		<![CDATA[ 
@@ -34,7 +34,7 @@
   </sql>
   
    <select id="selectListByShuoShuoId" resultMap="BaseResultMap">
-  		select <include refid="Base_Column_List"/> from known_shuoshuo_comment where shuoshuo_id = #{shuoshuoId}
+  		select <include refid="Base_Column_List"/> from known_shuoshuo_comment where shuoshuo_id = #{shuoShuoId}
   		order by create_time desc  <!--  直接全部取出来，后续可以改成先取五条limit 0,5-->
   </select>
   
@@ -56,7 +56,7 @@
     insert into known_shuoshuo_comment (shuoshuo_id, content, 
       create_time, user_id, user_icon, 
       user_name)
-    values (#{shuoshuoId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+    values (#{shuoShuoId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR})
   </insert>

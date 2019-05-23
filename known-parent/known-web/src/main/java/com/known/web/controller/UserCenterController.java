@@ -2,10 +2,8 @@ package com.known.web.controller;
 
 import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
-import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.Code;
 import com.known.common.model.*;
-import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -48,12 +46,9 @@ public class UserCenterController extends BaseController {
 	
 	@Autowired
 	private KnowledgeService knowledgeService;
-	
+
 	@Autowired
-	private BlogCategoryService blogCategoryService;
-	
-	@Autowired
-	private BlogService blogService;
+	private TopicService blogService;
 
 	@Resource
 	private UserConfig userConfig;
@@ -87,28 +82,11 @@ public class UserCenterController extends BaseController {
 		return view;
 	}
 	
-	
-	@ResponseBody
-	@RequestMapping("/loadShuoShuos")
-	public OutResponse<Object> loadShuoShuos(HttpSession session, ShuoShuoQuery shuoShuoQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			PageResult<ShuoShuo> pageResult = this.shuoShuoService.findShuoShuoList(shuoShuoQuery);
-			outResponse.setData(pageResult);
-			outResponse.setCode(Code.SUCCESS);
-		} catch (Exception e) {
-			logger.error("加载说说异常", e);
-			outResponse.setMsg("加载说说出错");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping("/loadShuoShuoDetail")
-	public OutResponse<Object> loadShuoShuoDetail(HttpSession session, ShuoShuoQuery shuoShuoQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadShuoShuoDetail(ShuoShuoQuery shuoShuoQuery){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			ShuoShuo shuoShuo = this.shuoShuoService.findShuoShuo(shuoShuoQuery);
 			outResponse.setData(shuoShuo);
@@ -122,32 +100,9 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/publicShuoShuoComment")
-	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			outResponse.setCode(Code.BUSSINESSERROR);
-			outResponse.setMsg("请先登录");
-			return outResponse;
-		}
-		try {
-			this.setUserBaseInfo(ShuoShuoComment.class, shuoShuoComment, session);
-			this.shuoShuoService.addShuoShuoComment(shuoShuoComment);
-			outResponse.setCode(Code.SUCCESS);
-			outResponse.setData(shuoShuoComment);
-		} catch (BussinessException e) {
-			outResponse.setCode(Code.BUSSINESSERROR);
-			outResponse.setMsg(e.getLocalizedMessage());
-			logger.error("{}评论出错", shuoShuoComment.getUserName());
-		}
-		return outResponse;
-	}
-	
-	@ResponseBody
 	@RequestMapping("/loadUserFriend")
 	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(Code.BUSSINESSERROR);
@@ -162,30 +117,26 @@ public class UserCenterController extends BaseController {
 		outResponse.setData(pageResult);
 		return outResponse;
 	}
-	
+
+
 	@ResponseBody
-	@RequestMapping("/doShuoShuoLike")
-	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			outResponse.setCode(Code.BUSSINESSERROR);
-			outResponse.setMsg("请先登录");
-			return outResponse;
-		}
-		this.setUserBaseInfo(ShuoShuoLike.class, shuoShuoLike, session);
+	@RequestMapping("/loadShuoShuos")
+	public OutResponse<Object> loadShuoShuos(HttpSession session,ShuoShuoQuery shuoShuoQuery){
+
+		OutResponse<Object> outResponse = new OutResponse<>();
+
 		try {
-			this.shuoShuoService.doShuoShuoLike(shuoShuoLike);
+			PageResult<ShuoShuo> pageResult = this.shuoShuoService.findShuoShuoList(shuoShuoQuery);
+			outResponse.setData(pageResult);
 			outResponse.setCode(Code.SUCCESS);
-			outResponse.setData(shuoShuoLike);
-		} catch (BussinessException e) {
-			outResponse.setCode(Code.BUSSINESSERROR);
-			outResponse.setMsg(e.getLocalizedMessage());
-			logger.error("{}点赞出错", shuoShuoLike.getUserName());
+		} catch (Exception e) {
+			logger.error("加载说说异常", e);
+			outResponse.setMsg("加载说说出错");
+			outResponse.setCode(Code.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/loadTopic")
 	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
@@ -262,51 +213,6 @@ public class UserCenterController extends BaseController {
 			outResponse.setCode(Code.SERVERERROR);
 		}
 		return outResponse;
-	}
-	
-	@RequestMapping(value = "/{userId}/blog", method = RequestMethod.GET)
-	public ModelAndView blog(HttpSession session, @PathVariable Integer userId, BlogQuery blogQuery){
-		ModelAndView view = new ModelAndView("/page/user/blog");
-		try {
-			User user = this.userService.findUserInfo4UserHome(userId);
-			UserFriendQuery userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(this.getUserid(session));
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("focusType", this.userFriendService.findFocusType4UserHome(userFriendQuery));
-			blogQuery.setStatus(BlogStatusEnum.PUBLIC);
-			List<BlogCategory> categoryList = this.blogCategoryService.findBlogCategoryList(userId);
-			PageResult<Blog> result = this.blogService.findBlogByPage(blogQuery);
-			view.addObject("user", user);
-			view.addObject("categoryList", categoryList);
-			view.addObject("result", result);
-			
-			//获取粉丝和关注数量
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("fansCount", this.userFriendService.findCount(userFriendQuery));
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(userId);
-			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
-		} catch (Exception e) {
-			logger.error("获取话题信息失败：", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
-	
-	@RequestMapping(value = "/{userId}/blog/{blogId}", method = RequestMethod.GET)
-	public ModelAndView blogDetail(HttpSession session, @PathVariable Integer blogId){
-		ModelAndView view = new ModelAndView("/page/user/blog_detail");
-		try {
-			Blog blog = this.blogService.showBlog(blogId);
-			view.addObject("topic", blog);
-		} catch (Exception e) {
-			logger.error("获取话题信息失败：", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
 	}
 	
 	@RequestMapping(value = "/{userId}/shuoshuo/{id}")

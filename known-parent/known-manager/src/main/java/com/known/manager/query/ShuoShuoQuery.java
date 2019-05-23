@@ -16,8 +16,6 @@ public class ShuoShuoQuery extends BaseQuery{
 
 	private Integer shuoShuoId;
 	
-	private Integer shuoshuoId;
-	
 	private String startDate;
 	
 	private String endDate;

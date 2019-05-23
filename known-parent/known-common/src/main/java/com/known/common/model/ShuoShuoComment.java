@@ -15,7 +15,7 @@ import java.util.Date;
 public class ShuoShuoComment {
     private Integer id;
 
-    private Integer shuoshuoId;
+    private Integer shuoShuoId;
 
     private String content;
 

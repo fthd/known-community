@@ -48,7 +48,6 @@ public class GeetestLib {
 	/**
 	 * 私钥
 	 */
-	
 	private String privateKey = "";
 	
 	private String userId = "";
@@ -138,7 +137,6 @@ public class GeetestLib {
 	
 	/**
 	 * 验证初始化预处理
-	 *
 	 * @param userid
 	 * @return 1表示初始化成功，0表示初始化失败
 	 */
@@ -152,7 +150,6 @@ public class GeetestLib {
 
 	/**
 	 * 用captchaID进行注册，更新challenge
-	 * 
 	 * @return 1表示注册成功，0表示注册失败
 	 */
 	private int registerChallenge() {
@@ -182,7 +179,6 @@ public class GeetestLib {
 
 	/**
 	 * 发送请求，获取服务器返回结果
-	 * 
 	 * @param getURL
 	 * @return 服务器返回结果
 	 * @throws IOException
@@ -219,7 +215,6 @@ public class GeetestLib {
 	
 	/**
 	 * 判断一个表单对象值是否为空
-	 * 
 	 * @param gtObj
 	 * @return
 	 */
@@ -237,8 +232,9 @@ public class GeetestLib {
 
 	/**
 	 * 检查客户端的请求是否合法,三个只要有一个为空，则判断不合法
-	 * 
-	 * @param request
+	 * @param challenge
+	 * @param validate
+	 * @param seccode
 	 * @return
 	 */
 	private boolean resquestIsLegal(String challenge, String validate, String seccode) {
@@ -373,8 +369,7 @@ public class GeetestLib {
 	 * @param img_grp_index
 	 * @return
 	 */
-	private int validateFailImage(int ans, int full_bg_index,
-			int img_grp_index) {
+	private int validateFailImage(int ans, int full_bg_index, int img_grp_index) {
 		final int thread = 3;// 容差值
 
 		String full_bg_name = md5Encode(full_bg_index + "").substring(0, 9);
@@ -408,15 +403,12 @@ public class GeetestLib {
 			return 0;
 		}
 	}
-	
-	
-	
-	
+
+
 	/**
 	 * 解码随机参数
-	 * 
-	 * @param encodeStr
 	 * @param challenge
+	 * @param string
 	 * @return
 	 */
 	private int decodeResponse(String challenge, String string) {
@@ -457,7 +449,7 @@ public class GeetestLib {
 	/**
 	 * 输入的两位的随机数字,解码出偏移量
 	 * 
-	 * @param randStr
+	 * @param challenge
 	 * @return
 	 */
 	private int decodeRandBase(String challenge) {
@@ -541,9 +533,7 @@ public class GeetestLib {
 
 
 	/**
-	 * md5 加密
-	 * 
-	 * @time 2014年7月10日 下午3:30:01
+	 * MD5加密
 	 * @param plainText
 	 * @return
 	 */

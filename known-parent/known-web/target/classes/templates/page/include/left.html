@@ -3,8 +3,8 @@
 <div class="user-home-op-btn">
 
 	<#if focusType==0>
-		<a href="${realpath}/admin" class="btn btn-sm btn-info">后台管理</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="${realpath}/admin/preAddBlog" class="btn btn-sm btn-info">写写话题</a>
+		<a href="${realpath}/userAdmin/admin" class="btn btn-sm btn-info">后台管理</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="${realpath}/userAdmin/preAddBlog" class="btn btn-sm btn-info">写写博客</a>
 		<#elseif focusType==1>
 		<a href="javascript:;" focustype="${focusType}" id="focus-btn" class="btn  btn-success">关注</a>
 		<#else>
@@ -58,9 +58,9 @@ $(function(){
 		var focusType = $(this).attr("focusType");
 		var url="";
 		if(focusType=="1"){//关注
-		    url=known.realpath+"/user/focus.action";
+		    url=known.realpath+"/userCenter/focus.action";
 		}else if(focusType=="2"){
-		    url=known.realpath+"/user/cancel_focus.action";
+		    url=known.realpath+"/userCenter/cancel_focus.action";
 		}
 		var that = $(this);
 

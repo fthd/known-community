@@ -22,7 +22,7 @@ public class GeekController {
 		String resStr;
 		
 		//自定义userid
-		String userid = "test";
+		String userid = "will";
 
 		//进行验证预处理
 		int gtServerStatus = gtSdk.preProcess(userid);

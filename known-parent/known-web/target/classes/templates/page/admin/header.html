@@ -1,0 +1,59 @@
+<div>
+    <nav class="leftNav navbar-default">
+        <ul class="first-nav-level nav">
+            <li class="nav-header">
+                <span><a href="${realpath}/user/${user.userid?c}" style="padding: 0px;"><img alt="image" class="img-circle img" src="${user.userIcon}"></a></span>
+                <span class="adminUser">${user.userName}</span>
+            </li>
+            <li>
+                <a href="#" class="mycollapse">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span>个人信息管理</span>
+                    <span class="fa arrow">-</span>
+                </a>
+                <ul class="second-nav-level nav in" id="collapse">
+                    <li><a href="${realpath}/userAdmin/admin" class="activeNav">修改个人资料</a></li>
+                    <li><a href="${realpath}/userAdmin/preUpdatePassword" >修改登录密码</a></li>
+                    <li><a href="${realpath}/userAdmin/preUpdateUserIcon" >修改头像</a></li>
+                    <li><a href="${realpath}/userAdmin/preUpdateUserBg">修改主页背景</a></li>
+                    <li><a href="${realpath}/userAdmin/preUpdateUserPage">版面设置</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="mycollapse collapse">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    <span>消息管理</span>
+                    <span class="fa arrow">+</span>
+                </a>
+                <ul class="second-nav-level nav collapse" id="collapse">
+                    <li><a href="${realpath}/userAdmin/messageList">我的消息</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="mycollapse">
+                    <span class="glyphicon glyphicon-heart"></span>
+                    <span>收藏管理</span>
+                    <span class="fa arrow">+</span>
+                </a>
+                <ul class="second-nav-level nav collapse" id="collapse">
+                    <li><a href="${realpath}/userAdmin/collection_list.action?articleType=T">收藏的话题</a></li>
+                    <li><a href="${realpath}/userAdmin/collection_list.action?articleType=K">收藏的知识库</a></li>
+                    <li><a href="${realpath}/userAdmin/collection_list.action?articleType=A">收藏的问答</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="rightTopNav" style="margin-left: 200px;background: #18bc9c;">
+        <nav class="navbar navbar-inverse navbar-static-top" style="">
+            <div class="navbar-header">
+                <a class="navbar-brand">KNOWN</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class=""><a href="${realpath}">首页</a></li>
+                <li><a href="${realpath}/shuoShuo/shuoShuo">说说</a></li>
+                <li><a href="${realpath}/topic/topic">话题</a></li>
+                <li><a href="${realpath}/knowledge/knowledge">知识库</a></li>
+                <li><a href="${realpath}/ask/ask">问答</a></li>
+            </ul>
+        </nav>
+    </div>

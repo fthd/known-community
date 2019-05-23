@@ -119,4 +119,4 @@ This, of course, does not speak for bugs. If you have a bug, please bring it to 
 
 ## Me
 
-Follow me on Twitter: [@CWSpear](https://twitter.com/CWSpear) or check out my [blog](http://cameronspear.com/blog/).
+Follow me on Twitter: [@CWSpear](https://twitter.com/CWSpear) or check out my [topic](http://cameronspear.com/topic/).

@@ -1,6 +1,5 @@
 package com.known.web.controller;
 
-import com.aliyun.oss.OSSClient;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.Code;
 import com.known.common.utils.DateUtil;

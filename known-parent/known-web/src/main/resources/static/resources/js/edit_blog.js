@@ -212,7 +212,7 @@ function publicBlog(){
 									  icon: 1,
 									  time: 1500 //2秒关闭（如果不配置，默认是3秒）
 									}, function(){
-										document.location.href = known.realpath + "/user/" + known.userId + "/blog/" + res.data ;
+										document.location.href = known.realpath + "/user/" + known.userId + "/topic/" + res.data ;
 									});
 							}
 						}

@@ -92,21 +92,21 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 			throw new BussinessException("参数错误");
 		}
 		content = StringUtil.addLink(content);//给网页加链接
-		Set<Integer> userIdSet = new HashSet<Integer>();
+		Set<Integer> userIdSet = new HashSet<>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息
 		shuoShuoComment.setContent(formatContent);
 		shuoShuoComment.setCreateTime(new Date());
-		this.shuoShuoMapper.updateShuoShuoCommentCount(shuoShuoComment.getShuoshuoId());
+		this.shuoShuoMapper.updateShuoShuoCommentCount(shuoShuoComment.getShuoShuoId());
 		this.shuoShuoCommentMapper.insert(shuoShuoComment);
 		this.userService.addMark(MarkEnum.MARK_COMMENT.getMark(), shuoShuoComment.getUserId());	
 		
-		Integer shuoshuoId = shuoShuoComment.getShuoshuoId();
+		Integer  shuoShuoId= shuoShuoComment.getShuoShuoId();
 		MessageParams messageParams = new MessageParams();
-		messageParams.setArticleId(shuoshuoId);
+		messageParams.setArticleId(shuoShuoId);
 		messageParams.setArticleType(ArticleType.SHUOSHUO);
 		ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
-		shuoShuoQuery.setShuoShuoId(shuoshuoId);
+		shuoShuoQuery.setShuoShuoId(shuoShuoId);
 		ShuoShuo ss = findShuoShuo(shuoShuoQuery);
 		messageParams.setArticleUserId(ss.getUserId());
 		messageParams.setMessageType(MessageType.COMMENT_MESSAGE);
@@ -138,7 +138,8 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		Page page = new Page(pageNum, count, size);
 		shuoShuoQuery.setPage(page);
 		List<ShuoShuo> shuoShuos = this.shuoShuoMapper.selectList(shuoShuoQuery);
-		return new PageResult<ShuoShuo>(page, shuoShuos);
+
+		return new PageResult<>(page, shuoShuos);
 	}
 	
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
@@ -146,12 +147,12 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
 		shuoShuoQuery.setUserId(shuoShuoLike.getUserId());
 		System.out.println(shuoShuoQuery.getShuoShuoId());
-		shuoShuoQuery.setShuoShuoId(shuoShuoLike.getShuoshuoId());
+		shuoShuoQuery.setShuoShuoId(shuoShuoLike.getShuoShuoId());
 		if(this.findShuoShuoLike(shuoShuoQuery).size() >= 1){
 			throw new BussinessException("您已经点过赞了");
 		}
 		shuoShuoLike.setCreateTime(new Date());
-		this.shuoShuoMapper.updateShuoShuoLikeCount(shuoShuoLike.getShuoshuoId());
+		this.shuoShuoMapper.updateShuoShuoLikeCount(shuoShuoLike.getShuoShuoId());
 		this.shuoShuoLikeMapper.insert(shuoShuoLike);
 	}
 

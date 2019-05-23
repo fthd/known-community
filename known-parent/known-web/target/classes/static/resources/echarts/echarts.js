@@ -53553,7 +53553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 
-	    // Code from <http://blog.csdn.net/rickliuxiao/article/details/6259322> with some fix.
+	    // Code from <http://topic.csdn.net/rickliuxiao/article/details/6259322> with some fix.
 	    // See <https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection>
 	    function lineIntersect(a1x, a1y, a2x, a2y, b1x, b1y, b2x, b2y) {
 	        var delta = determinant(a2x - a1x, b1x - b2x, a2y - a1y, b1y - b2y);

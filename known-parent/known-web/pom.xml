@@ -40,6 +40,24 @@
     </dependencies>
 
     <build>
+        <!-- 经过maven的filter，会破坏font文件的二进制文件格式，到时前台解析出错 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/resources/bootstrap/fonts/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/resources/bootstrap/fonts/**</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

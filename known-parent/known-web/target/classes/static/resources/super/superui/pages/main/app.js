@@ -60,11 +60,11 @@ var App = function() {
         }
     };
 
-    //³õÊ¼»¯iframeÄÚÈÝÒ³¸ß¶È
+    //ï¿½ï¿½Ê¼ï¿½ï¿½iframeï¿½ï¿½ï¿½ï¿½Ò³ï¿½ß¶ï¿½
     var handleIframeContent = function () {
-        var ht = $(window).height();//»ñÈ¡ä¯ÀÀÆ÷´°¿ÚµÄÕûÌå¸ß¶È£»
+        var ht = $(window).height();//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ß¶È£ï¿½
         var foot = $(".page-footer").height();
-        var topHeader = $(".page-header").height();//»ñÈ¡Í·²¿¸ß¶È£¬¶¨ÒåÒ»¸ö±äÁ¿ÃûÎªtopHeader
+        var topHeader = $(".page-header").height();//ï¿½ï¿½È¡Í·ï¿½ï¿½ï¿½ß¶È£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªtopHeader
        // $(".page-sidebar").height(ht);
         //$(".tab_iframe").height(ht);
        
@@ -78,7 +78,7 @@ var App = function() {
             width: "100%"
         });
     }
-    //³õÊ¼»¯ÄÚÈÝÒ³layout×é¼þ¸ß¶È
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³layoutï¿½ï¿½ï¿½ï¿½ß¶ï¿½
     var handleIframeLayoutHeight = function () {
 
         var height = App.getViewPort().height - $('.page-footer').outerHeight() - $('.page-header').outerHeight() - $(".content-tabs").height();

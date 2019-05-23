@@ -52,13 +52,13 @@ function SearchItem(data){
 	var searchType = $("#select").val();
 	var id = data.id;
 	if(searchType=="T"){
-		url = known.realpath+"/bbs/"+id;
+		url = known.realpath+"/topic/"+id;
 	}else if(searchType=="K"){
 		url = known.realpath+"/knowledge/"+id;
 	}else if(searchType=="Z"){
 		url = known.realpath+"/ask/"+id;
 	}else if(searchType=="B"){
-		url = known.realpath+"/user/"+data.userId+"/blog/"+id;
+		url = known.realpath+"/user/"+data.userId+"/topic/"+id;
 	}
 	var item = $("<div class='search-item'></div>");
 	$("<a href='"+url+"' target='_blank' class='search-item-title'>"+data.title+"</a><span class='time'>"+data.createTime+"</span><span class='search-by'>by</span><a class='search-user' target='_blank' href='"+known.realpath+"/user/"+data.userId+"'>"+data.userName+"</a>").appendTo(item);

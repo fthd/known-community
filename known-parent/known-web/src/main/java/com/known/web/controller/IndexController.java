@@ -1,13 +1,11 @@
 package com.known.web.controller;
 
-import com.known.common.enums.BlogStatusEnum;
 import com.known.common.model.SignInfo;
 import com.known.common.model.Topic;
 import com.known.common.vo.PageResult;
 import com.known.manager.query.AskQuery;
-import com.known.manager.query.BlogQuery;
-import com.known.manager.query.KnowledgeQuery;
 import com.known.manager.query.TopicQuery;
+import com.known.manager.query.KnowledgeQuery;
 import com.known.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +37,7 @@ public class IndexController extends  BaseController {
     private AskService askService;
 
     @Autowired
-    private BlogService blogService;
+    private TopicService blogService;
 
     /**
      * 首页
@@ -59,10 +57,7 @@ public class IndexController extends  BaseController {
         PageResult<Topic> topics = this.topicService.findTopicByPage(new TopicQuery());
         view.addObject("topics", topics);
         view.addObject("knowledges", this.knowledgeService.findKnowledgeByPage(new KnowledgeQuery()));
-        view.addObject("asks", this.askService.findAskByPage(new AskQuery()));
-        BlogQuery blogQuery = new BlogQuery();
-        blogQuery.setStatus(BlogStatusEnum.PUBLIC);
-        view.addObject("blogs", this.blogService.findBlogByPage(blogQuery));
+        view.addObject("asks", this.askService.findAskByPage(new AskQuery()));;
         return view;
     }
 

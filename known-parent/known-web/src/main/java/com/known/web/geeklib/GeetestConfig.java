@@ -2,8 +2,9 @@ package com.known.web.geeklib;
 
 /**
  * GeetestWeb配置文件
- * 
- *
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-05-23 09:49
  */
 public class GeetestConfig {
 

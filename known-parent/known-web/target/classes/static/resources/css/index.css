@@ -18,10 +18,10 @@
 .data-item div.read{display: inline-block;float: right;font-size: 12px;color: #888}
 .data-item a.new{background: url("../images/new.png"); background-repeat: no-repeat;padding-left: 20px;}
 .right{float: right;width:300px}
-.data-item a.blog-tit{text-decoration: none;color: #494949;display: block;}
-.data-item a.blog-tit:hover{color:#CC0000}
-.data-item span.blog-time{font-size: 12px;color: #888;display: block;margin-top: 5px;text-align: right;}
-.data-item span.blog-time .blog-time-name{float: left;display: inline-block;}
-.data-item span.blog-time .blog-time-time{float: right;display: inline-block;}
+.data-item a.topic-tit{text-decoration: none;color: #494949;display: block;}
+.data-item a.topic-tit:hover{color:#CC0000}
+.data-item span.topic-time{font-size: 12px;color: #888;display: block;margin-top: 5px;text-align: right;}
+.data-item span.topic-time .topic-time-name{float: left;display: inline-block;}
+.data-item span.topic-time .topic-time-time{float: right;display: inline-block;}
 .home-tools a{display:inline-block;padding: 5px;border:1px solid #ccc;text-decoration: none;float: left;margin-left:5px;margin-top: 5px;text-align: center;border-radius:3px}
 .home-tools a:hover{background: #888;color: #fff}

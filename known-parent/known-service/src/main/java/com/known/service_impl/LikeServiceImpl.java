@@ -1,6 +1,5 @@
 package com.known.service_impl;
 
-
 import com.known.common.enums.ArticleType;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +30,6 @@ public class LikeServiceImpl implements LikeService {
 	
 	@Autowired
 	private AskMapper<Ask, AskQuery> askMapper;
-	
-	@Autowired
-	private BlogMapper<Blog, BlogQuery> blogMapper;
 	
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
 	public void addLike(Like like) throws BussinessException {
@@ -65,9 +60,6 @@ public class LikeServiceImpl implements LikeService {
 		}
 		else if(like.getArticleType() == ArticleType.Ask){
 			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
-		}
-		else if(like.getArticleType() == ArticleType.BLOG){
-			this.blogMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
 		else{
 			throw new BussinessException("参数错误");

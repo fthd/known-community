@@ -17,7 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToArticleTypeConverter());
-        registry.addConverter(new StringToChooseTypeConverter());
         registry.addConverter(new StringToMessageStatusConverter());
         registry.addConverter(new StringToSolveTypeConverter());
         registry.addConverter(new StringToTopicTypeConverter());

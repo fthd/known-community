@@ -1,190 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<#include "include/top.html">
-	<title></title>
+    <meta charset="UTF-8">
+    <#include "include/top.html">
+    <title></title>
     <style type="text/css">
-    body{
-      margin: 0;
-      background: url(${realpath}/resources/images/findpassword.jpg) no-repeat 0px 0px;
-      background-size:cover;
-      -webkit-background-size:cover;
-      -moz-background-size:cover;
-      -o-background-size:cover;
-    }
-  </style>
+        body {
+            margin: 0;
+            background: url(${realpath}/resources/images/findpassword.jpg) no-repeat 0px 0px;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+    </style>
 </head>
 <body>
-	<#include "include/header.html">
-	<script src="http://static.geetest.com/static/tools/gt.js"></script>
-	<div class="main">
-  <div class="container-fluid" style="min-height: 500px;">
-	<div class="col-lg-6">
-              <form class="form-horizontal" id="registerform">
-                  <div class="form-group">
+<#include "include/header.html">
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<div class="main">
+    <div class="container-fluid" style="min-height: 500px;">
+        <div class="col-lg-6">
+            <form class="form-horizontal" id="registerform">
+                <div class="form-group">
                     <label class="col-lg-2 control-label">用户名:</label>
                     <div class="col-lg-10">
-                      <input type="text" class="form-control" name="userName" id="username" placeholder="长度1-20位字符，中文、数字、_ 、字母">
+                        <input type="text" class="form-control" name="userName" id="username"
+                               placeholder="长度1-20位字符，中文、数字、_ 、字母">
                     </div>
-                  </div>
-                
-                  <div class="form-group">
-                    <label  class="col-lg-2 control-label">邮箱:</label>
-                    <div class="col-lg-10">
-                      <input type="text" class="form-control" name="email" id="email" placeholder="用于取回密码,请填写正确的常用邮箱">
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="form-group">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">邮箱:</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="email" id="email" placeholder="用于取回密码,请填写正确的常用邮箱">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-lg-2 control-label">密码：</label>
                     <div class="col-lg-10">
-                      <input type="password" class="form-control" name="password" id="password" placeholder="密码长度6-16位字符，由数字、字母组成">
+                        <input type="password" class="form-control" name="password" id="password"
+                               placeholder="密码长度6-16位字符，由数字、字母组成">
                     </div>
-                  </div>
+                </div>
 
-                   <div class="form-group">
+                <div class="form-group">
                     <label class="col-lg-2 control-label">确认密码:</label>
                     <div class="col-lg-10">
-                      <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入登录密码">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入登录密码">
                     </div>
-                  </div>
-                  <div id="popup-captcha" align="center"></div>
-                  <br/>
-                  <div class="form-group">
+                </div>
+                <div id="popup-captcha" align="center"></div>
+                <br/>
+                <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                      <button id="reset" type="reset" class="btn btn-info">重置</button>
-                      <button id="register" type="button" class="btn btn-success">注册</button>
+                        <button id="reset" type="reset" class="btn btn-info">重置</button>
+                        <button id="register" type="button" class="btn btn-success">注册</button>
                     </div>
-                  </div>
-                  
+                </div>
 
-              </form>
-           
-     <script>
-       	function checkForm(content, doc) {
-    		var d = dialog({
-    			content: content,
-    			align: 'right',
-    			quickClose: true // 点击空白处快速关闭
-    		});
-    		d.show(document.getElementById(doc));
-    	}
-           
-    var handlerPopup = function (captchaObj) {
 
-        $("#register").click(function () {
-        	var username = $('#username').val();
-    		var email = $('#email').val();
-    		var password = $('#password').val();
-    		var confirmPassword = $('#confirmPassword').val();
-    		var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-    		var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+            </form>
 
-    		if (username == null || $.trim(username) == '') {
-    			checkForm('用户名不能是空串', 'username');
-    			$("#username").parent().parent().addClass('has-error');
-    		} else if (username.indexOf(" ") > -1) {
-    			checkForm('用户名不能含有空格', 'username');
-    			$("#username").parent().parent().addClass('has-error');
-    		} else if (username.length < 1) {
-    			checkForm('用户名长度不能小于1个字符', 'username');
-    			$("#username").parent().parent().addClass('has-error');
-    		} else if (username.length > 20) {
-    			checkForm('用户名长度不能大于20个字符', 'username');
-    			$("#username").parent().parent().addClass('has-error');
-    		} else if (!emailreg.test(email)) {
-    			$("#username").parent().parent().removeClass('has-error');
-    			checkForm('请输入正确的常用邮箱', "email");
-    			$("#email").parent().parent().addClass('has-error');
-    		} else if (password == null || $.trim(password) == '') {
-    			$("#email").parent().parent().removeClass('has-error');
-    			checkForm('密码不能是空串', 'password');
-    			$("#password").parent().parent().addClass('has-error');
-    		} else if (password.indexOf(" ") > -1) {
-    			checkForm('密码不能含有空格', 'password');
-    			$("#password").parent().parent().addClass('has-error');
-    		} else if (password.length < 6) {
-    			checkForm('密码长度不能小于6个字符', 'password');
-    			$("#password").parent().parent().addClass('has-error');
-    		} else if (password.length > 16) {
-    			checkForm('密码长度不能大于16个字符', 'password');
-    			$("#password").parent().parent().addClass('has-error');
-    		} else if (!passwordreg.test(password)) {
-    			checkForm('密码必须含有字母和数字', 'password');
-    			$("#password").parent().parent().addClass('has-error');
-    		} else if (confirmPassword != password) {
-    			$("#password").parent().parent().removeClass('has-error');
-    			checkForm('两次输入密码必须一致', 'confirmPassword');
-    			$("#confirmPassword").parent().parent().addClass('has-error');
-    		} else {
-                // 先校验是否点击了验证码
-                var validate = captchaObj.getValidate();
-                if (!validate) {
-                    checkForm('请先完成验证', 'popup-captcha');
-                    return;
+            <script>
+                function checkForm(content, doc) {
+                    var d = dialog({
+                        content: content,
+                        align: 'right',
+                        quickClose: true // 点击空白处快速关闭
+                    });
+                    d.show(document.getElementById(doc));
                 }
-                $("#confirmPassword").parent().parent().removeClass('has-error');
-                $("#register").attr('disabled',true);
-                $.ajax({
-                    url: known.realpath + '/user/register.do',
-                    type: 'post',
-                    dataType: 'json',
-                    data: $('#registerform').serialize(),
-                    success: function(data) {
-                        $("#register").removeAttr("disabled");
-                       // layer.close(loadingindex);
-                        if (data.msg == null) {
-                            var d = dialog({
-                                content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,请尽快登录邮箱激活账户......</div>",
-                            });
-                            d.showModal();
-                            setTimeout(function() {
-                                d.close().remove();
-                                document.location.href = known.realpath;
-                            }, 1500);
+
+                var handlerPopup = function (captchaObj) {
+
+                    $("#register").click(function () {
+                        var username = $('#username').val();
+                        var email = $('#email').val();
+                        var password = $('#password').val();
+                        var confirmPassword = $('#confirmPassword').val();
+                        var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                        var passwordreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+
+                        if (username == null || $.trim(username) == '') {
+                            checkForm('用户名不能是空串', 'username');
+                            $("#username").parent().parent().addClass('has-error');
+                        } else if (username.indexOf(" ") > -1) {
+                            checkForm('用户名不能含有空格', 'username');
+                            $("#username").parent().parent().addClass('has-error');
+                        } else if (username.length < 1) {
+                            checkForm('用户名长度不能小于1个字符', 'username');
+                            $("#username").parent().parent().addClass('has-error');
+                        } else if (username.length > 20) {
+                            checkForm('用户名长度不能大于20个字符', 'username');
+                            $("#username").parent().parent().addClass('has-error');
+                        } else if (!emailreg.test(email)) {
+                            $("#username").parent().parent().removeClass('has-error');
+                            checkForm('请输入正确的常用邮箱', "email");
+                            $("#email").parent().parent().addClass('has-error');
+                        } else if (password == null || $.trim(password) == '') {
+                            $("#email").parent().parent().removeClass('has-error');
+                            checkForm('密码不能是空串', 'password');
+                            $("#password").parent().parent().addClass('has-error');
+                        } else if (password.indexOf(" ") > -1) {
+                            checkForm('密码不能含有空格', 'password');
+                            $("#password").parent().parent().addClass('has-error');
+                        } else if (password.length < 6) {
+                            checkForm('密码长度不能小于6个字符', 'password');
+                            $("#password").parent().parent().addClass('has-error');
+                        } else if (password.length > 16) {
+                            checkForm('密码长度不能大于16个字符', 'password');
+                            $("#password").parent().parent().addClass('has-error');
+                        } else if (!passwordreg.test(password)) {
+                            checkForm('密码必须含有字母和数字', 'password');
+                            $("#password").parent().parent().addClass('has-error');
+                        } else if (confirmPassword != password) {
+                            $("#password").parent().parent().removeClass('has-error');
+                            checkForm('两次输入密码必须一致', 'confirmPassword');
+                            $("#confirmPassword").parent().parent().addClass('has-error');
                         } else {
-                            var d = dialog({
-                                width: 200,
-                                content: data.msg,
-                                quickClose: true // 点击空白处快速关闭
+                            // 先校验是否点击了验证码
+                            var validate = captchaObj.getValidate();
+                            if (!validate) {
+                                checkForm('请先完成验证', 'popup-captcha');
+                                return;
+                            }
+                            $("#confirmPassword").parent().parent().removeClass('has-error');
+                            $("#register").attr('disabled', true);
+                            $.ajax({
+                                url: known.realpath + '/user/register.do',
+                                type: 'post',
+                                dataType: 'json',
+                                data: $('#registerform').serialize(),
+                                success: function (data) {
+                                    $("#register").removeAttr("disabled");
+                                    // layer.close(loadingindex);
+                                    if (data.msg == null) {
+                                        var d = dialog({
+                                            content: "<div><img src='" + known.realpath + "/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;注册成功,请尽快登录邮箱激活账户......</div>",
+                                        });
+                                        d.showModal();
+                                        setTimeout(function () {
+                                            d.close().remove();
+                                            document.location.href = known.realpath;
+                                        }, 1500);
+                                    } else {
+                                        var d = dialog({
+                                            width: 200,
+                                            content: data.msg,
+                                            quickClose: true // 点击空白处快速关闭
+                                        });
+                                        d.show();
+                                    }
+                                }
                             });
-                            d.show();
                         }
+
+                    });
+                    // 将验证码加到id为captcha的元素里
+                    captchaObj.appendTo("#popup-captcha");
+                    // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+                };
+                // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
+                $.ajax({
+                    url: "${realpath}/geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        // 使用initGeetest接口
+                        // 参数1：配置参数
+                        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                        initGeetest({
+                            gt: data.gt,
+                            challenge: data.challenge,
+                            product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                            offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                            // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+                        }, handlerPopup);
                     }
                 });
-    		}
+            </script>
 
-        });
-        // 将验证码加到id为captcha的元素里
-        captchaObj.appendTo("#popup-captcha");
-        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
-    };
-    // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
-    $.ajax({
-        url: "${realpath}/geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
-        type: "get",
-        dataType: "json",
-        success: function (data) {
-            // 使用initGeetest接口
-            // 参数1：配置参数
-            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-            initGeetest({
-                gt: data.gt,
-                challenge: data.challenge,
-                product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
-                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
-            }, handlerPopup);
-        }
-    });
-</script>
-           
-           
-          </div>
-          </div>
-          
-          </div>
-	<#include "include/footer.html">
+        </div>
+    </div>
+
+</div>
+<#include "include/footer.html">
 </body>
 </html>

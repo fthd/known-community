@@ -129,11 +129,11 @@ ul.tag li.active {
 .user-con-s-f ul li a span{margin-top: 10px;display: block;}
 
 /*****话题分类******/
-.blog-tit{padding: 10px 10px 5px 10px;border-bottom: 1px solid #DCDDDE;font-size: 16px}
-.blog-category ul li{list-style: none;}
-.blog-category ul li a{display: inline-block;margin-top: 5px;margin-right: 10px;padding:2px 8px 5px 8px;}
-.blog-category ul li a:hover,.blog-category ul li a.active{color: #428bca;}
-.blog-category ul li a span.blog-count{color: #10AF88}
+.topic-tit{padding: 10px 10px 5px 10px;border-bottom: 1px solid #DCDDDE;font-size: 16px}
+.topic-category ul li{list-style: none;}
+.topic-category ul li a{display: inline-block;margin-top: 5px;margin-right: 10px;padding:2px 8px 5px 8px;}
+.topic-category ul li a:hover,.topic-category ul li a.active{color: #428bca;}
+.topic-category ul li a span.topic-count{color: #10AF88}
     .icon-op-at {
         display: inline-block;
         width: 22px;

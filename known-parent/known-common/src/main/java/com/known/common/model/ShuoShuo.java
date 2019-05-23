@@ -40,9 +40,9 @@ public class ShuoShuo {
 
     private String showContent;
 
-    private List<ShuoShuoComment> commentList = new ArrayList<ShuoShuoComment>();
+    private List<ShuoShuoComment> commentList = new ArrayList<>();
 
-    private List<ShuoShuoLike> shuoShuoLikeList = new ArrayList<ShuoShuoLike>();
+    private List<ShuoShuoLike> shuoShuoLikeList = new ArrayList<>();
 
     public String getShowContent() {
         this.showContent = Emotions.formatEmotion(this.content, Emotions.Dev.WEB);

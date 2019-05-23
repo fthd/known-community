@@ -113,7 +113,7 @@ function titleFormatter(value,row){
 	var zd = '<span class="ding">置顶</span>';
 	var jing = '<span class="jing">精华</span>';
 	var tp = '<span class="vote">投票</span>';
-	var result =  " <a href='${realpath}/bbs/"  + row.topicId +"' target='_blank'>" + row.title + "</a>";
+	var result =  " <a href='${realpath}/topic/"  + row.topicId +"' target='_blank'>" + row.title + "</a>";
 	if(row.grade > 0){
 		result = zd + result;
 	}

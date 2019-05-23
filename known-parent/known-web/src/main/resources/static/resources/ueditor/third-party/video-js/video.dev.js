@@ -1258,7 +1258,7 @@ vjs.log = function(){
 };
 
 // Offset Left
-// getBoundingClientRect technique from John Resig http://ejohn.org/blog/getboundingclientrect-is-awesome/
+// getBoundingClientRect technique from John Resig http://ejohn.org/topic/getboundingclientrect-is-awesome/
 vjs.findPosition = function(el) {
     var box, docEl, body, clientLeft, scrollLeft, left, clientTop, scrollTop, top;
 
@@ -2837,7 +2837,7 @@ vjs.Player.prototype.getTagSettings = function(tag){
 
     for (i=0,j=children.length; i<j; i++) {
       child = children[i];
-      // Change case needed: http://ejohn.org/blog/nodename-case-sensitivity/
+      // Change case needed: http://ejohn.org/topic/nodename-case-sensitivity/
       childName = child.nodeName.toLowerCase();
       if (childName === 'source') {
         options['sources'].push(vjs.getAttributeValues(child));
@@ -3957,7 +3957,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
   // the mousemove/touchmove function itself, to prevent performance degradation.
   // `this.reportUserActivity` simply sets this.userActivity_ to true, which
   // then gets picked up by this loop
-  // http://ejohn.org/blog/learning-from-twitter/
+  // http://ejohn.org/topic/learning-from-twitter/
   activityCheck = setInterval(vjs.bind(this, function() {
     // Check to see if mouse/touch activity has happened
     if (this.userActivity_) {

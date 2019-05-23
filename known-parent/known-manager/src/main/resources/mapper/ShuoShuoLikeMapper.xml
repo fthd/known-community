@@ -3,7 +3,7 @@
 <mapper namespace="com.known.manager.mapper.ShuoShuoLikeMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuoLike" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="shuoshuo_id" property="shuoshuoId" jdbcType="INTEGER" />
+    <result column="shuoshuo_id" property="shuoShuoId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -43,7 +43,7 @@
     insert into known_shuoshuo_like (shuoshuo_id, user_id, 
       user_icon, user_name, create_time
       )
-    values (#{shuoshuoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+    values (#{shuoShuoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
       #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>

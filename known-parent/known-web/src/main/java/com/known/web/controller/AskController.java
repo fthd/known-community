@@ -29,6 +29,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
+/**
+ * 问答
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-05-24 00:07
+ */
 @Controller
 @RequestMapping("/ask")
 public class AskController extends BaseController {

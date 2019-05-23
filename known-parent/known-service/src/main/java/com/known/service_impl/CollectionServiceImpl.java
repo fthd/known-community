@@ -1,6 +1,5 @@
 package com.known.service_impl;
 
-
 import com.known.common.enums.ArticleType;
 import com.known.common.enums.PageSize;
 import com.known.common.enums.TextLengthEnum;
@@ -35,9 +34,6 @@ public class CollectionServiceImpl implements CollectionService {
 	@Autowired
 	private AskMapper<Ask, AskQuery> askMapper;
 	
-	@Autowired
-	private BlogMapper<Blog, BlogQuery> blogMapper;
-	
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
 	public void addCollection(Collection collection)
 			throws BussinessException {
@@ -66,9 +62,6 @@ public class CollectionServiceImpl implements CollectionService {
 		}
 		else if(collection.getArticleType() == ArticleType.Ask){
 			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
-		}
-		else if(collection.getArticleType() == ArticleType.BLOG){
-			this.blogMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
 		else{
 			throw new BussinessException("参数错误");

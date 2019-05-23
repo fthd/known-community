@@ -5,7 +5,7 @@ import com.known.common.utils.StringUtil;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ArticleType {
-	SHUOSHUO("S","说说"), TOPIC("T","论坛"), BLOG("B", "话题"), KNOWLEDGE("K", "知识库"), Ask("A", "问答");
+	SHUOSHUO("S","说说"), TOPIC("T","话题"), KNOWLEDGE("K", "知识库"), Ask("A", "问答");
 	
 	private String type;
 	

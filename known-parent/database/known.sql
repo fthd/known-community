@@ -64,48 +64,6 @@ CREATE TABLE `known_attachment_download` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for known_blog
--- ----------------------------
-DROP TABLE IF EXISTS `known_blog`;
-CREATE TABLE `known_blog` (
-  `blog_id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) DEFAULT NULL COMMENT '类型ID',
-  `title` varchar(1000) DEFAULT '' COMMENT '标题',
-  `content` longtext COMMENT '内容',
-  `summary` text COMMENT '内容摘要',
-  `user_id` int(11) DEFAULT NULL COMMENT '作者ID',
-  `user_icon` varchar(1000) DEFAULT '' COMMENT '作者头像',
-  `user_name` varchar(1000) DEFAULT '' COMMENT '作者名字',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发表时间',
-  `comment_count` int(11) DEFAULT '0' COMMENT '评论人数',
-  `read_count` int(11) DEFAULT '0' COMMENT '阅读人数',
-  `collection_count` int(11) DEFAULT '0' COMMENT '收藏人数',
-  `like_count` int(11) DEFAULT '0' COMMENT '喜欢人数',
-  `blog_image` mediumtext,
-  `blog_image_thum` mediumtext COMMENT '话题缩列图',
-  `status` int(1) DEFAULT '0' COMMENT '0是草稿 1是发布',
-  PRIMARY KEY (`blog_id`),
-  KEY `idx_blog_id` (`blog_id`),
-  KEY `blog_idx_category_id` (`category_id`),
-  KEY `blog_index_id` (`user_id`),
-  KEY `blog_index_userid_categoryid` (`blog_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for known_blog_category
--- ----------------------------
-DROP TABLE IF EXISTS `known_blog_category`;
-CREATE TABLE `known_blog_category` (
-  `category_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(1000) DEFAULT '',
-  `rank` int(11) DEFAULT NULL,
-  PRIMARY KEY (`category_id`),
-  KEY `blog_category_id` (`category_id`),
-  KEY `blog_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Table structure for known_category
 -- ----------------------------
 DROP TABLE IF EXISTS `known_category`;
@@ -118,8 +76,7 @@ CREATE TABLE `known_category` (
   `allow_post` int(1) DEFAULT '0' COMMENT '该分类下0允许发布话题1不允许发布话题',
   `show_in_bbs` char(1) DEFAULT 'Y' COMMENT '是否是论坛分类Y是N不是',
   `show_in_question` char(1) DEFAULT 'Y' COMMENT '是否是问答分类Y是N不是',
-  `show_in_knowledge` char(1) DEFAULT 'Y' COMMENT '是否是知识库分类Y是N不是',
-  `show_in_exam` char(1) DEFAULT 'Y' COMMENT '是否是考试区分类Y是N不是',
+  `show_in_knowledge` char(1) DEFAULT 'Y' COMMENT '是否是知识库分类Y是N不是'
   PRIMARY KEY (`category_id`),
   KEY `topic_category_index_id` (`category_id`),
   KEY `idx_show_in_bbs` (`show_in_bbs`),
@@ -163,36 +120,6 @@ CREATE TABLE `known_comment` (
   KEY `topic_comment_index_pid` (`pid`),
   KEY `topic_comment_index_topicid` (`article_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for known_exam
--- ----------------------------
-DROP TABLE IF EXISTS `known_exam`;
-CREATE TABLE `known_exam` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `exam_title` text COMMENT '标题',
-  `analyse` text COMMENT '答案解析',
-  `category_id` int(11) DEFAULT NULL COMMENT '分类',
-  `choose_type` int(2) DEFAULT NULL COMMENT '1是单选2是多选',
-  `user_id` int(11) DEFAULT NULL COMMENT '发题人ID',
-  `user_icon` varchar(1000) DEFAULT NULL COMMENT '发题人头像',
-  `user_name` varchar(1000) DEFAULT NULL COMMENT '发题人名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `status` int(11) DEFAULT '0' COMMENT '0为未审核，1为审核',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for known_exam_detail
--- ----------------------------
-DROP TABLE IF EXISTS `known_exam_detail`;
-CREATE TABLE `known_exam_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `exam_id` int(11) DEFAULT NULL COMMENT '对应题目的id',
-  `answer` varchar(500) DEFAULT NULL COMMENT '答案',
-  `is_right_answer` int(1) unsigned DEFAULT NULL COMMENT '0为非正确答案，1为正确答案',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for known_knowledge
@@ -448,6 +375,7 @@ CREATE TABLE `known_user` (
   `register_time` datetime DEFAULT NULL,
   `last_login_time` datetime DEFAULT NULL,
   `activation_code` varchar(25) DEFAULT NULL,
+  `user_status` int(1) DEFAULT '0',
   `user_page` int(2) DEFAULT '0',
   PRIMARY KEY (`userid`),
   KEY `user_index_username` (`user_name`),

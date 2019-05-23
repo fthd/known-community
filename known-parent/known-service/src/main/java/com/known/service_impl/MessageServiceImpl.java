@@ -27,13 +27,10 @@ public class MessageServiceImpl implements MessageService {
 	private TopicMapper<Topic, TopicQuery> topicMapper;
 	
 	@Autowired
-	private KnowledgeMapper<Knowledge, KnowledgeQuery> KnowledgeMapper;
+	private com.known.manager.mapper.KnowledgeMapper<Knowledge, KnowledgeQuery> KnowledgeMapper;
 	
 	@Autowired
 	private AskMapper<Ask, AskQuery> askMapper;
-	
-	@Autowired
-	private BlogMapper<Blog, BlogQuery> blogMapper;
 	
 	@Autowired
 	private ShuoShuoMapper<ShuoShuo, ShuoShuoQuery> shuoShuoMapper;
@@ -126,12 +123,6 @@ public class MessageServiceImpl implements MessageService {
 			askQuery.setAskId(articleId);
 			Ask ask = this.askMapper.selectList(askQuery).get(0);
 			title = ask.getTitle();
-		}
-		else if(articleType == ArticleType.BLOG){
-			BlogQuery blogQuery = new BlogQuery();
-			blogQuery.setBlogId(articleId);
-			Blog blog = this.blogMapper.selectList(blogQuery).get(0);
-			title = blog.getTitle();
 		}
 		else{
 			ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
@@ -241,13 +232,11 @@ public class MessageServiceImpl implements MessageService {
 		}
 		switch (params.getArticleType()) {
 		case TOPIC:
-			return Constants.DOMAIN + "/bbs/" + params.getArticleId() + location;
+			return Constants.DOMAIN + "/topic/" + params.getArticleId() + location;
 		case Ask:
-			return Constants.DOMAIN + "/ask/" + params.getArticleId() + location;
+			return Constants.DOMAIN + "/ask/" + params.getArticleId() + location; 
 		case KNOWLEDGE:
-			return Constants.DOMAIN + "/knowledge/" + params.getArticleId() + location;
-		case BLOG:
-			return Constants.DOMAIN + "/user/" + params.getArticleUserId() + "/blog/" + params.getArticleId() + location;
+			return Constants.DOMAIN + "/knowledge/" + params.getArticleId() + location; 
 		case SHUOSHUO:
 			return Constants.DOMAIN + "/user/" + params.getArticleUserId() + "/shuoshuo/" + params.getArticleId();
 		}

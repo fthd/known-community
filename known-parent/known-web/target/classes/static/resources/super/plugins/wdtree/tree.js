@@ -1,6 +1,6 @@
 /**
   * @description {Class} wdTree
-  * This is the main class of wdTree.·¨·¨Ê¦·¨
+  * This is the main class of wdTree.ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½
   */
 (function ($) {
     $.fn.swapClass = function (c1, c2) {
@@ -84,7 +84,7 @@
                  */
                 theme: "bbit-tree-arrows", //bbit-tree-lines ,bbit-tree-no-lines,bbit-tree-arrows
                 /*
-                *ÏÔÊ¾¹¤¾ßÀ¸
+                *ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 */
                 isTool: false,
                 nodeTools: []
@@ -242,7 +242,7 @@
             ht.push("<span data-value='" + nd.id + "' class='bbit-tree-node-text' unselectable='on'>", nd.text, "</span>");
             ht.push("</a>");
 
-            //tool ÏÔÊ¾¹¤¾ßÀ¸
+            //tool ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (dfop.isTool) {
                 ht.push("<div class='bbit-tree-node-tool'>");
                 for (var ii in dfop.nodeTools) {
@@ -469,7 +469,7 @@
                     async: isAsync,
                     dataType: dfop.datatype,
                     success: callback,
-                    error: function (e) { dialogMsg("·þÎñ¶ËÎ´ÏìÓ¦¡£", -1); }
+                    error: function (e) { dialogMsg("ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½Ó¦ï¿½ï¿½", -1); }
                 });
             }
         }

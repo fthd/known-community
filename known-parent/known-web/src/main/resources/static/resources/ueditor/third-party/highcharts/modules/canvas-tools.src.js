@@ -707,7 +707,7 @@ if(!Array.prototype.indexOf){
 			}
 			
 			this.addBezierCurve = function(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y) {
-				// from http://blog.hackers-cafe.net/2009/06/how-to-calculate-bezier-curves-bounding.html
+				// from http://topic.hackers-cafe.net/2009/06/how-to-calculate-bezier-curves-bounding.html
 				var p0 = [p0x, p0y], p1 = [p1x, p1y], p2 = [p2x, p2y], p3 = [p3x, p3y];
 				this.addPoint(p0[0], p0[1]);
 				this.addPoint(p3[0], p3[1]);

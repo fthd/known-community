@@ -6,19 +6,19 @@ known.url = {
 $(function(){
     demo(1);
     $(document).on("click",".del-btn",function(){
-    	var blogId = $(this).attr("blogId");
+    	var topicId = $(this).attr("topicId");
     	layer.confirm('确定删除？', {
 			btn: ['是','否'], //按钮
 			shade: false //不显示遮罩
 			}, function(){
-				deleteBlog(blogId);
+				deleteBlog(topicId);
 			}, function(){
 
 			});
     });
 })
 
-function deleteBlog(blogId){
+function deleteBlog(topicId){
 	var d = dialog({
 		content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;删除中...</div>",
 				});
@@ -30,7 +30,7 @@ function deleteBlog(blogId){
 		url:known.url.delBlog,
 		type: 'POST',
 		dataType: 'json',
-		data: {blogId: blogId},
+		data: {topicId: topicId},
 		success:function(res){
 			if(res.msg != null){
 				layer.msg(res.msg, {
@@ -74,8 +74,8 @@ function demo(curr){
 		$("#data-list tr").remove();
 		if (list.length > 0) {
 		    for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {
-			var edit = '<a href="'+known.realpath+'/admin/edit_blog.action?blogId='+d.blogId+'" title="修改" class="edit-btn" blodId="'+d.blogId+'"><i class="icon i-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="删除" class="del-btn"  blogId="'+d.blogId+'"><i class="icon i-del"></i></a>';
-			$("<tr><td valign='center'><a href='"+known.realpath+"/user/"+known.userId+"/blog/"+d.blogId+"' target='_blank'>"+d.title+"</a></td><td>"+d.commentCount+"</td><td>"+d.readCount+"</td><td>"+d.createTimeString+"</td><td>" + edit + "</td></tr>").appendTo($("#data-list"));
+			var edit = '<a href="'+known.realpath+'/admin/edit_blog.action?topicId='+d.topicId+'" title="修改" class="edit-btn" blodId="'+d.topicId+'"><i class="icon i-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="删除" class="del-btn"  topicId="'+d.topicId+'"><i class="icon i-del"></i></a>';
+			$("<tr><td valign='center'><a href='"+known.realpath+"/user/"+known.userId+"/topic/"+d.topicId+"' target='_blank'>"+d.title+"</a></td><td>"+d.commentCount+"</td><td>"+d.readCount+"</td><td>"+d.createTimeString+"</td><td>" + edit + "</td></tr>").appendTo($("#data-list"));
 		    }
 		} else {
 		    $('<tr><td colspan="100"><div class="no-data" >没有数据</div></td></tr>').appendTo($("#data-list"));

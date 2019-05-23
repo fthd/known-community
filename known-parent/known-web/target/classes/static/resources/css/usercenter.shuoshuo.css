@@ -1,4 +1,4 @@
-	.user-info,.like-info{
+	.user-info, .like-info{
 		margin: 0 10px 10px 0;	
 	}
 	.main-content{
@@ -9,7 +9,7 @@
 		border-bottom: 1px solid #DDDEDD;
 	}
 	.shuoshuo-item-info a{
-		margin:0 20;
+		margin:0 20px;
 	}
 	.user-like{
 		border: 1px solid #e6e6e6;

@@ -14,7 +14,7 @@ import java.util.Date;
 public class ShuoShuoLike {
     private Integer id;
 
-    private Integer shuoshuoId;
+    private Integer shuoShuoId;
 
 	private Integer userId;
 

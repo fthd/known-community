@@ -24,7 +24,12 @@ import javax.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
+/**
+ * 评论
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-05-24 00:08
+ */
 @Controller
 @RequestMapping("/attachment")
 public class AttachmentController extends BaseController{

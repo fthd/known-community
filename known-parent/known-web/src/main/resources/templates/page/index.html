@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<#include "include/top.html">
 	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/index.css">
-	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/bbs_list.css">
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/topic_list.css">
 	<title>知会问答社区首页</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<div class="left">
 			<div class="data-list">
 				<div class="part-title">
-					<a href="${realpath}/bbs" class="part" target="_blank">话题中心</a>
+					<a href="${realpath}/topic" class="part" target="_blank">话题中心</a>
 				</div>
 					<#list topics.list as topic>
 					<div class="data-item">
@@ -26,7 +26,7 @@
                         <#if (topic.topicType.type == 1)>
 						<span class="vote" style="float:left">投票</span>
                          </#if>
-						<a href="${realpath}/bbs/${topic.topicId?c}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>" >${topic.title}</a>
+						<a href="${realpath}/topic/${topic.topicId?c}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>" >${topic.title}</a>
 						<span class="time">${topic.createTimeString} By ${topic.userName}</span>
 						<div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
 					</div>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="data-list">
 				<div class="part-title">
-					<a href="${realpath}/knowledge" class="part" target="_blank">知识库</a>
+					<a href="${realpath}/knowledge/knowledge" class="part" target="_blank">知识库</a>
 				</div>
 					<#list knowledges.list as topic>
 					<div class="data-item">
@@ -69,18 +69,18 @@
 			<div class="right">
 				
 		        <div class="part-title">
-						<a href="${realpath}/blog" class="part">最新话题</a>
+						<a href="${realpath}/topic/topic" class="part">最新话题</a>
 				</div>
-				<#list blogs.list as blog>
+				<!--<#list topics.list as topic>
 					<div class="data-item">
-						<a href="${realpath}/user/${blog.userId?c}/blog/${blog.blogId?c}" target="_blank" class="blog-tit ">${blog.title}</a>
-						<span class="blog-time">
-							<span class="blog-time-name">by&nbsp;&nbsp;${blog.userName}</span>
-							<span class="blog-time-time">${blog.createTimeString}</span>
+						<a href="${realpath}/user/${topic.userId?c}/topic/${topic.topicId?c}" target="_blank" class="topic-tit ">${topic.title}</a>
+						<span class="topic-time">
+							<span class="topic-time-name">by&nbsp;&nbsp;${topic.userName}</span>
+							<span class="topic-time-time">${topic.createTimeString}</span>
 							<div class="clear"></div>
 						</span>
 					</div>
-				</#list>
+				</#list>-->
 				<!--<div class="part-title">
 					<a href="javascript:;" class="part">常用工具</a>
 				</div>

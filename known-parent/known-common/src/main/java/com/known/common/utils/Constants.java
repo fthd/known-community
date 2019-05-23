@@ -20,13 +20,11 @@ public class Constants {
 
     public static final int MAX_FILE_NUM = 3;
 
-    public static final int EXAM_MAX_TITLE = 50;
-
     public static final String Y = "Y";
 
     public static final String N = "N";
 
-    public static final String DOMAIN = "http:www.81wda.com";
+    public static final String DOMAIN = "http://localhost:8080";
 
     public static final String Cache_Key_Bbs_Category = "bbsCategoryCache";
 

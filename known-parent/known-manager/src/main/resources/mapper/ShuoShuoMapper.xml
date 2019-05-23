@@ -17,23 +17,23 @@
   </resultMap>
 
    <sql id="Base_Condition" >
-    <where >
-    	<if test="null!= id">
-     		and id = #{id}
-     	</if>
-     	<if test="null!= userId">
-     		and user_id = #{userId}
-     	</if>
-     	 <if test="null!= startDate and ''!= startDate">
-     		<![CDATA[ 
+    <where>
+        <if test="null!= id">
+            and id = #{id}
+        </if>
+        <if test="null!= userId">
+            and user_id = #{userId}
+        </if>
+        <if test="null!= startDate">
+            <![CDATA[
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
-     	</if>
-     	 <if test="null!= endDate and ''!= endDate">
-     		<![CDATA[ 
-     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
+        </if>
+        <if test="null!= endDate">
+            <![CDATA[
+     				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
      				]]>
-     	</if>
+        </if>
     </where>
   </sql>
   
@@ -44,10 +44,10 @@
     
   <select id="selectList" resultMap="BaseResultMap">
   		select <include refid="Base_Column_List"/> from known_shuoshuo <include refid="Base_Condition"/>
-  		order by create_time desc 
-  		<if test="null!= page">
-     		limit #{page.start},#{page.end}
-     	</if>
+      order by create_time desc
+      <if test="null!= page and 0!=page.end">
+          limit #{page.start},#{page.end}
+      </if>
   </select>
   
   <select id="selectCount" resultType="java.lang.Integer">

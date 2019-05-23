@@ -1,5 +1,5 @@
 
-/*! @Name: layer's style @Author: 贤心 @Blog： sentsin.com*/.layui-layer-imgbar,.layui-layer-imgtit a,.layui-layer-tab .layui-layer-title span,.layui-layer-title{text-overflow:ellipsis;white-space:nowrap}
+/*! @Name: layer's style @Author: 贤心 @Topic： sentsin.com*/.layui-layer-imgbar,.layui-layer-imgtit a,.layui-layer-tab .layui-layer-title span,.layui-layer-title{text-overflow:ellipsis;white-space:nowrap}
 *html{background-image:url(about:blank);background-attachment:fixed}
 html #layui_layer_skinlayercss{display:none;position:absolute;width:1989px}
 .layui-layer,.layui-layer-shade{position:fixed;_position:absolute;pointer-events:auto}

@@ -14,13 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ContentController {
 
 	@Autowired
-	private ExamService examService;
-	
-	@Autowired
 	private ShuoShuoService shuoshuoService;
-	
-	@Autowired
-	private BlogService blogService;
 	
 	@Autowired
 	private KnowledgeService knowledgeService;
@@ -30,54 +24,7 @@ public class ContentController {
 	
 	@Autowired
 	private AskService askService;
-	
-	
-	@RequirePermissions(key="content:exam:list")
-	@RequestMapping("/exam/list")
-	public String examlist(){
-		return "page/adminpage/exam";
-	}
-	
-	
-	@RequirePermissions(key="content:exam:list")
-	@ResponseBody
-	@RequestMapping("/exam/load")
-	public Object examload(){
-		return examService.findExamWithRightAnswer();
-	}
-	
-	@RequirePermissions(key="content:exam:delete")
-	@ResponseBody
-	@RequestMapping("/exam/delete")
-	public OutResponse<Object> examDelete(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<>();
-		 try {
-			examService.deleteBatch(ids);
-		} catch (BussinessException e) {
-			outResponse.setMsg(e.getLocalizedMessage());
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		 return outResponse;
-	}
-	
-	@RequirePermissions(key="content:exam:updatestatus")
-	@ResponseBody
-	@RequestMapping("/exam/updateStatus")
-	public OutResponse<Object> updateStatus(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<>();
-		 try {
-			examService.updateStatusBatch(ids);
-		} catch (BussinessException e) {
-			outResponse.setMsg(e.getLocalizedMessage());
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		 return outResponse;
-	}
-	
+
 	
 	@RequirePermissions(key="content:shuoshuo:list")
 	@RequestMapping("/shuoshuo/list")
@@ -107,36 +54,7 @@ public class ContentController {
 		}
 		 return outResponse;
 	}
-	
-	
-	@RequirePermissions(key="content:blog:list")
-	@RequestMapping("/blog/list")
-	public String bloglist(){
-		return "page/adminpage/blog";
-	}
-	
-	@RequirePermissions(key="content:blog:list")
-	@ResponseBody
-	@RequestMapping("/blog/load")
-	public Object blogload(){
-		return blogService.findBlogList();
-	}
-	
-	@RequirePermissions(key="content:blog:delete")
-	@ResponseBody
-	@RequestMapping("/blog/delete")
-	public OutResponse<Object> blogDelete(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<>();
-		 try {
-			blogService.deleteBatch(ids);
-		} catch (BussinessException e) {
-			outResponse.setMsg(e.getLocalizedMessage());
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		 return outResponse;
-	}
+
 	
 	@RequirePermissions(key="content:knowledge:list")
 	@RequestMapping("/knowledge/list")

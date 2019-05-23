@@ -1,4 +1,4 @@
-known.tags=["shuoshuo","topic","ask","knowledge","blog","fans","focus"]
+known.tags=["shuoshuo","topic","ask","knowledge","topic","fans","focus"]
 known.centerUrl={
     loadShuoShuos:known.realpath+"/userCenter/loadShuoShuos",
     loadTopic:known.realpath+"/userCenter/loadTopic",
@@ -169,9 +169,9 @@ function topicItem(data){
     if(data.topicType.type==1){
 	 $('<span class="vote">投票</span>').appendTo(topic_item_title);
     }
-    $("<a href='"+known.realpath+"/bbs/"+data.topicId+"' target='_blank' class='title'>"+data.title+"</a>").appendTo(topic_item_title);
+    $("<a href='"+known.realpath+"/topic/"+data.topicId+"' target='_blank' class='title'>"+data.title+"</a>").appendTo(topic_item_title);
     $('<span class="time">'+data.createTimeString+'</span>').appendTo(topic_item_title);
-    $('<a class="topic-cate-tag"  target="_blank"  href="'+known.realpath+'/bbs/sub_board/'+data.categoryId+'"><span>'+data.categoryName+'</span></a>').appendTo(topic_item_title);
+    $('<a class="topic-cate-tag"  target="_blank"  href="'+known.realpath+'/topic/sub_board/'+data.categoryId+'"><span>'+data.categoryName+'</span></a>').appendTo(topic_item_title);
     $('<div class="topic-item-summary">'+data.summary+'</div>').appendTo(topic_item_info);
     if(data.topicImageArray!=null){
       var topic_item_images =  $('<div class="image-thum topic-item-images"></div>').appendTo(topic_item_info);

@@ -120,7 +120,7 @@ for (var i = 0, _len = children.length; i < _len; i++) {
 
 function initCategory() {
 $.ajax({
-	url : known.realpath + "/bbs/loadCategories" ,
+	url : known.realpath + "/topic/loadCategories" ,
 	type:"POST",
 	dataType:"json",
 	success : function(res) {

@@ -28,11 +28,11 @@ public class Emotions {
 	/**
 	 * 
 	 */
-	private static Map<String, String> mobileToWebEmotions = new HashMap<String, String>();
+	private static Map<String, String> mobileToWebEmotions = new HashMap<>();
 	/**
 	 * 
 	 */
-	private static Map<String, String> webToMobileEmotions = new HashMap<String, String>();
+	private static Map<String, String> webToMobileEmotions = new HashMap<>();
 	/**
 	 * 
 	 */

@@ -4,26 +4,17 @@ package com.known.web.controller;
 import com.known.common.config.UserConfig;
 import com.known.common.model.User;
 import com.known.common.model.SessionUser;
-import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
-import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
-import com.known.manager.query.AskQuery;
-import com.known.manager.query.BlogQuery;
-import com.known.manager.query.KnowledgeQuery;
-import com.known.manager.query.TopicQuery;
 import com.known.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.Code;
-import com.known.common.model.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -148,17 +139,17 @@ public class UserController extends BaseController {
             sessionUser.setUserIcon(user.getUserIcon());
             session.setAttribute(userConfig.getSession_User_Key(), sessionUser);
 
-
-            if (REMEMBERME.equals(rememberMe)) {    // 清除之前的Cookie 信息
-                String infor = URLEncoder.encode(account.toString(), "utf-8") + "|" + user.getPassword();
+            if (REMEMBERME.equals(rememberMe)) {
+                String infor = URLEncoder.encode(account, "utf-8") + "|" + user.getPassword();
+                // 清除之前的Cookie 信息
                 Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);
                 cookie.setPath("/");
                 cookie.setMaxAge(0);
                 // 建用户信息保存到Cookie中
                 cookie = new Cookie(userConfig.getCookie_User_Info(), infor);
                 cookie.setPath("/");
-                // 设置最大生命周期为1年。
-                cookie.setMaxAge(31536000);
+                // 设置七日内自动登录
+                cookie.setMaxAge(7*24*60*60);
                 response.addCookie(cookie);
             } else {
                 Cookie cookie = new Cookie(userConfig.getCookie_User_Info(), null);

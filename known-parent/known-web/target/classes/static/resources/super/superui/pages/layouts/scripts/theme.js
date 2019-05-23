@@ -193,7 +193,7 @@ var theme = function() {
             }
         };
 
-        //²Ëµ¥ÉèÖÃÖÐÉèÖÃ°´Å¥Ò²´¥·¢
+        //ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½Å¥Ò²ï¿½ï¿½ï¿½ï¿½
         $('.theme-settings').click(function () {
             $(panel).show();
             $('.toggler').hide();

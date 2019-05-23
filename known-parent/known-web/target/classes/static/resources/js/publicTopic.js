@@ -232,7 +232,7 @@ function addTopic(){
 			d.close().remove();
 		}, 1000);
 		$.ajax({
-			url: known.realpath + '/bbs/publicTopic',
+			url: known.realpath + '/topic/publicTopic',
 			type: 'POST',
 			dataType: 'json',
 			data: $("#postBbsForm").serialize(),		
@@ -248,7 +248,7 @@ function addTopic(){
 						  icon: 1,
 						  time: 1500 //2秒关闭（如果不配置，默认是3秒）
 						}, function(){
-							document.location.href = known.realpath + "/bbs/" + res.data ;
+							document.location.href = known.realpath + "/topic/" + res.data ;
 						});
 				}
 			}
@@ -286,7 +286,7 @@ for (var i = 0, _len = children.length; i < _len; i++) {
 
 function initCategory() {
 $.ajax({
-	url : known.realpath + "/bbs/loadCategories" ,
+	url : known.realpath + "/topic/loadCategories" ,
 	type:"POST",
 	dataType:"json",
 	success : function(res) {

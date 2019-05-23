@@ -2,23 +2,20 @@ package com.known.web.controller;
 
 import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
-import com.known.common.enums.BlogStatusEnum;
 import com.known.common.enums.Code;
 import com.known.common.enums.OrderByEnum;
 import com.known.common.model.*;
-import com.known.common.utils.Constants;
 import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
-import com.known.manager.query.BlogQuery;
+import com.known.manager.query.TopicQuery;
 import com.known.manager.query.CollectionQuery;
 import com.known.manager.query.MessageQuery;
 import com.known.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,12 +36,9 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
-	private BlogCategoryService blogCategoryService;
-	
-	@Autowired
-	private BlogService blogService;
+	private TopicService blogService;
 	
 	@Autowired
 	private AttachmentService attachmentService;
@@ -61,7 +55,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	@Resource
 	private UrlConfig urlConfig;
 	
-	@RequestMapping
+	@RequestMapping("/admin")
 	public ModelAndView updateUser(HttpSession session){
 		ModelAndView view = new ModelAndView("/page/admin/update_user");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -81,7 +75,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@ResponseBody
-	@RequestMapping("updateUserInfo")
+	@RequestMapping("/updateUserInfo")
 	public OutResponse<Object> updateUserInfo(HttpSession session, User user){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -101,7 +95,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		return outResponse;
 	}
 	
-	@RequestMapping("preUpdateUserPage")
+	@RequestMapping("/preUpdateUserPage")
 	public ModelAndView preUpdateUserPage(HttpSession session){
 		ModelAndView view = new ModelAndView("/page/admin/update_userpage");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -122,7 +116,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	
 	@ResponseBody
-	@RequestMapping("saveUserPage")
+	@RequestMapping("/saveUserPage")
 	public OutResponse<Object> saveUserPage(HttpSession session, Integer userPage){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		Integer userId = this.getUserid(session);
@@ -163,7 +157,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	
 	@ResponseBody
-	@RequestMapping("modifyPassword")
+	@RequestMapping("/modifyPassword")
 	public OutResponse<Object> modifyPassword(HttpSession session, String oldPassword, String newPassword){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -182,7 +176,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		return outResponse;
 	}
 	
-	@RequestMapping("preUpdateUserIcon")
+	@RequestMapping("/preUpdateUserIcon")
 	public ModelAndView preUpdateUserIcon(HttpSession session){
 		ModelAndView view = new ModelAndView("/page/admin/update_usericon");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -202,7 +196,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@ResponseBody
-	@RequestMapping("saveSysUserIcon")
+	@RequestMapping("/saveSysUserIcon")
 	public OutResponse<Object> saveSysUserIcon(HttpSession session, String userIcon){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		Integer userId = this.getUserid(session);
@@ -223,7 +217,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@ResponseBody
-	@RequestMapping("saveUserIcon")
+	@RequestMapping("/saveUserIcon")
 	public OutResponse<Object> saveUserIcon(HttpSession session, String img, Integer x1,
                                              Integer y1, Integer width, Integer height){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -259,7 +253,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		return outResponse;
 	}
 	
-	@RequestMapping("preUpdateUserBg")
+	@RequestMapping("/preUpdateUserBg")
 	public ModelAndView preUpdateUserBg(HttpSession session){
 		ModelAndView view = new ModelAndView("/page/admin/update_userbg");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -279,7 +273,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@ResponseBody
-	@RequestMapping("saveSysUserBg")
+	@RequestMapping("/saveSysUserBg")
 	public OutResponse<Object> saveSysUserBg(HttpSession session, String background){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		Integer userId = this.getUserid(session);
@@ -297,164 +291,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		return outResponse;
 	}
 	
-	@RequestMapping("preAddBlog")
-	public ModelAndView preAddBlog(HttpSession session){
-		ModelAndView view = new ModelAndView("/page/admin/add_blog");
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			view.setViewName("redirect:" + urlConfig.getLoginAbsolutePath());
-			return view;
-		}
-		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
-			view.addObject("user", user);
-			view.addObject("categories", this.blogCategoryService.findBlogCategoryList(sessionUser.getUserid()));
-		} catch (BussinessException e) {
-			logger.error("获取用户信息失败：{}", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
+
 	
 	@ResponseBody
-	@RequestMapping("/addBlog")
-	public OutResponse<Integer> addBlog(HttpSession session, Blog blog, Attachment attachment){
-		OutResponse<Integer> outResponse = new OutResponse<Integer>();
-		try {
-			blog.setStatus(BlogStatusEnum.PUBLIC);
-			this.setUserBaseInfo(Blog.class, blog, session);
-			if(blog.getBlogId()!=null){
-				this.blogService.modifyBlog(blog, attachment);
-			}
-			else{
-				this.blogService.addBlog(blog, attachment);
-			}
-			outResponse.setCode(Code.SUCCESS);
-			outResponse.setData(blog.getBlogId());
-		}catch(BussinessException e){
-			logger.error("添加话题出错", e);
-			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
-		}
-		catch (Exception e) {
-			logger.error("添加话题出错{}", e);
-			outResponse.setMsg("添加话题出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@ResponseBody
-	@RequestMapping("/addDraftBlog")
-	public OutResponse<Integer> addDraftBlog(HttpSession session, Blog blog){
-		OutResponse<Integer> outResponse = new OutResponse<Integer>();
-		try {
-			blog.setStatus(BlogStatusEnum.DRAFT);
-			this.setUserBaseInfo(Blog.class, blog, session);
-			if(blog.getBlogId()!=null){
-				this.blogService.modifyBlog(blog, new Attachment());
-			}
-			else{
-				this.blogService.addBlog(blog, new Attachment());
-			}
-			outResponse.setCode(Code.SUCCESS);
-			outResponse.setData(blog.getBlogId());
-		}catch(BussinessException e){
-			logger.error("添加话题草稿出错{}", e);
-			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
-		}
-		catch (Exception e) {
-			logger.error("添加话题草稿出错{}", e);
-			outResponse.setMsg("添加话题草稿出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@RequestMapping("blogList")
-	public ModelAndView blogList(HttpSession session){
-		ModelAndView view = new ModelAndView("/page/admin/blog_list");
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			view.setViewName("redirect:" + urlConfig.getLoginAbsolutePath());
-			return view;
-		}
-		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
-			view.addObject("user", user);
-			view.addObject("categories", this.blogCategoryService.findBlogCategoryList(sessionUser.getUserid()));
-		} catch (BussinessException e) {
-			logger.error("获取话题列表失败：{}", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
-	
-	@ResponseBody
-	@RequestMapping("loadBlog")
-	public OutResponse<Object> loadBlog(HttpSession session, BlogQuery blogQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			blogQuery.setUserId(this.getUserid(session));
-			blogQuery.setStatus(BlogStatusEnum.PUBLIC);
-			PageResult<Blog> result = this.blogService.findBlogByPage(blogQuery);
-			outResponse.setData(result);
-			outResponse.setCode(Code.SUCCESS);
-		}catch (Exception e) {
-			logger.error("获取话题列表出错{}", e);
-			outResponse.setMsg("获取话题列表出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@ResponseBody
-	@RequestMapping("del_blog.action")
-	public OutResponse<Object> deleteBlog(HttpSession session, Integer blogId){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			this.blogService.deleteBlog(blogId);
-			outResponse.setCode(Code.SUCCESS);
-		}catch(BussinessException e){
-			logger.error("删除话题出错", e);
-			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
-		}
-		catch (Exception e) {
-			logger.error("删除话题出错{}", e);
-			outResponse.setMsg("删除出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@RequestMapping("edit_blog.action")
-	public ModelAndView preModifyBlog(HttpSession session, Integer blogId){
-		ModelAndView view = new ModelAndView("/page/admin/edit_blog");
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			view.setViewName("redirect:" + urlConfig.getLoginAbsolutePath());
-			return view;
-		}
-		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
-			view.addObject("user", user);
-			view.addObject("categories", this.blogCategoryService.findBlogCategoryList(sessionUser.getUserid()));
-			Blog blog = blogService.showBlog(blogId);
-			view.addObject("blog", blog);
-		} catch (BussinessException e) {
-			logger.error("获取话题信息失败：{}", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
-	
-	@ResponseBody
-	@RequestMapping("deleteBlogAttachment")
+	@RequestMapping("/deleteBlogAttachment")
 	public OutResponse<Object> deleteBlogAttachment(HttpSession session, Integer attachmentId){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
@@ -463,112 +303,6 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		} catch (Exception e) {
 			logger.error("删除文件失败{}", e);
 			outResponse.setMsg("删除文件失败");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@RequestMapping("draftBlogList")
-	public ModelAndView draftBlogList(HttpSession session){
-		ModelAndView view = new ModelAndView("/page/admin/draftblog_list");
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			view.setViewName("redirect:" + urlConfig.getLoginAbsolutePath());
-			return view;
-		}
-		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
-			view.addObject("user", user);
-			view.addObject("categories", this.blogCategoryService.findBlogCategoryList(sessionUser.getUserid()));
-		} catch (BussinessException e) {
-			logger.error("获取话题列表失败：{}", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
-	
-	@ResponseBody
-	@RequestMapping("loadDraftBlog")
-	public OutResponse<Object> loadDraftBlog(HttpSession session, BlogQuery blogQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			blogQuery.setUserId(this.getUserid(session));
-			blogQuery.setStatus(BlogStatusEnum.DRAFT);
-			PageResult<Blog> result = this.blogService.findBlogByPage(blogQuery);
-			outResponse.setData(result);
-			outResponse.setCode(Code.SUCCESS);
-		}catch (Exception e) {
-			logger.error("获取话题列表出错{}", e);
-			outResponse.setMsg("获取话题列表出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@RequestMapping("blog_category")
-	public ModelAndView blogCategory(HttpSession session){
-		ModelAndView view = new ModelAndView("/page/admin/blog_category");
-		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionUser==null){
-			view.setViewName("redirect:" + urlConfig.getLoginAbsolutePath());
-			return view;
-		}
-		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
-			view.addObject("user", user);
-			view.addObject("categories", this.blogCategoryService.findBlogCategoryList(sessionUser.getUserid()));
-		} catch (BussinessException e) {
-			logger.error("获取话题分类失败：{}", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
-	}
-	
-	@ResponseBody
-	@RequestMapping("loadBlogCategories.action")
-	public OutResponse<Object> loadBlogCategories(HttpSession session){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			List<BlogCategory> list = this.blogCategoryService.findBlogCategoryList(this.getUserid(session));
-			outResponse.setData(list);
-			outResponse.setCode(Code.SUCCESS);
-		}catch (Exception e) {
-			logger.error("获取话题分类出错{}", e);
-			outResponse.setMsg("获取话题分类出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("/delBlogCategory.action")
-	public OutResponse<Object> delBlogCategory(HttpSession session, Integer categoryId){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			this.blogCategoryService.deleteBlogCategory(categoryId);
-			outResponse.setCode(Code.SUCCESS);
-		}catch (Exception e) {
-			logger.error("删除话题分类出错{}", e);
-			outResponse.setMsg("删除话题分类出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
-		}
-		return outResponse;
-	}
-	
-	@ResponseBody
-	@RequestMapping("/saveBlogCategory.action")
-	public OutResponse<Object> saveBlogCategory(HttpSession session, BlogCategory blogCategory){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
-		try {
-			blogCategory.setUserId(this.getUserid(session));
-			this.blogCategoryService.saveOrUpdate(blogCategory);
-			outResponse.setCode(Code.SUCCESS);
-		}catch (Exception e) {
-			logger.error("保存话题分类出错{}", e);
-			outResponse.setMsg("保存话题分类出错,请重试");
 			outResponse.setCode(Code.SERVERERROR);
 		}
 		return outResponse;
@@ -614,7 +348,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	
 	@ResponseBody
-	@RequestMapping("mark_message_read.action")
+	@RequestMapping("/mark_message_read.action")
 	public OutResponse<Object> mark_message_read(HttpSession session, Integer[] ids){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
@@ -662,7 +396,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		return outResponse;
 	}
 	
-	@RequestMapping("readMessage.action")
+	@RequestMapping("/readMessage.action")
 	public ModelAndView readMessage(HttpSession session, Integer id){
 		ModelAndView view = new ModelAndView(urlConfig.getError_404());
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -704,7 +438,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@ResponseBody
-	@RequestMapping("load_collection.action")
+	@RequestMapping("/load_collection.action")
 	public OutResponse<Object>load_collection(HttpSession session, CollectionQuery collectionQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {

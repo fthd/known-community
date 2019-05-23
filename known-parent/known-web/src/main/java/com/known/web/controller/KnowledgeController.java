@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/knowledge")
 public class KnowledgeController extends BaseController {
 
-	private Logger logger = LoggerFactory.getLogger(BbsController.class);
+	private Logger logger = LoggerFactory.getLogger(KnowledgeController.class);
 	
 	@Autowired
 	private CategoryService categoryService;
