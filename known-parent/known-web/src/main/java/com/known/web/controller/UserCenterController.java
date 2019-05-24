@@ -47,33 +47,41 @@ public class UserCenterController extends BaseController {
 	@Autowired
 	private KnowledgeService knowledgeService;
 
-	@Autowired
-	private TopicService blogService;
-
 	@Resource
 	private UserConfig userConfig;
 
 	@Resource
 	private UrlConfig urlConfig;
 
+	/**
+	 * 用户个人中心首页
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value="/{userId}")
 	public ModelAndView user(HttpSession session, @PathVariable Integer userId){
 		ModelAndView view = new ModelAndView("/page/user/home");
 		try {
-			User user = this.userService.findUserInfo4UserHome(userId);
-			user.setUserIcon(user.getUserIcon());
+			//用户基本信息
+			User user = userService.findUserInfo4UserHome(userId);
 			view.addObject("user", user);
-			UserFriendQuery userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(this.getUserid(session));
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("focusType", this.userFriendService.findFocusType4UserHome(userFriendQuery));
+
+			//前端页面显示类型
+			// 0-本人 1-未登录 2-已关注
+			UserFriendQuery ufq1 = new UserFriendQuery();
+			ufq1.setUserId(getUserid(session));
+			ufq1.setFriendUserId(userId);
+			int focusType =userFriendService.findFocusType4UserHome(ufq1);
+			view.addObject("focusType", focusType);
+
 			//获取粉丝和关注数量
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("fansCount", this.userFriendService.findCount(userFriendQuery));
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(userId);
-			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
+			UserFriendQuery ufq2 = new UserFriendQuery();
+			ufq2.setFriendUserId(userId);
+			view.addObject("fansCount", userFriendService.findCount(ufq2));
+			UserFriendQuery ufq3 = new UserFriendQuery();
+			ufq3.setUserId(userId);
+			view.addObject("focusCount", userFriendService.findCount(ufq3));
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：", e);
 			view.setViewName("redirect:" + urlConfig.getError_404());
@@ -88,7 +96,7 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> loadShuoShuoDetail(ShuoShuoQuery shuoShuoQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			ShuoShuo shuoShuo = this.shuoShuoService.findShuoShuo(shuoShuoQuery);
+			ShuoShuo shuoShuo = shuoShuoService.findShuoShuo(shuoShuoQuery);
 			outResponse.setData(shuoShuo);
 			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
@@ -109,11 +117,11 @@ public class UserCenterController extends BaseController {
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		int userId = this.getUserid(session);
-		UserFriendQuery userFriendQuery = new UserFriendQuery();
-		userFriendQuery.setUserId(userId);
-		userFriendQuery.setPageNum(pageNum);
-		PageResult<UserFriend> pageResult = this.userFriendService.findFriendList(userFriendQuery);
+		int userId = getUserid(session);
+		UserFriendQuery ufq = new UserFriendQuery();
+		ufq.setUserId(userId);
+		ufq.setPageNum(pageNum);
+		PageResult<UserFriend> pageResult = userFriendService.findFriendList(ufq);
 		outResponse.setData(pageResult);
 		return outResponse;
 	}
@@ -126,7 +134,7 @@ public class UserCenterController extends BaseController {
 		OutResponse<Object> outResponse = new OutResponse<>();
 
 		try {
-			PageResult<ShuoShuo> pageResult = this.shuoShuoService.findShuoShuoList(shuoShuoQuery);
+			PageResult<ShuoShuo> pageResult = shuoShuoService.findShuoShuoList(shuoShuoQuery);
 			outResponse.setData(pageResult);
 			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
@@ -142,7 +150,7 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
-			PageResult<Topic> pageResult = this.topicService.findTopicByPage(topicQuery);
+			PageResult<Topic> pageResult = topicService.findTopicByPage(topicQuery);
 			outResponse.setData(pageResult);
 			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
@@ -158,7 +166,7 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
-			PageResult<Ask> pageResult = this.askService.findAskByPage(askQuery);
+			PageResult<Ask> pageResult = askService.findAskByPage(askQuery);
 			outResponse.setData(pageResult);
 			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
@@ -174,7 +182,7 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
-			PageResult<Knowledge> pageResult = this.knowledgeService.findKnowledgeByPage(knowledgeQuery);
+			PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 			outResponse.setData(pageResult);
 			outResponse.setCode(Code.SUCCESS);
 		} catch (Exception e) {
@@ -187,10 +195,10 @@ public class UserCenterController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/loadFocus")
-	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery userFriendQuery){
+	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery ufq){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
-			PageResult<UserFriend> pageResult = this.userFriendService.findFriendList(userFriendQuery);
+			PageResult<UserFriend> pageResult = userFriendService.findFriendList(ufq);
 			outResponse.setData(pageResult);
 		} catch (Exception e) {
 			logger.error("加载关注用户异常", e);
@@ -202,10 +210,10 @@ public class UserCenterController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/loadFans")
-	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery userFriendQuery){
+	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery ufq){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
-			PageResult<UserFriend> pageResult = this.userFriendService.findFansList(userFriendQuery);
+			PageResult<UserFriend> pageResult = userFriendService.findFansList(ufq);
 			outResponse.setData(pageResult);
 		} catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
@@ -219,21 +227,21 @@ public class UserCenterController extends BaseController {
 	public ModelAndView shuoshuo(HttpSession session, @PathVariable Integer userId, @PathVariable Integer id){
 		ModelAndView view = new ModelAndView("/page/user/shuoshuo");
 		try {
-			User user = this.userService.findUserInfo4UserHome(userId);
+			User user = userService.findUserInfo4UserHome(userId);
 			view.addObject("user", user);
 			view.addObject("id", id);
-			UserFriendQuery userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(this.getUserid(session));
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("focusType", this.userFriendService.findFocusType4UserHome(userFriendQuery));
+			UserFriendQuery ufq = new UserFriendQuery();
+			ufq.setUserId(getUserid(session));
+			ufq.setFriendUserId(userId);
+			view.addObject("focusType", userFriendService.findFocusType4UserHome(ufq));
 			
 			//获取粉丝和关注数量
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setFriendUserId(userId);
-			view.addObject("fansCount", this.userFriendService.findCount(userFriendQuery));
-			userFriendQuery = new UserFriendQuery();
-			userFriendQuery.setUserId(userId);
-			view.addObject("focusCount", this.userFriendService.findCount(userFriendQuery));
+			ufq = new UserFriendQuery();
+			ufq.setFriendUserId(userId);
+			view.addObject("fansCount", userFriendService.findCount(ufq));
+			ufq = new UserFriendQuery();
+			ufq.setUserId(userId);
+			view.addObject("focusCount", userFriendService.findCount(ufq));
 		} catch (Exception e) {
 			logger.error("获取说说信息失败：", e);
 			view.setViewName("redirect:" + urlConfig.getError_404());
@@ -247,8 +255,8 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> focus(HttpSession session, UserFriend userFriend){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
-			this.setUserBaseInfo(UserFriend.class, userFriend, session);
-			this.userFriendService.addFocus(userFriend);
+			setUserBaseInfo(UserFriend.class, userFriend, session);
+			userFriendService.addFocus(userFriend);
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
 			outResponse.setMsg(e.getLocalizedMessage());
@@ -267,8 +275,8 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> cancel_focus(HttpSession session, UserFriend userFriend){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try{
-			this.setUserBaseInfo(UserFriend.class, userFriend, session);
-			this.userFriendService.cancelFocus(userFriend);
+			setUserBaseInfo(UserFriend.class, userFriend, session);
+			userFriendService.cancelFocus(userFriend);
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
 			outResponse.setMsg(e.getLocalizedMessage());

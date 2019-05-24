@@ -67,7 +67,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 			return null;
 		}
 		KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
-		knowledgeQuery.setTopicId(knowledgeId);
+		knowledgeQuery.setKnowledgeId(knowledgeId);
 		knowledgeQuery.setShowContent(Boolean.TRUE);
 		List<Knowledge> list = this.knowledgeMapper.selectList(knowledgeQuery);
 		if(list.isEmpty()){
@@ -90,7 +90,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 				){
 			throw new BussinessException("话题不存在,或已删除");
 		}
-		knowledge.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getTopicId(), FileTopicType.KNOWLEDGE));
+		knowledge.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicType.KNOWLEDGE));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(knowledgeId);
@@ -114,17 +114,17 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
 					+ "......";
 		}
-		Set<Integer> userIds = new HashSet<Integer>();
+		Set<Integer> userIds = new HashSet<>();
 		//TODO给用户发消息
 		String formatContent = formateAtService.generateRefererLinks(content,
 				userIds);
 		knowledge.setSummary(summary);
 		knowledge.setTitle(title);
 		knowledge.setContent(formatContent);
-		String topicImage = ImageUtil.getImages(content);
-		knowledge.setTopicImage(topicImage);
-//		String knowledgeImageSmall = ImageUtil.createThumbnail(topicImage, true);
-//		knowledge.setTopicImageThum(knowledgeImageSmall);
+		String knowledgeImage = ImageUtil.getImages(content);
+		knowledge.setKnowledgeImage(knowledgeImage);
+//		String knowledgeImageSmall = ImageUtil.createThumbnail(knowledgeImage, true);
+//		knowledge.setKnowledgeImageThum(knowledgeImageSmall);
 		Date curDate = new Date();
 		knowledge.setCreateTime(curDate);
 		knowledge.setLastCommentTime(curDate);
@@ -135,13 +135,13 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
-			attachment.setTopicId(knowledge.getTopicId());
+			attachment.setArticleId(knowledge.getKnowledgeId());
 			attachment.setFileTopicType(FileTopicType.KNOWLEDGE);
 			this.attachmentService.addAttachment(attachment);
 		}
 		
 		MessageParams messageParams = new MessageParams();
-		messageParams.setArticleId(knowledge.getTopicId());
+		messageParams.setArticleId(knowledge.getKnowledgeId());
 		messageParams.setArticleType(ArticleType.KNOWLEDGE);
 		messageParams.setArticleUserId(knowledge.getUserId());
 		messageParams.setMessageType(MessageType.AT_ARTICLE_MESSAGE);

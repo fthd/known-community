@@ -60,7 +60,11 @@ public class TopicController extends BaseController {
 
 	@Resource
 	private UrlConfig urlConfig;
-	
+
+	/**
+	 * 话题中心首页
+	 * @return
+	 */
 	@RequestMapping("/topic")
 	public ModelAndView topic(){
 		ModelAndView view = new ModelAndView("/page/topic/topic");
@@ -70,7 +74,7 @@ public class TopicController extends BaseController {
 		categoryQuery.setStartDate(curDate);
 		categoryQuery.setEndDate(curDate);
 		view.addObject("categories", categoryService.findCategory4TopicCount(categoryQuery));
-		view.addObject("activeUser", this.topicService.findActiveUsers());
+		view.addObject("activeUser", topicService.findActiveUsers());
 		//获取总话题数
 		view.addObject("count", this.topicService.findCount(null));
 		//获取今日话题
@@ -96,7 +100,7 @@ public class TopicController extends BaseController {
 		}
 		ModelAndView view = new ModelAndView("/page/topic/publicTopic");
 		CategoryQuery categoryQuery = new CategoryQuery();
-		categoryQuery.setShowInBbs(Constants.Y);
+		categoryQuery.setShowInTopic(Constants.Y);
 		view.addObject("topicType", TopicType.values());
 		view.addObject("voteType", VoteType.values());
 		return view;
@@ -107,7 +111,7 @@ public class TopicController extends BaseController {
 	public OutResponse<List<Category>> loadCategories(){
 		OutResponse<List<Category>> outResponse = new OutResponse<>();
 		try {
-			outResponse.setData(this.categoryCache.getBbsCategories());
+			outResponse.setData(this.categoryCache.getTopicCategories());
 			outResponse.setCode(Code.SUCCESS);
 			return outResponse;
 		} catch (Exception e) {

@@ -46,7 +46,7 @@ public class ImageUploader{
 					MultipartFile multipartFile = multirequest.getFile(itr.next());
 					long size = multipartFile.getSize();
 					if(size > MAX_FILE_MAX){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "文件不能超过3M");
 						return map;
 					}
@@ -54,7 +54,7 @@ public class ImageUploader{
 					String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 					if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 							!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "只能上传图片");
 						return map;
 					}
@@ -73,11 +73,11 @@ public class ImageUploader{
 					try {
 //						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 						//multipartFile.transferTo(file);
-						map.put("responseCode", Code.SUCCESS);
+						map.put("code", Code.SUCCESS);
 //						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", Code.SERVERERROR);
+							map.put("code", Code.SERVERERROR);
 							map.put("msg", "服务器异常,上传失败");
 							return map;
 					}
@@ -155,7 +155,7 @@ public class ImageUploader{
 					MultipartFile multipartFile = multirequest.getFile(itr.next());
 					long size = multipartFile.getSize();
 					if(size > MAX_FILE_MAX){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "文件不能超过3M");
 						return map;
 					}
@@ -163,7 +163,7 @@ public class ImageUploader{
 					String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 					if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 							!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "只能上传图片");
 						return map;
 					}
@@ -182,11 +182,11 @@ public class ImageUploader{
 					try {
 						//multipartFile.transferTo(file);
 						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
-						map.put("responseCode", Code.SUCCESS);
+						map.put("code", Code.SUCCESS);
 						map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", Code.SERVERERROR);
+							map.put("code", Code.SERVERERROR);
 							map.put("msg", "服务器异常,上传失败");
 							return map;
 					}
@@ -206,7 +206,7 @@ public class ImageUploader{
 			MultipartFile multipartFile = multirequest.getFile(itr.next());
 			long size = multipartFile.getSize();
 			if(size > MAX_FILE_MAX){
-				map.put("responseCode", Code.BUSSINESSERROR);
+				map.put("code", Code.BUSSINESSERROR);
 				map.put("msg", "文件不能超过3M");
 				return map;
 			}
@@ -214,7 +214,7 @@ public class ImageUploader{
 			String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 			if(!"JPG".equalsIgnoreCase(suffix) && !"BMP".equalsIgnoreCase(suffix) &&
 					!"gif".equalsIgnoreCase(suffix) && !"PNG".equalsIgnoreCase(suffix)){
-				map.put("responseCode", Code.BUSSINESSERROR);
+				map.put("code", Code.BUSSINESSERROR);
 				map.put("msg", "只能上传图片");
 				return map;
 			}
@@ -231,11 +231,11 @@ public class ImageUploader{
 			File file = new File(filePath);
 			try {
 				multipartFile.transferTo(file);
-				map.put("responseCode", Code.SUCCESS);
+				map.put("code", Code.SUCCESS);
 				map.put("savePath", savePath);
 				return map;
 			} catch (Exception e) {
-				map.put("responseCode", Code.SERVERERROR);
+				map.put("code", Code.SERVERERROR);
 				map.put("msg", "服务器异常,上传失败");
 				return map;
 			}

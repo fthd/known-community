@@ -64,7 +64,7 @@ uploader.on('fileQueued', function(file) {
 });
 
 uploader.on('uploadSuccess', function(file, response) {
-    if (response.responseCode == "SUCCESS") {
+    if (response.code == "SUCCESS") {
 	$("#imgarea").show();
 
 	cutter.reload(known.realpath+"/upload/"+response.savePath);

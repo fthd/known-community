@@ -1,103 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<#include "include/top.html">
-	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/index.css">
-	<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/topic_list.css">
-	<title>知会问答社区首页</title>
+    <meta charset="UTF-8">
+    <#include "include/top.html">
+    <link rel="stylesheet" type="text/css" href="${realpath}/resources/css/index.css">
+    <link rel="stylesheet" type="text/css" href="${realpath}/resources/css/topic_list.css">
+    <title>知会问答社区首页</title>
 </head>
-<body>
-	<#include "include/header.html">
-	<div class="main">
-		<div class="left">
-			<div class="data-list">
-				<div class="part-title">
-					<a href="${realpath}/topic" class="part" target="_blank">话题中心</a>
-				</div>
-					<#list topics.list as topic>
-					<div class="data-item">
-                        <#if (topic.grade > 0)>
-						 <span class="ding" style="float:left">置顶</span>
-                        </#if>
-                        <#if (topic.essence == 1)>
-				        <span class="jing" style="float:left">精华</span>
-                        </#if>
-                        <#if (topic.topicType.type == 1)>
-						<span class="vote" style="float:left">投票</span>
-                         </#if>
-						<a href="${realpath}/topic/${topic.topicId?c}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>" >${topic.title}</a>
-						<span class="time">${topic.createTimeString} By ${topic.userName}</span>
-						<div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
-					</div>
-					<#if (topic_index>=10)>
-						<#break>
-					</#if>
-					</#list>
-			</div>
-			<div class="data-list">
-				<div class="part-title">
-					<a href="${realpath}/knowledge/knowledge" class="part" target="_blank">知识库</a>
-				</div>
-					<#list knowledges.list as topic>
-					<div class="data-item">
-						<a href="${realpath}/knowledge/${topic.topicId?c}" target="_blank" class="tit ">${topic.title}</a>
-						<span class="time">${topic.createTimeString} By ${topic.userName}</span>
-						<div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
-					</div>
-					<#if (topic_index>=10)>
-						<#break>
-					</#if>
-					</#list>
-			</div>
-			<div class="data-list">
-				<div class="part-title">
-					<a href="${realpath}/ask" class="part" target="_blank">问答</a>
-				</div>
-					<#list asks.list as topic>
-					<div class="data-item">
-						<a href="${realpath}/ask/${topic.askId?c}" target="_blank" class="tit ">${topic.title}</a>
-						<span class="time">${topic.createTimeString} By ${topic.userName}</span>
-						<div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
-					</div>
-					<#if (topic_index>=10)>
-						<#break>
-					</#if>
-					</#list>
-			</div>
-		</div>
-			<div class="right">
-				
-		        <div class="part-title">
-						<a href="${realpath}/topic/topic" class="part">最新话题</a>
-				</div>
-				<!--<#list topics.list as topic>
-					<div class="data-item">
-						<a href="${realpath}/user/${topic.userId?c}/topic/${topic.topicId?c}" target="_blank" class="topic-tit ">${topic.title}</a>
-						<span class="topic-time">
-							<span class="topic-time-name">by&nbsp;&nbsp;${topic.userName}</span>
-							<span class="topic-time-time">${topic.createTimeString}</span>
-							<div class="clear"></div>
-						</span>
-					</div>
-				</#list>-->
-				<!--<div class="part-title">
-					<a href="javascript:;" class="part">常用工具</a>
-				</div>
-				<div class="home-tools">
-						<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">JDK下载</a>
-						<a href="http://dlsw.baidu.com/sw-search-sp/soft/ea/12585/mysql_installer_community_V5.6.21.1_setup.1418020972.msi" target="_blank">MySQL下载</a>
-						<a href="http://c1.cr173.com/xl/JDK_API_1_6_zh_CN.zip" target="_blank">JDK6中文文档</a>
-						<a href="http://pan.baidu.com/s/1kTyYOsf" target="_blank">Jquery中文文档</a>
-						<a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(32位)</a>
-						<a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(64位)</a>
-						<a href="https://pan.baidu.com/s/1o6soaj4" target="_blank">Sqlyog破解版(64位)</a>
-				</div>-->
-		    </div>
 
-		
-		<div class="clear"></div>
-	</div>
-	<#include "include/footer.html">
+<body>
+    <#include "include/header.html">
+    <div class="main">
+    <div class="left">
+        <div class="data-list">
+            <div class="part-title">
+                <a href="${realpath}/topic/topic" class="part" target="_blank">话题中心</a>
+            </div>
+            <#list topics.list as topic>
+           <div class="data-item">
+               <#if (topic.grade > 0)>
+                     <span class="ding" style="float:left">置顶</span>
+                </#if>
+           <#if (topic.essence == 1)>
+                <span class="jing" style="float:left">精华</span>
+            </#if>
+            <#if (topic.topicType.type == 1)>
+                <span class="vote" style="float:left">投票</span>
+            </#if>
+            <a href="${realpath}/topic/${topic.topicId?c}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>">${topic.title}</a>
+            <span class="time">${topic.createTimeString} By ${topic.userName}</span>
+            <div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
+        </div>
+        <#if (topic_index>=10)>
+            <#break>
+        </#if>
+        </#list>
+    </div>
+
+    <div class="data-list">
+        <div class="part-title">
+            <a href="${realpath}/knowledge/knowledge" class="part" target="_blank">知识库</a>
+        </div>
+        <#list knowledges.list as knowledge>
+        <div class="data-item">
+            <a href="${realpath}/knowledge/${knowledge.knowledgeId?c}" target="_blank" class="tit ">${knowledge.title}</a>
+            <span class="time">${knowledge.createTimeString} By ${knowledge.userName}</span>
+            <div class="read">${knowledge.commentCount}评/${knowledge.readCount}阅</div>
+        </div>
+        <#if (knowledge_index>=10)>
+            <#break>
+        </#if>
+        </#list>
+    </div>
+
+
+    <div class="data-list">
+        <div class="part-title">
+            <a href="${realpath}/ask/ask" class="part" target="_blank">问答</a>
+        </div>
+        <#list asks.list as ask>
+            <div class="data-item">
+                <a href="${realpath}/ask/${ask.askId?c}" target="_blank" class="tit ">${ask.title}</a>
+                <span class="time">${ask.createTimeString} By ${ask.userName}</span>
+                <div class="read">${ask.commentCount}评/${ask.readCount}阅</div>
+            </div>
+            <#if (ask_index>=10)>
+                <#break>
+            </#if>
+        </#list>
+        </div>
+    </div>
+
+<div class="right">
+    <div class="part-title">
+        <a href="${realpath}/topic/topic" class="part">最新话题</a>
+    </div>
+    <!--<#list topics.list as topic>
+        <div class="data-item">
+            <a href="${realpath}/user/${topic.userId?c}/topic/${topic.topicId?c}" target="_blank" class="topic-tit ">${topic.title}</a>
+            <span class="topic-time">
+                <span class="topic-time-name">by&nbsp;&nbsp;${topic.userName}</span>
+                <span class="topic-time-time">${topic.createTimeString}</span>
+                <div class="clear"></div>
+            </span>
+        </div>
+    </#list>-->
+    <!--<div class="part-title">
+        <a href="javascript:;" class="part">常用工具</a>
+    </div>
+    <div class="home-tools">
+            <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">JDK下载</a>
+            <a href="http://dlsw.baidu.com/sw-search-sp/soft/ea/12585/mysql_installer_community_V5.6.21.1_setup.1418020972.msi" target="_blank">MySQL下载</a>
+            <a href="http://c1.cr173.com/xl/JDK_API_1_6_zh_CN.zip" target="_blank">JDK6中文文档</a>
+            <a href="http://pan.baidu.com/s/1kTyYOsf" target="_blank">Jquery中文文档</a>
+            <a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(32位)</a>
+            <a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(64位)</a>
+            <a href="https://pan.baidu.com/s/1o6soaj4" target="_blank">Sqlyog破解版(64位)</a>
+    </div>-->
+</div>
+
+
+<div class="clear"></div>
+</div>
+<#include "include/footer.html">
 </body>
 </html>

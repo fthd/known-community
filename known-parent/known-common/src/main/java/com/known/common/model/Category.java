@@ -21,21 +21,17 @@ public class Category {
 
     private Integer rank;
 
-    private Integer allowPost;
+    private String showInTopic;
 
-    private String showInBbs;
-
-    private String showInQuestion;
+    private String showInAsk;
 
     private String showInKnowledge;
-
-    private String showInExam;
     
     private Integer count;
     
     private Integer todayCount;
     
-    List<Category> children = new ArrayList<Category>();
+    List<Category> children = new ArrayList<>();
 
 
     public void setName(String name) {
@@ -46,13 +42,13 @@ public class Category {
         this.desc = desc == null ? null : desc.trim();
     }
 
-    public void setShowInBbs(String showInBbs) {
-        this.showInBbs = showInBbs == null ? null : showInBbs.trim();
+    public void setShowInTopic(String showInTopic) {
+        this.showInTopic = showInTopic == null ? null : showInTopic.trim();
     }
 
 
-    public void setShowInQuestion(String showInQuestion) {
-        this.showInQuestion = showInQuestion == null ? null : showInQuestion.trim();
+    public void setShowInAsk(String showInAsk) {
+        this.showInAsk = showInAsk == null ? null : showInAsk.trim();
     }
 
 
@@ -60,8 +56,4 @@ public class Category {
         this.showInKnowledge = showInKnowledge == null ? null : showInKnowledge.trim();
     }
 
-    public void setShowInExam(String showInExam) {
-        this.showInExam = showInExam == null ? null : showInExam.trim();
-    }
-    
 }

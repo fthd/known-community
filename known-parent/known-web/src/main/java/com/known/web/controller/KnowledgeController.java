@@ -57,7 +57,7 @@ public class KnowledgeController extends BaseController {
 	@RequestMapping("/knowledge")
 	public ModelAndView knowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
-		PageResult<Knowledge> pageResult = this.knowledgeService.findKnowledgeByPage(knowledgeQuery);
+		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
 		view.addObject("result", pageResult);
 		return view;
@@ -107,7 +107,7 @@ public class KnowledgeController extends BaseController {
 	
 	
 	@ResponseBody
-	@RequestMapping("loadCategories")
+	@RequestMapping("/loadCategories")
 	public OutResponse<List<Category>> loadCategories(){
 		OutResponse<List<Category>> outResponse = new OutResponse<List<Category>>();
 		try {
@@ -131,7 +131,7 @@ public class KnowledgeController extends BaseController {
 			this.setUserBaseInfo(Knowledge.class, knowledge, session);
 			this.knowledgeService.addKnowledge(knowledge, attachment);
 			outResponse.setCode(Code.SUCCESS);
-			outResponse.setData(knowledge.getTopicId());
+			outResponse.setData(knowledge.getKnowledgeId());
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			outResponse.setCode(Code.BUSSINESSERROR);

@@ -51,12 +51,11 @@ public class IndexController extends  BaseController {
         Integer userid = this.getUserid(session);
         ModelAndView view = new ModelAndView("/page/index");
         if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            SignInfo signInfo = signInService.findSignInfoByUserid(userid);
             view.addObject("signInfo", signInfo);
         }
-        PageResult<Topic> topics = this.topicService.findTopicByPage(new TopicQuery());
-        view.addObject("topics", topics);
-        view.addObject("knowledges", this.knowledgeService.findKnowledgeByPage(new KnowledgeQuery()));
+        view.addObject("topics", topicService.findTopicByPage(new TopicQuery()));
+        view.addObject("knowledges", knowledgeService.findKnowledgeByPage(new KnowledgeQuery()));
         view.addObject("asks", this.askService.findAskByPage(new AskQuery()));;
         return view;
     }

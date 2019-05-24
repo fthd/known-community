@@ -104,7 +104,7 @@ public class TopicServiceImpl implements TopicService {
 		}
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
-			attachment.setTopicId(topic.getTopicId());
+			attachment.setArticleId(topic.getTopicId());
 			attachment.setFileTopicType(FileTopicType.TOPIC);
 			this.attachmentService.addAttachment(attachment);
 		}

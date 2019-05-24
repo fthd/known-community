@@ -62,7 +62,7 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/register.do")
-    public OutResponse<Object> registerdo(HttpSession session, User user) {
+    public OutResponse<Object> registerdo( User user) {
 
         OutResponse<Object> outResponse = new OutResponse<>();
         try {

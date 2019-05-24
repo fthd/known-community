@@ -42,7 +42,7 @@ public class Comment {
 
     private String content;
     
-    private List<Comment> children = new ArrayList<Comment>();
+    private List<Comment> children = new ArrayList<>();
     
     private String showContent;
     

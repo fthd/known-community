@@ -46,7 +46,7 @@ uploader.on('fileQueued', function(file) {
 });
 
 uploader.on('uploadSuccess', function(file, response) {
-    if (response.responseCode == "SUCCESS") {
+    if (response.code == "SUCCESS") {
 	$("<div>" + file.name + "&nbsp;&nbsp;<a class='btn btn-info' href='javascript:deleteFile()'>删除</a></div>").appendTo($("#file-list"));
 	$("#attached_file_name").val(file.name);
 	$("#attached_file").val(response.savePath);
@@ -70,7 +70,7 @@ deleteFile = function() {
 		dataType: 'json',
 		data: { "fileName" : $("#attached_file").val()},
 		success:function(res){
-			if(res.responseCode != "SUCCESS"){
+			if(res.code != "SUCCESS"){
 				layer.alert(res.msg, {
 				  icon: 5,
 				  skin: 'layer-ext-moon' 
@@ -119,7 +119,7 @@ $(document).ready(function() {
 	      		url: known.realpath + '/admin/addDraftBlog',
 				type: 'POST',
 				dataType: 'json',
-				data: $("#postBbsForm").serialize(),		
+				data: $("#postTopicForm").serialize(),		
 				success:function(res){
 					layer.msg('保存草稿成功', {
 						  icon: 1,
@@ -135,7 +135,7 @@ function addBlog(){
 		goLogin();
 	    return;
 	}
-	var form = $("#postBbsForm");
+	var form = $("#postTopicForm");
 	var title = form.find("input[name='title']").val();
 	var categoryId = $("#categoryId").val();
 	var mark = $("#mark").val();
@@ -199,7 +199,7 @@ function publicBlog(){
 						url: known.realpath + '/admin/addBlog',
 						type: 'POST',
 						dataType: 'json',
-						data: $("#postBbsForm").serialize(),		
+						data: $("#postTopicForm").serialize(),		
 						success:function(res){
 							if(res.msg != null){
 								layer.msg(res.msg, {

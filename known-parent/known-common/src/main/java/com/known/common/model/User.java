@@ -56,69 +56,9 @@ public class User {
     private String lastLoginTimeString ;
     
     private String activationCode;
-    
-    private Integer userPage = 0;
-    
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
+    private Integer status;
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon == null ? null : userIcon.trim();
-    }
-
-    public void setUserBg(String userBg) {
-        this.userBg = userBg == null ? null : userBg.trim();
-    }
-
-    public void setAge(String age) {
-        this.age = age == null ? null : age.trim();
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
-
-    public void setCharacters(String characters) {
-        this.characters = characters == null ? null : characters.trim();
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
-
-    public void setWork(String work) {
-        this.work = work == null ? null : work.trim();
-    }
-
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode == null ? null : activationCode.trim();
-    }
-    
-	public String getBirthdayString() {
-		if(birthday == null){
-			return null;
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
-		return DateUtil.friendly_time(sdf.format(birthday));
-	}
-
-	public String getRegisterTimeString() {
-		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
-		return DateUtil.friendly_time(sdf.format(registerTime));
-	}
-
-	public String getLastLoginTimeString() {
-		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
-		return DateUtil.friendly_time(sdf.format(lastLoginTime));
-	}
+    private Integer userPage;
     
 }

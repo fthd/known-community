@@ -11,7 +11,7 @@ function addAsk(){
 		goLogin();
 	    return;
 	}
-	var form = $("#postBbsForm");
+	var form = $("#postTopicForm");
 	var title = form.find("input[name='title']").val();
 	var mark = $("#mark").val();
 	if(title == null || $.trim(title) == ''){
@@ -66,9 +66,9 @@ function addAsk(){
 			url: known.realpath + '/ask/publicAsk',
 			type: 'POST',
 			dataType: 'json',
-			data: $("#postBbsForm").serialize(),		
+			data: $("#postTopicForm").serialize(),		
 			success:function(res){
-				if(res.responseCode != "SUCCESS"){
+				if(res.code != "SUCCESS"){
 					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 

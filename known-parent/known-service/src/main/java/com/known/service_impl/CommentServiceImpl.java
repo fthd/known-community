@@ -104,7 +104,7 @@ public class CommentServiceImpl implements CommentService {
 		else if(comment.getArticleType() == ArticleType.KNOWLEDGE){
 			this.KnowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 			KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
-			knowledgeQuery.setTopicId(comment.getArticleId());
+			knowledgeQuery.setKnowledgeId(comment.getArticleId());
 			articleUserId = this.KnowledgeMapper.selectList(knowledgeQuery).get(0).getUserId();
 		}
 		else if(comment.getArticleType() == ArticleType.Ask){

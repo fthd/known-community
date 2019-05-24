@@ -35,14 +35,14 @@ public class FileUploader {
 					MultipartFile multipartFile = multirequest.getFile(itr.next());
 					long size = multipartFile.getSize();
 					if(size > MAX_FILE_MAX){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "文件不能超过10M");
 						return map;
 					}
 					String fileName = multipartFile.getOriginalFilename();
 					String suffix = fileName.substring(fileName.lastIndexOf(".")  + 1);
 					if(!"zip".equalsIgnoreCase(suffix) && !"rar".equalsIgnoreCase(suffix)){
-						map.put("responseCode", Code.BUSSINESSERROR);
+						map.put("code", Code.BUSSINESSERROR);
 						map.put("msg", "只能ZIP或RAR文件");
 						return map;
 					}
@@ -60,12 +60,12 @@ public class FileUploader {
 					try {
 //						AliyunOSSClientUtil.uploadObject2OSS(ossClient, multipartFile.getInputStream(),multipartFile.getOriginalFilename(),multipartFile.getSize() , savePath);
 					//	multipartFile.transferTo(file);
-						map.put("responseCode", Code.SUCCESS);
+						map.put("code", Code.SUCCESS);
 					//	map.put("savePath", AliyunOSSClientUtil.getUrl(ossClient,savePath+multipartFile.getOriginalFilename()));
 						map.put("savePath", savePath+multipartFile.getOriginalFilename());
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", Code.SERVERERROR);
+							map.put("code", Code.SERVERERROR);
 							map.put("msg", "服务器异常,上传失败");
 							return map;
 					}
@@ -88,10 +88,10 @@ public class FileUploader {
 						if(file.exists()){
 							file.delete();
 						}
-						map.put("responseCode", Code.SUCCESS);
+						map.put("code", Code.SUCCESS);
 						return map;
 						} catch (Exception e) {
-							map.put("responseCode", Code.SERVERERROR);
+							map.put("code", Code.SERVERERROR);
 							map.put("msg", "服务器异常,删除失败");
 							return map;
 					}

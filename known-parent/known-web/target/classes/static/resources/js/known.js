@@ -156,8 +156,7 @@ $(document).ready(function() {
 	 			if(result.data.haveSignInToday){	 					
 	 					$("#signinimage").removeClass("unsigninimage");
 	 					$("#signinimage").addClass("signinimage");
-	 			}
-	 			else{	 					
+	 			} else{
  					$("#signinimage").removeClass("signinimage");
  					$("#signinimage").addClass("unsigninimage");
  			}
@@ -184,31 +183,29 @@ $(document).ready(function() {
 	 $(".unsigninimage").click(function(event) {
 			$.ajax({
 				url: known.realpath + '/signIn/signIn',
-				type: 'POST',
-				dataType: 'json',
+                type: 'POST',
+                dataType: 'json',
 				success:function(result){
-					if(result.responseCode == "SUCCESS"){
-					var d = dialog({
-					width: $(window).width(),
-			   		height: $(window).height(),
-					content: "<div><img src='" + known.realpath +"/resources/images/signin.gif' /></div>",
-				});
-					d.showModal();
-					setTimeout(function() {
-						d.close().remove();
-					}, 1200);
-					}
-					else{
+					if(result.code == "SUCCESS"){
+                        var d = dialog({
+						width: $(window).width(),
+						height: $(window).height(),
+						content: "<div><img src='" + known.realpath +"/resources/images/signin.gif' /></div>"
+						});
+						d.showModal();
+						setTimeout(function() {
+							d.close().remove();
+						}, 1200);
+					} else{
 						var d = dialog({
 								width: 200,
 								content: result.msg,
 								quickClose: true // 点击空白处快速关闭
-							});
-							d.show();
+						});
+						d.show();
 					}
 				}
 			});
-			
 		});
 });
 function showEmotion(targetObj, textarea){

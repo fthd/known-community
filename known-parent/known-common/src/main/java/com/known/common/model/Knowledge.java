@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Knowledge {
-    private Integer topicId;
+    private Integer knowledgeId;
 
     private Integer pCategoryId;
 
@@ -48,11 +48,11 @@ public class Knowledge {
 
     private String summary;
 
-    private String topicImage;
+    private String knowledgeImage;
     
-    private String[] topicImageArray;
+    private String[] knowledgeImageArray;
 
-    private String topicImageThum;
+    private String knowledgeImageThum;
     
     private String categoryName;//二级栏目名称
     
@@ -77,10 +77,10 @@ public class Knowledge {
 	}
 
 	public String[] getTopicImageArray() {
-		if(StringUtil.isEmpty(this.topicImage)){
+		if(StringUtil.isEmpty(this.knowledgeImage)){
 			return null;
 		}
-		return topicImage.split("\\|");
+		return knowledgeImage.split("\\|");
 	}
 
 	/*public String getCategoryName() {

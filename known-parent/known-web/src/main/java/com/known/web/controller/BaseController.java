@@ -40,14 +40,10 @@ public class BaseController {
 		}
 	}
 	
-
-	
 	public Integer getUserid(HttpSession session){
-		Object sessionObject = session.getAttribute(userConfig.getSession_User_Key());
-		if(sessionObject != null){
-			return ((SessionUser)sessionObject).getUserid();
-		}
-		return null;
+
+		Object sessObj = session.getAttribute(userConfig.getSession_User_Key());
+		return sessObj != null ? ((SessionUser)sessObj).getUserid() : null;
 	}
 
 }

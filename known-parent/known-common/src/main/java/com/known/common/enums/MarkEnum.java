@@ -3,7 +3,7 @@ package com.known.common.enums;
 public enum MarkEnum {
 	MARK_SIGNIN(6,"普通签到"), 
 	MARK_SIGN_CONTINUE(8,"签到7天以上"),
-	MARK_SHUOSHUO(2,"发说说"),
+	MARK_SHUOSHUO(2,"发表说说"),
 	MARK_COMMENT(1,"评论"),
 	MARK_TOPIC(1,"发布话题");
 

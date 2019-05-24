@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Attachment {
     private Integer attachmentId;
 
-    private Integer topicId;
+    private Integer articleId;
 
     private String fileName;
 

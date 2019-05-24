@@ -79,7 +79,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 		if(attachment == null){
 			throw new BussinessException("附件不存在");
 		}
-		Integer topicId = attachment.getTopicId();
+		Integer topicId = attachment.getArticleId();
 		Topic topic = null;
 		FileTopicType fileTopicType = attachment.getFileTopicType();
 		if(fileTopicType == FileTopicType.TOPIC){

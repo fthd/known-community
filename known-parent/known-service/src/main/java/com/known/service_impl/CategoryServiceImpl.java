@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public Category findCategoryBypCategoryId(Integer pCategoryId) {
-		List<Category> bbCategories = categoryCache.getBbsCategories();
+		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			if(category.getCategoryId() == pCategoryId){
 				return category;
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public Category findCategoryByCategoryId(Integer categoryId) {
-		List<Category> bbCategories = categoryCache.getBbsCategories();
+		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			List<Category> children = category.getChildren();
 			for(Category c : children){
@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public Category findSingleCategoryByCategoryId(Integer categoryId) {
-		List<Category> bbCategories = categoryCache.getBbsCategories();
+		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			List<Category> children = category.getChildren();
 			for(Category c : children){

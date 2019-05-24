@@ -8,12 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryQuery extends BaseQuery{
+
 	private Integer categoryId;
+
 	private Integer pid;
-	private String showInBbs;
+
+	private String showInTopic;
+
 	private String showInQuestion;
+
 	private String showInKnowledge;
-	private String showInExam;
+
 	private String startDate;
+
 	private String endDate;
+
 }

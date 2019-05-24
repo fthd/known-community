@@ -24,7 +24,7 @@ public class CategoryCache {
 	static{
 		categoryCache = new HashMap<>();
 		singleCategoryCache = new HashMap<>();
-		categoryCache.put(Constants.Cache_Key_Bbs_Category, new ArrayList<>());
+		categoryCache.put(Constants.Cache_Key_Topic_Category, new ArrayList<>());
 		categoryCache.put(Constants.Cache_Key_Knowledge_Category, new ArrayList<>());
 		categoryCache.put(Constants.Cache_Key_Ask_Category, new ArrayList<>());
 		categoryCache.put(Constants.Cache_Key_Exam_Category, new ArrayList<>());
@@ -34,16 +34,13 @@ public class CategoryCache {
 		List<Category> filterChildren = new ArrayList<>();
 		List<Category> children = c.getChildren();
 		for(Category category : children){
-			if(show.equals(Constants.Cache_Key_Bbs_Category) && Constants.Y.equals(category.getShowInBbs())){
+			if(show.equals(Constants.Cache_Key_Topic_Category) && Constants.Y.equals(category.getShowInTopic())){
 				filterChildren.add(category);
 			}
-			if(show.equals(Constants.Cache_Key_Ask_Category) && Constants.Y.equals(category.getShowInQuestion())){
+			if(show.equals(Constants.Cache_Key_Ask_Category) && Constants.Y.equals(category.getShowInAsk())){
 				filterChildren.add(category);
 			}
 			if(show.equals(Constants.Cache_Key_Knowledge_Category) && Constants.Y.equals(category.getShowInKnowledge())){
-				filterChildren.add(category);
-			}
-			if(show.equals(Constants.Cache_Key_Exam_Category) && Constants.Y.equals(category.getShowInExam())){
 				filterChildren.add(category);
 			}
 			singleCategoryCache.put(Constants.Cache_Key_Category+ category.getCategoryId(), category);
@@ -54,19 +51,15 @@ public class CategoryCache {
 	public void refreshCategoryCache(){
 		List<Category> list = this.categoryService.findCategoryList(null);
 		for(Category category : list){
-			if(Constants.Y.equals(category.getShowInBbs())){
-				categoryCache.get(Constants.Cache_Key_Bbs_Category).add(category);
-				filterChildren(category, Constants.Cache_Key_Bbs_Category);
-			}
-			if(Constants.Y.equals(category.getShowInExam())){
-				categoryCache.get(Constants.Cache_Key_Exam_Category).add(category);
-				filterChildren(category, Constants.Cache_Key_Exam_Category);
+			if(Constants.Y.equals(category.getShowInTopic())){
+				categoryCache.get(Constants.Cache_Key_Topic_Category).add(category);
+				filterChildren(category, Constants.Cache_Key_Topic_Category);
 			}
 			if(Constants.Y.equals(category.getShowInKnowledge())){
 				categoryCache.get(Constants.Cache_Key_Knowledge_Category).add(category);
 				filterChildren(category, Constants.Cache_Key_Knowledge_Category);
 			}
-			if(Constants.Y.equals(category.getShowInQuestion())){
+			if(Constants.Y.equals(category.getShowInAsk())){
 				categoryCache.get(Constants.Cache_Key_Ask_Category).add(category);
 				filterChildren(category, Constants.Cache_Key_Ask_Category);
 			}
@@ -74,8 +67,8 @@ public class CategoryCache {
 		}
 	}
 	
-	public List<Category> getBbsCategories(){
-		return categoryCache.get(Constants.Cache_Key_Bbs_Category);
+	public List<Category> getTopicCategories(){
+		return categoryCache.get(Constants.Cache_Key_Topic_Category);
 	}
 	public List<Category> getKnowledgeCategories(){
 		return categoryCache.get(Constants.Cache_Key_Knowledge_Category);

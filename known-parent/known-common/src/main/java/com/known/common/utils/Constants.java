@@ -26,7 +26,7 @@ public class Constants {
 
     public static final String DOMAIN = "http://localhost:8080";
 
-    public static final String Cache_Key_Bbs_Category = "bbsCategoryCache";
+    public static final String Cache_Key_Topic_Category = "bbsCategoryCache";
 
     public static final String Cache_Key_Exam_Category = "examCategoryCache";
 

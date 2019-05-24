@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.KnowledgeMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Knowledge" >
-    <id column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <id column="knowledge_id" property="knowledgeId" jdbcType="INTEGER" />
     <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
-    <result column="topic_image" property="topicImage" jdbcType="VARCHAR" />
-    <result column="topic_image_thum" property="topicImageThum" jdbcType="VARCHAR" />
+    <result column="knowledge_image" property="knowledgeImage" jdbcType="VARCHAR" />
+    <result column="knowledge_image_thum" property="knowledgeImageThum" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -23,8 +23,8 @@
   
   <sql id="Base_Condition" >
     <where >
-    	<if test="topicId!=null and topicId!=''">
-    		and topic_id = #{topicId}
+    	<if test="knowledgeId!=null and knowledgeId!=''">
+    		and knowledge_id = #{knowledgeId}
     	</if>
     	<if test="userId!=null and userId!=''">
     		and user_id = #{userId}
@@ -38,12 +38,12 @@
     	<if test="null != status">
     		and status = #{status.type}
     	</if>
-    	<if test="null!= startDate and ''!= startDate">
+    	<if test="null!= startDate">
      		<![CDATA[ 
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -52,11 +52,11 @@
   </sql>  
   
 	    <sql id="Base_Column_List" >
-	    topic_id, p_category_id, category_id, title
+	    knowledge_id, p_category_id, category_id, title
 			<if test="showContent">
 		  		 ,content
 		  	 </if>
-		 ,summary, topic_image, topic_image_thum, user_id, user_icon, user_name, create_time, 
+		 ,summary, knowledge_image, knowledge_image_thum, user_id, user_icon, user_name, create_time, 
 	    comment_count, read_count, collection_count, like_count,status
 	  </sql>
 
@@ -79,30 +79,30 @@
 	  </select>
   
   <delete id="delete" >
-    delete from known_knowledge where topic_id = #{id}
+    delete from known_knowledge where knowledge_id = #{id}
   </delete>
   
   <update id="updateKnowledgeStatus">
 	update known_knowledge set status = #{status.type} where 
-	topic_id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+	knowledge_id in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
 </update>
   
   <insert id="insert" parameterType="com.known.common.model.Knowledge" >
-    <selectKey keyProperty="topicId" resultType="java.lang.Integer" order="AFTER">
+    <selectKey keyProperty="knowledgeId" resultType="java.lang.Integer" order="AFTER">
   		SELECT LAST_INSERT_ID()
   	</selectKey>
     insert into known_knowledge (p_category_id, category_id, 
       title, user_id, user_icon, 
       user_name, create_time, comment_count, 
       read_count, collection_count, like_count, 
-      content, summary, topic_image, 
-      topic_image_thum,status)
+      content, summary, knowledge_image, 
+      knowledge_image_thum,status)
     values (#{pCategoryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
       #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{readCount,jdbcType=INTEGER}, #{collectionCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR}, #{topicImage,jdbcType=LONGVARCHAR}, 
-      #{topicImageThum,jdbcType=LONGVARCHAR},#{status.type,jdbcType=INTEGER})
+      #{content,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR}, #{knowledgeImage,jdbcType=LONGVARCHAR}, 
+      #{knowledgeImageThum,jdbcType=LONGVARCHAR},#{status.type,jdbcType=INTEGER})
   </insert>
   
   	<update id="updateInfoCount" >
@@ -121,6 +121,6 @@
 	    				collection_count = collection_count + 1
 	    		</if>
 	    </set>
-	    where topic_id = #{articleId}
+	    where knowledge_id = #{articleId}
 	</update>
 </mapper>

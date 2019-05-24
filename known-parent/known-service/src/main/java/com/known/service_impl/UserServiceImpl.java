@@ -7,7 +7,6 @@ import com.known.common.enums.MessageType;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.MessageParams;
 import com.known.common.model.SysUserRole;
-import com.known.common.model.ThirdUser;
 import com.known.common.model.User;
 import com.known.common.utils.Constants;
 import com.known.common.utils.MailUtil;
@@ -27,7 +26,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -70,10 +68,10 @@ public class UserServiceImpl implements UserService {
         ) {
             throw new BussinessException("输入参数不合法");
         }
-        if (this.findUserByUserName(userName) != null) {
+        if (findUserByUserName(userName) != null) {
             throw new BussinessException("用户名已存在");
         }
-        if (this.findUserByEmail(email) != null) {
+        if (findUserByEmail(email) != null) {
             throw new BussinessException("邮箱已存在");
         }
         Date date = new Date();
@@ -100,13 +98,13 @@ public class UserServiceImpl implements UserService {
             throw new BussinessException("发送邮件失败,请稍后再试");
         }
 
-        this.userMapper.insert(user);
+        userMapper.insert(user);
     }
 
     public void updateUserActivate(String userName, String activationCode) throws BussinessException {
 
         //通过用户名查找用户
-        User user = this.findUserByUserName(userName);
+        User user = findUserByUserName(userName);
         if (user == null) {
             throw new BussinessException("用户【"+userName+"】不存在，请注册用户");
         }
@@ -116,7 +114,7 @@ public class UserServiceImpl implements UserService {
         if (!activationCode.equals(user.getActivationCode())) {
             throw new BussinessException("用户【"+userName+"】激活码失效, 请使用最新激活链接");
         }
-        this.userMapper.updateUserPage(userName, activationCode);
+        userMapper.updateStatus(userName, activationCode);
     }
 
     public User findUserByUserName(String userName) {
@@ -156,9 +154,9 @@ public class UserServiceImpl implements UserService {
         }
         User user;
         if (account.contains("@")) {
-            user = this.findUserByEmail(account);
+            user = findUserByEmail(account);
         } else {
-            user = this.findUserByUserName(account);
+            user = findUserByUserName(account);
         }
         if (user == null) {
             throw new BussinessException("用户不存在");
@@ -166,11 +164,11 @@ public class UserServiceImpl implements UserService {
         if (!StringUtil.encode(password).equals(user.getPassword())) {
             throw new BussinessException("密码错误");
         }
-        if (user.getUserPage() == 0) {
+        if (user.getStatus() == 0) {
             throw new BussinessException("请查收邮件, 激活账户后登录");
         }
         user.setLastLoginTime(new Date());
-        this.userMapper.update(user);
+        userMapper.update(user);
         return user;
     }
 
@@ -181,9 +179,9 @@ public class UserServiceImpl implements UserService {
         }
         User user;
         if (account.contains("@")) {
-            user = this.findUserByEmail(account);
+            user = findUserByEmail(account);
         } else {
-            user = this.findUserByUserName(account);
+            user = findUserByUserName(account);
         }
         if (user == null) {
             throw new BussinessException("用户不存在");
@@ -206,9 +204,9 @@ public class UserServiceImpl implements UserService {
         }
         User user;
         if (account.contains("@")) {
-            user = this.findUserByEmail(account);
+            user = findUserByEmail(account);
         } else {
-            user = this.findUserByUserName(account);
+            user = findUserByUserName(account);
         }
         if (user == null) {
             throw new BussinessException("用户不存在");
@@ -226,7 +224,7 @@ public class UserServiceImpl implements UserService {
             throw new BussinessException("请查收邮件, 激活账户后登录");
         }
         user.setLastLoginTime(new Date());
-        this.userMapper.update(user);
+        userMapper.update(user);
         return user;
     }
 
@@ -234,7 +232,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtil.isEmpty(email) || !StringUtil.isEmail(email)) {
             throw new BussinessException("输入参数不合法");
         }
-        User user = this.findUserByEmail(email);
+        User user = findUserByEmail(email);
 
         if (user == null) {
             throw new BussinessException("邮箱不存在");
@@ -254,7 +252,7 @@ public class UserServiceImpl implements UserService {
             throw new BussinessException("发送邮件失败,请稍后再试");
         }
         user.setActivationCode(checkCode);
-        this.userMapper.update(user);
+        userMapper.update(user);
     }
 
     public void modifyPassword(String email, String password, String checkcode) throws BussinessException {
@@ -263,7 +261,7 @@ public class UserServiceImpl implements UserService {
         ) {
             throw new BussinessException("输入参数不合法");
         }
-        User user = this.findUserByEmail(email);
+        User user = findUserByEmail(email);
         if (user == null) {
             throw new BussinessException("邮箱不存在");
         }
@@ -271,7 +269,7 @@ public class UserServiceImpl implements UserService {
             throw new BussinessException("验证码错误");
         }
         user.setPassword(StringUtil.encode(password));
-        this.userMapper.update(user);
+        userMapper.update(user);
     }
 
     public void addMark(int mark, int userid) {
@@ -280,15 +278,18 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Integer changeMark(int userid, int mark) {
-        return this.userMapper.changeUserMark(mark, userid);
+        return userMapper.changeUserMark(mark, userid);
     }
 
     public User findUserInfo4UserHome(Integer userId) throws BussinessException {
-        User user = this.findUserByUserid(userId);
+        
+        User user = findUserByUserid(userId);
         if (user == null) {
             throw new BussinessException("用户不存在");
         }
+        //设置密码为空
         user.setPassword(null);
+        //设置激活码为空
         user.setActivationCode(null);
         return user;
     }
@@ -302,7 +303,7 @@ public class UserServiceImpl implements UserService {
         ) {
             throw new BussinessException("输入参数不合法");
         }
-        this.userMapper.update(user);
+        userMapper.update(user);
     }
 
 
@@ -319,16 +320,16 @@ public class UserServiceImpl implements UserService {
             throw new BussinessException("原密码错误");
         }
         user.setPassword(StringUtil.encode(newPassword));
-        this.userMapper.update(user);
+        userMapper.update(user);
     }
 
     public void updateUserWithoutValidate(User user) {
-        this.userMapper.update(user);
+        userMapper.update(user);
     }
 
     @Override
     public List<User> findAllUsers() {
-        return this.userMapper.selectList(new UserQuery());
+        return userMapper.selectList(new UserQuery());
     }
 
     @Override
@@ -336,7 +337,7 @@ public class UserServiceImpl implements UserService {
         if (userIds.length == 0) {
             throw new BussinessException("参数错误");
         }
-        this.userMapper.delete(userIds);
+        userMapper.delete(userIds);
     }
 
     @Override
@@ -390,16 +391,6 @@ public class UserServiceImpl implements UserService {
         messageParams.setDes(des.trim());
         messageParams.setReceiveUserIds(userIdSet);
         messageService.createMessage(messageParams);
-    }
-
-    @Override
-    public Long queryUserIdByThirdParty(ThirdUser param) {
-        return null;
-    }
-
-    @Override
-    public User insertThirdPartyUser(ThirdUser thirdPartyUser) {
-        return null;
     }
 
 }

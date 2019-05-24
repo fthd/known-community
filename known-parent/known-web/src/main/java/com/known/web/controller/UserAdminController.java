@@ -36,9 +36,6 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private TopicService blogService;
 	
 	@Autowired
 	private AttachmentService attachmentService;
@@ -294,9 +291,9 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 
 	
 	@ResponseBody
-	@RequestMapping("/deleteBlogAttachment")
+	@RequestMapping("/deleteAttachment")
 	public OutResponse<Object> deleteBlogAttachment(HttpSession session, Integer attachmentId){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.attachmentService.deleteFile(attachmentId);
 			outResponse.setCode(Code.SUCCESS);

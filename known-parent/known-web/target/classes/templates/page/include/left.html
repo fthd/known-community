@@ -4,10 +4,10 @@
 
 	<#if focusType==0>
 		<a href="${realpath}/userAdmin/admin" class="btn btn-sm btn-info">后台管理</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="${realpath}/userAdmin/preAddBlog" class="btn btn-sm btn-info">写写博客</a>
-		<#elseif focusType==1>
+		<a href="${realpath}/topic/prePublicTopic" class="btn btn-sm btn-info">话题创作</a>
+	<#elseif focusType==1>
 		<a href="javascript:;" focustype="${focusType}" id="focus-btn" class="btn  btn-success">关注</a>
-		<#else>
+	<#else>
 		<a href="javascript:;" focustype="${focusType}" id="focus-btn" class="btn  btn-warning">取消关注</a>	
 	</#if>
 </div>

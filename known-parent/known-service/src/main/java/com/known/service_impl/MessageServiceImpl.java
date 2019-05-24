@@ -56,7 +56,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	private void changeMarkMessage(MessageParams messageParams) {
-		List<Message> messageList = new ArrayList<Message>();
+		List<Message> messageList = new ArrayList<>();
 		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
 		Date curDate = new Date();
 		Message message = null;
@@ -100,7 +100,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	private void commentMessage(MessageParams messageParams) {
-		List<Message> messageList = new ArrayList<Message>();
+		List<Message> messageList = new ArrayList<>();
 		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
 		ArticleType articleType = messageParams.getArticleType();
 		Integer articleId = messageParams.getArticleId();
@@ -114,7 +114,7 @@ public class MessageServiceImpl implements MessageService {
 		}
 		else if(articleType == ArticleType.KNOWLEDGE){
 			KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
-			knowledgeQuery.setTopicId(articleId);
+			knowledgeQuery.setKnowledgeId(articleId);
 			Knowledge knowledge = this.KnowledgeMapper.selectList(knowledgeQuery).get(0);
 			title = knowledge.getTitle();
 		}

@@ -1,7 +1,6 @@
 package com.known.service;
 
 
-import com.known.common.model.ThirdUser;
 import com.known.common.model.User;
 import com.known.common.vo.UserVo;
 import com.known.exception.BussinessException;
@@ -30,6 +29,12 @@ public interface UserService {
 
 	Integer changeMark(int userid, int mark);
 
+	/**
+	 * 获取用户信息
+	 * @param userId 用户id
+	 * @return
+	 * @throws BussinessException
+	 */
 	User findUserInfo4UserHome(Integer userId) throws BussinessException;
 
 	void updateUserInfo(User user) throws BussinessException;
@@ -59,13 +64,6 @@ public interface UserService {
 	void updateBatchUserRole(Integer[] userId, Integer[] roleIds)throws BussinessException;
 	
 	void markChangeAdvice(Integer[] userIds, Integer mark, String des)throws BussinessException;
-
-
-	/** 查询第三方帐号用户Id */
-	Long queryUserIdByThirdParty(ThirdUser param);
-
-	/** 保存第三方帐号 */
-	User insertThirdPartyUser(ThirdUser thirdPartyUser);
 
 
 }

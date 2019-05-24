@@ -18,6 +18,7 @@
     <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="user_page" property="userPage" jdbcType="INTEGER" />
   </resultMap>
   
@@ -77,7 +78,7 @@
  
   <sql id="Base_Column_List" >
     userid, email, user_name, password, user_icon, user_bg, age, sex, characters, mark, 
-    address, work, birthday,register_time, last_login_time, activation_code,user_page
+    address, `work`, birthday,register_time, last_login_time, activation_code,status,user_page
   </sql>
   
   
@@ -112,8 +113,8 @@
       #{lastLoginTime,jdbcType=TIMESTAMP},#{activationCode,jdbcType=VARCHAR})
   </insert>
 
-    <update id="updateUserPage">
-        update known_user set user_page = 1
+    <update id="updateStatus">
+        update known_user set status = 1
         where user_name = #{userName,jdbcType=VARCHAR}
         and activation_code=#{activationCode,jdbcType=VARCHAR}
     </update>
@@ -135,6 +136,9 @@
       </if>
       <if test="userPage != null" >
         user_page = #{userPage,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+            status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=VARCHAR},
@@ -169,26 +173,6 @@
   		update known_user set mark = mark + #{changeMark}
   		where (mark + #{changeMark}) >= 0 and userid = #{userId}
   </update>
-
-
-    <!--  -->
-    <select id="queryUserIdByThirdParty" >
-        select user_id from wda_user_thirdparty where
-        provider_=#{provider} and open_id=#{openId}
-    </select>
-
-
-    <insert id="insertThird" parameterType="com.known.common.model.ThirdUser" >
-        <selectKey keyProperty="userid" resultType="java.lang.Integer" order="AFTER">
-        SELECT LAST_INSERT_ID()
-    </selectKey>
-        insert into wda_user_thirdparty (user_id, provider,
-        open_id, enable, remark,
-        create_time, update_time)
-        values (#{userId,jdbcType=INTEGER}, #{provider,jdbcType=VARCHAR},
-        #{openId,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-    </insert>
 
 
 </mapper>

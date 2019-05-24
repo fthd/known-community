@@ -1,143 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<#include "include/top.html">
-<link rel="stylesheet" type="text/css" href="${realpath}/resources/css/lrtk.css">
-<script type="text/javascript" src="${realpath}/resources/js/jquery.js"></script>
-<script>
-$(function(){
-	$("#account").focus();
+    <meta charset="UTF-8">
+    <#include "include/top.html">
+    <link rel="stylesheet" type="text/css" href="${realpath}/resources/css/lrtk.css">
+    <script type="text/javascript" src="${realpath}/resources/js/jquery.js"></script>
+    <script>
+        $(function () {
+            $("#account").focus();
 
-	//获取用户头像
-	$("#account").blur(function(){
-		$.ajax({
-			url: known.realpath + '/user/findHeadImage',
-			type: 'post',
-			dataType: 'json',
-			data: {account: $(this).val()},
-			success:function(result){
-				var headIcon = result.data==null ? known.realpath+"/resources/images/headIcon.jpg" : known.realpath+result.data;
-				$("#headicon").attr({
-					src: headIcon
-				});
-			}
-		});
-		
-	});
-});
-</script>
-<title>登录</title>
-<style type="text/css">
-body {
-	margin: 0;
-	/*background: url(${realpath}/resources/images/bg.jpg) no-repeat 0px 0px;
-			background-size:cover;
-			-webkit-background-size:cover;
-			-moz-background-size:cover;
-			-o-background-size:cover;*/
-}
-</style>
+            //获取用户头像
+            $("#account").blur(function () {
+                $.ajax({
+                    url: known.realpath + '/user/findHeadImage',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {account: $(this).val()},
+                    success: function (result) {
+                        var headIcon = result.data == null ? known.realpath + "/resources/images/headIcon.jpg" : known.realpath + result.data;
+                        $("#headicon").attr({
+                            src: headIcon
+                        });
+                    }
+                });
+
+            });
+        });
+    </script>
+    <title>登录</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            /*background: url(${realpath}/resources/images/bg.jpg) no-repeat 0px 0px;
+                    background-size:cover;
+                    -webkit-background-size:cover;
+                    -moz-background-size:cover;
+                    -o-background-size:cover;*/
+        }
+    </style>
 </head>
 <body style="background-color: #F4F6F8;" onkeydown="on_return();">
 <#include "include/header.html">
 <script src="http://static.geetest.com/static/tools/gt.js"></script>
-	<div class="Upper">
-		<table style="width: 100%" border="0" cellspacing="0" cellpadding="0" align="center">
-			<tr>
-				<td>
-					<table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
-						<tr>
-							<td style="padding: 70px 0 0" align="left" width="385">
-								<h1 style="color: #f4f2ed"></h1>
-								<p style="color: #d3f1a0"></p>
-							</td>
-							<td style="padding: 15px 0 0" align="right" width="215"><img
-								src="${realpath}/resources/images/Autom-Leaf.png">
-							</td>
-						</tr>
+<div class="Upper">
+    <table style="width: 100%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr>
+            <td>
+                <table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td style="padding: 70px 0 0" align="left" width="385">
+                            <h1 style="color: #f4f2ed"></h1>
+                            <p style="color: #d3f1a0"></p>
+                        </td>
+                        <td style="padding: 15px 0 0" align="right" width="215"><img
+                                src="${realpath}/resources/images/Autom-Leaf.png">
+                        </td>
+                    </tr>
 
-						<tr>
-							<td style="padding: 10px 0" colspan="2" align="right"></td>
-						</tr>
-					</table>
+                    <tr>
+                        <td style="padding: 10px 0" colspan="2" align="right"></td>
+                    </tr>
+                </table>
 
-					<table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
-						<tr>
-							<td class="content" style align="left" valign="top" width="600">
-								<table border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td style="padding: 20px 0 25px 95px" align="left"></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+                <table style="width: 600px" border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td class="content" style align="left" valign="top" width="600">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="padding: 20px 0 25px 95px" align="left"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 
-	</div>
+</div>
 
-	<script type="text/javascript">
-		/*$.AutomLeafStart({
-			leafsfolder : "${realpath}/resources/images/",
-			howmanyimgsare : 8,
-			initialleafs : 10,
-			maxYposition : -10,
-			multiplyclick : true,
-			multiplynumber : 2,
-			infinite : true,
-			fallingsequence : 4000
-		});*/
-		$("#botAgregar").on("click", function() {
-			$.AutomLeafAdd({
-				leafsfolder : "${realpath}/resources/images/",
-				add : 8,
-			})
-		});
-	</script>
+<script type="text/javascript">
+    /*$.AutomLeafStart({
+        leafsfolder : "${realpath}/resources/images/",
+        howmanyimgsare : 8,
+        initialleafs : 10,
+        maxYposition : -10,
+        multiplyclick : true,
+        multiplynumber : 2,
+        infinite : true,
+        fallingsequence : 4000
+    });*/
+    $("#botAgregar").on("click", function () {
+        $.AutomLeafAdd({
+            leafsfolder: "${realpath}/resources/images/",
+            add: 8,
+        })
+    });
+</script>
 
-	<!-- 代码 结束 -->
+<!-- 代码 结束 -->
 
-	<div class="logincontainer">
-	<div class="login">
-		<div class="headimage">
-			<img id="headicon" src="${realpath}/resources/images/headIcon.jpg"
-				class="img-circle" style="width:120px;height:120px;" >
-		</div>
-		<h3></h3>
-		<form id="loginform">
-			<div class="form-group">
-				<input class="form-control" placeholder="请输入账号或者邮箱" name="account"
-					id="account" />
-			</div>
-			<div class="form-group">
-				<input type="password" class="form-control" placeholder="请输入密码"
-					name="password" id="password" />
-			</div>
-			<div id="popup-captcha" align="center"></div>
-			<div class="checkbox">
-				<label> <input type="checkbox" name="rememberMe" value="1" style="">
-				<span class="text-danger" ><strong>记住我的登录信息(网吧公共场所请勿使用)</strong></span>
-				</label>
-			</div>
-		</form>
-		<button type="button" class="btn btn-info block full-width" id="login">登录</button>
+<div class="logincontainer">
+    <div class="login">
+        <div class="headimage">
+            <img id="headicon" src="${realpath}/resources/images/headIcon.jpg"
+                 class="img-circle" style="width:120px;height:120px;">
+        </div>
+        <h3></h3>
+        <form id="loginform">
+            <div class="form-group">
+                <input class="form-control" placeholder="请输入账号或者邮箱" name="account"
+                       id="account"/>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="请输入密码"
+                       name="password" id="password"/>
+            </div>
+            <div id="popup-captcha" align="center"></div>
+            <div class="checkbox">
+                <label> <input type="checkbox" name="rememberMe" value="1" style="">
+                    <span class="text-danger"><strong>记住我的登录信息(网吧公共场所请勿使用)</strong></span>
+                </label>
+            </div>
+        </form>
+        <button type="button" class="btn btn-info block full-width" id="login">登录</button>
 
-		<p class="foot">
-			<a href="${realpath}/user/findpassword"> 忘记密码了？</a> | <a
-				href="${realpath}/user/register">注册一个新账号</a>
-		</p>
-		<!--<br/>
-		<div align="left">
-			<label>其他账号登录：</label>
-			<a href="${realpath}/user/third_login?t=qq" target="_blank">
-				<img src="${realpath}/resources/images/qq_logo.png">
-			</a>
-		</div>-->
-	</div>
-	</div>
+        <p class="foot">
+            <a href="${realpath}/user/findpassword"> 忘记密码了？</a> | <a
+                href="${realpath}/user/register">注册一个新账号</a>
+        </p>
+        <!--<br/>
+        <div align="left">
+            <label>其他账号登录：</label>
+            <a href="${realpath}/user/third_login?t=qq" target="_blank">
+                <img src="${realpath}/resources/images/qq_logo.png">
+            </a>
+        </div>-->
+    </div>
+</div>
 
 <script language="JavaScript">
     function checkForm(content, doc) {
@@ -148,60 +148,61 @@ body {
         });
         d.show(document.getElementById(doc));
     }
+
     // 登录验证
     var handlerPopup = function (captchaObj) {
-		$('#login').click(function(event) {
-			var account = $('#account').val();
-			var password = $('#password').val();
-			if (account == null || $.trim(account) == '') {
-				checkForm('用户名不能为空', 'account');
-				$("#account").parent().addClass('has-error');
-			} else if (password == null || $.trim(password) == '') {
-				$("#account").parent().removeClass('has-error');
-				checkForm('密码不能为空', 'password');
-				$("#password").parent().addClass('has-error');
-			} else {
-				// 先校验是否点击了验证码
-				var validate = captchaObj.getValidate();
-				if (!validate) {
+        $('#login').click(function (event) {
+            var account = $('#account').val();
+            var password = $('#password').val();
+            if (account == null || $.trim(account) == '') {
+                checkForm('用户名不能为空', 'account');
+                $("#account").parent().addClass('has-error');
+            } else if (password == null || $.trim(password) == '') {
+                $("#account").parent().removeClass('has-error');
+                checkForm('密码不能为空', 'password');
+                $("#password").parent().addClass('has-error');
+            } else {
+                // 先校验是否点击了验证码
+                var validate = captchaObj.getValidate();
+                if (!validate) {
                     checkForm('请先完成验证', 'popup-captcha');
-					return;
-				}
+                    return;
+                }
                 $("#password").parent().removeClass('has-error');
-				var loadingindex = layer.load(0, {
-					shade: [0.1,'#fff'] //0.1透明度的白色背景
-				});
-				$.ajax({
-					url: known.realpath + '/user/login.do',
-					type: 'POST',
-					dataType: 'json',
-					data: $('#loginform').serialize(),
-					success: function(data) {
-						layer.close(loadingindex);
-						if (data.msg == null) {
-							var d = dialog({
-								content: "<div><img src='" + known.realpath +"/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;登录成功,跳转中...</div>",
-							});
-							d.showModal();
-							setTimeout(function() {
-								d.close().remove();
-								if (null == known.redirect || known.redirect == "") {
-									known.redirect = known.realpath;
-								}
-								document.location.href = known.redirect;
-							}, 1000);
-						} else {
-							var d = dialog({
-								width: 200,
-								content: data.msg,
-								quickClose: true // 点击空白处快速关闭
-							});
-							d.show();
-						}
-					}
-				});
-			}
-		});
+                var loadingindex = layer.load(0, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url: known.realpath + '/user/login.do',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#loginform').serialize(),
+                    success: function (data) {
+                        layer.close(loadingindex);
+                        if (data.msg == null) {
+                            var d = dialog({
+                                content: "<div><img src='" + known.realpath + "/resources/images/loading.gif' />&nbsp;&nbsp;&nbsp;登录成功,跳转中...</div>",
+                            });
+                            d.showModal();
+                            setTimeout(function () {
+                                d.close().remove();
+                                if (null == known.redirect || known.redirect == "") {
+                                    known.redirect = known.realpath;
+                                }
+                                document.location.href = known.redirect;
+                            }, 1000);
+                        } else {
+                            var d = dialog({
+                                width: 200,
+                                content: data.msg,
+                                quickClose: true // 点击空白处快速关闭
+                            });
+                            d.show();
+                        }
+                    }
+                });
+            }
+        });
         // 将验证码加到id为captcha的元素里
         captchaObj.appendTo("#popup-captcha");
         // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
@@ -226,8 +227,8 @@ body {
     });
 
     //回车时，默认是登录
-    function on_return(){
-        if(window.event.keyCode == 13){
+    function on_return() {
+        if (window.event.keyCode == 13) {
             $("#login").click();
         }
     }

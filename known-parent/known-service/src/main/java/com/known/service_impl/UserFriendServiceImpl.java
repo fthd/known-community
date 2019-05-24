@@ -26,7 +26,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 	
 	public PageResult<UserFriend> findFriendList(
 			UserFriendQuery userFriendQuery) {
-		int count = this.userFriendMapper.selectCount(userFriendQuery);
+		int count = userFriendMapper.selectCount(userFriendQuery);
 		int size = PageSize.PAGE_SIZE21.getSize();
 		int pageNum = 1;
 		if(userFriendQuery.getPageNum() != 1){
@@ -34,12 +34,12 @@ public class UserFriendServiceImpl implements UserFriendService {
 		}
 		Page page = new Page(pageNum, count, size);
 		userFriendQuery.setPage(page);
-		List<UserFriend> list = this.userFriendMapper.selectList(userFriendQuery);
+		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
 		return new PageResult<UserFriend>(page,	 list);
 	}
 
 	public PageResult<UserFriend> findFansList(UserFriendQuery userFriendQuery) {
-		int count = this.userFriendMapper.selectCount(userFriendQuery);
+		int count = userFriendMapper.selectCount(userFriendQuery);
 		int size = PageSize.PAGE_SIZE21.getSize();
 		int pageNum = 1;
 		if(userFriendQuery.getPageNum() != 1){
@@ -47,7 +47,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		}
 		Page page = new Page(pageNum, count, size);
 		userFriendQuery.setPage(page);
-		List<UserFriend> list = this.userFriendMapper.selectList(userFriendQuery);
+		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
 		return new PageResult<UserFriend>(page,	 list);
 	}
 
@@ -55,32 +55,34 @@ public class UserFriendServiceImpl implements UserFriendService {
 		if(userFriend.getFriendUserId() == null || userFriend.getUserId() == null){
 			throw new BussinessException("参数错误");
 		}
-		User friendUser = this.userService.findUserByUserid(userFriend.getFriendUserId());
+		User friendUser = userService.findUserByUserid(userFriend.getFriendUserId());
 		userFriend.setFriendUserName(friendUser.getUserName());
 		userFriend.setFriendUserIcon(friendUser.getUserIcon());
 		userFriend.setCreateTime(new Date());
-		this.userFriendMapper.insert(userFriend);
+		userFriendMapper.insert(userFriend);
 	}
 
 	public void cancelFocus(UserFriend userFriend) throws BussinessException {
 		if(userFriend.getFriendUserId() == null || userFriend.getUserId() == null){
 			throw new BussinessException("参数错误");
 		}
-		this.userFriendMapper.delete(userFriend);
+		userFriendMapper.delete(userFriend);
 	}
 
 	public int findFocusType4UserHome(UserFriendQuery userFriendQuery) {
+
+		//未登录
 		if(userFriendQuery.getUserId() == null){
 			return 1;
 		}
+		//本人
 		if(userFriendQuery.getUserId().intValue() == userFriendQuery.getFriendUserId().intValue()){
 			return 0;
 		}
-		List<UserFriend> list = this.userFriendMapper.selectList(userFriendQuery);
+		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
 		if(list.isEmpty()){
 			return 1;
-		}
-		else{
+		} else{
 			return 2;
 		}
 	}
@@ -89,7 +91,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		if (userFriendQuery.getFriendUserId() == null && userFriendQuery.getUserId() == null) {
 			return 0;
 		}
-		return this.userFriendMapper.selectCount(userFriendQuery);
+		return userFriendMapper.selectCount(userFriendQuery);
 	}
 
 }

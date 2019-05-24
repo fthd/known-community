@@ -38,7 +38,7 @@ uploader.on('fileQueued', function(file) {
     });
 });
 uploader.on('uploadSuccess', function(file, response) {
-    if (response.responseCode == "SUCCESS") {
+    if (response.code == "SUCCESS") {
         new ImageItem(response.savePath).appendTo($("#image-con"));
     }
     $("#image-con").show();

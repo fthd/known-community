@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KnowledgeQuery extends BaseQuery{
-	private Integer topicId;
+	private Integer knowledgeId;
 	
 	private Integer userId;
 	

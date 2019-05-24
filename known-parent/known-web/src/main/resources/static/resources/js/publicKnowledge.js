@@ -45,7 +45,7 @@ uploader.on('fileQueued', function(file) {
 });
 
 uploader.on('uploadSuccess', function(file, response) {
-    if (response.responseCode == "SUCCESS") {
+    if (response.code == "SUCCESS") {
 	$("<div>" + file.name + "&nbsp;&nbsp;<a class='btn btn-info' href='javascript:deleteFile()'>删除</a></div>").appendTo($("#file-list"));
 	$("#attached_file_name").val(file.name);
 	$("#attached_file").val(response.savePath);
@@ -69,7 +69,7 @@ deleteFile = function() {
 		dataType: 'json',
 		data: { "fileName" : $("#attached_file").val()},
 		success:function(res){
-			if(res.responseCode != "SUCCESS"){
+			if(res.code != "SUCCESS"){
 				layer.alert(res.msg, {
 				  icon: 5,
 				  skin: 'layer-ext-moon' 
@@ -158,7 +158,7 @@ function addKnowledge(){
 		goLogin();
 	    return;
 	}
-	var form = $("#postBbsForm");
+	var form = $("#postTopicForm");
 	var title = form.find("input[name='title']").val();
 	var categoryId = $("#categoryId").val();
 	var categoryName = $('#categoryId option:selected').text();
@@ -214,9 +214,9 @@ function addKnowledge(){
 			url: known.realpath + '/knowledge/publicKnowledge',
 			type: 'POST',
 			dataType: 'json',
-			data: $("#postBbsForm").serialize(),		
+			data: $("#postTopicForm").serialize(),		
 			success:function(res){
-				if(res.responseCode != "SUCCESS"){
+				if(res.code != "SUCCESS"){
 					layer.alert(res.msg, {
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
