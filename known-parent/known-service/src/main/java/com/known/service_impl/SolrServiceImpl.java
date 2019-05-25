@@ -1,15 +1,11 @@
 package com.known.service_impl;
 
-import com.known.common.enums.PageSize;
 import com.known.common.model.SolrBean;
-import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
-import com.known.manager.query.SolrQuery;
 import com.known.service.SolrService;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -56,11 +52,11 @@ public class SolrServiceImpl implements SolrService {
 		solrQuery.set("q", "(title:" + keyWord + " OR " + "content:" + keyWord + ") AND articleType:" + articleType);
 		if(pageNum == null || pageNum == 1){
 			solrQuery.setStart(1);
-			solrQuery.setRows(PageSize.PAGE_SIZE20.getSize());
-			page.setPageSize(PageSize.PAGE_SIZE20.getSize());
+			solrQuery.setRows(PageSizeEnum.PAGE_SIZE20.getSize());
+			page.setPageSize(PageSizeEnum.PAGE_SIZE20.getSize());
 		}
 		else {
-			page = new Page(pageNum, countTotal, PageSize.PAGE_SIZE20.getSize());
+			page = new Page(pageNum, countTotal, PageSizeEnum.PAGE_SIZE20.getSize());
 			solrQuery.setStart(page.getStart());
 			solrQuery.setRows(page.getEnd());
 		}

@@ -22,32 +22,9 @@ public class LoginLog {
 
     private String address;
 
+
     private String lat;
 
     private String lng;
 
-
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
-    }
-
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp == null ? null : loginIp.trim();
-    }
-
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat == null ? null : lat.trim();
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng == null ? null : lng.trim();
-    }
 }

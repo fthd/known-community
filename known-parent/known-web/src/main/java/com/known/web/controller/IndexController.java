@@ -1,15 +1,16 @@
 package com.known.web.controller;
 
 import com.known.common.model.SignInfo;
-import com.known.common.model.Topic;
-import com.known.common.vo.PageResult;
 import com.known.manager.query.AskQuery;
-import com.known.manager.query.TopicQuery;
 import com.known.manager.query.KnowledgeQuery;
-import com.known.service.*;
+import com.known.manager.query.TopicQuery;
+import com.known.service.AskService;
+import com.known.service.KnowledgeService;
+import com.known.service.SignInService;
+import com.known.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @version 1.0
  * @date 2019-05-21 23:33
  */
-@Controller
+@RestController
 public class IndexController extends  BaseController {
 
     @Autowired
@@ -35,9 +36,6 @@ public class IndexController extends  BaseController {
 
     @Autowired
     private AskService askService;
-
-    @Autowired
-    private TopicService blogService;
 
     /**
      * 首页

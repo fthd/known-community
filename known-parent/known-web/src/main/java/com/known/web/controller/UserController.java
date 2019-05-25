@@ -2,19 +2,19 @@ package com.known.web.controller;
 
 
 import com.known.common.config.UserConfig;
-import com.known.common.model.User;
+import com.known.common.enums.CodeEnum;
 import com.known.common.model.SessionUser;
+import com.known.common.model.User;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
-import com.known.service.*;
+import com.known.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import com.known.common.enums.Code;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -31,7 +31,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2019-05-06 17:17
  */
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
@@ -56,7 +56,6 @@ public class UserController extends BaseController {
     /**
      * 注册功能实现
      *
-     * @param session
      * @param user    用户信息
      * @return
      */
@@ -67,15 +66,15 @@ public class UserController extends BaseController {
         OutResponse<Object> outResponse = new OutResponse<>();
         try {
             userService.register(user);
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
 
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("用户注册失败,用户名:{}邮箱:{}", user.getUserName(), user.getEmail());
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("用户注册失败,用户名:{}邮箱:{}", user.getUserName(), user.getEmail());
         }
         return outResponse;
@@ -88,15 +87,15 @@ public class UserController extends BaseController {
         ModelAndView view = new ModelAndView("/page/active");
         try {
             userService.updateUserActivate(userName, activationCode);
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
             outResponse.setMsg("尊敬的【"+userName+"】用户，恭喜您账户激活成功");
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("用户激活失败,用户名:{}", userName);
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("用户激活失败,用户名:{}", userName);
         }
         view.addObject("outResponse", outResponse);
@@ -105,8 +104,8 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/login")
-    public String login() {
-        return "/page/login";
+    public ModelAndView login() {
+        return new ModelAndView("/page/login");
     }
 
     /**
@@ -119,7 +118,6 @@ public class UserController extends BaseController {
      * @param rememberMe
      * @return
      */
-    @ResponseBody
     @RequestMapping("/login.do")
     public OutResponse<Object> logindo(HttpServletRequest request, HttpServletResponse response,
                                         String account, String password, String rememberMe) {
@@ -131,7 +129,7 @@ public class UserController extends BaseController {
             //用户登录
             user = userService.login(account, password);
             user.setLastLoginTime(new Date());
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
 
             SessionUser sessionUser = new SessionUser();
             sessionUser.setUserid(user.getUserid());
@@ -159,19 +157,19 @@ public class UserController extends BaseController {
             }
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("用户登录失败,账号:{}", account);
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("用户登录失败,账号:{}", account);
         }
         return outResponse;
     }
 
     @RequestMapping("/findpassword")
-    public String findPassword() {
-        return "/page/findpassword";
+    public ModelAndView findPassword() {
+        return new ModelAndView("/page/findpassword");
     }
 
     /**
@@ -179,39 +177,37 @@ public class UserController extends BaseController {
      * @param email
      * @return
      */
-    @ResponseBody
     @RequestMapping("/sendCheckCode")
     public OutResponse<Object> sendCheckCode(String email) {
         OutResponse<Object> outResponse = new OutResponse<>();
         try {
             userService.sendCheckCode(email);
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("验证码发送失败,邮箱:{}");
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("验证码发送失败,邮箱:{}", email);
         }
         return outResponse;
     }
 
-    @ResponseBody
     @RequestMapping("/findPassword.do")
     public OutResponse<Object> findPassworddo(String email, String password, String checkcode) {
         OutResponse<Object> outResponse = new OutResponse<Object>();
         try {
             userService.modifyPassword(email, password, checkcode);
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("密码修改失败,邮箱{}", email);
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("密码修改失败,邮箱:{}", email);
         }
         return outResponse;
@@ -241,7 +237,6 @@ public class UserController extends BaseController {
      * @param account
      * @return
      */
-    @ResponseBody
     @RequestMapping("/findHeadImage")
     public OutResponse<Object> findHeadImage(String account) {
 
@@ -249,15 +244,15 @@ public class UserController extends BaseController {
         String headIcon;
         try {
             headIcon = userService.findHeadIcon(account);
-            outResponse.setCode(Code.SUCCESS);
+            outResponse.setCode(CodeEnum.SUCCESS);
             outResponse.setData(headIcon);
         } catch (BussinessException e) {
             outResponse.setMsg(e.getLocalizedMessage());
-            outResponse.setCode(Code.BUSSINESSERROR);
+            outResponse.setCode(CodeEnum.BUSSINESSERROR);
             logger.error("头像获取失败,账户{}异常{}", account, e.getLocalizedMessage());
         } catch (Exception e) {
-            outResponse.setMsg(Code.SERVERERROR.getDesc());
-            outResponse.setCode(Code.SERVERERROR);
+            outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+            outResponse.setCode(CodeEnum.SERVERERROR);
             logger.error("头像获取失败,账户{}异常{}", account, e.getLocalizedMessage());
         }
         return outResponse;

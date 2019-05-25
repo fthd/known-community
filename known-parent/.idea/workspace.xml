@@ -2,76 +2,124 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0707b49-7b9f-442b-9c52-bf27c7be8773" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/FirstMenuEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/SecondMenuEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/known.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/known.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MarkEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MarkEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/ArticleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/ArticleTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/Code.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/CodeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/FileTopicType.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/FileTopicTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/Logical.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/LogicalEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageStatusEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/PageSize.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/PageSizeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/TopicType.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/TopicTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/VoteType.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/VoteTypeEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Attachment.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Attachment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/BlogCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Collection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Knowledge.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Knowledge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/ThirdUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CategoryQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CategoryQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/KnowledgeQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/KnowledgeQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/CategoryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/KnowledgeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/KnowledgeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/cache/CategoryCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/cache/CategoryCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Like.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/LoginLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/LoginLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/MessageParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/MessageParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Topic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/TopicVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/TopicVote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/utils/PointUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/utils/PointUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/vo/OutResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/vo/OutResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/vo/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-common/src/main/java/com/known/common/vo/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/ArticleTypeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/ArticleTypeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/FileTopicTypeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/FileTopicTypeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/MessageStatusHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/MessageStatusHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/TopicTypeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/TopicTypeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/VoteTypeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/handler/VoteTypeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/SysResMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/SysResMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/AttachmentQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/AttachmentQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CollectionQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CollectionQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CommentQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CommentQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/LikeQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/LikeQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/MessageQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/MessageQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/SysLogQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/SysLogQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/SysResMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/known-manager/src/main/resources/mapper/SysResMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/annotation/RequirePermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/annotation/RequirePermissions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/aspect/AuthorityAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/AuthorityAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/AttachmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/AttachmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/SysResService.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service/SysResService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/AskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/AskServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/AttachmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/AttachmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CollectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CollectionServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CommentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/KnowledgeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/KnowledgeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/LikeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/LikeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/MessageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/ShuoShuoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/ShuoShuoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SolrServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SolrServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/StatisticalDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/StatisticalDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SysResServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SysResServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/TopicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/TopicServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/TopicVoteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/TopicVoteServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserFriendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserFriendServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/config/FreeMarkerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/config/FreeMarkerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/LogAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/LogAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AttachmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AttachmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CollectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CollectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ConsoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ContentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ContentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/FileUploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/FileUploader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ImageUploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ImageUploader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/IndexController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/KnowledgeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/KnowledgeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ThirdPartyLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/LikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/LikeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ManageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ShuoShuoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ShuoShuoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SignInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SignInController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/TopicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/TopicController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserAdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserCenterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserCenterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/logoa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/logob.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user05.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user06.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user07.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/css/addExam.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/css/addblog.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/images/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/images/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/addblog.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/addblog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/changeUserIcon.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/changeUserIcon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/edit_blog.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/edit_blog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/known.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/known.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicAsk.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicAsk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicKnowledge.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicKnowledge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicTopic.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/publicTopic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/shuoshuoItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/shuoshuoItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_navbarusermenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_navbarusermenu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/layout/__mainlayout.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/layout/__mainlayout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/noperm.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/noperm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/ask/publicAsk.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/ask/publicAsk.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/left.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/left.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/top.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/top.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/knowledge/publicKnowledge.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/knowledge/publicKnowledge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/noperm.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/noperm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/shuoshuo.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/shuoshuo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/topic/publicTopic.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/topic/publicTopic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/topic/topic.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/topic/topic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserFriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserFriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToArticleTypeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToArticleTypeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToMessageStatusConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToMessageStatusConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToTopicTypeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToTopicTypeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToVoteTypeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/converter/StringToVoteTypeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/MyPermissionDirective.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/CommPermDirective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/PermissionDirective.java" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/PermissionDirective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/application-db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/application-db.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/白色.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/黑色.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/plugins/bootstrap-confirmation/bootstrap-confirmation.js" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/plugins/bootstrap-confirmation/bootstrap-confirmation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components-md.css" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components-md.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components-rounded.css" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components-rounded.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/components.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/docs.css" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/static/resources/super/superui/global/css/docs.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/ask.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/ask.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_css.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_css.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_foot_js.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_foot_js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_header_js.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_header_js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_navbarusermenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_navbarusermenu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_settingbox.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_settingbox.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/layout/__mainlayout.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/layout/__mainlayout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/druid.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/druid.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/error.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/knowledge.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/knowledge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/loginlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/loginlog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/noperm.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/noperm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/res.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/res.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/role.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/role.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/shuoshuo.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/shuoshuo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/statistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/statistics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/syslog.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/syslog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/task.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/task.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/topic.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/topic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/userlocation.html" beforeDir="false" afterPath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/userlocation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/known-web/src/main/resources/templates/page/noperm.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -222,79 +270,82 @@
     <session id="1057401113">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.13" value="3" />
-          <entry key="project.open.time.14" value="3" />
+          <entry key="project.open.time.14" value="4" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="4" />
+          <entry key="class" value="6" />
           <entry key="css" value="23" />
           <entry key="gif" value="17" />
-          <entry key="html" value="217" />
+          <entry key="html" value="328" />
           <entry key="ico" value="7" />
-          <entry key="java" value="946" />
+          <entry key="java" value="1089" />
           <entry key="jpg" value="32" />
           <entry key="js" value="43" />
           <entry key="less" value="2" />
           <entry key="md" value="5" />
-          <entry key="png" value="111" />
-          <entry key="properties" value="52" />
+          <entry key="png" value="113" />
+          <entry key="properties" value="54" />
           <entry key="psd" value="6" />
           <entry key="rnc" value="1" />
-          <entry key="sql" value="9" />
+          <entry key="sql" value="15" />
           <entry key="ts" value="2" />
-          <entry key="xml" value="78" />
+          <entry key="xml" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Adobe Photoshop" value="6" />
-          <entry key="CLASS" value="4" />
+          <entry key="CLASS" value="6" />
           <entry key="CSS" value="23" />
-          <entry key="HTML" value="217" />
-          <entry key="Image" value="167" />
-          <entry key="JAVA" value="946" />
+          <entry key="HTML" value="328" />
+          <entry key="Image" value="169" />
+          <entry key="JAVA" value="1089" />
           <entry key="JavaScript" value="43" />
           <entry key="Less" value="2" />
           <entry key="Markdown" value="5" />
-          <entry key="Properties" value="52" />
+          <entry key="Properties" value="54" />
           <entry key="RNG Compact" value="1" />
-          <entry key="SQL" value="9" />
+          <entry key="SQL" value="15" />
           <entry key="TypeScript" value="2" />
-          <entry key="XML" value="78" />
+          <entry key="XML" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="49" />
-          <entry key="html" value="1040" />
-          <entry key="java" value="6510" />
+          <entry key="dummy" value="24" />
+          <entry key="html" value="1787" />
+          <entry key="java" value="8555" />
           <entry key="js" value="425" />
           <entry key="md" value="12" />
           <entry key="properties" value="457" />
-          <entry key="sql" value="2199" />
-          <entry key="xml" value="728" />
+          <entry key="sql" value="2342" />
+          <entry key="xml" value="778" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="49" />
-          <entry key="HTML" value="1041" />
-          <entry key="JAVA" value="6510" />
+          <entry key="HTML" value="1788" />
+          <entry key="JAVA" value="8555" />
           <entry key="JavaScript" value="424" />
           <entry key="Markdown" value="12" />
+          <entry key="PLAIN_TEXT" value="24" />
           <entry key="Properties" value="457" />
-          <entry key="SQL" value="2210" />
-          <entry key="XML" value="717" />
+          <entry key="SQL" value="2356" />
+          <entry key="XML" value="764" />
         </counts>
       </usages-collector>
     </session>
@@ -305,38 +356,119 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/logo.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/login.html">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ConsoleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-414" />
+            <state relative-caret-position="269">
+              <caret line="224" column="27" lean-forward="true" selection-start-line="224" selection-start-column="22" selection-end-line="224" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1255#1256#0" expanded="true" />
+                <element signature="e#1326#1327#0" expanded="true" />
+                <element signature="e#1921#1922#0" expanded="true" />
+                <element signature="e#1986#1987#0" expanded="true" />
+                <element signature="e#4820#4821#0" expanded="true" />
+                <element signature="e#4889#4890#0" expanded="true" />
+                <element signature="e#5073#5081#0" expanded="true" />
+                <element signature="e#5376#5377#0" expanded="true" />
+                <element signature="e#5443#5444#0" expanded="true" />
+                <element signature="e#5621#5629#0" expanded="true" />
+                <element signature="e#5935#5936#0" expanded="true" />
+                <element signature="e#6008#6009#0" expanded="true" />
+                <element signature="e#6502#6503#0" expanded="true" />
+                <element signature="e#6568#6569#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/AuthorityAspect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="26" column="11" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="11" />
+            <state relative-caret-position="385">
+              <caret line="82" column="38" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/shuoshuo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-138" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/search.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-69" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/register.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-897">
+              <folding>
+                <element signature="e#48#54#0" expanded="true" />
+                <element signature="e#54#60#0" expanded="true" />
+                <element signature="e#60#66#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/application-config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/LogAspect.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1925">
+              <caret line="123" column="41" lean-forward="true" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/index.html">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/filter/AuthorityFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+            <state relative-caret-position="40">
+              <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/table-list-img.html">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/layout/__mainlayout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/PermissionDirective.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -351,46 +483,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bolgService</find>
-      <find>shuoshuo&quot;)</find>
-      <find>bbs</find>
-      <find>_sidebar.html</find>
-      <find>am-fl tpl-header-logo</find>
-      <find>网页访问不鸟</find>
-      <find>角色</find>
-      <find>结果</find>
-      <find>CREATE TABLE</find>
-      <find>Bbs</find>
-      <find>update</find>
-      <find>todayCount</find>
-      <find>Question</find>
-      <find>ShowInQuestion</find>
-      <find>topic</find>
-      <find>test</find>
-      <find>signinimage</find>
-      <find>class=&quot;signinimage&quot;</find>
-      <find>unsigninimage</find>
       <find>showModal</find>
       <find>responseCode</find>
       <find>userAdmin</find>
       <find>userFriendQuery</find>
       <find>focusType</find>
-      <find>this.</find>
       <find>load-more</find>
       <find>textarea</find>
       <find>.comment-form</find>
       <find>comment-form</find>
       <find>admin:sys:res:list</find>
+      <find>sys:res:list</find>
+      <find>manage:role:list</find>
+      <find>console:userlocation:list</find>
+      <find>adminpage</find>
+      <find>manage:res:list</find>
+      <find>manage:user:updateUserRole</find>
+      <find>delete</find>
+      <find>selectRoleIdsByUserId</find>
+      <find>am-icon-calendar sidebar-nav-link-logo</find>
+      <find>navLink</find>
+      <find>selectMenuByRoleIds</find>
+      <find>&quot;code&quot;</find>
+      <find>UserRedis</find>
+      <find>@ResponseBody</find>
+      <find>/system/</find>
+      <find>page/</find>
+      <find>&lt;#include &quot;common/layout/__mainlayout.html&quot;&gt;</find>
+      <find>this.</find>
+      <find>druid</find>
+      <find>login</find>
     </findStrings>
     <replaceStrings>
-      <replace>ShuoShuoId</replace>
-      <replace>shuoShuoId</replace>
-      <replace>${realpath}/resources/bootstrap/fonts/g</replace>
-      <replace />
-      <replace>&lt;li&gt;&lt;a href=&quot;${realpath}/userAdmin/collection_list.action?articleType=B&quot;&gt;收藏的博客&lt;/a&gt;&lt;/li&gt;</replace>
-      <replace>/userAdmin/</replace>
-      <replace>/topic</replace>
-      <replace>topicId</replace>
       <replace>TopicId()</replace>
       <replace>TopicId</replace>
       <replace>TopicQuery</replace>
@@ -413,6 +537,14 @@
       <replace>ShowInAsk</replace>
       <replace>code</replace>
       <replace>ufq</replace>
+      <replace>back-</replace>
+      <replace>admin-system</replace>
+      <replace>&quot;codeEnum&quot;</replace>
+      <replace>SessionUser</replace>
+      <replace>/content/</replace>
+      <replace>/console/</replace>
+      <replace>/page/</replace>
+      <replace>&lt;#include &quot;../common/layout/__mainlayout.html&quot;&gt;</replace>
     </replaceStrings>
     <dirStrings>
       <dir>E:\fountainhead\known-community\known-parent\known-manager\src\main\java\com\known\manager</dir>
@@ -429,57 +561,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin/update_usericon.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin/update_userpage.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ShuoShuoController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin/header.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ManageController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/index.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/css/app.css" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/top.html" />
-        <option value="$PROJECT_DIR$/known-web/pom.xml" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/login.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/noperm.html" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/CategoryQuery.java" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Attachment.java" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Comment.java" />
-        <option value="$PROJECT_DIR$/database/known.sql" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/AttachmentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/TopicServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Category.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/cache/CategoryCache.java" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/resources/mapper/CategoryMapper.xml" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/Knowledge.java" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/resources/mapper/UserMapper.xml" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/UserMapper.java" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/resources/mapper/KnowledgeMapper.xml" />
-        <option value="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/query/KnowledgeQuery.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/CommentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/KnowledgeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/MessageServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/KnowledgeController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/IndexController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/index.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/TopicController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/topic/topic.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/known.js" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/register.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/application-db.properties" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/topic.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/index.html" />
         <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service/UserService.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/BaseController.java" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SessionUser.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/include/left.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserCenterController.java" />
-        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/UserFriendServiceImpl.java" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/User.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/static/resources/js/shuoshuoItem.js" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/shuoshuo.html" />
-        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MarkEnum.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_navbarusermenu.html" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/layout/__mainlayout.html" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/Code.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/LogicalEnum.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/CodeEnum.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageStatusEnum.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/PageSizeEnum.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/FirstMenuEnum.java" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/SecondMenuEnum.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/LogAspect.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/user.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/MyPermissionDirective.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/config/FreeMarkerConfig.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/inc/_sidebar.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/annotation/RequirePermissions.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/role.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/noperm.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/CommPermDirective.java" />
+        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service/SysResService.java" />
+        <option value="$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/SysResMapper.java" />
+        <option value="$PROJECT_DIR$/database/known.sql" />
+        <option value="$PROJECT_DIR$/known-manager/src/main/resources/mapper/SysResMapper.xml" />
+        <option value="$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysRes.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/res.html" />
+        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SysResServiceImpl.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ManageController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ContentController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ConsoleController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CollectionController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AttachmentController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CommentController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ImageUploader.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/KnowledgeController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/LikeController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SearchController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ShuoShuoController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/TopicController.java" />
         <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserAdminController.java" />
-        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserCenterController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserFriendController.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/knowledge.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/shuoshuo.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/topic.html" />
+        <option value="$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/StatisticalDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/druid.html" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/PermissionDirective.java" />
+        <option value="$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/AuthorityAspect.java" />
       </list>
     </option>
   </component>
@@ -757,6 +889,8 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -834,29 +968,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="known" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="known" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="known" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="vo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -866,6 +978,74 @@
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="known" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="known" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="known" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
               <item name="known-service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -906,27 +1086,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="known" type="462c0819:PsiDirectoryNode" />
-              <item name="annotation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="known" type="462c0819:PsiDirectoryNode" />
-              <item name="aspect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="known" type="462c0819:PsiDirectoryNode" />
-              <item name="cache" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -937,6 +1097,14 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="known" type="462c0819:PsiDirectoryNode" />
               <item name="service_impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -1013,7 +1181,18 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="known" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="directive" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="known" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="filter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -1022,48 +1201,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="amazeuiadmin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="known-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="amazeuiadmin" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -1093,7 +1230,7 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="adminpage" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -1104,7 +1241,18 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="adminpage" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -1116,7 +1264,7 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="adminpage" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="inc" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -1129,16 +1277,38 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="adminpage" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
+              <item name="console" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="known-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="known-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="known-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-system" type="462c0819:PsiDirectoryNode" />
+              <item name="content" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1149,7 +1319,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558720109779" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558808378527" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/known-web" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -1160,27 +1330,30 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources" />
-      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.known" />
       <recent name="cn.inc" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.known.service_impl" />
-      <recent name="com.known.manager.handler" />
-      <recent name="com.known.common.utils" />
-      <recent name="com.known.web.listener" />
-      <recent name="com.known.web.annotation" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page\admin-system\common\inc" />
       <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page\adminpage\common\inc" />
       <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\static\resources\images" />
       <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\static\resources\amazeuiadmin\assets\img" />
       <recent name="E:\fountainhead\known-community\known-parent\known-service\src\main\java\com\known\service_impl" />
-      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\static\resources\js" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.known.web.directive" />
+      <recent name="com.known.web.annotation" />
+      <recent name="com.known.web.aspect" />
+      <recent name="com.known.service_impl" />
+      <recent name="com.known.manager.handler" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\static\resources\images" />
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page\admin-system\console" />
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page\admin-system\system" />
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources\templates\page\admin-system\content" />
+      <recent name="E:\fountainhead\known-community\known-parent\known-web\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1202,6 +1375,19 @@
     <option name="contentProportion" value="0.1862442" />
   </component>
   <component name="RunManager" selected="Spring Boot.KnownWebApplication">
+    <configuration name="PointUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.known.common.utils.PointUtil" />
+      <module name="known-common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.known.common.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="KnownCommonApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="known-common" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.known.KnownCommonApplication" />
@@ -1241,10 +1427,12 @@
       <item itemvalue="Spring Boot.KnownCommonApplication" />
       <item itemvalue="Spring Boot.KnownServiceApplication" />
       <item itemvalue="Spring Boot.KnownWebApplication" />
+      <item itemvalue="Application.PointUtil" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.KnownWebApplication" />
+        <item itemvalue="Application.PointUtil" />
       </list>
     </recent_temporary>
   </component>
@@ -1277,6 +1465,8 @@
       <workItem from="1558666251748" duration="29529000" />
       <workItem from="1558713226686" duration="4344000" />
       <workItem from="1558717676286" duration="2504000" />
+      <workItem from="1558721738609" duration="741000" />
+      <workItem from="1558754444560" duration="44306000" />
     </task>
     <servers />
   </component>
@@ -1295,7 +1485,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209865000" />
+    <option name="totallyTimeSpent" value="254912000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1309,7 +1499,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.27912253" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.2881997" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1320,19 +1510,19 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32840723" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32840723" />
-      <window_info anchor="bottom" id="Run Dashboard" order="3" sideWeight="0.49924356" weight="0.81937605" />
-      <window_info anchor="bottom" id="Run" order="4" weight="0.32840723" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="8" weight="0.32840723" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.32840723" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32840723" />
+      <window_info active="true" anchor="bottom" id="Run Dashboard" order="8" sideWeight="0.49924356" visible="true" weight="0.71756977" />
       <window_info anchor="bottom" id="Spring" order="9" weight="0.32840723" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32840723" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50075644" side_tool="true" weight="0.42200327" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32840723" />
-      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Problems" order="14" weight="0.32840723" />
-      <window_info anchor="bottom" id="Version Control" order="15" weight="0.32840723" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32840723" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32840723" />
+      <window_info anchor="bottom" id="Problems" order="15" weight="0.32840723" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1347,7 +1537,7 @@
       <window_info anchor="right" id="Preview" order="11" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.2708018" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.2881997" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1358,7 +1548,7 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32840723" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32840723" />
-      <window_info anchor="bottom" id="Run Dashboard" order="3" sideWeight="0.49924356" weight="0.81937605" />
+      <window_info anchor="bottom" id="Run Dashboard" order="3" sideWeight="0.49924356" weight="0.71756977" />
       <window_info anchor="bottom" id="Run" order="4" weight="0.32840723" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
@@ -1367,10 +1557,10 @@
       <window_info anchor="bottom" id="Spring" order="9" weight="0.32840723" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32840723" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50075644" side_tool="true" weight="0.42200327" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32840723" />
-      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Problems" order="14" weight="0.32840723" />
-      <window_info anchor="bottom" id="Version Control" order="15" weight="0.32840723" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32840723" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32840723" />
+      <window_info anchor="bottom" id="Problems" order="15" weight="0.32840723" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1396,111 +1586,135 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/ArticleType.java">
+    <entry file="file://$PROJECT_DIR$/known-manager/src/main/java/com/known/manager/mapper/SysResMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="15" column="105" selection-start-line="15" selection-start-column="105" selection-end-line="15" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/CommPermDirective.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/known.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="143" column="48" selection-start-line="143" selection-start-column="48" selection-end-line="143" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-manager/src/main/resources/mapper/SysResMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="63" selection-start-line="3" selection-start-column="63" selection-end-line="3" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/model/SysRes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/res.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="55" column="93" selection-start-line="55" selection-start-column="93" selection-end-line="55" selection-end-column="93" />
+          <folding>
+            <element signature="e#18#24#0" expanded="true" />
+            <element signature="e#24#30#0" expanded="true" />
+            <element signature="e#30#36#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="n#style#0;n#b#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/SysResServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="47" column="47" selection-start-line="47" selection-start-column="47" selection-end-line="47" selection-end-column="47" />
+          <folding>
+            <element signature="e#923#924#0" expanded="true" />
+            <element signature="e#984#985#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/role.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2530">
+          <caret line="40" column="69" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/system/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1104">
+          <caret line="36" column="64" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#image#0;n#!!top" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/statistics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-591">
+          <caret line="1" column="41" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/ask.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
-          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="24" />
+          <caret line="27" column="66" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/Code.java">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/task.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+        <state relative-caret-position="-2139">
+          <caret line="45" column="69" selection-start-line="45" selection-start-column="50" selection-end-line="45" selection-end-column="69" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/DateTimePatternEnum.java">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/syslog.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        <state relative-caret-position="-1143">
+          <caret line="1" column="37" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/FileTopicType.java">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/loginlog.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/Logical.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MarkEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/MessageType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/OrderByEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/PageSize.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/SolveEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/StatusEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/TextLengthEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/TopicType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/css/addblog.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-common/src/main/java/com/known/common/enums/VoteType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        <state relative-caret-position="-545">
+          <caret line="1" column="39" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1511,183 +1725,346 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/AttachmentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1470">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CollectionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/CommentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-881">
+          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ContentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-690">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/knowledge.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="15" column="68" lean-forward="true" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
+        <state relative-caret-position="-900">
+          <caret line="59" column="70" selection-start-line="59" selection-start-column="70" selection-end-line="59" selection-end-column="70" />
           <folding>
-            <element signature="e#59#65#0" expanded="true" />
-            <element signature="e#65#71#0" expanded="true" />
-            <element signature="e#71#77#0" expanded="true" />
-            <element signature="e#59#65#0" expanded="true" />
-            <element signature="e#65#71#0" expanded="true" />
-            <element signature="e#71#77#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#1705#1706#0" expanded="true" />
+            <element signature="e#1765#1766#0" expanded="true" />
+            <element signature="e#2944#2945#0" expanded="true" />
+            <element signature="e#3000#3001#0" expanded="true" />
+            <element signature="e#5447#5448#0" expanded="true" />
+            <element signature="e#5501#5502#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/shuoshuo.html">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/FileUploader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="55" lean-forward="true" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
+        <state relative-caret-position="-1456">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/GeekController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ImageUploader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-886">
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
           <folding>
-            <element signature="e#59#65#0" expanded="true" />
-            <element signature="e#65#71#0" expanded="true" />
-            <element signature="e#71#77#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/role.html">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/IndexController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-483" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_header_js.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_navbarusermenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="26" column="53" lean-forward="true" selection-start-line="26" selection-start-column="53" selection-end-line="26" selection-end-column="53" />
+        <state relative-caret-position="-1304">
+          <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserAdminController.java">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/KnowledgeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2208">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+        <state relative-caret-position="-2353">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/LikeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-69">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/layout/__mainlayout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/calendar.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1449" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1173" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/白色.psd">
-      <provider selected="true" editor-type-id="layeredimageeditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/calendar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-736">
-          <caret line="19" column="51" lean-forward="true" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/黑色.psd">
-      <provider selected="true" editor-type-id="layeredimageeditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/loginlog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-483" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/userlocation.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3381">
+        <state relative-caret-position="-154">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
           <folding>
-            <element signature="n#style#0;n#image#0;n#!!top" expanded="true" />
-            <element signature="e#59#65#0" expanded="true" />
-            <element signature="e#65#71#0" expanded="true" />
-            <element signature="e#71#77#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2944">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        <state relative-caret-position="614">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1475#1476#0" expanded="true" />
+            <element signature="e#1538#1539#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/admin-chrome.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/admin-firefox.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/admin-ie.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/admin-opera.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/adminPage.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/examples/admin-safari.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/i/startup-640x1096.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/logob.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/user06.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/assets/img/logo.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/login.html">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SearchController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/static/resources/amazeuiadmin/table-list-img.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/common/inc/_sidebar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="26" column="11" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="11" />
+        <state relative-caret-position="-7">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/adminpage/index.html">
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ShuoShuoController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        <state relative-caret-position="-122">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/SignInController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/TopicController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="237" selection-start-line="237" selection-end-line="237" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserAdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="438" selection-start-line="438" selection-end-line="438" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserCenterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-920">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-108">
+          <caret line="238" column="7" selection-start-line="238" selection-start-column="7" selection-end-line="238" selection-end-column="7" />
+          <folding>
+            <element signature="e#3339#3340#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#5825#5826#0" expanded="true" />
+            <element signature="e#5885#5886#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/UserFriendController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/knowledge.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/shuoshuo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+          <folding>
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/content/topic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+            <element signature="e#59#65#0" expanded="true" />
+            <element signature="e#65#71#0" expanded="true" />
+            <element signature="e#71#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-service/src/main/java/com/known/service_impl/StatisticalDataServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="219" selection-start-line="219" selection-end-line="219" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/userlocation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-598">
+          <caret line="1" column="38" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/console/druid.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="42" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/controller/ConsoleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="224" column="27" lean-forward="true" selection-start-line="224" selection-start-column="22" selection-end-line="224" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1255#1256#0" expanded="true" />
+            <element signature="e#1326#1327#0" expanded="true" />
+            <element signature="e#1921#1922#0" expanded="true" />
+            <element signature="e#1986#1987#0" expanded="true" />
+            <element signature="e#4820#4821#0" expanded="true" />
+            <element signature="e#4889#4890#0" expanded="true" />
+            <element signature="e#5073#5081#0" expanded="true" />
+            <element signature="e#5376#5377#0" expanded="true" />
+            <element signature="e#5443#5444#0" expanded="true" />
+            <element signature="e#5621#5629#0" expanded="true" />
+            <element signature="e#5935#5936#0" expanded="true" />
+            <element signature="e#6008#6009#0" expanded="true" />
+            <element signature="e#6502#6503#0" expanded="true" />
+            <element signature="e#6568#6569#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/LogAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1925">
+          <caret line="123" column="41" lean-forward="true" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/application-config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/shuoshuo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-138" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-897">
+          <folding>
+            <element signature="e#48#54#0" expanded="true" />
+            <element signature="e#54#60#0" expanded="true" />
+            <element signature="e#60#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/resources/templates/page/admin-system/common/layout/__mainlayout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/directive/PermissionDirective.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/aspect/AuthorityAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="82" column="38" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/known-web/src/main/java/com/known/web/filter/AuthorityFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
         </state>
       </provider>
     </entry>

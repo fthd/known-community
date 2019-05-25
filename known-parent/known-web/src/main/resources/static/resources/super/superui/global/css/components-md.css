@@ -974,7 +974,7 @@ hr {
 .list-unstyled li > .list-unstyled {
   margin-left: 25px; }
 
-/* Code */
+/* CodeEnum */
 code {
   border: 1px solid #e1e1e1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);

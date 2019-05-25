@@ -2,8 +2,8 @@ package com.known.web.controller;
 
 import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
+import com.known.common.enums.CodeEnum;
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.Code;
 import com.known.common.enums.SolveEnum;
 import com.known.common.model.Ask;
 import com.known.common.model.SessionUser;
@@ -99,14 +99,14 @@ public class AskController extends BaseController {
 		try {
 			this.askService.addAsk(ask);
 			outResponse.setData(ask.getAskId());
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			logger.error("{}提问出错{}", ask.getUserName(), e);
 		}catch (Exception e) {
 			outResponse.setMsg("服务器出错，提问失败");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 			logger.error("{}提问出错{}", ask.getUserName(), e);
 		}
 		return outResponse;
@@ -136,14 +136,14 @@ public class AskController extends BaseController {
 		this.setUserBaseInfo(Ask.class, ask, session);
 		try {
 			this.askService.setBestAnswer(ask.getBestAnswerId(), ask.getAskId(), ask.getUserId());
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			logger.error("采纳答案出错{}", e);
 		}catch (Exception e) {
 			outResponse.setMsg("服务器出错了");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 			logger.error("采纳答案出错{}", e);
 		}
 		return outResponse;

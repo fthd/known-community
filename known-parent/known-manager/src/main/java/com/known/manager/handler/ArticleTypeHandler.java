@@ -1,6 +1,6 @@
 package com.known.manager.handler;
 
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
@@ -10,43 +10,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@MappedTypes({ArticleType.class})
-public class ArticleTypeHandler extends BaseTypeHandler<ArticleType> {
+@MappedTypes({ArticleTypeEnum.class})
+public class ArticleTypeHandler extends BaseTypeHandler<ArticleTypeEnum> {
 
 
 	@Override
-	public ArticleType getNullableResult(ResultSet rs, String columnName)
+	public ArticleTypeEnum getNullableResult(ResultSet rs, String columnName)
 			throws SQLException {
 		String type = rs.getString(columnName);
 		if(type != null){
-			return ArticleType.getArticleTypeByType(type);
+			return ArticleTypeEnum.getArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
-	public ArticleType getNullableResult(ResultSet rs, int columnIndex)
+	public ArticleTypeEnum getNullableResult(ResultSet rs, int columnIndex)
 			throws SQLException {
 		String type = rs.getString(columnIndex);
 		if(type != null){
-			return ArticleType.getArticleTypeByType(type);
+			return ArticleTypeEnum.getArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
-	public ArticleType getNullableResult(CallableStatement cs,
-			int columnIndex) throws SQLException {
+	public ArticleTypeEnum getNullableResult(CallableStatement cs,
+                                             int columnIndex) throws SQLException {
 		String type = cs.getString(columnIndex);
 		if(type != null){
-			return ArticleType.getArticleTypeByType(type);
+			return ArticleTypeEnum.getArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
 	public void setNonNullParameter(PreparedStatement ps, int i,
-			ArticleType parameter, JdbcType jdbcType) throws SQLException {
+                                    ArticleTypeEnum parameter, JdbcType jdbcType) throws SQLException {
 		ps.setString(i, parameter.getType());
 	}
 

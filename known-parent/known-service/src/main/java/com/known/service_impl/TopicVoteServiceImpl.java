@@ -2,7 +2,7 @@ package com.known.service_impl;
 
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.TextLengthEnum;
-import com.known.common.enums.VoteType;
+import com.known.common.enums.VoteTypeEnum;
 import com.known.common.model.TopicVote;
 import com.known.common.model.TopicVoteDetail;
 import com.known.common.model.TopicVoteUser;
@@ -96,8 +96,8 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
 	public TopicVote doVote(Integer voteId, Integer voteType,
 			Integer[] voteDetailId, Integer userId, Integer topicId) throws BussinessException {
-		if(voteId == null || VoteType.getVoteTypeByValue(voteType) == null ||
-				voteDetailId == null ||(VoteType.getVoteTypeByValue(voteId) == VoteType.SingleSelection && 
+		if(voteId == null || VoteTypeEnum.getVoteTypeByValue(voteType) == null ||
+				voteDetailId == null ||(VoteTypeEnum.getVoteTypeByValue(voteId) == VoteTypeEnum.SingleSelection &&
 				voteDetailId.length > 1)){
 			throw new BussinessException("参数错误");
 		}

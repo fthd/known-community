@@ -13,6 +13,6 @@ public interface SysResMapper<T, Q> extends BaseMapper<T, Q>{
 	
 	void  deletePermission(@Param("ids") Integer[] ids) ;
 	
-	List<SysRes> selectMenuByRoleIds(@Param("roleIds") Set<Integer> roleIds);
+	List<SysRes> selectLimitByRoleIds(@Param("roleIds") Set<Integer> roleIds, @Param("type") Integer type);
 	
 }

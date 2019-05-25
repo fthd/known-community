@@ -1,6 +1,6 @@
 package com.known.service_impl;
 
-import com.known.common.enums.FileTopicType;
+import com.known.common.enums.FileTopicTypeEnum;
 import com.known.common.model.*;
 import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
@@ -48,7 +48,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	public Attachment getAttachmentByTopicIdAndFileType(Integer topicId,
-			FileTopicType fileTopicType) {
+			FileTopicTypeEnum fileTopicType) {
 		AttachmentQuery attachmentQuery = new AttachmentQuery();
 		attachmentQuery.setTopicId(topicId);
 		attachmentQuery.setFileTopicType(fileTopicType);
@@ -81,8 +81,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 		}
 		Integer topicId = attachment.getArticleId();
 		Topic topic = null;
-		FileTopicType fileTopicType = attachment.getFileTopicType();
-		if(fileTopicType == FileTopicType.TOPIC){
+		FileTopicTypeEnum fileTopicType = attachment.getFileTopicType();
+		if(fileTopicType == FileTopicTypeEnum.TOPIC){
 			topic = this.topicService.getTopic(topicId);
 			if(topic == null){
 				throw new BussinessException("附件对应的话题不存在");
@@ -128,8 +128,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 			throw new BussinessException("附件不存在");
 		}
 		Integer topicUserId = null;
-		FileTopicType fileTopicType = attachment.getFileTopicType();
-		if(fileTopicType == FileTopicType.TOPIC){
+		FileTopicTypeEnum fileTopicType = attachment.getFileTopicType();
+		if(fileTopicType == FileTopicTypeEnum.TOPIC){
 			Topic topic = this.topicService.getTopic(topicId);
 			if(topic == null){
 				throw new BussinessException("附件对应的话题不存在");

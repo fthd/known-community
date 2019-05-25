@@ -1,7 +1,7 @@
 package com.known.manager.query;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ public class CommentQuery extends BaseQuery{
 	
 	private Integer articleId;
 	
-	private ArticleType articleType;
+	private ArticleTypeEnum articleType;
 	
 	private String startDate;
 	

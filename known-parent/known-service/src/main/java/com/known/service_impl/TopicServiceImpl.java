@@ -47,7 +47,7 @@ public class TopicServiceImpl implements TopicService {
 
 	public PageResult<Topic> findTopicByPage(TopicQuery topicQuery) {
 		int count = this.topicMapper.selectCount(topicQuery);
-		int pageSize = PageSize.PAGE_SIZE20.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int pageNum = 1;
 		if (topicQuery.getPageNum() != 1) {
 			pageNum = topicQuery.getPageNum();
@@ -98,22 +98,22 @@ public class TopicServiceImpl implements TopicService {
 		this.topicMapper.insert(topic);
 		this.userService.changeMark(topic.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
-		if (topic.getTopicType() == TopicType.VOTE) {// 判断是否是投票话题
+		if (topic.getTopicType() == TopicTypeEnum.VOTE) {// 判断是否是投票话题
 			topicVote.setTopicId(topic.getTopicId());
 			this.topicVoteService.addVote(topicVote, voteTitle);
 		}
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setArticleId(topic.getTopicId());
-			attachment.setFileTopicType(FileTopicType.TOPIC);
+			attachment.setFileTopicType(FileTopicTypeEnum.TOPIC);
 			this.attachmentService.addAttachment(attachment);
 		}
 		
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(topic.getTopicId());
-		messageParams.setArticleType(ArticleType.TOPIC);
+		messageParams.setArticleType(ArticleTypeEnum.TOPIC);
 		messageParams.setArticleUserId(topic.getUserId());
-		messageParams.setMessageType(MessageType.AT_ARTICLE_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.AT_ARTICLE_MESSAGE);
 		messageParams.setSendUserName(topic.getUserName());
 		messageParams.setSendUserId(topic.getUserId());
 		messageParams.setReceiveUserIds(userIds);
@@ -125,7 +125,7 @@ public class TopicServiceImpl implements TopicService {
 		if(topic == null){
 			throw new BussinessException("话题不存在或已删除");
 		}
-		topic.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileTopicType.TOPIC));
+		topic.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileTopicTypeEnum.TOPIC));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(topicId);

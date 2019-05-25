@@ -49,7 +49,7 @@ public class AskServiceImpl implements AskService {
 	public PageResult<Ask> findAskByPage(AskQuery askQuery) {
 		int count = this.findCount(askQuery);
 		int pageNum = askQuery.getPageNum() == 1 ? 1 : askQuery.getPageNum();
-		int pageSize = PageSize.PAGE_SIZE20.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		askQuery.setOrderBy(OrderByEnum.CREATE_TIME_DESC);
 		Page page = new Page(pageNum, count, pageSize);
 		List<Ask> list = this.askMapper.selectList(askQuery);
@@ -96,9 +96,9 @@ public class AskServiceImpl implements AskService {
 		this.userService.changeMark(ask.getUserId(), -ask.getMark());
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(ask.getAskId());
-		messageParams.setArticleType(ArticleType.Ask);
+		messageParams.setArticleType(ArticleTypeEnum.Ask);
 		messageParams.setArticleUserId(ask.getUserId());
-		messageParams.setMessageType(MessageType.AT_ARTICLE_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.AT_ARTICLE_MESSAGE);
 		messageParams.setSendUserName(ask.getUserName());
 		messageParams.setSendUserId(ask.getUserId());
 		messageParams.setReceiveUserIds(userIds);
@@ -127,9 +127,9 @@ public class AskServiceImpl implements AskService {
 		//TODO给用户发消息
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(askId);
-		messageParams.setArticleType(ArticleType.Ask);
+		messageParams.setArticleType(ArticleTypeEnum.Ask);
 		messageParams.setArticleUserId(ask.getUserId());
-		messageParams.setMessageType(MessageType.ADOPT_ANSWER);
+		messageParams.setMessageType(MessageTypeEnum.ADOPT_ANSWER);
 		messageParams.setSendUserName(ask.getUserName());
 		messageParams.setSendUserId(userId);
 		Set<Integer> userIds = new HashSet<Integer>();

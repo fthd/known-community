@@ -44,9 +44,8 @@ public class SysResServiceImpl implements SysResService {
 	@Override
 	public void addSysRes(SysRes sysRes) throws BussinessException {
 		if(StringUtil.isEmpty(sysRes.getName()) || sysRes.getPid() == null
-				|| StringUtil.isEmpty(sysRes.getUrl()) || sysRes.getSeq() == null
-				|| sysRes.getType() == null || sysRes.getEnabled() == null
-				|| StringUtil.isEmpty(sysRes.getKey())){
+				|| StringUtil.isEmpty(sysRes.getUrl()) || sysRes.getType() == null
+				|| sysRes.getEnabled() == null || StringUtil.isEmpty(sysRes.getKey())){
 			throw new BussinessException("参数错误");
 		}
 		
@@ -60,8 +59,8 @@ public class SysResServiceImpl implements SysResService {
 	public void updateSysRes(SysRes sysRes) throws BussinessException {
 		if(sysRes.getId() == null || StringUtil.isEmpty(sysRes.getName()) ||
 				sysRes.getPid() == null || StringUtil.isEmpty(sysRes.getUrl())
-				|| sysRes.getSeq() == null|| sysRes.getType() == null 
-				|| sysRes.getEnabled() == null	|| StringUtil.isEmpty(sysRes.getKey())){
+				|| sysRes.getType() == null || sysRes.getEnabled() == null
+				|| StringUtil.isEmpty(sysRes.getKey())){
 				throw new BussinessException("参数错误");
 		}
 		
@@ -136,11 +135,11 @@ public class SysResServiceImpl implements SysResService {
 	
 	
 	@Override
-	public List<SysRes> findMenuByRoleIds(Set<Integer> roleIds) {
+	public List<SysRes> findLimitByRoleIds(Set<Integer> roleIds, Integer type) {
 		if(roleIds.isEmpty()){
 			return null;
 		}
-		List<SysRes> list = sysResMapper.selectMenuByRoleIds(roleIds);
+		List<SysRes> list = sysResMapper.selectLimitByRoleIds(roleIds, type);
 		List<SysRes> listResult = (List<SysRes>) CollectionUtil.removeNullValue(list);
 		return listResult;
 	}

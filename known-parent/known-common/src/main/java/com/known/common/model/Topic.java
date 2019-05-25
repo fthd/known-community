@@ -3,7 +3,7 @@ package com.known.common.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.TopicType;
+import com.known.common.enums.TopicTypeEnum;
 import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtil;
 import lombok.Data;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class Topic {
     private Integer topicId;
 
-    private TopicType topicType;
+    private TopicTypeEnum topicType;
 
     private Integer pCategoryId;
 

@@ -1,6 +1,6 @@
 package com.known.service_impl;
 
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
 import com.known.common.utils.StringUtil;
@@ -52,13 +52,13 @@ public class LikeServiceImpl implements LikeService {
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddLikeCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(like.getArticleId());
-		if(like.getArticleType() == ArticleType.TOPIC){
+		if(like.getArticleType() == ArticleTypeEnum.TOPIC){
 			this.topicMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
-		else if(like.getArticleType() == ArticleType.KNOWLEDGE){
+		else if(like.getArticleType() == ArticleTypeEnum.KNOWLEDGE){
 			this.knowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
-		else if(like.getArticleType() == ArticleType.Ask){
+		else if(like.getArticleType() == ArticleTypeEnum.Ask){
 			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
 		else{

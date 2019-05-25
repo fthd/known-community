@@ -1,7 +1,7 @@
 package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 public class Like {
 	private Integer articleId;
 
-	private ArticleType articleType;
+	private ArticleTypeEnum articleType;
 
 	private Integer userId;
 

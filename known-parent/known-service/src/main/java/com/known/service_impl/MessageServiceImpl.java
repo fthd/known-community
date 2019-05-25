@@ -1,8 +1,8 @@
 package com.known.service_impl;
 
-import com.known.common.enums.ArticleType;
-import com.known.common.enums.MessageType;
-import com.known.common.enums.PageSize;
+import com.known.common.enums.ArticleTypeEnum;
+import com.known.common.enums.MessageTypeEnum;
+import com.known.common.enums.PageSizeEnum;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
 import com.known.common.utils.Constants;
@@ -36,7 +36,7 @@ public class MessageServiceImpl implements MessageService {
 	private ShuoShuoMapper<ShuoShuo, ShuoShuoQuery> shuoShuoMapper;
 	
 	public void createMessage(MessageParams messageParams) {
-		MessageType type = messageParams.getMessageType();
+		MessageTypeEnum type = messageParams.getMessageType();
 		switch (type) {
 		case AT_ARTICLE_MESSAGE:
 			atMessage(messageParams);
@@ -102,23 +102,23 @@ public class MessageServiceImpl implements MessageService {
 	private void commentMessage(MessageParams messageParams) {
 		List<Message> messageList = new ArrayList<>();
 		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
-		ArticleType articleType = messageParams.getArticleType();
+		ArticleTypeEnum articleType = messageParams.getArticleType();
 		Integer articleId = messageParams.getArticleId();
 		String title = "";
 		Integer articleUserId = null;
-		if(articleType == ArticleType.TOPIC){
+		if(articleType == ArticleTypeEnum.TOPIC){
 			TopicQuery topicQuery = new TopicQuery();
 			topicQuery.setTopicId(articleId);
 			Topic topic = this.topicMapper.selectList(topicQuery).get(0);
 			title = topic.getTitle();
 		}
-		else if(articleType == ArticleType.KNOWLEDGE){
+		else if(articleType == ArticleTypeEnum.KNOWLEDGE){
 			KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
 			knowledgeQuery.setKnowledgeId(articleId);
 			Knowledge knowledge = this.KnowledgeMapper.selectList(knowledgeQuery).get(0);
 			title = knowledge.getTitle();
 		}
-		else if(articleType == ArticleType.Ask){
+		else if(articleType == ArticleTypeEnum.Ask){
 			AskQuery askQuery = new AskQuery();
 			askQuery.setAskId(articleId);
 			Ask ask = this.askMapper.selectList(askQuery).get(0);
@@ -195,7 +195,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	public PageResult<Message> findMessageByPage(MessageQuery messageQuery) {
-		int pageSize = PageSize.PAGE_SIZE20.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int count = findMessageCount(messageQuery);
 		int pageNum = messageQuery.getPageNum() == 1 ? 1 : messageQuery.getPageNum();
 		Page page = new Page(pageNum, count, pageSize);

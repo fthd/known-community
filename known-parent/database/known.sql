@@ -91,13 +91,13 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24205 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- 系统用户与权限关系表
+-- 系统用户与角色关系表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_id` int(11) DEFAULT NULL COMMENT '用户表ID',
-  `role_id` int(11) DEFAULT NULL COMMENT '系统权限表ID',
+  `role_id` int(11) DEFAULT NULL COMMENT '系统角色表ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_role_index` (`user_id`,`role_id`),
   KEY `FK_SYSTME_USER_ROLE_USER_ID` (`user_id`),
@@ -105,7 +105,7 @@ CREATE TABLE `sys_user_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- 系统权限表
+-- 系统角色表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
@@ -119,35 +119,34 @@ CREATE TABLE `sys_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- 系统权限与权限详情关系表
+-- 系统角色与资源关系表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_res`;
 CREATE TABLE `sys_role_res` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `role_id` int(11) DEFAULT NULL COMMENT '权限表ID',
-  `res_id` int(11) DEFAULT NULL COMMENT '系统权限详情表ID',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色表ID',
+  `res_id` int(11) DEFAULT NULL COMMENT '系统资源表ID',
   PRIMARY KEY (`id`),
   KEY `FK_sys_ROLE_RES_RES_ID` (`res_id`),
   KEY `FK_sys_ROLE_RES_ROLE_ID` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5116 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
--- 系统权限详情表
+-- 系统资源表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_res`;
 CREATE TABLE `sys_res` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `pid` int(11) DEFAULT NULL COMMENT '父节点ID',
-  `name` varchar(111) DEFAULT NULL,
-  `des` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
+  `name` varchar(111) DEFAULT NULL COMMENT '资源名称',
+  `des` varchar(255) DEFAULT NULL COMMENT '资源描述',
+  `url` varchar(255) DEFAULT NULL COMMENT '请求URL',
   `iconCls` varchar(255) DEFAULT 'am-icon-file',
-  `seq` int(11) DEFAULT '1',
   `type` int(1) DEFAULT '2' COMMENT '1 菜单 2 权限',
-  `modifydate` timestamp NULL DEFAULT NULL,
+  `modifydate` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `enabled` int(1) DEFAULT '1' COMMENT '是否启用 1：启用  0：禁用',
-  `level` int(11) DEFAULT '0',
-  `key` varchar(255) DEFAULT NULL,
+  `level` int(11) DEFAULT '0' COMMENT '权限级别',
+  `key` varchar(255) DEFAULT NULL COMMENT '权限的KEY',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 

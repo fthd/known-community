@@ -3,7 +3,7 @@ package com.known.service_impl;
 
 import com.known.common.config.MailConfig;
 import com.known.common.config.UrlConfig;
-import com.known.common.enums.MessageType;
+import com.known.common.enums.MessageTypeEnum;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.MessageParams;
 import com.known.common.model.SysUserRole;
@@ -354,8 +354,10 @@ public class UserServiceImpl implements UserService {
 
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setUserId(userId);
+        // 更新之前先删除旧的数据
         sysUserRoleMapper.delete(sysUserRole);
 
+        // 批量插入数据, 一个用户对应多个角色id
         if (roleIds != null && roleIds.length != 0) {
             sysUserRoleMapper.insertBatch(userId, roleIds);
         }
@@ -387,7 +389,7 @@ public class UserServiceImpl implements UserService {
         }
 
         MessageParams messageParams = new MessageParams();
-        messageParams.setMessageType(MessageType.SYSTEM_MARK);
+        messageParams.setMessageType(MessageTypeEnum.SYSTEM_MARK);
         messageParams.setDes(des.trim());
         messageParams.setReceiveUserIds(userIdSet);
         messageService.createMessage(messageParams);

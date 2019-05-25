@@ -9,16 +9,16 @@ import com.known.exception.BussinessException;
 import com.known.service.SysResService;
 import com.known.service.SysRoleService;
 import com.known.service.UserService;
-import com.known.annotation.RequirePermissions;
+import com.known.web.annotation.RequirePermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/manage")
 public class ManageController {
 	
@@ -33,43 +33,53 @@ public class ManageController {
 	
 
 	@RequestMapping("/noperm")
-	public String noperm(){
-		return "/page/noperm";
+	public ModelAndView noperm(){
+		return new ModelAndView("/page/admin-system/noperm");
 	}
 	
 	@RequestMapping("/manage")
-	public String index(){
-		return "/page/adminpage/index";
+	public ModelAndView index(){
+		return new ModelAndView("/page/admin-system/index");
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session){
+	public ModelAndView logout(HttpSession session){
 		session.invalidate();
-		return "/page/adminpage/login";
+		return new ModelAndView("/page/admin-system/login");
 	}
-	
-	
+
+	/**
+	 * 用户管理
+	 * @return
+	 */
+	@RequestMapping("/user/list")
 	@RequirePermissions(key="manage:user:list")
-	@ResponseBody
+	public ModelAndView user(){
+		return new ModelAndView("page/admin-system/system/user");
+	}
+
+	/**
+	 * 获取所有用户列表
+	 * @return
+	 */
+	@RequirePermissions(key="manage:user:list")
 	@RequestMapping("/getUsers")
 	public Object getUsers() {
-		return this.userService.findUserVoList();
+		return userService.findUserVoList();
 	}
-	
-	@RequirePermissions(key="manage:user:list")
-	@RequestMapping("/user/list")
-	public String user(){
-		return "page/adminpage/user";
-	}
-	
-	
+
+
+	/**
+	 * 删除用户信息
+	 * @param userIds
+	 * @return
+	 */
 	@RequirePermissions(key="manage:user:delete")
-	@ResponseBody
 	@RequestMapping("/user/delete")
 	public OutResponse<Object> deleteUser(Integer[] userIds){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.userService.deleteUser(userIds);
+			userService.deleteUser(userIds);
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			outResponse.setMsg(e.getLocalizedMessage());
@@ -79,12 +89,17 @@ public class ManageController {
 		}
 		return outResponse;
 	}
-	
+
+	/**
+	 * 更新用户权限
+	 * @param userIds
+	 * @param roleIds
+	 * @return
+	 */
 	@RequirePermissions(key="manage:user:updateUserRole")
-	@ResponseBody
 	@RequestMapping("/user/updateUserRole")
-	public OutResponse<Object> deleteUser(Integer[] userIds, Integer[] roleIds){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> updateUserRole(Integer[] userIds, Integer[] roleIds){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			userService.updateBatchUserRole(userIds, roleIds);
 		} catch (BussinessException e) {
@@ -98,7 +113,6 @@ public class ManageController {
 	}
 	
 	@RequirePermissions(key="manage:user:markChange")
-	@ResponseBody
 	@RequestMapping("/user/markChange")
 	public OutResponse<Object> markChange(Integer[] userIds, Integer mark, String des){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -113,22 +127,26 @@ public class ManageController {
 		}
 		return outResponse;
 	}
-	
-	
+
 	@RequirePermissions(key="manage:res:list")
-	@ResponseBody
-	@RequestMapping("/getRess")
-	public Object getRess() {
-		return this.sysResService.findAllRes();
+	@RequestMapping("/res/list")
+	public ModelAndView res(){
+		return new ModelAndView(
+				"page/admin-system/system/res");
 	}
 	
+	@RequirePermissions(key="manage:res:list")
+	@RequestMapping("/getRess")
+	public Object getRess() {
+		return sysResService.findAllRes();
+	}
 	
-	@ResponseBody
+
 	@RequestMapping("/res/allmenu")
 	public Object getAllMenu() {
 		List<SysRes> list = null;
 		try {
-			list = this.sysResService.findAllMenu();
+			list = sysResService.findAllMenu();
 		} catch (BussinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,15 +155,7 @@ public class ManageController {
 	}
 	
 	
-	@RequirePermissions(key="manage:res:list")
-	@RequestMapping("/res/list")
-	public String res(){
-		return "page/adminpage/res";
-	}
-	
-	
 	@RequirePermissions(key="manage:res:delete")
-	@ResponseBody
 	@RequestMapping("/res/delete")
 	public OutResponse<Object> resDelete(Integer[] ids) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -161,7 +171,6 @@ public class ManageController {
 	
 	
 	@RequirePermissions(key="manage:res:save")
-	@ResponseBody
 	@RequestMapping("/res/save")
 	public OutResponse<Object> resSave(SysRes sysRes) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -184,17 +193,16 @@ public class ManageController {
 	
 	@RequirePermissions(key="manage:role:list")
 	@RequestMapping("/role/list")
-	public String role(){
-		return "page/adminpage/role";
+	public ModelAndView role(){
+		return new ModelAndView("page/admin-system/system/role");
 	}
 
-	@RequirePermissions(key="manage:role:list")
-	@ResponseBody
+	@RequirePermissions(key="admin-system:role:list")
 	@RequestMapping("/role/load")
 	public Object roleLoad() {
 		List<SysRole> list = null;
 		try {
-			 list = this.sysRoleService.findSysRoleList();
+			 list = sysRoleService.findSysRoleList();
 		}catch (Exception e) {
 			
 		}
@@ -202,7 +210,6 @@ public class ManageController {
 	}
 	
 	@RequirePermissions(key="manage:role:delete")
-	@ResponseBody
 	@RequestMapping("/role/delete")
 	public OutResponse<Object> roleDelete(Integer[] ids) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -218,7 +225,6 @@ public class ManageController {
 	
 	
 	@RequirePermissions(key="manage:role:save")
-	@ResponseBody
 	@RequestMapping("/role/save")
 	public OutResponse<Object> roleSave(SysRole sysRole) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -236,8 +242,7 @@ public class ManageController {
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/role/getResourceId")
 	public OutResponse<Object> getResourceId(Integer id) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -253,7 +258,6 @@ public class ManageController {
 	}
 	 
 	@RequirePermissions(key="manage:role:updateAuthority")
-	@ResponseBody
 	@RequestMapping("/role/updateAuthority")
 	public OutResponse<Object> roleUpdateAuthority(Integer roleId, Integer[] resIds) {
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -266,11 +270,7 @@ public class ManageController {
 		}
 		return outResponse;
 	}
-	
-	
-	
-	
-	@ResponseBody
+
 	@RequestMapping("/tree/list")
 	public Object getAllTree(){
 		List<Tree> list = null;

@@ -1,7 +1,7 @@
 package com.known.manager.query;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import com.known.common.enums.OrderByEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CollectionQuery extends BaseQuery {
 	private Integer articleId;
 	
-	private ArticleType articleType;
+	private ArticleTypeEnum articleType;
 	
 	private Integer userId;
 	
@@ -25,7 +25,7 @@ public class CollectionQuery extends BaseQuery {
 	private OrderByEnum orderBy;
 
 
-	public CollectionQuery(Integer articleId, ArticleType articleType,
+	public CollectionQuery(Integer articleId, ArticleTypeEnum articleType,
 			Integer userId) {
 		super();
 		this.articleId = articleId;

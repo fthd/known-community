@@ -1,7 +1,7 @@
 package com.known.service_impl;
 
-import com.known.common.enums.ArticleType;
-import com.known.common.enums.PageSize;
+import com.known.common.enums.ArticleTypeEnum;
+import com.known.common.enums.PageSizeEnum;
 import com.known.common.enums.TextLengthEnum;
 import com.known.common.model.*;
 import com.known.common.utils.StringUtil;
@@ -54,13 +54,13 @@ public class CollectionServiceImpl implements CollectionService {
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddCollectionCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(collection.getArticleId());
-		if(collection.getArticleType() == ArticleType.TOPIC){
+		if(collection.getArticleType() == ArticleTypeEnum.TOPIC){
 			this.topicMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
-		else if(collection.getArticleType() == ArticleType.KNOWLEDGE){
+		else if(collection.getArticleType() == ArticleTypeEnum.KNOWLEDGE){
 			this.knowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
-		else if(collection.getArticleType() == ArticleType.Ask){
+		else if(collection.getArticleType() == ArticleTypeEnum.Ask){
 			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
 		}
 		else{
@@ -79,7 +79,7 @@ public class CollectionServiceImpl implements CollectionService {
 	public PageResult<Collection> findCollectionByPage(
 			CollectionQuery collectionQuery) {
 		int count = this.collectionMapper.selectCount(collectionQuery);
-		int pageSize = PageSize.PAGE_SIZE20.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int pageNum = collectionQuery.getPageNum() == 1? 1:collectionQuery.getPageNum();
 		Page page = new Page(pageNum, count, pageSize);
 		collectionQuery.setPage(page);

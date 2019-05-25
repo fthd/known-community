@@ -21,7 +21,7 @@ public interface SysResService {
 	
 	List<Tree> findAllTree()throws BussinessException;
 	
-	List<SysRes> findMenuByRoleIds(Set<Integer> roleIds);
+	List<SysRes> findLimitByRoleIds(Set<Integer> roleIds, Integer type);
 	
 	
 }

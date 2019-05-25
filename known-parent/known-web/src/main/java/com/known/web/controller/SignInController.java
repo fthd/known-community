@@ -1,20 +1,16 @@
 package com.known.web.controller;
 
 import com.known.common.config.UserConfig;
-import com.known.common.enums.Code;
+import com.known.common.enums.CodeEnum;
 import com.known.common.model.SignInfo;
 import com.known.common.model.SessionUser;
-import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.SignInService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -64,14 +60,14 @@ public class SignInController extends BaseController {
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
 			this.signInService.doSignIn(sessionUser);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			logger.error("用户{}签到失败", sessionUser.getUserName());
 		}catch (Exception e) {
-			outResponse.setMsg(Code.SERVERERROR.getDesc());
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setMsg(CodeEnum.SERVERERROR.getDesc());
+			outResponse.setCode(CodeEnum.SERVERERROR);
 			logger.error("用户签到失败,用户名",sessionUser.getUserName());
 		}
 		return outResponse;

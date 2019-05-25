@@ -2,7 +2,7 @@ package com.known.web.controller;
 
 import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
-import com.known.common.enums.Code;
+import com.known.common.enums.CodeEnum;
 import com.known.common.model.*;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
@@ -12,18 +12,16 @@ import com.known.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/userCenter")
 public class UserCenterController extends BaseController {
 	
@@ -91,29 +89,27 @@ public class UserCenterController extends BaseController {
 	}
 	
 
-	@ResponseBody
 	@RequestMapping("/loadShuoShuoDetail")
 	public OutResponse<Object> loadShuoShuoDetail(ShuoShuoQuery shuoShuoQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			ShuoShuo shuoShuo = shuoShuoService.findShuoShuo(shuoShuoQuery);
 			outResponse.setData(shuoShuo);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载说说异常", e);
 			outResponse.setMsg("加载说说出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/loadUserFriend")
 	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
@@ -127,7 +123,6 @@ public class UserCenterController extends BaseController {
 	}
 
 
-	@ResponseBody
 	@RequestMapping("/loadShuoShuos")
 	public OutResponse<Object> loadShuoShuos(HttpSession session,ShuoShuoQuery shuoShuoQuery){
 
@@ -136,64 +131,60 @@ public class UserCenterController extends BaseController {
 		try {
 			PageResult<ShuoShuo> pageResult = shuoShuoService.findShuoShuoList(shuoShuoQuery);
 			outResponse.setData(pageResult);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载说说异常", e);
 			outResponse.setMsg("加载说说出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
 
-	@ResponseBody
 	@RequestMapping("/loadTopic")
 	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			PageResult<Topic> pageResult = topicService.findTopicByPage(topicQuery);
 			outResponse.setData(pageResult);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载话题异常", e);
 			outResponse.setMsg("加载话题出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/loadAsk")
 	public OutResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Ask> pageResult = askService.findAskByPage(askQuery);
 			outResponse.setData(pageResult);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载问答异常", e);
 			outResponse.setMsg("加载问答出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/loadKnowledge")
 	public OutResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
 			PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 			outResponse.setData(pageResult);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("加载知识库异常", e);
 			outResponse.setMsg("加载知识库出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/loadFocus")
 	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery ufq){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -203,12 +194,11 @@ public class UserCenterController extends BaseController {
 		} catch (Exception e) {
 			logger.error("加载关注用户异常", e);
 			outResponse.setMsg("加载关注用户出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/loadFans")
 	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery ufq){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -218,7 +208,7 @@ public class UserCenterController extends BaseController {
 		} catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
 			outResponse.setMsg("加载粉丝出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
@@ -260,12 +250,12 @@ public class UserCenterController extends BaseController {
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
 			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		} 
 		catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
 			outResponse.setMsg("关注出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}
@@ -280,12 +270,12 @@ public class UserCenterController extends BaseController {
 		}catch (BussinessException e) {
 			logger.error("关注异常", e);
 			outResponse.setMsg(e.getLocalizedMessage());
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		} 
 		catch (Exception e) {
 			logger.error("加载用户粉丝异常", e);
 			outResponse.setMsg("关注出错,请重试");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
 	}

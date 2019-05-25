@@ -1,18 +1,18 @@
 package com.known.web.converter;
 
-import com.known.common.enums.MessageStatus;
+import com.known.common.enums.MessageStatusEnum;
 import com.known.common.utils.StringUtil;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToMessageStatusConverter implements
-		Converter<String, MessageStatus> {
+		Converter<String, MessageStatusEnum> {
 
-	public MessageStatus convert(String source) {
+	public MessageStatusEnum convert(String source) {
 		String value = source.trim();
 		if(StringUtil.isEmpty(value)){
 			return null;
 		}
-		return MessageStatus.getMessageStatusByType(Integer.parseInt(value));
+		return MessageStatusEnum.getMessageStatusByType(Integer.parseInt(value));
 	}
 
 }

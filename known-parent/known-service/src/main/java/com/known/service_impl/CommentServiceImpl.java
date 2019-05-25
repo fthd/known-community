@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 	public PageResult<Comment> findCommentByPage(CommentQuery commentQuery) {
 		commentQuery.setPid(0);
 		int pageNum = commentQuery.getPageNum() == 1 ? 1 : commentQuery.getPageNum();
-		int pageSize = PageSize.PAGE_SIZE10.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE10.getSize();
 		int count = commentMapper.selectCount(commentQuery);
 		Page page = new Page(pageNum, count, pageSize);
 		commentQuery.setPage(page);
@@ -95,19 +95,19 @@ public class CommentServiceImpl implements CommentService {
 		updateQuery4ArticleCount.setAddCommentCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(comment.getArticleId());
 		Integer articleUserId = null;
-		if(comment.getArticleType() == ArticleType.TOPIC){
+		if(comment.getArticleType() == ArticleTypeEnum.TOPIC){
 			this.topicMapper.updateInfoCount(updateQuery4ArticleCount);
 			TopicQuery topicQuery = new TopicQuery();
 			topicQuery.setTopicId(comment.getArticleId());
 			articleUserId = this.topicMapper.selectList(topicQuery).get(0).getUserId();
 		}
-		else if(comment.getArticleType() == ArticleType.KNOWLEDGE){
+		else if(comment.getArticleType() == ArticleTypeEnum.KNOWLEDGE){
 			this.KnowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 			KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
 			knowledgeQuery.setKnowledgeId(comment.getArticleId());
 			articleUserId = this.KnowledgeMapper.selectList(knowledgeQuery).get(0).getUserId();
 		}
-		else if(comment.getArticleType() == ArticleType.Ask){
+		else if(comment.getArticleType() == ArticleTypeEnum.Ask){
 			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
 			AskQuery askQuery = new AskQuery();
 			askQuery.setAskId(comment.getArticleId());
@@ -128,7 +128,7 @@ public class CommentServiceImpl implements CommentService {
 		messageParams.setArticleId(comment.getArticleId());
 		messageParams.setArticleType(comment.getArticleType());
 		messageParams.setArticleUserId(articleUserId);
-		messageParams.setMessageType(MessageType.COMMENT_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.COMMENT_MESSAGE);
 		messageParams.setSendUserName(comment.getUserName());
 		messageParams.setSendUserId(comment.getUserId());
 		messageParams.setReceiveUserIds(userIds);

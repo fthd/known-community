@@ -42,7 +42,7 @@
         $(this).trigger(that.options.trigger, [true]);
       });
 
-      // manage singleton
+      // admin-system singleton
       this.$element.on('show.bs.confirmation', function(e) {
         if (that.options.singleton) {
           // close all other popover already initialized
@@ -54,7 +54,7 @@
     }
 
     if (!this.options._isDelegate) {
-      // manage popout
+      // admin-system popout
       this.eventBody = false;
       this.uid = this.$element[0].id || this.getUID('group_');
 

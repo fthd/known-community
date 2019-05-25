@@ -1,6 +1,6 @@
 package com.known.common.vo;
 
-import com.known.common.enums.Code;
+import com.known.common.enums.CodeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OutResponse<T> {
 
-    private Code code;
+    private CodeEnum code;
 
     private String msg;
 

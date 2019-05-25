@@ -10,14 +10,16 @@ import com.known.service.IStatisticalDataService;
 import com.known.service.LoginLogService;
 import com.known.service.SysLogService;
 import com.known.service.TaskService;
-import com.known.annotation.RequirePermissions;
+import com.known.web.annotation.RequirePermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/console")
 public class ConsoleController {
 
@@ -36,15 +38,14 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:statistics:list")
 	@RequestMapping("/statistics/list")
-	public String statistics() {
-		return "page/adminpage/statistics";
+	public ModelAndView statistics() {
+		return new ModelAndView("/page/admin-system/console/statistics");
 	}
 	
 	@RequirePermissions(key="console:statistics:list")
-	@ResponseBody
 	@RequestMapping("/statistics/load")
 	public OutResponse<Object> statisticsLoad(){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			List<Echart> list = this.iStatisticalDataService.findEcharts();
 			outResponse.setData(list);
@@ -60,16 +61,15 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:task:list")
 	@RequestMapping("/task/list")
-	public String task() {
-		return "page/adminpage/task";
+	public ModelAndView task() {
+		return new ModelAndView("/page/admin-system/console/task");
 	}
 	
 	
 	@RequirePermissions(key="console:task:list")
-	@ResponseBody
 	@RequestMapping("/task/load")
 	public OutResponse<Object> taskLoad(){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			List<Task> tasks = this.taskService.findTaskList();
 			outResponse.setData(tasks);
@@ -83,10 +83,9 @@ public class ConsoleController {
 	}
 	
 	@RequirePermissions(key="console:task:delete")
-	@ResponseBody
 	@RequestMapping("/task/delete")
 	public OutResponse<Object> taskDelete(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.taskService.deleteTask(ids);
 		} catch (BussinessException e) {
@@ -99,10 +98,9 @@ public class ConsoleController {
 	}
 	
 	@RequirePermissions(key="console:task:pause")
-	@ResponseBody
 	@RequestMapping("/task/pause")
 	public OutResponse<Object> taskPause(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.taskService.pauseTask(ids);
 		} catch (BussinessException e) {
@@ -115,10 +113,9 @@ public class ConsoleController {
 	}
 	
 	@RequirePermissions(key="console:task:excute")
-	@ResponseBody
 	@RequestMapping("/task/excute")
 	public OutResponse<Object> taskExcute(Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.taskService.excuteTask(ids);
 		} catch (BussinessException e) {
@@ -131,10 +128,9 @@ public class ConsoleController {
 	}
 	
 	@RequirePermissions(key="console:task:save")
-	@ResponseBody
 	@RequestMapping("/task/save")
 	public OutResponse<Object> taskAdd(Task task, boolean isImmediateExcute){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			if(task.getId() == null){
 				this.taskService.addTask(task, isImmediateExcute);
@@ -151,10 +147,9 @@ public class ConsoleController {
 		return outResponse;
 	}
 	
-	@ResponseBody
 	@RequestMapping("/task/update")
 	public OutResponse<Object> taskUpdate(Task task, boolean isImmediateExcute){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			this.taskService.updateTask(task, isImmediateExcute);
 		} catch (BussinessException e) {
@@ -168,12 +163,11 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:loginlog:list")
 	@RequestMapping("/loginlog/list")
-	public String loginlog() {
-		return "page/adminpage/loginlog";
+	public ModelAndView loginlog() {
+		return new ModelAndView("/page/admin-system/console/loginlog");
 	}
 	
 	@RequirePermissions(key="console:loginlog:list")
-	@ResponseBody
 	@RequestMapping("/loginlog/load")
 	public OutResponse<Object> loginLogLoad(){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -191,12 +185,11 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:syslog:list")
 	@RequestMapping("/syslog/list")
-	public String syslog() {
-		return "page/adminpage/syslog";
+	public ModelAndView syslog() {
+		return new ModelAndView("/page/admin-system/console/syslog");
 	}
 	
 	@RequirePermissions(key="console:syslog:list")
-	@ResponseBody
 	@RequestMapping("/syslog/load")
 	public OutResponse<Object> sysLogLoad(){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
@@ -211,15 +204,14 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:userlocation:list")
 	@RequestMapping("/userlocation/list")
-	public String userlocation() {
-		return "page/adminpage/userlocation";
+	public ModelAndView userlocation() {
+		return new ModelAndView("/page/admin-system/console/userlocation");
 	}
 	
 	@RequirePermissions(key="console:userlocation:list")
-	@ResponseBody
 	@RequestMapping("/userlocation/load")
 	public OutResponse<Object> userlocationLoad(){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			List<LoginLog> list = loginLogService.findLoginLogGroupByIp();
 			outResponse.setData(list);
@@ -231,8 +223,8 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:druid:list")
 	@RequestMapping("/druid/list")
-	public String druid() {
-		return "page/adminpage/druid";
+	public ModelAndView druid() {
+		return new ModelAndView("/page/admin-system/console/druid");
 	}
 	
 }

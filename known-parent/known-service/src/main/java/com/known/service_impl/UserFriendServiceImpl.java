@@ -1,6 +1,6 @@
 package com.known.service_impl;
 
-import com.known.common.enums.PageSize;
+import com.known.common.enums.PageSizeEnum;
 import com.known.common.model.User;
 import com.known.common.model.UserFriend;
 import com.known.common.vo.Page;
@@ -27,7 +27,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 	public PageResult<UserFriend> findFriendList(
 			UserFriendQuery userFriendQuery) {
 		int count = userFriendMapper.selectCount(userFriendQuery);
-		int size = PageSize.PAGE_SIZE21.getSize();
+		int size = PageSizeEnum.PAGE_SIZE21.getSize();
 		int pageNum = 1;
 		if(userFriendQuery.getPageNum() != 1){
 			pageNum = userFriendQuery.getPageNum();
@@ -40,7 +40,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 
 	public PageResult<UserFriend> findFansList(UserFriendQuery userFriendQuery) {
 		int count = userFriendMapper.selectCount(userFriendQuery);
-		int size = PageSize.PAGE_SIZE21.getSize();
+		int size = PageSizeEnum.PAGE_SIZE21.getSize();
 		int pageNum = 1;
 		if(userFriendQuery.getPageNum() != 1){
 			pageNum = userFriendQuery.getPageNum();

@@ -1,7 +1,7 @@
 package com.known.manager.query;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.FileTopicType;
+import com.known.common.enums.FileTopicTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +14,7 @@ public class AttachmentQuery extends BaseQuery {
 
     private Integer topicId;
     
-    private FileTopicType fileTopicType;
+    private FileTopicTypeEnum fileTopicType;
 
     
 }

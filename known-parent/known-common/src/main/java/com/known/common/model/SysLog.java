@@ -20,24 +20,8 @@ public class SysLog {
     private String clientIp;
 
     private String address;
-    
+
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
-
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
-    }
-
-    public void setOpContent(String opContent) {
-        this.opContent = opContent == null ? null : opContent.trim();
-    }
-
-    public void setClientIp(String clientIp) {
-        this.clientIp = clientIp == null ? null : clientIp.trim();
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
 
 }

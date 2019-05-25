@@ -2,7 +2,7 @@ package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.utils.DateUtil;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.Date;
 public class Collection{
 	private Integer articleId;
 
-    private ArticleType articleType;
+    private ArticleTypeEnum articleType;
 
     private Integer userId;
     

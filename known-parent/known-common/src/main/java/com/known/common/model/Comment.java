@@ -2,7 +2,7 @@ package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.utils.CustomDateSerializer;
 import com.known.common.utils.DateUtil;
@@ -34,7 +34,7 @@ public class Comment {
 
     private String sourceFrom;
 
-    private ArticleType articleType;
+    private ArticleTypeEnum articleType;
 
     private String userName;
 

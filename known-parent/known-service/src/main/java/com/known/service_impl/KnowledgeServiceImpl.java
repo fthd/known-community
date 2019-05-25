@@ -52,7 +52,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 			KnowledgeQuery knowledgeQuery) {
 		knowledgeQuery.setStatus(StatusEnum.AUDIT);
 		int count = this.knowledgeMapper.selectCount(knowledgeQuery);
-		int pageSize = PageSize.PAGE_SIZE20.getSize();
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int pageNum = knowledgeQuery.getPageNum() == 1 ? 1 : knowledgeQuery.getPageNum();
 		Page page = new Page(pageNum, count, pageSize);
 		knowledgeQuery.setPage(page);
@@ -90,7 +90,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 				){
 			throw new BussinessException("话题不存在,或已删除");
 		}
-		knowledge.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicType.KNOWLEDGE));
+		knowledge.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicTypeEnum.KNOWLEDGE));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(knowledgeId);
@@ -136,15 +136,15 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setArticleId(knowledge.getKnowledgeId());
-			attachment.setFileTopicType(FileTopicType.KNOWLEDGE);
+			attachment.setFileTopicType(FileTopicTypeEnum.KNOWLEDGE);
 			this.attachmentService.addAttachment(attachment);
 		}
 		
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(knowledge.getKnowledgeId());
-		messageParams.setArticleType(ArticleType.KNOWLEDGE);
+		messageParams.setArticleType(ArticleTypeEnum.KNOWLEDGE);
 		messageParams.setArticleUserId(knowledge.getUserId());
-		messageParams.setMessageType(MessageType.AT_ARTICLE_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.AT_ARTICLE_MESSAGE);
 		messageParams.setSendUserName(knowledge.getUserName());
 		messageParams.setSendUserId(knowledge.getUserId());
 		messageParams.setReceiveUserIds(userIds);

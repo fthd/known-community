@@ -3,7 +3,7 @@ package com.known.common.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.DateTimePatternEnum;
-import com.known.common.enums.MessageStatus;
+import com.known.common.enums.MessageStatusEnum;
 import com.known.common.utils.DateUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class Message {
     
     private String createTimeString;
     
-    private MessageStatus status;
+    private MessageStatusEnum status;
 
     private String description;
 

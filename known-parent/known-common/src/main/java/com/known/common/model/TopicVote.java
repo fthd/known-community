@@ -2,7 +2,7 @@ package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.VoteType;
+import com.known.common.enums.VoteTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ public class TopicVote {
 
     private Integer topicId;
 
-    private VoteType voteType;
+    private VoteTypeEnum voteType;
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date endDate;

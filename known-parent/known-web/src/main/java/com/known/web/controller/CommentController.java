@@ -1,10 +1,9 @@
 package com.known.web.controller;
 
 import com.known.common.config.UserConfig;
-import com.known.common.enums.Code;
+import com.known.common.enums.CodeEnum;
 import com.known.common.model.Comment;
 import com.known.common.model.SessionUser;
-import com.known.common.utils.Constants;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -13,8 +12,6 @@ import com.known.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,22 +37,21 @@ public class CommentController extends BaseController {
 		 try {
 			 PageResult<Comment> pageResult = this.commentService.findCommentByPage(commentQuery);
 			 outResponse.setData(pageResult);
-			 outResponse.setCode(Code.SUCCESS);
+			 outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("{}加载评论出错", e);
 			outResponse.setMsg("加载评论出错");
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		 return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/addComment")
 	public OutResponse<Object> addComment(HttpSession session, Comment comment){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
@@ -63,13 +59,13 @@ public class CommentController extends BaseController {
 		try {
 			this.commentService.addComment(comment);
 			outResponse.setData(comment);
-			 outResponse.setCode(Code.SUCCESS);
+			 outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg(e.getLocalizedMessage());
 			logger.error("{}评论出错", sessionUser.getUserName());
 		}catch (Exception e) {
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 			outResponse.setMsg("服务器出错");
 			logger.error("{}评论出错", sessionUser.getUserName());
 		}
@@ -82,7 +78,7 @@ public class CommentController extends BaseController {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
@@ -90,13 +86,13 @@ public class CommentController extends BaseController {
 		try {
 			this.commentService.addComment(comment);
 			outResponse.setData(comment);
-			outResponse.setCode(Code.SUCCESS);
+			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
-			outResponse.setCode(Code.BUSSINESSERROR);
+			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg(e.getLocalizedMessage());
 			logger.error("{}评论出错", sessionUser.getUserName());
 		}catch (Exception e) {
-			outResponse.setCode(Code.SERVERERROR);
+			outResponse.setCode(CodeEnum.SERVERERROR);
 			outResponse.setMsg("服务器出错");
 			logger.error("{}评论出错", sessionUser.getUserName());
 		}

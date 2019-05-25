@@ -3,7 +3,7 @@ package com.known.service_impl;
 import com.known.common.echart.Echart;
 import com.known.common.echart.Series;
 import com.known.common.echart.XAxis;
-import com.known.common.enums.ArticleType;
+import com.known.common.enums.ArticleTypeEnum;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.model.*;
 import com.known.common.utils.DateUtil;
@@ -81,15 +81,15 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 		CommentQuery commentQuery = new CommentQuery();
 		commentQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		commentQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		commentQuery.setArticleType(ArticleType.TOPIC);
+		commentQuery.setArticleType(ArticleTypeEnum.TOPIC);
 		int topicCommentCount = commentMapper.selectCount(commentQuery);
 		statistics.setTopicCommentCount(topicCommentCount);
 		
-		commentQuery.setArticleType(ArticleType.KNOWLEDGE);
+		commentQuery.setArticleType(ArticleTypeEnum.KNOWLEDGE);
 		int knowledgeCommentCount = commentMapper.selectCount(commentQuery);
 		statistics.setKnowledgeCommentCount(knowledgeCommentCount);
 		
-		commentQuery.setArticleType(ArticleType.Ask);
+		commentQuery.setArticleType(ArticleTypeEnum.Ask);
 		int askCommentCount = commentMapper.selectCount(commentQuery);
 		statistics.setAskCommentCount(askCommentCount);;
 		
@@ -217,6 +217,6 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 		calendar.add(Calendar.DAY_OF_MONTH, -6);
 		statisticsQuery.setStartDate(calendar.getTime());
 		statisticsQuery.setEndDate(new Date());
-		return this.statisticsMapper.selectList(statisticsQuery);
+		return statisticsMapper.selectList(statisticsQuery);
 	}
 }

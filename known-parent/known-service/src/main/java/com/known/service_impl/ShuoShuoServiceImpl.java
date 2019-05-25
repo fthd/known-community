@@ -67,9 +67,9 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		this.userService.addMark(MarkEnum.MARK_SHUOSHUO.getMark(), shuoShuo.getUserId());
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(shuoShuo.getId());
-		messageParams.setArticleType(ArticleType.SHUOSHUO);
+		messageParams.setArticleType(ArticleTypeEnum.SHUOSHUO);
 		messageParams.setArticleUserId(shuoShuo.getUserId());
-		messageParams.setMessageType(MessageType.AT_ARTICLE_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.AT_ARTICLE_MESSAGE);
 		messageParams.setSendUserName(shuoShuo.getUserName());
 		messageParams.setSendUserId(shuoShuo.getUserId());
 		messageParams.setReceiveUserIds(userIdSet);
@@ -104,12 +104,12 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		Integer  shuoShuoId= shuoShuoComment.getShuoShuoId();
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(shuoShuoId);
-		messageParams.setArticleType(ArticleType.SHUOSHUO);
+		messageParams.setArticleType(ArticleTypeEnum.SHUOSHUO);
 		ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
 		shuoShuoQuery.setShuoShuoId(shuoShuoId);
 		ShuoShuo ss = findShuoShuo(shuoShuoQuery);
 		messageParams.setArticleUserId(ss.getUserId());
-		messageParams.setMessageType(MessageType.COMMENT_MESSAGE);
+		messageParams.setMessageType(MessageTypeEnum.COMMENT_MESSAGE);
 		messageParams.setSendUserName(shuoShuoComment.getUserName());
 		messageParams.setSendUserId(shuoShuoComment.getUserId());
 		userIdSet.add(ss.getUserId());
@@ -130,7 +130,7 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 
 	public PageResult<ShuoShuo> findShuoShuoList(ShuoShuoQuery shuoShuoQuery) {
 		int count = this.shuoShuoMapper.selectCount(shuoShuoQuery);
-		int size = PageSize.PAGE_SIZE10.getSize();
+		int size = PageSizeEnum.PAGE_SIZE10.getSize();
 		int pageNum = 1;
 		if(shuoShuoQuery.getPageNum() != 1){
 			pageNum = shuoShuoQuery.getPageNum();
