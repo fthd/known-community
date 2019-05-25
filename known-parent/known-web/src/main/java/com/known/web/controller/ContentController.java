@@ -1,13 +1,18 @@
 package com.known.web.controller;
 
+import com.known.common.model.Category;
+import com.known.common.model.SysRes;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
+import com.known.manager.query.CategoryQuery;
 import com.known.service.*;
 import com.known.web.annotation.RequirePermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/content")
@@ -25,11 +30,14 @@ public class ContentController {
 	@Autowired
 	private AskService askService;
 
+	@Autowired
+	private CategoryService categoryService;
+
 	
 	@RequirePermissions(key="content:shuoshuo:list")
 	@RequestMapping("/shuoshuo/list")
 	public ModelAndView shuoshuolist(){
-		return new ModelAndView("page/admin-system/content/shuoshuo");
+		return new ModelAndView("/page/admin-system/content/shuoshuo");
 	}
 	
 	@RequirePermissions(key="content:shuoshuo:list")
@@ -57,7 +65,7 @@ public class ContentController {
 	@RequirePermissions(key="content:knowledge:list")
 	@RequestMapping("/knowledge/list")
 	public ModelAndView knowledgelist(){
-		return new ModelAndView("page/admin-system/content/knowledge");
+		return new ModelAndView("/page/admin-system/content/knowledge");
 	}
 	
 	
@@ -102,7 +110,7 @@ public class ContentController {
 	@RequirePermissions(key="content:topic:list")
 	@RequestMapping("/topic/list")
 	public ModelAndView topiclist(){
-		return new ModelAndView("page/admin-system/content/topic");
+		return new ModelAndView("/page/admin-system/content/topic");
 	}
 	
 	
@@ -191,7 +199,7 @@ public class ContentController {
 	@RequirePermissions(key="content:ask:list")
 	@RequestMapping("/ask/list")
 	public ModelAndView asklist(){
-		return new ModelAndView("page/admin-system/content/ask");
+		return new ModelAndView("/page/admin-system/content/ask");
 	}
 	
 	
@@ -215,4 +223,51 @@ public class ContentController {
 		}
 		 return outResponse;
 	}
+
+	@RequirePermissions(key="content:category:list")
+	@RequestMapping("/category/list")
+	public ModelAndView category(){
+		return new ModelAndView("/page/admin-system/content/category");
+	}
+
+	@RequirePermissions(key="content:category:list")
+	@RequestMapping("/getCatList")
+	public Object getCatList() {
+		return categoryService.findCategoryList(new CategoryQuery());
+	}
+
+
+	@RequirePermissions(key="content:category:delete")
+	@RequestMapping("/category/delete")
+	public OutResponse<Object> categoryDelete(Integer[] ids) {
+		OutResponse<Object> outResponse = new OutResponse<>();
+		try {
+			categoryService.deleteCategory(ids);
+		}catch (BussinessException e) {
+			outResponse.setMsg(e.getLocalizedMessage());
+		}catch (Exception e) {
+
+		}
+		return outResponse;
+	}
+
+
+	@RequirePermissions(key="content:category:save")
+	@RequestMapping("/category/save")
+	public OutResponse<Object> categorySave(Category category) {
+		OutResponse<Object> outResponse = new OutResponse<>();
+		try {
+			if(category.getCategoryId() == null){
+				categoryService.addCategory(category);
+			} else{
+				categoryService.updateCategory(category);
+			}
+		}catch (BussinessException e) {
+			outResponse.setMsg(e.getLocalizedMessage());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return outResponse;
+	}
+
 }

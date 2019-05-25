@@ -1,5 +1,5 @@
 <#include "../common/layout/__mainlayout.html">
-<#assign navLink='manage:res:list' />
+<#assign navLink='content:category:list' />
 <@mainlayout>
 <div class="row-content am-cf">
 	<div class="row">
@@ -13,7 +13,7 @@
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-comments"></i>资源管理
+                                    <i class="fa fa-comments"></i>分类管理
                                 </div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse"> </a>
@@ -25,7 +25,7 @@
                             <div class="portlet-body">
                             
 	                            <div id="toolbar" class="btn-group">
-	                             <@hasperm key="manage:res:save">
+	                             <@hasperm key="content:category:save">
 	                                <button id="btn_add" type="button" class="btn btn-success">
 	                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
 	                                </button>
@@ -33,7 +33,7 @@
 	                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
 	                                </button>
 	                                </@hasperm>
-	                                <@hasperm key="manage:res:delete">
+	                                <@hasperm key="content:category:delete">
 	                                <button id="btn_delete" type="button" class="btn btn-danger">
 	                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 	                                </button>
@@ -47,19 +47,18 @@
                                            data-search="true"
                                            data-advanced-search="true"
                                            data-id-table="advancedTable" data-toolbar="#toolbar"
-                                           data-url="${realpath}/manage/getRess">
+                                           data-url="${realpath}/content/getCatList">
                                         <thead>
                                             <tr>
                                                 <th data-checkbox="true"></th>
-                                                <th data-field="id" data-sortable="true">ID</th>
+                                                <th data-field="categoryId" data-sortable="true">ID</th>
                                                 <th data-field="pid" data-sortable="true">父节点ID</th>
                                                 <th data-field="name" data-sortable="true">名称</th>
-                                                <th data-field="url" data-sortable="true">url</th>
-                                                <th data-field="des" data-sortable="true" >描述</th>
-                                                <th data-field="type" data-sortable="true" data-formatter="typeFormatter">类型</th>
-                                                <th data-field="enabled" data-sortable="true" data-formatter="enabledFormatter">是否启用</th>
-                                                <th data-field="key" data-sortable="true" >key</th>
-                                                <th data-field="modifydate" data-sortable="true" >修改时间</th>
+                                                <th data-field="desc" data-sortable="true">描述</th>
+                                                <th data-field="rank" data-sortable="true" >排名</th>
+                                                <th data-field="showInTopic" data-sortable="true" data-formatter="topicFormatter">话题分类</th>
+                                                <th data-field="showInKnowledge" data-sortable="true" data-formatter="knowledgeFormatter">知识库分类</th>
+                                                <th data-field="showInAsk" data-sortable="true" data-formatter="askFormatter">问答分类</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -83,7 +82,7 @@
     </div>
     <div class="modal-body">
               <form class="form-horizontal" role="form">
-              <input type="hidden" name="id" id="id" > 
+                  <input type="hidden" name="categoryId" id="categoryId" >
                   <div class="form-body">
                        <div class="form-group">
                           <label class="col-md-3 control-label">名称</label>
@@ -91,14 +90,14 @@
                               <input type="text" class="form-control" name="name" id="name" value=""> </div>
                       </div>
                       <div class="form-group">
-                          <label class="col-md-3 control-label">url</label>
+                          <label class="col-md-3 control-label">描述</label>
                           <div class="col-md-9">
-                              <input type="text" class="form-control" name="url" id="url" value=""> </div>
+                              <input type="text" class="form-control" name="desc" id="desc" value=""> </div>
                       </div>
                        <div class="form-group">
-                          <label class="col-md-3 control-label">key</label>
+                          <label class="col-md-3 control-label">排名</label>
                           <div class="col-md-9">
-                              <input type="text" class="form-control" name="key" id="key" value=""> </div>
+                              <input type="text" class="form-control" name="rank" id="rank" > </div>
                       </div>
                       <div class="form-group">
                           <label class="col-md-3 control-label">父菜单</label>
@@ -108,27 +107,31 @@
                            </div>
                       </div>
                        <div class="form-group">
-                          <label class="col-md-3 control-label">是否启用</label>
+                          <label class="col-md-3 control-label">话题分类</label>
                           <div class="col-md-9">
-                              <select class="form-control" name="enabled" id="enabled">
-                                            <option value="1">是</option>
-                                            <option value="0">否</option>
+                              <select class="form-control" name="showInTopic" id="showInTopic">
+                                            <option value="Y">是</option>
+                                            <option value="N">否</option>
                    			</select>
                            </div>
                       </div>
                       <div class="form-group">
-                          <label class="col-md-3 control-label">类型</label>
+                          <label class="col-md-3 control-label">知识库分类</label>
                           <div class="col-md-9">
-                              <select class="form-control" name="type" id="type">
-                                            <option value="1">菜单</option>
-                                            <option value="2">权限</option>
-                   			</select>
-                           </div>
+                              <select class="form-control" name="showInKnowledge" id="showInKnowledge">
+                                  <option value="Y">是</option>
+                                  <option value="N">否</option>
+                              </select>
+                          </div>
                       </div>
-                     <div class="form-group">
-                          <label class="col-md-3 control-label">描述</label>
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">问答分类</label>
                           <div class="col-md-9">
-                              <input type="text" class="form-control" name="des" id="des"> </div>
+                              <select class="form-control" name="showInAsk" id="showInAsk">
+                                  <option value="Y">是</option>
+                                  <option value="N">否</option>
+                              </select>
+                          </div>
                       </div>
                   </div>
               </form>
@@ -142,27 +145,39 @@
 
 </@mainlayout>
 <script>
-function typeFormatter(value, row) {
-    
-    if (row.type == "1") {
-        return ' <span class="label label-sm label-success"> 菜单</span>';
+
+    function topicFormatter(value, row) {
+
+        if (row.showInTopic == "Y") {
+            return ' <span class="label label-sm label-success"> 是</span>';
+        }
+        else {
+            return ' <span class="label label-sm label-danger"> 否</span>';
+        }
+
+    }
+
+function knowledgeFormatter(value, row) {
+
+    if (row.showInKnowledge == "Y") {
+        return ' <span class="label label-sm label-success"> 是</span>';
     }
     else {
-        return ' <span class="label label-sm label-warning"> 按钮</span>';
+        return ' <span class="label label-sm label-danger"> 否</span>';
     }
-  
+
+}
+function askFormatter(value, row) {
+
+    if (row.showInAsk == "Y") {
+        return ' <span class="label label-sm label-success"> 是</span>';
+    }
+    else {
+        return ' <span class="label label-sm label-danger"> 否</span>';
+    }
+
 }
 
-function enabledFormatter(value, row) {
-    
-    if (row.enabled == "1") {
-        return ' <span class="label label-sm label-success"> 启用</span>';
-    }
-    else {
-        return ' <span class="label label-sm label-danger"> 禁用</span>';
-    }
-  
-}
 //
  function loadMenu(){
  	var pid =  $("#pid");
@@ -170,7 +185,7 @@ function enabledFormatter(value, row) {
  	var root = $("<option value='0' >根目录</option>");
  	root.appendTo(pid);
  	$.ajax({
- 		url: '${realpath}/manage/res/allmenu',
+ 		url: '${realpath}/content/category/allmenu',
  		type: 'post',
  		dataType: 'json',
  		success:function(res){
@@ -219,7 +234,7 @@ $(document).ready(function() {
        d.close().remove();
    }, 1000);
        $.ajax({
-           url: '${realpath}/manage/res/delete',
+           url: '${realpath}/content/category/delete',
            type: 'POST',
            dataType: 'json',
            data: arr,
@@ -283,10 +298,8 @@ $(document).ready(function() {
    });
    function update(select){
    	$("#name").val(select.name);
-   	$("#url").val(select.url);
+   	$("#desc").val(select.desc);
    	$("#id").val(select.id);
-   	$("#key").val(select.key);
-   	$("#seq").val(select.seq);
    	$("#pid").val(select.pid);
    	$("#enabled").val(select.enabled);
    	$("#type").val(select.type);
@@ -297,7 +310,7 @@ $(document).ready(function() {
 
    $("#btn_save").click(function(event) {
    	 $.ajax({
-	 	url: '${realpath}/manage/res/save',
+	 	url: '${realpath}/content/category/save',
 	 	type: 'post',
 	 	dataType: 'json',
 	 	data: $("form").serialize(),

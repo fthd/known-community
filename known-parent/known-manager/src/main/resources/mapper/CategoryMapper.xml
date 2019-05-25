@@ -102,4 +102,24 @@
 	category_id
 )t ON c.category_id=t.category_id ORDER BY rank   		]]>
 	</select>
+
+    <delete id="deleteIds" >
+        delete from known_category
+        where id  in (<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+        or pid in(<foreach collection="ids" separator="," item="id"> #{id}</foreach>)
+    </delete>
+
+    <delete id="deletePermission">
+        DELETE FROM known_category
+        WHERE id  IN (
+            SELECT a.id FROM (
+                SELECT id FROM known_category  WHERE pid IN (
+                    SELECT id FROM known_category WHERE pid IN(
+                      <foreach collection="ids" separator="," item="id"> #{id}</foreach>
+                    )
+                )
+            ) a
+        )
+    </delete>
+
 </mapper>

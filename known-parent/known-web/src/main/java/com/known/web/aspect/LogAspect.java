@@ -97,15 +97,19 @@ public class LogAspect {
 					loginLog.setLoginIp(ip);
 					loginLog.setLoginTime(new Date());
 					Point ipPoint = PointUtil.getPoint(ip);
-					Data data = ipPoint.getData();
-					if (data != null) {
-						// 纬度
-						loginLog.setLat(data.getLat());
-						// 城市
-						loginLog.setAddress(data.getCity());
-						// 经度
-						loginLog.setLng(data.getLnt());
+					if(ipPoint != null) {
+						Data data = ipPoint.getData();
+						if (data != null) {
+							// 纬度
+							loginLog.setLat(data.getLat());
+							// 城市
+							loginLog.setAddress(data.getCity());
+							// 经度
+							loginLog.setLng(data.getLnt());
+						}
 					}
+
+
 					String account = request.getParameter("account");
 					// 用户名
 					loginLog.setAccount(account);

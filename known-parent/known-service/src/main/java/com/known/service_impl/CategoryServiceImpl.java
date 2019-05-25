@@ -2,12 +2,19 @@ package com.known.service_impl;
 
 import com.known.cache.CategoryCache;
 import com.known.common.model.Category;
+import com.known.common.model.SysRes;
+import com.known.common.utils.StringUtil;
+import com.known.exception.BussinessException;
 import com.known.manager.mapper.CategoryMapper;
 import com.known.manager.query.CategoryQuery;
 import com.known.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -75,6 +82,40 @@ public class CategoryServiceImpl implements CategoryService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
+	public void deleteCategory(Integer[] ids) throws BussinessException {
+		if(ids == null || ids.length == 0){
+			throw new BussinessException("参数错误");
+		}
+		// 上两级目录
+		categoryMapper.deletePermission(ids);
+		// 下一级目录
+		categoryMapper.deleteIds(ids);
+	}
+
+	@Override
+	public void addCategory(Category category) throws BussinessException {
+		if(StringUtil.isEmpty(category.getName()) || category.getPid() == null
+				|| StringUtil.isEmpty(category.getDesc())
+				|| category.getRank() == null) {
+			throw new BussinessException("参数错误");
+		}
+
+		categoryMapper.insert(category);
+	}
+
+
+	@Override
+	public void updateCategory(Category category) throws BussinessException {
+		if(category.getCategoryId() == null|| StringUtil.isEmpty(category.getName())
+				|| category.getRank() == null)  {
+			throw new BussinessException("参数错误");
+		}
+
+		categoryMapper.update(category);
 	}
 
 }

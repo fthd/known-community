@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,18 +35,18 @@ public class ManageController {
 
 	@RequestMapping("/noperm")
 	public ModelAndView noperm(){
-		return new ModelAndView("/page/admin-system/noperm");
+		return new ModelAndView("page/admin-system/noperm");
 	}
 	
 	@RequestMapping("/manage")
 	public ModelAndView index(){
-		return new ModelAndView("/page/admin-system/index");
+		return new ModelAndView("page/admin-system/index");
 	}
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session){
 		session.invalidate();
-		return new ModelAndView("/page/admin-system/login");
+		return new ModelAndView("page/admin-system/login");
 	}
 
 	/**
@@ -90,12 +91,7 @@ public class ManageController {
 		return outResponse;
 	}
 
-	/**
-	 * 更新用户权限
-	 * @param userIds
-	 * @param roleIds
-	 * @return
-	 */
+	
 	@RequirePermissions(key="manage:user:updateUserRole")
 	@RequestMapping("/user/updateUserRole")
 	public OutResponse<Object> updateUserRole(Integer[] userIds, Integer[] roleIds){
@@ -131,8 +127,7 @@ public class ManageController {
 	@RequirePermissions(key="manage:res:list")
 	@RequestMapping("/res/list")
 	public ModelAndView res(){
-		return new ModelAndView(
-				"page/admin-system/system/res");
+		return new ModelAndView("page/admin-system/system/res");
 	}
 	
 	@RequirePermissions(key="manage:res:list")
@@ -197,7 +192,7 @@ public class ManageController {
 		return new ModelAndView("page/admin-system/system/role");
 	}
 
-	@RequirePermissions(key="admin-system:role:list")
+	@RequirePermissions(key="manage:role:list")
 	@RequestMapping("/role/load")
 	public Object roleLoad() {
 		List<SysRole> list = null;
@@ -228,11 +223,11 @@ public class ManageController {
 	@RequestMapping("/role/save")
 	public OutResponse<Object> roleSave(SysRole sysRole) {
 		OutResponse<Object> outResponse = new OutResponse<>();
+		sysRole.setCreatedate(new Date());
 		try {
 			if(sysRole.getId() == null){
 				sysRoleService.addSysRole(sysRole);
-			}
-			else{
+			} else{
 				sysRoleService.updateSysRole(sysRole);
 			}
 		}catch (BussinessException e) {

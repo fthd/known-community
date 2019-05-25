@@ -33,27 +33,4 @@ public class Category {
     
     List<Category> children = new ArrayList<>();
 
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
-    }
-
-    public void setShowInTopic(String showInTopic) {
-        this.showInTopic = showInTopic == null ? null : showInTopic.trim();
-    }
-
-
-    public void setShowInAsk(String showInAsk) {
-        this.showInAsk = showInAsk == null ? null : showInAsk.trim();
-    }
-
-
-    public void setShowInKnowledge(String showInKnowledge) {
-        this.showInKnowledge = showInKnowledge == null ? null : showInKnowledge.trim();
-    }
-
 }
