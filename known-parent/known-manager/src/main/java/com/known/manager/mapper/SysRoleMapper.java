@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface SysRoleMapper<T, Q> extends BaseMapper<T, Q> {
 
-	void delete(@Param("ids") Integer[] ids);
+	void delete(@Param("ids") String[] ids);
 	
-	List<Integer> selectResourceIdByRoleId(@Param("id") Integer id);
+	List<String> selectResourceIdByRoleId(@Param("id") String id);
 	
 
 }

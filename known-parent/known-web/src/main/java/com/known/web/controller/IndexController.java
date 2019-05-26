@@ -9,6 +9,7 @@ import com.known.service.KnowledgeService;
 import com.known.service.SignInService;
 import com.known.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,7 +47,7 @@ public class IndexController extends  BaseController {
     @RequestMapping("/")
     public ModelAndView index(HttpSession session) {
 
-        Integer userid = this.getUserid(session);
+        String userid = getUserid(session);
         ModelAndView view = new ModelAndView("/page/index");
         if (userid != null) {
             SignInfo signInfo = signInService.findSignInfoByUserid(userid);
@@ -54,7 +55,7 @@ public class IndexController extends  BaseController {
         }
         view.addObject("topics", topicService.findTopicByPage(new TopicQuery()));
         view.addObject("knowledges", knowledgeService.findKnowledgeByPage(new KnowledgeQuery()));
-        view.addObject("asks", this.askService.findAskByPage(new AskQuery()));;
+        view.addObject("asks", askService.findAskByPage(new AskQuery()));;
         return view;
     }
 
@@ -66,10 +67,10 @@ public class IndexController extends  BaseController {
      */
     @RequestMapping("/donate")
     public ModelAndView donate(HttpSession session) {
-        Integer userid = this.getUserid(session);
+        String userid = getUserid(session);
         ModelAndView view = new ModelAndView("/page/donate");
         if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            SignInfo signInfo = signInService.findSignInfoByUserid(userid);
             view.addObject("signInfo", signInfo);
         }
         return view;
@@ -83,10 +84,10 @@ public class IndexController extends  BaseController {
      */
     @RequestMapping("/aboutWebmaster")
     public ModelAndView aboutWebmaster(HttpSession session) {
-        Integer userid = this.getUserid(session);
+        String userid = getUserid(session);
         ModelAndView view = new ModelAndView("/page/aboutWebmaster");
         if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            SignInfo signInfo = signInService.findSignInfoByUserid(userid);
             view.addObject("signInfo", signInfo);
         }
         return view;
@@ -100,13 +101,21 @@ public class IndexController extends  BaseController {
      */
     @RequestMapping("/faq")
     public ModelAndView faq(HttpSession session) {
-        Integer userid = this.getUserid(session);
+        String userid = getUserid(session);
         ModelAndView view = new ModelAndView("/page/FAQ");
         if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            SignInfo signInfo = signInService.findSignInfoByUserid(userid);
             view.addObject("signInfo", signInfo);
         }
         return view;
+    }
+
+    /**
+     *
+     */
+    @RequestMapping("/error404")
+    public ModelAndView error404() {
+        return new ModelAndView("/page/error/404");
     }
 
 }

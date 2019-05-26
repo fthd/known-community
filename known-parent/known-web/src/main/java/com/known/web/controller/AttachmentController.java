@@ -44,8 +44,8 @@ public class AttachmentController extends BaseController{
 	private UrlConfig urlConfig;
 
 	@RequestMapping("/checkDownload")
-	public OutResponse<Boolean> checkDownload(HttpSession session, Integer topicId, Integer attachmentId){
-		OutResponse<Boolean> outResponse = new OutResponse<Boolean>();
+	public OutResponse<Boolean> checkDownload(HttpSession session, String topicId, String attachmentId){
+		OutResponse<Boolean> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(CodeEnum.BUSSINESSERROR);
@@ -72,7 +72,7 @@ public class AttachmentController extends BaseController{
 	
 	@RequestMapping("/downloadAction")
 	public ModelAndView downloadAttachment(HttpSession session, HttpServletRequest request,
-                                           HttpServletResponse response, Integer attachmentId){
+                                           HttpServletResponse response, String attachmentId){
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		ModelAndView view = new ModelAndView("redirect:" + urlConfig.getError_404());
 		InputStream in = null;

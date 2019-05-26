@@ -11,6 +11,7 @@ import com.known.common.model.User;
 import com.known.common.utils.Constants;
 import com.known.common.utils.MailUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.UserVo;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.SysUserRoleMapper;
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService {
         if (findUserByEmail(email) != null) {
             throw new BussinessException("邮箱已存在");
         }
+        user.setUserid(UUIDUtil.getUUID());
         Date date = new Date();
         user.setRegisterTime(date);
         user.setLastLoginTime(date);
@@ -137,7 +139,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public User findUserByUserid(Integer userid) {
+    public User findUserByUserid(String userid) {
         UserQuery userQuery = new UserQuery();
         userQuery.setUserid(userid);
         List<User> userList = userMapper.selectList(userQuery);
@@ -272,16 +274,16 @@ public class UserServiceImpl implements UserService {
         userMapper.update(user);
     }
 
-    public void addMark(int mark, int userid) {
+    public void addMark(int mark, String userid) {
         changeMark(userid, mark);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Integer changeMark(int userid, int mark) {
+    public Integer changeMark(String userid, int mark) {
         return userMapper.changeUserMark(mark, userid);
     }
 
-    public User findUserInfo4UserHome(Integer userId) throws BussinessException {
+    public User findUserInfo4UserHome(String userId) throws BussinessException {
         
         User user = findUserByUserid(userId);
         if (user == null) {
@@ -307,7 +309,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void updatePassword(Integer userId, String oldPassword,
+    public void updatePassword(String userId, String oldPassword,
                                String newPassword) throws BussinessException {
         if (StringUtil.isEmpty(oldPassword) || StringUtil.isEmpty(newPassword) ||
                 oldPassword.length() < Constants.LENGTH_6 || oldPassword.length() > Constants.LENGTH_16 ||
@@ -333,7 +335,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Integer[] userIds) throws BussinessException {
+    public void deleteUser(String[] userIds) throws BussinessException {
         if (userIds.length == 0) {
             throw new BussinessException("参数错误");
         }
@@ -347,7 +349,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
-    public void updateUserRole(Integer userId, Integer[] roleIds) throws BussinessException {
+    public void updateUserRole(String userId, String[] roleIds) throws BussinessException {
         if (userId == null) {
             throw new BussinessException("参数异常");
         }
@@ -366,7 +368,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
-    public void updateBatchUserRole(Integer[] userId, Integer[] roleIds) throws BussinessException {
+    public void updateBatchUserRole(String[] userId, String[] roleIds) throws BussinessException {
         for (int i = 0; i < userId.length; i++) {
             updateUserRole(userId[i], roleIds);
         }
@@ -375,14 +377,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
-    public void markChangeAdvice(Integer[] userIds, Integer mark, String des) throws BussinessException {
+    public void markChangeAdvice(String[] userIds, Integer mark, String des) throws BussinessException {
         if (userIds == null && userIds.length == 0 || mark == null || StringUtil.isEmpty(des) ||
                 des.length() > TextLengthEnum.TEXT_200_LENGTH.getLength()
         ) {
             throw new BussinessException("参数错误");
         }
 
-        Set<Integer> userIdSet = new HashSet<>();
+        Set<String> userIdSet = new HashSet<>();
         for (int i = 0; i < userIds.length; i++) {
             changeMark(userIds[i], mark);
             userIdSet.add(userIds[i]);

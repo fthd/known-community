@@ -15,7 +15,7 @@ public interface UserService {
 	
 	User findUserByEmail(String email);
 
-	User findUserByUserid(Integer userid);
+	User findUserByUserid(String userid);
 	
 	User login(String account, String password) throws BussinessException;
 
@@ -25,9 +25,9 @@ public interface UserService {
 
 	void modifyPassword(String email, String password, String checkcode) throws BussinessException;
 
-	void addMark(int mark, int userid);
+	void addMark(int mark, String userid);
 
-	Integer changeMark(int userid, int mark);
+	Integer changeMark(String userid, int mark);
 
 	/**
 	 * 获取用户信息
@@ -35,7 +35,7 @@ public interface UserService {
 	 * @return
 	 * @throws BussinessException
 	 */
-	User findUserInfo4UserHome(Integer userId) throws BussinessException;
+	User findUserInfo4UserHome(String userId) throws BussinessException;
 
 	void updateUserInfo(User user) throws BussinessException;
 
@@ -47,7 +47,7 @@ public interface UserService {
 	 */
 	void updateUserActivate(String userName, String activationCode) throws BussinessException;
 
-	void updatePassword(Integer userId, String oldPassword, String newPassword) throws BussinessException;
+	void updatePassword(String userId, String oldPassword, String newPassword) throws BussinessException;
 	
 	void updateUserWithoutValidate(User user);
 	
@@ -55,15 +55,15 @@ public interface UserService {
 
 	List<User> findAllUsers();
 	
-	void deleteUser(Integer[] userIds) throws BussinessException;
+	void deleteUser(String[] userIds) throws BussinessException;
 	
 	List<UserVo> findUserVoList();
 	
-	void updateUserRole(Integer userId, Integer[] roleIds)throws BussinessException;
+	void updateUserRole(String userId, String[] roleIds)throws BussinessException;
 	
-	void updateBatchUserRole(Integer[] userId, Integer[] roleIds)throws BussinessException;
+	void updateBatchUserRole(String[] userId, String[] roleIds)throws BussinessException;
 	
-	void markChangeAdvice(Integer[] userIds, Integer mark, String des)throws BussinessException;
+	void markChangeAdvice(String[] userIds, Integer mark, String des)throws BussinessException;
 
 
 }

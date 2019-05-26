@@ -10,11 +10,11 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Like {
-	private Integer articleId;
+	private String articleId;
 
 	private ArticleTypeEnum articleType;
 
-	private Integer userId;
+	private String userId;
 
 	private String title;
 

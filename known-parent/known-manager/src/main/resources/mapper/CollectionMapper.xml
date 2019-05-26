@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.CollectionMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Collection" >
-    <id column="article_id" property="articleId" jdbcType="INTEGER" />
+    <id column="article_id" property="articleId" jdbcType="VARCHAR" />
     <id column="article_type" property="articleType" jdbcType="CHAR" typeHandler="com.known.manager.handler.ArticleTypeHandler" />
-    <id column="article_user_id" property="articleUserId" jdbcType="INTEGER" />
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="article_user_id" property="articleUserId" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -24,12 +24,12 @@
      	<if test="null!= title and title != ''">
      		and title like '%${title}%'
      	</if>
-     	<if test="null!= startDate and ''!= startDate">
+     	<if test="null!= startDate">
      		<![CDATA[ 
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -64,8 +64,8 @@
   <insert id="insert" parameterType="com.known.common.model.Collection" >
     insert into known_collection (article_id, article_type, article_user_id, user_id, 
       title, create_time)
-    values (#{articleId,jdbcType=INTEGER}, #{articleType.type,jdbcType=CHAR}, #{articleUserId,jdbcType=INTEGER}, 
-     #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    values (#{articleId,jdbcType=VARCHAR}, #{articleType.type,jdbcType=CHAR}, #{articleUserId,jdbcType=VARCHAR},
+     #{userId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   
 </mapper>

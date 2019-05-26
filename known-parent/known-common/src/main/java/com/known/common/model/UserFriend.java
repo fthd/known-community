@@ -12,9 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserFriend{
-	private Integer userId;
 
-    private Integer friendUserId;
+	private String userId;
+
+    private String friendUserId;
 
 	private String userIcon;
 
@@ -26,21 +27,6 @@ public class UserFriend{
 
     private Date createTime;
 
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon == null ? null : userIcon.trim();
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public void setFriendUserIcon(String friendUserIcon) {
-        this.friendUserIcon = friendUserIcon == null ? null : friendUserIcon.trim();
-    }
-
-    public void setFriendUserName(String friendUserName) {
-        this.friendUserName = friendUserName == null ? null : friendUserName.trim();
-    }
     @JsonSerialize(using = CustomDateSerializer.class)
     public Date getCreateTime() {
         return createTime;

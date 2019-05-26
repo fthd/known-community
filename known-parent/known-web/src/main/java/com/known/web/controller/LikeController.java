@@ -29,7 +29,7 @@ public class LikeController extends BaseController {
 	@Resource
 	private UserConfig userConfig;
 
-	@RequestMapping("doLike")
+	@RequestMapping("/doLike")
 	public OutResponse<Object> doLike(HttpSession session, Like like){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
@@ -39,7 +39,7 @@ public class LikeController extends BaseController {
 			return outResponse;
 		}
 		try {
-			this.likeService.addLike(like);
+			likeService.addLike(like);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());

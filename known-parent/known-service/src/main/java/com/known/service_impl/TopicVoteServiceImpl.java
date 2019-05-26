@@ -56,28 +56,28 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 			}
 		}
 		topicVote.setEndDate(DateUtil.parse(topicVote.getEndDateString(), DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		this.topicVoteMapper.insert(topicVote);
-		List<TopicVoteDetail> topicVoteDetails = new ArrayList<TopicVoteDetail>();
+		topicVoteMapper.insert(topicVote);
+		List<TopicVoteDetail> topicVoteDetails = new ArrayList<>();
 		for(String title : voteTitle){
 			TopicVoteDetail topicVoteDetail = new TopicVoteDetail();
 			topicVoteDetail.setTitle(title);
 			topicVoteDetail.setVoteId(topicVote.getVoteId());
 			topicVoteDetails.add(topicVoteDetail);
 		}
-		this.topicVoteDetailMapper.insertBatch(topicVoteDetails);
+		topicVoteDetailMapper.insertBatch(topicVoteDetails);
 	}
 
-	public TopicVote getTopicVote(Integer topicId, Integer userId) {
+	public TopicVote getTopicVote(String topicId, String userId) {
 		if(topicId == null){
 			return null;
 		}
-		TopicVote topicVote = this.topicVoteMapper.selectVoteByTopicId(topicId);
+		TopicVote topicVote = topicVoteMapper.selectVoteByTopicId(topicId);
 		boolean canVote = true;
 		if(userId != null){
 			TopicVoteUserQuery topicVoteUserQuery = new TopicVoteUserQuery();
 			topicVoteUserQuery.setUserId(userId);
 			topicVoteUserQuery.setVoteId(topicVote.getVoteId());
-			List<TopicVoteUser> list = this.topicVoteUserMapper.selectList(topicVoteUserQuery);
+			List<TopicVoteUser> list = topicVoteUserMapper.selectList(topicVoteUserQuery);
 			topicVote.setTopicVoteUserList(list);
 			if(!list.isEmpty() || DateUtil.daysBetween(new Date(), topicVote.getEndDate()) < 0){
 				canVote = false;
@@ -94,31 +94,31 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 	}
 
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
-	public TopicVote doVote(Integer voteId, Integer voteType,
-			Integer[] voteDetailId, Integer userId, Integer topicId) throws BussinessException {
+	public TopicVote doVote(String voteId, Integer voteType,
+		String[] voteDetailId, String userId, String topicId) throws BussinessException {
 		if(voteId == null || VoteTypeEnum.getVoteTypeByValue(voteType) == null ||
-				voteDetailId == null ||(VoteTypeEnum.getVoteTypeByValue(voteId) == VoteTypeEnum.SingleSelection &&
+				voteDetailId == null ||(VoteTypeEnum.getVoteTypeByValue(voteType) == VoteTypeEnum.SingleSelection &&
 				voteDetailId.length > 1)){
 			throw new BussinessException("参数错误");
 		}
 		TopicVoteUserQuery topicVoteUserQuery = new TopicVoteUserQuery();
 		topicVoteUserQuery.setUserId(userId);
 		topicVoteUserQuery.setVoteId(voteId);
-		List<TopicVoteUser> topicVoteUserList = this.topicVoteUserMapper.selectList(topicVoteUserQuery);
+		List<TopicVoteUser> topicVoteUserList = topicVoteUserMapper.selectList(topicVoteUserQuery);
 		if(!topicVoteUserList.isEmpty()){
 			throw new BussinessException("您已经投过票了");
 		}
 		Date curDate = new Date();
-		TopicVote topicVote = this.topicVoteMapper.selectVoteByTopicId(topicId);
+		TopicVote topicVote = topicVoteMapper.selectVoteByTopicId(topicId);
 		if(topicVote == null){
 			throw new BussinessException("投票不存在");
 		}
 		if(DateUtil.daysBetween(curDate, topicVote.getEndDate()) < 0){
 			throw new BussinessException("投票已截止");
 		}
-		List<TopicVoteUser> list = new ArrayList<TopicVoteUser>();
-		List<Integer> voteDetailList = new ArrayList<Integer>();
-		for(Integer detailId : voteDetailId){
+		List<TopicVoteUser> list = new ArrayList<>();
+		List<String> voteDetailList = new ArrayList<>();
+		for(String detailId : voteDetailId){
 			TopicVoteUser voteUser = new TopicVoteUser();
 			voteUser.setUserId(userId);
 			voteUser.setVoteDate(curDate);
@@ -126,8 +126,8 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 			list.add(voteUser);
 			voteDetailList.add(detailId);
 		}
-		this.topicVoteUserMapper.insertBatch(list);
-		this.topicVoteDetailMapper.updateVoteCountBatch(voteDetailList);
+		topicVoteUserMapper.insertBatch(list);
+		topicVoteDetailMapper.updateVoteCountBatch(voteDetailList);
 		return getTopicVote(topicId, userId);
 	}
 	

@@ -13,15 +13,15 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShuoShuoComment {
-    private Integer id;
+    private String id;
 
-    private Integer shuoShuoId;
+    private String shuoShuoId;
 
     private String content;
 
     private Date createTime;
 
-    private Integer userId;
+    private String userId;
 
     private String userIcon;
 

@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageQuery extends BaseQuery {
 
-	private Integer id;
+	private String id;
 	
 	private MessageStatusEnum status;
 	
-	private Integer receivedUserId;
+	private String receivedUserId;
 	
-	private Integer[] ids;
+	private String[] ids;
 	
 	private String startDate;
 	

@@ -43,7 +43,7 @@ public class SignInController extends BaseController {
 	public OutResponse<Object> loadSignInfo(HttpSession session){
 
 		OutResponse<Object> outResponse = new OutResponse<>();
-		Integer userid = this.getUserid(session);
+		String userid = this.getUserid(session);
 		SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
 		outResponse.setData(signInfo);
 		return outResponse;

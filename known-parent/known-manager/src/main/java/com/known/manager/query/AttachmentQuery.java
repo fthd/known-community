@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttachmentQuery extends BaseQuery {
 
-	private Integer attachmentId;
+	private String attachmentId;
 
-    private Integer topicId;
+    private String topicId;
     
     private FileTopicTypeEnum fileTopicType;
 

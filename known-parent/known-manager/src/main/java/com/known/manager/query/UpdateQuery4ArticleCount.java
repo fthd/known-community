@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateQuery4ArticleCount extends BaseQuery {
 	
-	private Integer articleId = 0;
+	private String articleId;
 	
 	private boolean addReadCount;
 	

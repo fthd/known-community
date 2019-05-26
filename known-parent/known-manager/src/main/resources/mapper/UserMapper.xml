@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.User" >
-    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
   </resultMap>
   
     <resultMap id="UserVoResultMap" type="com.known.common.vo.UserVo" >
-	    <id column="userid" property="userid" jdbcType="INTEGER" />
+	    <id column="userid" property="userid" jdbcType="VARCHAR" />
 	    <result column="email" property="email" jdbcType="VARCHAR" />
 	    <result column="user_name" property="userName" jdbcType="VARCHAR" />
 	    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
@@ -104,10 +104,10 @@
   	<selectKey keyProperty="userid" resultType="java.lang.Integer" order="AFTER">
   		SELECT LAST_INSERT_ID()
   	</selectKey>
-    insert into known_user (email, user_name, 
+    insert into known_user (userid, email, user_name,
       password, user_icon, user_bg, birthday,
       register_time, last_login_time, activation_code)
-    values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+    values (#{userid,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP},
       #{lastLoginTime,jdbcType=TIMESTAMP},#{activationCode,jdbcType=VARCHAR})

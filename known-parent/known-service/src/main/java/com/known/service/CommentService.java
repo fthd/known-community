@@ -9,7 +9,7 @@ public  interface CommentService {
 	
 	PageResult<Comment> findCommentByPage(CommentQuery commentQuery);
 	
-	Comment getCommentById(Integer commentId);
+	Comment getCommentById(String commentId);
 	
 	void addComment(Comment comment) throws BussinessException;
 	

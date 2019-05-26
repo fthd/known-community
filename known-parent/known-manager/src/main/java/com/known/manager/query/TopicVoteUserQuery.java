@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TopicVoteUserQuery extends BaseQuery {
 
-	private Integer userId;
+	private String userId;
 
-	private Integer voteId;
+	private String voteId;
 	
 }

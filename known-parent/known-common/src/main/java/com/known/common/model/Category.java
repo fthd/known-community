@@ -11,9 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Category {
-    private Integer categoryId;
+    private String categoryId;
 
-    private Integer pid;
+    private String pid;
 
     private String name;
 

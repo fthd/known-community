@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.TaskMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Task" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="task_classz" property="taskClassz" jdbcType="VARCHAR" />
     <result column="task_method" property="taskMethod" jdbcType="VARCHAR" />
     <result column="task_time" property="taskTime" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
   <sql id="Base_Condition" >
     <where >
     	<if test="null!= id">
-     		and id = #{id,jdbcType=INTEGER}
+     		and id = #{id,jdbcType=VARCHAR}
      	</if>
      	<if test="null!= taskClassz">
      		and task_classz = #{taskClassz,jdbcType=VARCHAR}
@@ -81,6 +81,6 @@
         des = #{des,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

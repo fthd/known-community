@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysUserRole {
-    private Integer id;
+    private String id;
 
-    private Integer userId;
+    private String userId;
 
-    private Integer roleId;
+    private String roleId;
 
 }

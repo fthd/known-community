@@ -24,12 +24,12 @@ public class BaseController {
 	public void setUserBaseInfo(Class<?> clazz, Object obj, HttpSession session){
 
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		Integer userId = sessionUser.getUserid();
+		String userId = sessionUser.getUserid();
 		String userName = sessionUser.getUserName();
 		String userIcon = sessionUser.getUserIcon();
 
 		try {
-			Method UserIdMethod = clazz.getDeclaredMethod("setUserId", Integer.class);
+			Method UserIdMethod = clazz.getDeclaredMethod("setUserId", String.class);
 			UserIdMethod.invoke(obj, userId);
 			Method UserNameMethod = clazz.getDeclaredMethod("setUserName", String.class);
 			UserNameMethod.invoke(obj, userName);
@@ -40,7 +40,7 @@ public class BaseController {
 		}
 	}
 	
-	public Integer getUserid(HttpSession session){
+	public String getUserid(HttpSession session){
 
 		Object sessObj = session.getAttribute(userConfig.getSession_User_Key());
 		return sessObj != null ? ((SessionUser)sessObj).getUserid() : null;

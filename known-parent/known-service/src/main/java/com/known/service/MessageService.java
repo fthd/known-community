@@ -12,14 +12,14 @@ public interface MessageService {
 	@Async
 	void createMessage(MessageParams messageParams);
 	
-	Message getMessageById(Integer id, Integer userId);
+	Message getMessageById(String id, String userId);
 	
 	PageResult<Message> findMessageByPage(MessageQuery messageQuery);
 	
 	int findMessageCount(MessageQuery messageQuery);
 	
-	void update(Integer[] ids, Integer userId)throws BussinessException;
+	void update(String[] ids, String userId)throws BussinessException;
 	
-	void delMessage(Integer userId, Integer[] ids)throws BussinessException;
+	void delMessage(String userId, String[] ids)throws BussinessException;
 	
 }

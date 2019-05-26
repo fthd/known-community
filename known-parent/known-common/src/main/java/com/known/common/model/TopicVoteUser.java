@@ -10,9 +10,9 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TopicVoteUser {
-    private Integer voteDetailId;
+    private String voteDetailId;
 
-    private Integer userId;
+    private String userId;
 
     private Date voteDate;
     

@@ -16,8 +16,8 @@
 	<div class="main">
 		<div class="left">
 			<div class="tag">
-				<a href="${realpath}/ask" <#if haveSolved == 0>class="active"</#if>>待解决问题</a>
-				<a href="${realpath}/ask?solveType=1" <#if haveSolved == 1>class="active"</#if>>已解决问题</a>
+				<a href="${realpath}/ask/ask" <#if haveSolved == 0>class="active"</#if>>待解决问题</a>
+				<a href="${realpath}/ask/ask?solveType=1" <#if haveSolved == 1>class="active"</#if>>已解决问题</a>
 			</div>
 			<div class="left-main">
 			<#if (result.page.pageTotal>0)>
@@ -36,7 +36,7 @@
 		        </div>
 		    </#list>
 		    <#else>
-				<div class="no-data">没有话题，赶紧抢沙发吧</div>
+				<div class="no-data">没有问答，赶紧抢沙发吧</div>
 		    </#if>
 		    <div id="page" class="page"></div>
 			</div>

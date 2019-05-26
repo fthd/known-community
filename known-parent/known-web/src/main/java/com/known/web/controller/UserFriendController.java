@@ -45,7 +45,7 @@ public class UserFriendController extends BaseController {
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		int userId = this.getUserid(session);
+		String userId = this.getUserid(session);
 		UserFriendQuery userFriendQuery = new UserFriendQuery();
 		userFriendQuery.setUserId(userId);
 		userFriendQuery.setPageNum(pageNum);

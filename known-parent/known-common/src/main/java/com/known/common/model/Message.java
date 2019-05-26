@@ -15,9 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
-    private Integer id;
+    private String id;
 
-    private Integer receivedUserId;
+    private String receivedUserId;
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date createTime;

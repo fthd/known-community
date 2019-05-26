@@ -7,7 +7,7 @@ public interface TopicVoteService {
 	
 	void addVote(TopicVote topicVote, String[] voteTitle)throws BussinessException;
 	
-	TopicVote getTopicVote(Integer topicId, Integer userId);
+	TopicVote getTopicVote(String topicId, String userId);
 	
-	TopicVote doVote(Integer voteId, Integer voteType, Integer[] voteDetailId, Integer userId, Integer topicId)throws BussinessException;
+	TopicVote doVote(String voteId, Integer voteType, String[] voteDetailId, String userId, String topicId)throws BussinessException;
 }

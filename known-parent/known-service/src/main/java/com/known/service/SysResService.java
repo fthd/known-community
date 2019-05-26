@@ -11,7 +11,7 @@ public interface SysResService {
 	
 	List<SysRes> findAllRes();
 	
-	void deleteSysRes(Integer[] ids)throws BussinessException;
+	void deleteSysRes(String[] ids)throws BussinessException;
 	
 	void addSysRes(SysRes sysRes)throws BussinessException;
 	
@@ -21,7 +21,7 @@ public interface SysResService {
 	
 	List<Tree> findAllTree()throws BussinessException;
 	
-	List<SysRes> findLimitByRoleIds(Set<Integer> roleIds, Integer type);
+	List<SysRes> findLimitByRoleIds(Set<String> roleIds, Integer type);
 	
 	
 }

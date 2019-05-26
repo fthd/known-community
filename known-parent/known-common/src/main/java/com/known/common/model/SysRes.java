@@ -11,9 +11,9 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysRes {
-    private Integer id;
+    private String id;
 
-    private Integer pid;
+    private String pid;
 
     private String name;
 

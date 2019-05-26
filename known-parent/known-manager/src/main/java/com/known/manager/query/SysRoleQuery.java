@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysRoleQuery extends BaseQuery {
 	
-	private Integer id;
+	private String id;
 	
 	private Integer status;
 

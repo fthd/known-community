@@ -136,9 +136,6 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 		List<Integer> knowledgeCommentCounts	= new ArrayList<>();
 		List<Integer> askCounts	= new ArrayList<>();
 		List<Integer> askCommentCounts	= new ArrayList<>();
-		List<Integer> blogCounts	= new ArrayList<>();
-		List<Integer> blogCommentCounts	= new ArrayList<>();
-		List<Integer> examCounts	= new ArrayList<>();
 		List<Integer> userCounts	= new ArrayList<>();
 		List<Integer> activeUserCounts	= new ArrayList<>();
 		for(Statistics statistics : list){
@@ -152,56 +149,42 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 			knowledgeCommentCounts.add(statistics.getKnowledgeCommentCount());
 			askCounts.add(statistics.getAskCount());
 			askCommentCounts.add(statistics.getAskCommentCount());
-			blogCounts.add(statistics.getBlogCount());
-			blogCommentCounts.add(statistics.getBlogCommentCount());
-			examCounts.add(statistics.getExamCount());
 			userCounts.add(statistics.getUserCount());
 			activeUserCounts.add(statistics.getActiveUserCount());
 		}
 		xAxis.setData(dates);
 		
-		List<Series> series = new ArrayList<Series>();
+		List<Series> series = new ArrayList<>();
 		series.add(new Series("签到", signInCounts));
 		Echart signInEchart = new Echart("一周之内的签到", new String[]{"签到"}, xAxis, series);
 		echarts.add(signInEchart);
 		
 		
-		series = new ArrayList<Series>();
+		series = new ArrayList<>();
 		series.add(new Series("说说", shuoshuoCounts));
 		series.add(new Series("说说评论", shuoshuoCommentCounts));
 		Echart shuoshuoEchart = new Echart("一周之内的说说", new String[]{"说说","说说评论"}, xAxis, series);
 		echarts.add(shuoshuoEchart);
 		
-		series = new ArrayList<Series>();
+		series = new ArrayList<>();
 		series.add(new Series("话题", topicCounts));
 		series.add(new Series("话题评论", topicCommentCounts));
 		Echart topicEchart = new Echart("一周之内的话题", new String[]{"话题","话题评论"}, xAxis, series);
 		echarts.add(topicEchart);
 		
-		series = new ArrayList<Series>();
+		series = new ArrayList<>();
 		series.add(new Series("知识库", knowledgeCounts));
 		series.add(new Series("知识库评论", knowledgeCommentCounts));
 		Echart knowledgeEchart = new Echart("一周之内的知识库", new String[]{"知识库","知识库评论"}, xAxis, series);
 		echarts.add(knowledgeEchart);
 		
-		series = new ArrayList<Series>();
+		series = new ArrayList<>();
 		series.add(new Series("提问", askCounts));
 		series.add(new Series("回答", askCommentCounts));
 		Echart askEchart = new Echart("一周之内的问答", new String[]{"提问","回答"}, xAxis, series);
 		echarts.add(askEchart);
 		
-		series = new ArrayList<Series>();
-		series.add(new Series("话题", blogCounts));
-		series.add(new Series("话题评论", blogCommentCounts));
-		Echart blogEchart = new Echart("一周之内的话题", new String[]{"话题","话题评论"}, xAxis, series);
-		echarts.add(blogEchart);
-		
-		series = new ArrayList<Series>();
-		series.add(new Series("考题", examCounts));
-		Echart examEchart = new Echart("一周之内的考题", new String[]{"考题"}, xAxis, series);
-		echarts.add(examEchart);
-		
-		series = new ArrayList<Series>();
+		series = new ArrayList<>();
 		series.add(new Series("新增用户", userCounts));
 		series.add(new Series("活跃用户", activeUserCounts));
 		Echart userEchart = new Echart("一周之内的用户", new String[]{"新增用户","活跃用户"}, xAxis, series);

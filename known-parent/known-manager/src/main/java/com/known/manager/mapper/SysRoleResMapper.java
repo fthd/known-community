@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SysRoleResMapper<T, Q> extends BaseMapper<T, Q> {
-	void insertBatch(@Param("roleId") Integer roleId, @Param("resIds") Integer[] resIds) ;
+	void insertBatch(@Param("roleId") String roleId, @Param("resIds") String[] resIds) ;
 }

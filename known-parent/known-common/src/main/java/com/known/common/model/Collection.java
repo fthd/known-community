@@ -14,13 +14,13 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Collection{
-	private Integer articleId;
+	private String articleId;
 
     private ArticleTypeEnum articleType;
 
-    private Integer userId;
+    private String userId;
     
-    private Integer articleUserId;
+    private String articleUserId;
 	
     private String title;
 

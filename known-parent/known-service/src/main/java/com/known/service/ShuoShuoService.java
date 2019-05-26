@@ -63,6 +63,6 @@ public interface ShuoShuoService {
 	
 	List<ShuoShuo> findShuoshuos();
 	
-	void deleteBatch(Integer[] ids) throws BussinessException;
+	void deleteBatch(String[] ids) throws BussinessException;
 	
  }

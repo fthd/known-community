@@ -12,14 +12,14 @@ import java.util.Set;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageParams {
-	private Integer articleId;
-	private Integer articleUserId;
+	private String articleId;
+	private String articleUserId;
 	private MessageTypeEnum messageType;
 	private ArticleTypeEnum articleType;
-	private Set<Integer> receiveUserIds;
-	private Integer sendUserId;
+	private Set<String> receiveUserIds;
+	private String sendUserId;
 	private String sendUserName;
-	private Integer commentId;
+	private String commentId;
 	private Integer pageNum;
 	private String des;
 	

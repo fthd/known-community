@@ -12,17 +12,17 @@ public interface KnowledgeService {
 	
 	PageResult<Knowledge> findKnowledgeByPage(KnowledgeQuery knowledgeQuery);
 	
-	Knowledge getKnowledge(Integer knowledgeId);
+	Knowledge getKnowledge(String knowledgeId);
 	
-	Knowledge showKnowledge(Integer knowledgeId, Integer userId) throws BussinessException;
+	Knowledge showKnowledge(String knowledgeId, String userId) throws BussinessException;
 	
 	void addKnowledge(Knowledge knowledge, Attachment attachment) throws BussinessException;
 	
 	List<Knowledge> findKnowledgeList();
 	
-	void deleteBatch(Integer[] ids)throws BussinessException;
+	void deleteBatch(String[] ids)throws BussinessException;
 	
-	void updateStatusBatch(Integer[] ids) throws BussinessException;
+	void updateStatusBatch(String[] ids) throws BussinessException;
 }
 
 

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ShuoShuoLikeMapper<T, Q> extends BaseMapper<T, Q> {
-	List<ShuoShuoLike> selectListByShuoShuoId(Integer shuoShuoId);
+	List<ShuoShuoLike> selectListByShuoShuoId(String shuoShuoId);
 }

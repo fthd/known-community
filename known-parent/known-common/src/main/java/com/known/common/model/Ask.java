@@ -15,15 +15,15 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Ask {
-    private Integer askId;
+    private String askId;
 
-    private Integer pCategoryId;
+    private String pCategoryId;
 
-    private Integer categoryId;
+    private String categoryId;
 
     private String title;
 
-    private Integer userId;
+    private String userId;
 
     private String userIcon;
 
@@ -44,9 +44,9 @@ public class Ask {
 
     private Integer mark = 0;
 
-    private Integer bestAnswerId;
+    private String bestAnswerId;
 
-    private Integer bestAnswerUserId;
+    private String bestAnswerUserId;
 
     private String bestAnswerUserName;
     

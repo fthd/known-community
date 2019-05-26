@@ -56,26 +56,26 @@ public class AskController extends BaseController {
 
 	
 	@RequestMapping("/ask")
-	public ModelAndView ask(HttpSession session, AskQuery askQuery){
+	public ModelAndView ask(AskQuery askQuery){
 		ModelAndView view = new ModelAndView("/page/ask/ask");
 		if(askQuery.getSolveType() == null){
 			askQuery.setSolveType(SolveEnum.WAIT_SOLVE);
 		}
-		PageResult<Ask> result = this.askService.findAskByPage(askQuery);
+		PageResult<Ask> result = askService.findAskByPage(askQuery);
 		view.addObject("result", result);
 		view.addObject("haveSolved", askQuery.getSolveType().getType());
 		AskQuery todayAskQuery = new AskQuery();
-		view.addObject("totalAsk", this.askService.findCount(todayAskQuery));
+		view.addObject("totalAsk", askService.findCount(todayAskQuery));
 		todayAskQuery.setSolveType(SolveEnum.SOLVED);
-		view.addObject("totalSolved", this.askService.findCount(todayAskQuery));	
+		view.addObject("totalSolved", askService.findCount(todayAskQuery));	
 		todayAskQuery = new AskQuery();
 		Date curDate = new Date();
 		todayAskQuery.setStartDate(DateUtil.format(curDate, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		todayAskQuery.setEndDate(DateUtil.format(curDate, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		view.addObject("todayAskCount", this.askService.findCount(todayAskQuery));
+		view.addObject("todayAskCount", askService.findCount(todayAskQuery));
 		todayAskQuery.setSolveType(SolveEnum.SOLVED);
-		view.addObject("todaySolvedCount", this.askService.findCount(todayAskQuery));
-		view.addObject("topUsers", this.askService.findTopUsers());
+		view.addObject("todaySolvedCount", askService.findCount(todayAskQuery));
+		view.addObject("topUsers", askService.findTopUsers());
 		return view;
 	}
 	
@@ -93,11 +93,11 @@ public class AskController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/publicAsk")
-	public OutResponse<Integer> publicAsk(HttpSession session, Ask ask){
-		OutResponse<Integer> outResponse = new OutResponse<>();
-		this.setUserBaseInfo(Ask.class, ask, session);
+	public OutResponse<String> publicAsk(HttpSession session, Ask ask){
+		OutResponse<String> outResponse = new OutResponse<>();
+		setUserBaseInfo(Ask.class, ask, session);
 		try {
-			this.askService.addAsk(ask);
+			askService.addAsk(ask);
 			outResponse.setData(ask.getAskId());
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
@@ -113,12 +113,12 @@ public class AskController extends BaseController {
 	}
 	
 	@RequestMapping(value="/{askId}", method= RequestMethod.GET)
-	public ModelAndView askDetail(@PathVariable Integer askId, HttpSession session){
+	public ModelAndView askDetail(@PathVariable String askId, HttpSession session){
 		ModelAndView view = new ModelAndView("/page/ask/ask_detail");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
 			String flag = (String) session.getAttribute(sessionUser==null?"Y":sessionUser.getUserid()+"_ready");
-			view.addObject("ask", this.askService.showAsk(askId,flag));
+			view.addObject("ask", askService.showAsk(askId,flag));
 			if(StringUtil.isEmpty(flag)){
 				session.setAttribute(sessionUser==null?"Y":sessionUser.getUserid()+"_ready","flag");
 			}
@@ -133,9 +133,9 @@ public class AskController extends BaseController {
 	@RequestMapping("/acceptAnswer")
 	public OutResponse<Object> acceptAnswer(HttpSession session, Ask ask){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		this.setUserBaseInfo(Ask.class, ask, session);
+		setUserBaseInfo(Ask.class, ask, session);
 		try {
-			this.askService.setBestAnswer(ask.getBestAnswerId(), ask.getAskId(), ask.getUserId());
+			askService.setBestAnswer(ask.getBestAnswerId(), ask.getAskId(), ask.getUserId());
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());

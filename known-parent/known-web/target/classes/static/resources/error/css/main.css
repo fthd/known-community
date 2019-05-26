@@ -51,7 +51,6 @@ img, a img{
 	width:100%;
 	height:100%;
 	opacity:0.96;
-	background:#000 url(../images/background.png) repeat;
 	z-index:999999999;
 	
 }

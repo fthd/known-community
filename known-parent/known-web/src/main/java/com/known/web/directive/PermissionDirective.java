@@ -1,12 +1,13 @@
 package com.known.web.directive;
 
-import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
 import com.known.common.model.SessionUser;
 import com.known.common.model.SysRes;
 import com.known.service.SysResService;
 import com.known.service.SysRoleService;
 import freemarker.core.Environment;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -59,11 +60,10 @@ public class PermissionDirective implements TemplateDirectiveModel {
 			HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 
 			SessionUser sessionUser = (SessionUser) request.getSession().getAttribute(userConfig.getSession_User_Key());
-			TemplateModel templateModel;
 
 			if(sessionUser!= null){
 				//查找系统用户角色id集合 role_id
-				Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
+				Set roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
 
 				//查找角色结果集 sys_res
 				Integer type = 1; //菜单
@@ -72,7 +72,7 @@ public class PermissionDirective implements TemplateDirectiveModel {
 					System.out.println(r);
 				});
 				if(list != null){
-					templateModel	 = ObjectWrapper.DEFAULT_WRAPPER.wrap(list);
+					TemplateModel templateModel = getBeansWrapper().wrap(list);
 					env.setGlobalVariable("menu",templateModel);
 					body.render(env.getOut());
 				}
@@ -80,6 +80,12 @@ public class PermissionDirective implements TemplateDirectiveModel {
 				response.sendRedirect("/user/login?redirect=" + request.getRequestURI());
 			}
 
+	}
+
+	public static BeansWrapper getBeansWrapper(){
+		BeansWrapper beansWrapper =
+				new BeansWrapperBuilder(Configuration.VERSION_2_3_28).build();
+		return beansWrapper;
 	}
 
 }

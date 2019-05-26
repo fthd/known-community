@@ -6,7 +6,7 @@ import com.known.common.model.SessionUser;
 import com.known.exception.BussinessException;
 
 public interface SignInService {
-	 SignInfo findSignInfoByUserid(Integer userid);
+	 SignInfo findSignInfoByUserid(String userid);
 	
 	SignIn doSignIn(SessionUser sessionUser)throws BussinessException;
 }

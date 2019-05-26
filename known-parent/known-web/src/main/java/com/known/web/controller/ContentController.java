@@ -1,7 +1,6 @@
 package com.known.web.controller;
 
 import com.known.common.model.Category;
-import com.known.common.model.SysRes;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.manager.query.CategoryQuery;
@@ -48,7 +47,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:shuoshuo:delete")
 	@RequestMapping("/shuoshuo/delete")
-	public OutResponse<Object> shuoshuoDelete(Integer[] ids){
+	public OutResponse<Object> shuoshuoDelete(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			shuoshuoService.deleteBatch(ids);
@@ -77,7 +76,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:knowledge:delete")
 	@RequestMapping("/knowledge/delete")
-	public OutResponse<Object> knowledgeDelete(Integer[] ids){
+	public OutResponse<Object> knowledgeDelete(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			knowledgeService.deleteBatch(ids);
@@ -93,7 +92,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:knowledge:updatestatus")
 	@RequestMapping("/knowledge/updateStatus")
-	public OutResponse<Object> updateKnowledgeStatus(Integer[] ids){
+	public OutResponse<Object> updateKnowledgeStatus(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			knowledgeService.updateStatusBatch(ids);
@@ -123,7 +122,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:topic:delete")
 	@RequestMapping("/topic/delete")
-	public OutResponse<Object> topicDelete(Integer[] ids){
+	public OutResponse<Object> topicDelete(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.deleteBatch(ids);
@@ -138,7 +137,7 @@ public class ContentController {
 
 	@RequirePermissions(key="content:topic:essence")
 	@RequestMapping("/topic/essence")
-	public OutResponse<Object> topicEssence(Integer[] ids){
+	public OutResponse<Object> topicEssence(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicEssence(ids, 1);
@@ -153,7 +152,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:topic:unessence")
 	@RequestMapping("/topic/unessence")
-	public OutResponse<Object> topicunEssence(Integer[] ids){
+	public OutResponse<Object> topicunEssence(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicEssence(ids, 0);
@@ -168,7 +167,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:topic:stick")
 	@RequestMapping("/topic/stick")
-	public OutResponse<Object> topicstick(Integer[] ids){
+	public OutResponse<Object> topicstick(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicStick(ids, 1);
@@ -183,7 +182,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:topic:unstick")
 	@RequestMapping("/topic/unstick")
-	public OutResponse<Object> topicunstick(Integer[] ids){
+	public OutResponse<Object> topicunstick(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			topicService.updateTopicStick(ids, 0);
@@ -211,7 +210,7 @@ public class ContentController {
 	
 	@RequirePermissions(key="content:ask:delete")
 	@RequestMapping("/ask/delete")
-	public OutResponse<Object> askDelete(Integer[] ids){
+	public OutResponse<Object> askDelete(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		 try {
 			askService.deleteBatch(ids);
@@ -233,13 +232,15 @@ public class ContentController {
 	@RequirePermissions(key="content:category:list")
 	@RequestMapping("/getCatList")
 	public Object getCatList() {
-		return categoryService.findCategoryList(new CategoryQuery());
+		boolean isNeedChild = false; //是否需要children
+		List<Category> list =  categoryService.findCategoryList(new CategoryQuery(), isNeedChild);
+		return list;
 	}
 
 
 	@RequirePermissions(key="content:category:delete")
 	@RequestMapping("/category/delete")
-	public OutResponse<Object> categoryDelete(Integer[] ids) {
+	public OutResponse<Object> categoryDelete(String[] ids) {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			categoryService.deleteCategory(ids);

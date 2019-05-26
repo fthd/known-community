@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Tree {
 
-	private Integer id;
+	private String id;
 	
 	private String text;
 	

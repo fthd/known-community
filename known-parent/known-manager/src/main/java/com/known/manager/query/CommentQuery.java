@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CommentQuery extends BaseQuery{
 
-	private Integer pid;
+	private String pid;
 	
-	private Integer commentId;
+	private String commentId;
 	
-	private Integer articleId;
+	private String articleId;
 	
 	private ArticleTypeEnum articleType;
 	

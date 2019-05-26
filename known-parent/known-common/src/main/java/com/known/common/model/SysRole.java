@@ -11,7 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysRole {
-    private Integer id;
+
+    private String id;
 
     private String name;
 
@@ -23,25 +24,5 @@ public class SysRole {
     private Date createdate;
 
     private Integer status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public void setDes(String des) {
-        this.des = des == null ? null : des.trim();
-    }
 
 }

@@ -28,8 +28,6 @@ public class Constants {
 
     public static final String Cache_Key_Topic_Category = "bbsCategoryCache";
 
-    public static final String Cache_Key_Exam_Category = "examCategoryCache";
-
     public static final String Cache_Key_Knowledge_Category = "knowledgeCategoryCache";
 
     public static final String Cache_Key_Ask_Category = "askCategoryCache";

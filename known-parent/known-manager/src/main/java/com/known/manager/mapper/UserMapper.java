@@ -8,11 +8,11 @@ import java.util.List;
 @Repository
 public interface UserMapper<T, Q>  extends BaseMapper<T, Q>{
 
-	Integer changeUserMark(@Param(value = "changeMark") Integer changeMark, @Param(value = "userId") Integer userId);
+	Integer changeUserMark(@Param(value = "changeMark") Integer changeMark, @Param(value = "userId") String userId);
 	
 	void updateStatus(@Param(value = "userName") String userName, @Param(value = "activationCode") String activationCode);
 
-	void delete(@Param("ids") Integer[] ids);
+	void delete(@Param("ids") String[] ids);
 	
 	List<UserVo> selectUserVoList();
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class UserVo {
-    private Integer userid;
+    private String userid;
 
     private String email;
 

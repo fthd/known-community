@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysUserRoleQuery extends BaseQuery{
 
-	private Integer id;
+	private String id;
 	
-	private Integer userId;
+	private String userId;
 	
-	private Integer roleId;
+	private String roleId;
 
 }

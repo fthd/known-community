@@ -12,7 +12,7 @@ public interface TopicMapper<T, Q> extends BaseMapper<T, Q> {
    
    List<T> selectActiveUser4Topic();
    
-   void delete(@Param("ids") Integer[] ids);
+   void delete(@Param("ids") String[] ids);
    
 
 }

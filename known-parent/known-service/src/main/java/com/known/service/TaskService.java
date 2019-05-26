@@ -11,15 +11,15 @@ public interface TaskService {
 		
 	List<Task> findTaskList()throws BussinessException;
 	
-	void deleteTask(Integer[] ids) throws BussinessException;
+	void deleteTask(String[] ids) throws BussinessException;
 	
 	Task addTask(Task task, boolean isImmediateExcute) throws BussinessException;
 	
 	void updateTask(Task task, boolean isImmediateExcute) throws BussinessException;
 	
-	void pauseTask(Integer[] ids) throws BussinessException;
+	void pauseTask(String[] ids) throws BussinessException;
 	
-	void excuteTask(Integer[] ids) throws BussinessException;
+	void excuteTask(String[] ids) throws BussinessException;
 	
 	TaskMessage convert2TaskMessage(Task task);
 	

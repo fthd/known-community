@@ -9,5 +9,5 @@ import java.util.List;
 public interface TopicVoteDetailMapper<T, Q> extends BaseMapper<T, Q> {
 	void insertBatch(@Param("voteDetailList") List<T> voteDetailList);
 	
-	void updateVoteCountBatch(@Param("list") List<Integer> list);
+	void updateVoteCountBatch(@Param("list") List<String> list);
 }

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.TopicMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Topic" >
-    <id column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <id column="topic_id" property="topicId" jdbcType="VARCHAR" />
     <result column="topic_type" property="topicType" jdbcType="INTEGER" typeHandler="com.known.manager.handler.TopicTypeHandler" />
-    <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
-    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="p_category_id" property="pCategoryId" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="topic_image" property="topicImage" jdbcType="VARCHAR" />
     <result column="topic_image_thum" property="topicImageThum" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -40,12 +40,12 @@
     	<if test="pCategoryId!=null and pCategoryId!=''">
     		and p_category_id = #{pCategoryId}
     	</if>
-    	<if test="null!= startDate and ''!= startDate">
+    	<if test="null!= startDate">
      		<![CDATA[ 
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -91,7 +91,7 @@
       last_comment_time, read_count, grade, 
       essence, content, summary, 
       topic_image, topic_image_thum)
-    values (#{topicType.type,jdbcType=INTEGER}, #{pCategoryId,jdbcType=INTEGER}, 
+    values (#{topicId,jdbcType=VARCHAR},#{topicType.type,jdbcType=INTEGER}, #{pCategoryId,jdbcType=INTEGER},
       #{categoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{lastCommentTime,jdbcType=TIMESTAMP}, #{readCount,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
@@ -107,16 +107,16 @@
         topic_type = #{topicType.type,jdbcType=INTEGER},
       </if>
       <if test="pCategoryId != null" >
-        p_category_id = #{pCategoryId,jdbcType=INTEGER},
+        p_category_id = #{pCategoryId,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null" >
-        category_id = #{categoryId,jdbcType=INTEGER},
+        category_id = #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="userIcon != null" >
         user_icon = #{userIcon,jdbcType=VARCHAR},

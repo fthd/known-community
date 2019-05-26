@@ -84,7 +84,7 @@ public class CollectionServiceImpl implements CollectionService {
 		Page page = new Page(pageNum, count, pageSize);
 		collectionQuery.setPage(page);
 		List<Collection> list = this.collectionMapper.selectList(collectionQuery);
-		return new PageResult<Collection>(page, list);
+		return new PageResult<>(page, list);
 	}
 
 	public void deleteCollection(Collection collection) {

@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.AskMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Ask" >
-    <id column="ask_id" property="askId" jdbcType="INTEGER" />
-    <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
-    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <id column="ask_id" property="askId" jdbcType="VARCHAR" />
+    <result column="p_category_id" property="pCategoryId" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="ask_image" property="askImage" jdbcType="VARCHAR" />
     <result column="ask_image_thum" property="askImageThum" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -20,8 +20,8 @@
     <result column="like_count" property="likeCount" jdbcType="INTEGER" />
     <result column="mark" property="mark" jdbcType="INTEGER" />
     <result column="solveCount" property="solveCount" jdbcType="INTEGER" />
-    <result column="best_answer_id" property="bestAnswerId" jdbcType="INTEGER" />
-    <result column="best_answer_user_id" property="bestAnswerUserId" jdbcType="INTEGER" />
+    <result column="best_answer_id" property="bestAnswerId" jdbcType="VARCHAR" />
+    <result column="best_answer_user_id" property="bestAnswerUserId" jdbcType="VARCHAR" />
     <result column="best_answer_user_name" property="bestAnswerUserName" jdbcType="VARCHAR" />
     <result column="best_answer_user_icon" property="bestAnswerUserIcon" jdbcType="VARCHAR" />
     <result column="solve_type" property="solveType" jdbcType="INTEGER"  typeHandler="com.known.manager.handler.SolveTypeHandler"/>
@@ -44,12 +44,12 @@
     	<if test="pCategoryId!=null and pCategoryId!=''">
     		and p_category_id = #{pCategoryId}
     	</if>
-    	<if test="null!= startDate and ''!= startDate">
+    	<if test="null!= startDate">
      		<![CDATA[ 
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -98,11 +98,11 @@
       best_answer_user_name, best_answer_user_icon, solve_type, content, 
       summary, ask_image, ask_image_thum
       )
-    values (#{pCategoryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+    values (#{pCategoryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{readCount,jdbcType=INTEGER}, #{collectionCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
-      #{mark,jdbcType=INTEGER}, #{bestAnswerId,jdbcType=INTEGER}, #{bestAnswerUserId,jdbcType=INTEGER}, 
+      #{mark,jdbcType=INTEGER}, #{bestAnswerId,jdbcType=VARCHAR}, #{bestAnswerUserId,jdbcType=VARCHAR},
       #{bestAnswerUserName,jdbcType=VARCHAR}, #{bestAnswerUserIcon,jdbcType=VARCHAR}, #{solveType.type,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, 
       #{summary,jdbcType=LONGVARCHAR}, #{askImage,jdbcType=LONGVARCHAR}, #{askImageThum,jdbcType=LONGVARCHAR}
       )

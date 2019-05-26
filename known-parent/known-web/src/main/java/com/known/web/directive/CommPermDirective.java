@@ -51,7 +51,7 @@ public class CommPermDirective implements TemplateDirectiveModel {
 			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 			SessionUser sessionUser = (SessionUser) request.getSession().getAttribute(userConfig.getSession_User_Key());
 			if(sessionUser!= null){
-				Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
+				Set roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
 				Integer type = 2; //权限
 				List<SysRes> list = sysResService.findLimitByRoleIds(roleSet, type);
 				Set<String> permkey = new HashSet<>();

@@ -7,6 +7,7 @@ import com.known.common.model.Knowledge;
 import com.known.common.model.MessageParams;
 import com.known.common.utils.ImageUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -51,33 +52,33 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	public PageResult<Knowledge> findKnowledgeByPage(
 			KnowledgeQuery knowledgeQuery) {
 		knowledgeQuery.setStatus(StatusEnum.AUDIT);
-		int count = this.knowledgeMapper.selectCount(knowledgeQuery);
+		int count = knowledgeMapper.selectCount(knowledgeQuery);
 		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int pageNum = knowledgeQuery.getPageNum() == 1 ? 1 : knowledgeQuery.getPageNum();
 		Page page = new Page(pageNum, count, pageSize);
 		knowledgeQuery.setPage(page);
 		knowledgeQuery.setOrderBy(OrderByEnum.CREATE_TIME_DESC);
-		List<Knowledge> list = this.knowledgeMapper.selectList(knowledgeQuery);
+		List<Knowledge> list = knowledgeMapper.selectList(knowledgeQuery);
 		PageResult<Knowledge> pageResult = new PageResult<Knowledge>(page, list);
 		return pageResult;
 	}
 
-	public Knowledge getKnowledge(Integer knowledgeId) {
+	public Knowledge getKnowledge(String knowledgeId) {
 		if(knowledgeId == null){
 			return null;
 		}
 		KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
 		knowledgeQuery.setKnowledgeId(knowledgeId);
 		knowledgeQuery.setShowContent(Boolean.TRUE);
-		List<Knowledge> list = this.knowledgeMapper.selectList(knowledgeQuery);
+		List<Knowledge> list = knowledgeMapper.selectList(knowledgeQuery);
 		if(list.isEmpty()){
 			return null;
 		}
 		return list.get(0);
 	}
 
-	public Knowledge showKnowledge(Integer knowledgeId, Integer userId) throws BussinessException {
-		Knowledge knowledge = this.getKnowledge(knowledgeId);
+	public Knowledge showKnowledge(String knowledgeId, String userId) throws BussinessException {
+		Knowledge knowledge = getKnowledge(knowledgeId);
 	/*	Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(userId);
 		List<SysRes> list = sysResService.findMenuByRoleIds(roleSet);
 		Set<String> permkey = new HashSet<>();
@@ -90,11 +91,11 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 				){
 			throw new BussinessException("话题不存在,或已删除");
 		}
-		knowledge.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicTypeEnum.KNOWLEDGE));
+		knowledge.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicTypeEnum.KNOWLEDGE));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(knowledgeId);
-		this.knowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
+		knowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 		return knowledge;
 	}
 	
@@ -114,7 +115,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
 					+ "......";
 		}
-		Set<Integer> userIds = new HashSet<>();
+		Set<String> userIds = new HashSet<>();
 		//TODO给用户发消息
 		String formatContent = formateAtService.generateRefererLinks(content,
 				userIds);
@@ -129,15 +130,16 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		knowledge.setCreateTime(curDate);
 		knowledge.setLastCommentTime(curDate);
 		knowledge.setStatus(StatusEnum.INIT);
-		this.knowledgeMapper.insert(knowledge);
-		this.userService.changeMark(knowledge.getUserId(),
+		knowledgeMapper.insert(knowledge);
+		userService.changeMark(knowledge.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
 		
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
+			attachment.setAttachmentId(UUIDUtil.getUUID());
 			attachment.setArticleId(knowledge.getKnowledgeId());
 			attachment.setFileTopicType(FileTopicTypeEnum.KNOWLEDGE);
-			this.attachmentService.addAttachment(attachment);
+			attachmentService.addAttachment(attachment);
 		}
 		
 		MessageParams messageParams = new MessageParams();
@@ -160,17 +162,17 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	}
 
 	@Override
-	public void deleteBatch(Integer[] ids) throws BussinessException {
+	public void deleteBatch(String[] ids) throws BussinessException {
 		if(ids == null){
 			throw new BussinessException("参数错误");
 		}		
-		for(int id : ids){
+		for(String id : ids){
 			knowledgeMapper.delete(id);
 		}
 	}
 
 	@Override
-	public void updateStatusBatch(Integer[] ids) throws BussinessException {
+	public void updateStatusBatch(String[] ids) throws BussinessException {
 		if(ids == null){
 			throw new BussinessException("参数错误");
 		}		

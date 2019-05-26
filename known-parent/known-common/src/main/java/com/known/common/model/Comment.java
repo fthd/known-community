@@ -20,13 +20,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Comment {
 	
-    private Integer id;
+    private String id;
 
-    private Integer pid;
+    private String pid;
 
-    private Integer articleId;
+    private String articleId;
 
-    private Integer userId;
+    private String userId;
 
     private Date createTime;
     

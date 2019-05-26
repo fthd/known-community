@@ -10,18 +10,18 @@ public interface SysRoleService {
 	
 	List<SysRole> findSysRoleList();
 	
-	void deleteSysRole(Integer[] ids)throws BussinessException;
+	void deleteSysRole(String[] ids)throws BussinessException;
 	
 	void addSysRole(SysRole sysRole) throws BussinessException;
 	
 	void updateSysRole(SysRole sysRole) throws BussinessException;
 	
-	SysRole findSysRoleById(Integer id) throws BussinessException;
+	SysRole findSysRoleById(String id) throws BussinessException;
 	
-	List<Integer> findResourceIdByRoleId(Integer id)throws BussinessException;
+	List<Integer> findResourceIdByRoleId(String id)throws BussinessException;
 	
-	void updateAuthority(Integer roleId, Integer[] resIds) throws BussinessException;
+	void updateAuthority(String roleId, String[] resIds) throws BussinessException;
 	
-	Set<Integer> findRoleIdsByUserId(Integer userId);
+	Set<Integer> findRoleIdsByUserId(String userId);
 	
 }

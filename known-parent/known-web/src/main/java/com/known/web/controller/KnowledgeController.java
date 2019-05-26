@@ -8,6 +8,7 @@ import com.known.common.model.Attachment;
 import com.known.common.model.Category;
 import com.known.common.model.Knowledge;
 import com.known.common.model.SessionUser;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -42,7 +43,7 @@ public class KnowledgeController extends BaseController {
 	private UrlConfig urlConfig;
 	
 	@RequestMapping("/knowledge")
-	public ModelAndView knowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
+	public ModelAndView knowledge(KnowledgeQuery knowledgeQuery){
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
 		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
@@ -51,9 +52,9 @@ public class KnowledgeController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/pCategoryId/{pCategoryId}", method= RequestMethod.GET)
-	public ModelAndView pCategoryId(@PathVariable Integer pCategoryId, KnowledgeQuery knowledgeQuery){
+	public ModelAndView pCategoryId(@PathVariable String pCategoryId, KnowledgeQuery knowledgeQuery){
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
-		PageResult<Knowledge> pageResult = this.knowledgeService.findKnowledgeByPage(knowledgeQuery);
+		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
 		view.addObject("KnwoledgeTitleCategory", CategoryCache.getCategoryById(pCategoryId));
 		view.addObject("result", pageResult);
@@ -61,9 +62,9 @@ public class KnowledgeController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/categoryId/{categoryId}", method= RequestMethod.GET)
-	public ModelAndView categoryId(@PathVariable Integer categoryId, KnowledgeQuery knowledgeQuery){
+	public ModelAndView categoryId(@PathVariable String categoryId, KnowledgeQuery knowledgeQuery){
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
-		PageResult<Knowledge> pageResult = this.knowledgeService.findKnowledgeByPage(knowledgeQuery);
+		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
 		view.addObject("KnwoledgeTitleCategory", CategoryCache.getCategoryById(categoryId));
 		view.addObject("result", pageResult);
@@ -71,13 +72,13 @@ public class KnowledgeController extends BaseController {
 	}
 	
 	@RequestMapping("/{knowledgeId}")
-	public ModelAndView knowledgeDetail(@PathVariable Integer knowledgeId, HttpSession session){
+	public ModelAndView knowledgeDetail(@PathVariable String knowledgeId, HttpSession session){
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge_detail");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		Integer userId = null;
+		String userId = null;
 		try {
 			userId = sessionUser==null ? null : sessionUser.getUserid();
-			Knowledge topic = this.knowledgeService.showKnowledge(knowledgeId, userId);
+			Knowledge topic = knowledgeService.showKnowledge(knowledgeId, userId);
 			view.addObject("topic", topic);
 		} catch (Exception e) {
 			logger.error("{}话题加载出错", e);
@@ -87,16 +88,16 @@ public class KnowledgeController extends BaseController {
 	}
 	
 	@RequestMapping("/prePublicKnowledge")
-	public ModelAndView prePublicknowledge(HttpSession session){
+	public ModelAndView prePublicknowledge(){
 		ModelAndView view = new ModelAndView("/page/knowledge/publicKnowledge");
 		return view;
 	}
 
 	@RequestMapping("/loadCategories")
 	public OutResponse<List<Category>> loadCategories(){
-		OutResponse<List<Category>> outResponse = new OutResponse<List<Category>>();
+		OutResponse<List<Category>> outResponse = new OutResponse<>();
 		try {
-			outResponse.setData(this.categoryCache.getKnowledgeCategories());
+			outResponse.setData(categoryCache.getKnowledgeCategories());
 			outResponse.setCode(CodeEnum.SUCCESS);
 			return outResponse;
 		} catch (Exception e) {
@@ -106,15 +107,15 @@ public class KnowledgeController extends BaseController {
 		}
 		return outResponse;
 	}
-	
-	@ResponseBody
+
 	@RequestMapping("/publicKnowledge")
-	public OutResponse<Integer> publicKnowledge(HttpSession session, Knowledge knowledge, Attachment attachment){
-		OutResponse<Integer> outResponse = new OutResponse<Integer>();
+	public OutResponse<String> publicKnowledge(HttpSession session, Knowledge knowledge, Attachment attachment){
+		OutResponse<String> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
-			this.setUserBaseInfo(Knowledge.class, knowledge, session);
-			this.knowledgeService.addKnowledge(knowledge, attachment);
+			setUserBaseInfo(Knowledge.class, knowledge, session);
+			knowledge.setKnowledgeId(UUIDUtil.getUUID());
+			knowledgeService.addKnowledge(knowledge, attachment);
 			outResponse.setCode(CodeEnum.SUCCESS);
 			outResponse.setData(knowledge.getKnowledgeId());
 		} catch (BussinessException e) {

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.SysResMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.SysRes" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="des" property="des" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -18,10 +18,10 @@
    <sql id="Base_Condition" >
     <where >
     	<if test="null!= id">
-     		and id = #{id,jdbcType=INTEGER}
+     		and id = #{id,jdbcType=VARCHAR}
      	</if>
      	<if test="null!= pid">
-     		and pid = #{pid,jdbcType=INTEGER}
+     		and pid = #{pid,jdbcType=VARCHAR}
      	</if>
      	<if test="null!= type">
      		and type = #{type,jdbcType=INTEGER}
@@ -38,7 +38,7 @@
   
  
   
-  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from sys_res

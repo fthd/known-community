@@ -3,8 +3,8 @@
 <mapper namespace="com.known.manager.mapper.TopicVoteDetailMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.TopicVoteDetail" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="vote_id" property="voteId" jdbcType="INTEGER" />
-    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="vote_id" property="voteId" jdbcType="VARCHAR" />
+    <result column="topic_id" property="topicId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER" />
   </resultMap>
@@ -33,7 +33,7 @@
   	insert into known_topic_vote_detail (vote_id, title) values
   		<foreach collection="voteDetailList" separator=","  item="item">
   	(		
-  		#{item.voteId,  jdbcType=INTEGER}, #{item.title,  jdbcType=VARCHAR}
+  		#{item.voteId,  jdbcType=VARCHAR}, #{item.title,  jdbcType=VARCHAR}
   	)
   	</foreach>
   </insert>

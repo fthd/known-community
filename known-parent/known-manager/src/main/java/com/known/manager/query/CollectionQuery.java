@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CollectionQuery extends BaseQuery {
-	private Integer articleId;
+	private String articleId;
 	
 	private ArticleTypeEnum articleType;
 	
-	private Integer userId;
+	private String userId;
 	
 	private String title;
 	
@@ -25,8 +25,8 @@ public class CollectionQuery extends BaseQuery {
 	private OrderByEnum orderBy;
 
 
-	public CollectionQuery(Integer articleId, ArticleTypeEnum articleType,
-			Integer userId) {
+	public CollectionQuery(String articleId, ArticleTypeEnum articleType,
+		 String userId) {
 		super();
 		this.articleId = articleId;
 		this.articleType = articleType;

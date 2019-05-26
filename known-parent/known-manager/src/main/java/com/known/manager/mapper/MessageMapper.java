@@ -9,7 +9,7 @@ import java.util.List;
 public interface MessageMapper<T, Q> extends BaseMapper<T, Q> {
 	void insertBatch(@Param("list") List<T> list);
 	
-	void delete(@Param("userId") Integer userId, @Param("ids") Integer[] ids);
+	void delete(@Param("userId") String userId, @Param("ids") String[] ids);
 	
-	void update(@Param("userId") Integer userId, @Param("ids") Integer[] ids);
+	void update(@Param("userId") String userId, @Param("ids") String[] ids);
 }

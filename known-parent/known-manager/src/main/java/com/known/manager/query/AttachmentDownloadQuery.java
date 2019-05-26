@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttachmentDownloadQuery extends BaseQuery {
 
-	private Integer userId;
+	private String userId;
 	
-	private Integer attachmentId;
+	private String attachmentId;
 
 }

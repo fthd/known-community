@@ -9,17 +9,17 @@ public interface AttachmentService {
 	
 	void addAttachment(Attachment attachment) throws BussinessException;
 	
-	Attachment getAttachmentByTopicIdAndFileType(Integer topicId, FileTopicTypeEnum fileTopicType);
+	Attachment getAttachmentByTopicIdAndFileType(String topicId, FileTopicTypeEnum fileTopicType);
 	
-	Attachment getAttachmentById(Integer attachmentId);
+	Attachment getAttachmentById(String attachmentId);
 	
-	Attachment downloadAttachment(SessionUser sessionUser, Integer attachmentId) throws BussinessException;
+	Attachment downloadAttachment(SessionUser sessionUser, String attachmentId) throws BussinessException;
 	
-	void checkDownloadPermission(Integer topicUserId, Integer userId, Integer downloadMark,
-                                        Integer attachmentId) throws BussinessException;
+	void checkDownloadPermission(String topicUserId, String userId, Integer downloadMark,
+                                        String attachmentId) throws BussinessException;
 	
-	void checkDownload(Integer attachmentId, Integer topicId, SessionUser sessionUser) throws BussinessException;
+	void checkDownload(String attachmentId, String topicId, SessionUser sessionUser) throws BussinessException;
 	
-	void deleteFile(Integer attachmentId);
+	void deleteFile(String attachmentId);
 	
 }

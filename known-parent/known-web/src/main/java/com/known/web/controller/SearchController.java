@@ -40,10 +40,10 @@ public class SearchController extends BaseController {
 
     @RequestMapping("/search")
     public ModelAndView search(HttpSession session, String keyword, String articleType) {
-        Integer userid = this.getUserid(session);
+        String userid = getUserid(session);
         ModelAndView view = new ModelAndView("/page/search");
         if (userid != null) {
-            SignInfo signInfo = this.signInService.findSignInfoByUserid(userid);
+            SignInfo signInfo = signInService.findSignInfoByUserid(userid);
             view.addObject("signInfo", signInfo);
         }
         view.addObject("keyword", keyword);
@@ -56,7 +56,7 @@ public class SearchController extends BaseController {
                                              Integer pageNum, Integer countTotal) {
         OutResponse<Object> outResponse = new OutResponse<>();
         try {
-            PageResult<SolrBean> pageResult = this.solrService.findSolrBeanByPage(keyword, articleType, pageNum, countTotal);
+            PageResult<SolrBean> pageResult = solrService.findSolrBeanByPage(keyword, articleType, pageNum, countTotal);
             outResponse.setData(pageResult);
             outResponse.setCode(CodeEnum.SUCCESS);
         } catch (Exception e) {

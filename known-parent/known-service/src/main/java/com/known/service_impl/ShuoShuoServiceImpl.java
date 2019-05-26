@@ -7,6 +7,7 @@ import com.known.common.model.ShuoShuoComment;
 import com.known.common.model.ShuoShuoLike;
 import com.known.common.utils.ImageUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -22,10 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ShuoShuoServiceImpl implements ShuoShuoService {
@@ -49,12 +47,13 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
 	public void addShuoShuo(ShuoShuo shuoShuo) throws BussinessException {
+		shuoShuo.setId(UUIDUtil.getUUID());
 		String content = shuoShuo.getContent();
 		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
 			throw new BussinessException("参数错误");
 		}
 		content = StringUtil.addLink(content);//给网页加链接
-		Set<Integer> userIdSet = new HashSet<Integer>();
+		Set<String> userIdSet = new HashSet<>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息
 		String thumnail = ImageUtil.createThumbnail(shuoShuo.getImageUrl(), false);
@@ -63,8 +62,8 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		shuoShuo.setCreateTime(new Date());
 		shuoShuo.setLikeCount(0);
 		shuoShuo.setCommentCount(0);
-		this.shuoShuoMapper.insert(shuoShuo);
-		this.userService.addMark(MarkEnum.MARK_SHUOSHUO.getMark(), shuoShuo.getUserId());
+		shuoShuoMapper.insert(shuoShuo);
+		userService.addMark(MarkEnum.MARK_SHUOSHUO.getMark(), shuoShuo.getUserId());
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(shuoShuo.getId());
 		messageParams.setArticleType(ArticleTypeEnum.SHUOSHUO);
@@ -77,7 +76,7 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	}
 
 	public ShuoShuo findShuoShuo(ShuoShuoQuery shuoShuoQuery) {
-		List<ShuoShuo> list =  this.shuoShuoMapper.selectList(shuoShuoQuery);
+		List<ShuoShuo> list =  shuoShuoMapper.selectList(shuoShuoQuery);
 		if(list.isEmpty()){
 			return null;
 		}
@@ -87,21 +86,22 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
 	public void addShuoShuoComment(ShuoShuoComment shuoShuoComment)
 			throws BussinessException {
+		shuoShuoComment.setId(UUIDUtil.getUUID());
 		String content = shuoShuoComment.getContent();
 		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.TEXT.getLength()){
 			throw new BussinessException("参数错误");
 		}
 		content = StringUtil.addLink(content);//给网页加链接
-		Set<Integer> userIdSet = new HashSet<>();
+		Set<String> userIdSet = new HashSet<>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息
 		shuoShuoComment.setContent(formatContent);
 		shuoShuoComment.setCreateTime(new Date());
-		this.shuoShuoMapper.updateShuoShuoCommentCount(shuoShuoComment.getShuoShuoId());
-		this.shuoShuoCommentMapper.insert(shuoShuoComment);
-		this.userService.addMark(MarkEnum.MARK_COMMENT.getMark(), shuoShuoComment.getUserId());	
+		shuoShuoMapper.updateShuoShuoCommentCount(shuoShuoComment.getShuoShuoId());
+		shuoShuoCommentMapper.insert(shuoShuoComment);
+		userService.addMark(MarkEnum.MARK_COMMENT.getMark(), shuoShuoComment.getUserId());	
 		
-		Integer  shuoShuoId= shuoShuoComment.getShuoShuoId();
+		String  shuoShuoId= shuoShuoComment.getShuoShuoId();
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(shuoShuoId);
 		messageParams.setArticleType(ArticleTypeEnum.SHUOSHUO);
@@ -129,7 +129,7 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	}
 
 	public PageResult<ShuoShuo> findShuoShuoList(ShuoShuoQuery shuoShuoQuery) {
-		int count = this.shuoShuoMapper.selectCount(shuoShuoQuery);
+		int count = shuoShuoMapper.selectCount(shuoShuoQuery);
 		int size = PageSizeEnum.PAGE_SIZE10.getSize();
 		int pageNum = 1;
 		if(shuoShuoQuery.getPageNum() != 1){
@@ -137,7 +137,7 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		}
 		Page page = new Page(pageNum, count, size);
 		shuoShuoQuery.setPage(page);
-		List<ShuoShuo> shuoShuos = this.shuoShuoMapper.selectList(shuoShuoQuery);
+		List<ShuoShuo> shuoShuos = shuoShuoMapper.selectList(shuoShuoQuery);
 
 		return new PageResult<>(page, shuoShuos);
 	}
@@ -146,35 +146,35 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 	public void doShuoShuoLike(ShuoShuoLike shuoShuoLike) throws BussinessException {
 		ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
 		shuoShuoQuery.setUserId(shuoShuoLike.getUserId());
-		System.out.println(shuoShuoQuery.getShuoShuoId());
 		shuoShuoQuery.setShuoShuoId(shuoShuoLike.getShuoShuoId());
-		if(this.findShuoShuoLike(shuoShuoQuery).size() >= 1){
+		if(findShuoShuoLike(shuoShuoQuery).size() >= 1){
 			throw new BussinessException("您已经点过赞了");
 		}
+		shuoShuoLike.setId(UUIDUtil.getUUID());
 		shuoShuoLike.setCreateTime(new Date());
-		this.shuoShuoMapper.updateShuoShuoLikeCount(shuoShuoLike.getShuoShuoId());
-		this.shuoShuoLikeMapper.insert(shuoShuoLike);
+		shuoShuoMapper.updateShuoShuoLikeCount(shuoShuoLike.getShuoShuoId());
+		shuoShuoLikeMapper.insert(shuoShuoLike);
 	}
 
 	public List<ShuoShuoLike> findShuoShuoLike(ShuoShuoQuery shuoShuoQuery) {
-		List<ShuoShuoLike> shuoShuoLikeList = this.shuoShuoLikeMapper.selectList(shuoShuoQuery);
+		List<ShuoShuoLike> shuoShuoLikeList = shuoShuoLikeMapper.selectList(shuoShuoQuery);
 		System.out.println(shuoShuoLikeList);
 		return shuoShuoLikeList;
 	}
 
 	@Override
 	public List<ShuoShuo> findShuoshuos() {
-		List<ShuoShuo> shuoShuos = this.shuoShuoMapper.selectList(null);
+		List<ShuoShuo> shuoShuos = shuoShuoMapper.selectList(null);
 		return shuoShuos;
 	}
 
 	@Override
-	public void deleteBatch(Integer[] ids) throws BussinessException {
+	public void deleteBatch(String[] ids) throws BussinessException {
 		if(ids == null){
 			throw new BussinessException("参数错误");
 		}
 		
-		for(int id : ids){
+		for(String id : ids){
 			shuoShuoMapper.delete(id);
 		}
 	}

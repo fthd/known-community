@@ -15,15 +15,15 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Knowledge {
-    private Integer knowledgeId;
+    private String knowledgeId;
 
-    private Integer pCategoryId;
+    private String pCategoryId;
 
-    private Integer categoryId;
+    private String categoryId;
 
     private String title;
 
-    private Integer userId;
+    private String userId;
 
     private String userIcon;
 
@@ -63,11 +63,11 @@ public class Knowledge {
     private StatusEnum status;
 
 
-	public void setpCategoryId(Integer pCategoryId) {
+	public void setpCategoryId(String pCategoryId) {
 		this.pCategoryId = pCategoryId;
 	}
 
-    public Integer getpCategoryId() {
+    public String getpCategoryId() {
         return pCategoryId;
     }
 

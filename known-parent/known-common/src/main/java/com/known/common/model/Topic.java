@@ -16,17 +16,17 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Topic {
-    private Integer topicId;
+    private String topicId;
 
     private TopicTypeEnum topicType;
 
-    private Integer pCategoryId;
+    private String pCategoryId;
 
-    private Integer categoryId;
+    private String categoryId;
 
     private String title;
 
-    private Integer userId;
+    private String userId;
 
     private String userIcon;
 
@@ -39,17 +39,17 @@ public class Topic {
 
     private Date lastCommentTime;
 
-    private Integer readCount = 0;
+    private Integer readCount;
     
-    private Integer commentCount = 0;
+    private Integer commentCount;
     
-    private Integer likeCount = 0;
+    private Integer likeCount;
     
-    private Integer collectionCount = 0 ;
+    private Integer collectionCount;
 
-    private Integer grade=0;
+    private Integer grade;
 
-    private Integer essence=0;
+    private Integer essence;
     
     private String content;
 

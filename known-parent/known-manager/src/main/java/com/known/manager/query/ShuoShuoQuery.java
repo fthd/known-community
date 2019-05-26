@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShuoShuoQuery extends BaseQuery{
 
-	private Integer id;
+	private String id;
 
-	private Integer userId;
+	private String userId;
 
-	private Integer shuoShuoId;
+	private String shuoShuoId;
 	
 	private String startDate;
 	

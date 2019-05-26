@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TaskMapper<T, Q> extends BaseMapper<T, Q> {
-	void delete(@Param("ids") Integer[] ids);
+	void delete(@Param("ids") String[] ids);
 }

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginLogQuery extends BaseQuery{
 	
-	private Integer id;
+	private Long id;
 	
 }

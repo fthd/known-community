@@ -48,7 +48,7 @@ public class AuthorityAspect {
         SessionUser sessionUser = (SessionUser) request.getSession().getAttribute(userConfig.getSession_User_Key());
 
         if (sessionUser != null) {
-            Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
+            Set roleSet = sysRoleService.findRoleIdsByUserId(sessionUser.getUserid());
             // 获取资源列表
             Integer type = 2; //权限
             List<SysRes> list = sysResService.findLimitByRoleIds(roleSet, type);

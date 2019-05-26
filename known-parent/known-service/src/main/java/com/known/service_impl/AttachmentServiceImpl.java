@@ -44,28 +44,28 @@ public class AttachmentServiceImpl implements AttachmentService {
 				){
 			throw new BussinessException("参数错误");
 		}
-		this.attachmentMapper.insert(attachment);
+		attachmentMapper.insert(attachment);
 	}
 
-	public Attachment getAttachmentByTopicIdAndFileType(Integer topicId,
+	public Attachment getAttachmentByTopicIdAndFileType(String topicId,
 			FileTopicTypeEnum fileTopicType) {
 		AttachmentQuery attachmentQuery = new AttachmentQuery();
 		attachmentQuery.setTopicId(topicId);
 		attachmentQuery.setFileTopicType(fileTopicType);
-		List<Attachment> attachments = this.attachmentMapper.selectList(attachmentQuery);
+		List<Attachment> attachments = attachmentMapper.selectList(attachmentQuery);
 		if(attachments.isEmpty()){
 			return null;
 		}
 		return attachments.get(0);
 	}
 
-	public Attachment getAttachmentById(Integer attachmentId) {
+	public Attachment getAttachmentById(String attachmentId) {
 		if(attachmentId == null){
 			return null;
 		}
 		AttachmentQuery attachmentQuery = new AttachmentQuery();
 		attachmentQuery.setAttachmentId(attachmentId);
-		List<Attachment> attachmentList = this.attachmentMapper.selectList(attachmentQuery);
+		List<Attachment> attachmentList = attachmentMapper.selectList(attachmentQuery);
 		if(attachmentList.isEmpty()){
 			return null;
 		}
@@ -74,63 +74,63 @@ public class AttachmentServiceImpl implements AttachmentService {
 
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
 	public Attachment downloadAttachment(SessionUser sessionUser,
-										 Integer attachmentId) throws BussinessException {
-		Attachment attachment = this.getAttachmentById(attachmentId);
+										 String attachmentId) throws BussinessException {
+		Attachment attachment = getAttachmentById(attachmentId);
 		if(attachment == null){
 			throw new BussinessException("附件不存在");
 		}
-		Integer topicId = attachment.getArticleId();
+		String topicId = attachment.getArticleId();
 		Topic topic = null;
 		FileTopicTypeEnum fileTopicType = attachment.getFileTopicType();
 		if(fileTopicType == FileTopicTypeEnum.TOPIC){
-			topic = this.topicService.getTopic(topicId);
+			topic = topicService.getTopic(topicId);
 			if(topic == null){
 				throw new BussinessException("附件对应的话题不存在");
 			}
-			this.checkDownloadPermission(topic.getUserId(), sessionUser.getUserid(), attachment.getDownloadMark(), attachmentId);
+			checkDownloadPermission(topic.getUserId(), sessionUser.getUserid(), attachment.getDownloadMark(), attachmentId);
 		}
 		AttachmentDownload attachmentDownload = new AttachmentDownload();
 		attachmentDownload.setAttachmentId(attachmentId);
 		attachmentDownload.setUserId(sessionUser.getUserid());
 		attachmentDownload.setUserName(sessionUser.getUserName());
 		attachmentDownload.setUserIcon(sessionUser.getUserIcon());
-		this.attachmentDownloadMapper.insert(attachmentDownload);
+		attachmentDownloadMapper.insert(attachmentDownload);
 		attachmentMapper.updateDownloadCount(attachmentId);
 		return attachment;
 	}
 
-	public void checkDownloadPermission(Integer topicUserId, Integer userId,
-			Integer downloadMark, Integer attachmentId)
+	public void checkDownloadPermission(String topicUserId, String userId,
+			Integer downloadMark, String attachmentId)
 			throws BussinessException {
 		if(!topicUserId.equals(userId) && downloadMark > 0){
 			AttachmentDownloadQuery attachmentDownloadQuery = new AttachmentDownloadQuery();
 			attachmentDownloadQuery.setUserId(userId);
 			attachmentDownloadQuery.setAttachmentId(attachmentId);
-			int downCount = this.attachmentDownloadMapper.selectCount(attachmentDownloadQuery);
+			int downCount = attachmentDownloadMapper.selectCount(attachmentDownloadQuery);
 			if(downCount == 0){
-					int count = this.userService.changeMark(userId, -downloadMark);
+					int count = userService.changeMark(userId, -downloadMark);
 					if(count == 0){
 						throw new BussinessException("积分不足");
 					}else{
-						this.userService.changeMark(topicUserId, downloadMark);
+						userService.changeMark(topicUserId, downloadMark);
 					}
 			}
 		}
 	}
 
-	public void checkDownload(Integer attachmentId, Integer topicId,
+	public void checkDownload(String attachmentId, String topicId,
 			SessionUser sessionUser) throws BussinessException {
 		if(attachmentId == null || topicId == null){
 			throw new BussinessException("参数错误");
 		}
-		Attachment attachment = this.getAttachmentById(attachmentId);
+		Attachment attachment = getAttachmentById(attachmentId);
 		if(attachment == null){
 			throw new BussinessException("附件不存在");
 		}
-		Integer topicUserId = null;
+		String topicUserId = null;
 		FileTopicTypeEnum fileTopicType = attachment.getFileTopicType();
 		if(fileTopicType == FileTopicTypeEnum.TOPIC){
-			Topic topic = this.topicService.getTopic(topicId);
+			Topic topic = topicService.getTopic(topicId);
 			if(topic == null){
 				throw new BussinessException("附件对应的话题不存在");
 				}
@@ -140,17 +140,17 @@ public class AttachmentServiceImpl implements AttachmentService {
 		AttachmentDownloadQuery attachmentDownloadQuery = new AttachmentDownloadQuery();
 		attachmentDownloadQuery.setUserId(sessionUser.getUserid());
 		attachmentDownloadQuery.setAttachmentId(attachmentId);
-		int downCount = this.attachmentDownloadMapper.selectCount(attachmentDownloadQuery);
-		if(topicUserId != sessionUser.getUserid() && attachment.getDownloadMark() > 0 && downCount == 0){
-			User user = this.userService.findUserByUserid(sessionUser.getUserid());
+		int downCount = attachmentDownloadMapper.selectCount(attachmentDownloadQuery);
+		if(topicUserId.equals(sessionUser.getUserid()) && attachment.getDownloadMark() > 0 && downCount == 0){
+			User user = userService.findUserByUserid(sessionUser.getUserid());
 			if(user.getMark() < attachment.getDownloadMark()){
 				throw new BussinessException("你的积分只有&nbsp;&nbsp;" + user.getMark() + "&nbsp;&nbsp;分, 积分不足");
 			}
 		}
 		
 	}
-	public void deleteFile(Integer attachmentId) {
-		this.attachmentMapper.delete(attachmentId);
+	public void deleteFile(String attachmentId) {
+		attachmentMapper.delete(attachmentId);
 	}
 	
 }

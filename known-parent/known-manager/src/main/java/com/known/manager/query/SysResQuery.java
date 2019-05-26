@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysResQuery extends BaseQuery {
 
-	private Integer id;
+	private String id;
 	
 	private Integer type;
 	
-	private Integer pid;
+	private String pid;
 	
 	private Integer enabled;
 

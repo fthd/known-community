@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.TopicVoteUserMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.TopicVoteUser" >
-    <result column="vote_detail_id" property="voteDetailId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="vote_detail_id" property="voteDetailId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="vote_date" property="voteDate" jdbcType="TIMESTAMP" />
   </resultMap>
 
@@ -13,7 +13,7 @@
     values 
 	<foreach collection="list" separator=","  item="item">
   	(		
-  		#{item.voteDetailId,  jdbcType=INTEGER}, #{item.userId,  jdbcType=INTEGER}, 
+  		#{item.voteDetailId,  jdbcType=VARCHAR}, #{item.userId,  jdbcType=VARCHAR},
 		#{item.voteDate, jdbcType=TIMESTAMP}
   	)
   	</foreach>

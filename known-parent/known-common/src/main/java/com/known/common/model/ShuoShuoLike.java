@@ -12,21 +12,17 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShuoShuoLike {
-    private Integer id;
+    private String id;
 
-    private Integer shuoShuoId;
+    private String shuoShuoId;
 
-	private Integer userId;
+	private String userId;
 
     private String userIcon;
 
     private String userName;
 
     private Date createTime;
-
-	public Integer getId() {
-		return id;
-	}
 
 	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getCreateTime() {

@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Repository
 public interface SysUserRoleMapper<T, Q> extends BaseMapper<T, Q> {
-	   void insertBatch(@Param("userId") Integer userId, @Param("roleIds") Integer[] roleIds) ;
+	   void insertBatch(@Param("userId") String userId, @Param("roleIds") String[] roleIds) ;
 	   
-		Set<Integer> selectRoleIdsByUserId(@Param("userId") Integer userId);
+		Set<String> selectRoleIdsByUserId(@Param("userId") String userId);
 }

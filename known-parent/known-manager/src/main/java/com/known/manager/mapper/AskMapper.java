@@ -14,5 +14,5 @@ public interface AskMapper<T, Q> extends BaseMapper<T, Q> {
 	
 	void updateBestAnswer(T t);
 	
-	void delete(@Param("askId") Integer askId);
+	void delete(@Param("askId") String askId);
 }

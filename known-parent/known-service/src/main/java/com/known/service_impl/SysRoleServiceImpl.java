@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public void deleteSysRole(Integer[] ids) throws BussinessException {
+	public void deleteSysRole(String[] ids) throws BussinessException {
 		if (ids == null || ids.length == 0) {
 			throw new BussinessException("参数错误");
 		}
@@ -54,7 +55,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 				){
 			throw new BussinessException("参数错误");
 		}
-		sysRole.setCreatedate(new Date());
 		
 		sysRoleMapper.insert(sysRole);
 	}
@@ -74,7 +74,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public SysRole findSysRoleById(Integer id) throws BussinessException {
+	public SysRole findSysRoleById(String id) throws BussinessException {
 		if(id == null){
 			throw new BussinessException("参数错误");
 		}
@@ -88,17 +88,17 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 	
 	@Override
-	public List<Integer> findResourceIdByRoleId(Integer id) throws BussinessException {
+	public List findResourceIdByRoleId(String id) throws BussinessException {
 		if(id == null){
 			throw new BussinessException("参数错误");
 		}
-		List<Integer> list = sysRoleMapper.selectResourceIdByRoleId(id);
+		List<String> list = sysRoleMapper.selectResourceIdByRoleId(id);
 		return list;
 	}
 	
 	@Override
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
-	public void updateAuthority(Integer roleId, Integer[] resIds) throws BussinessException {
+	public void updateAuthority(String roleId, String[] resIds) throws BussinessException {
 		if(roleId == null){
 			throw new BussinessException("参数错误");
 		}
@@ -113,7 +113,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public Set<Integer> findRoleIdsByUserId(Integer userId) {
+	public Set findRoleIdsByUserId(String userId) {
 		return userId != null ? sysUserRoleMapper.selectRoleIdsByUserId(userId) :  null;
 	}
 }

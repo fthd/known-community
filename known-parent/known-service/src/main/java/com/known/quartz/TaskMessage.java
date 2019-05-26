@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaskMessage {
 	
-	private Integer id;
+	private String id;
 	
 	private String taskClassz;
 	

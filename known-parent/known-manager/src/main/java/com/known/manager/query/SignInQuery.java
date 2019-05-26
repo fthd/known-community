@@ -11,7 +11,7 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignInQuery extends BaseQuery {
 	
-	private Integer userid;
+	private String userid;
 
 	private Date curDate;
 

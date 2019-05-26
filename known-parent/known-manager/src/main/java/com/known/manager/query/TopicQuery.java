@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TopicQuery extends BaseQuery{
-	private Integer topicId;
+
+	private String topicId;
 	
-	private Integer userId;
+	private String userId;
 	
 	private boolean showContent;
 	
@@ -21,8 +22,8 @@ public class TopicQuery extends BaseQuery{
 	
 	private String endDate;
 	
-	private Integer pCategoryId;
+	private String pCategoryId;
 	
-	private Integer categoryId;
+	private String categoryId;
 	
 }

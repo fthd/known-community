@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ShuoShuoCommentMapper<T, Q> extends BaseMapper<T, Q>{
-	List<ShuoShuoComment> selectListByShuoShuoId(Integer shuoShuoId);//@Param("shuoShuoId") Integer shuoShuoId
+	List<ShuoShuoComment> selectListByShuoShuoId(String shuoShuoId);
 }

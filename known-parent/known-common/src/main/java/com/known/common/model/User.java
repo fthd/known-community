@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    private Integer userid;
+    private String userid;
 
     private String email;
 

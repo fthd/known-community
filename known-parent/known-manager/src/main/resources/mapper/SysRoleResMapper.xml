@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.SysRoleResMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.SysRoleRes" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="res_id" property="resId" jdbcType="INTEGER" />
-    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="res_id" property="resId" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
   </resultMap>
  <sql id="Base_Condition">
   	<where>
@@ -25,7 +25,7 @@
   </sql>
   
   
-  <delete id="delete" parameterType="java.lang.Integer" >
+  <delete id="delete" parameterType="java.lang.String" >
     delete from sys_role_res
    <include refid="Base_Condition"></include>
   </delete>
@@ -34,7 +34,7 @@
   <insert id="insert" parameterType="com.known.common.model.SysRoleRes" >
     insert into sys_role_res (res_id, role_id
       )
-    values (#{resId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+    values (#{resId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}
       )
   </insert>
   

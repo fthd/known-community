@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Attachment {
-    private Integer attachmentId;
+    private String attachmentId;
 
-    private Integer articleId;
+    private String articleId;
 
     private String fileName;
 

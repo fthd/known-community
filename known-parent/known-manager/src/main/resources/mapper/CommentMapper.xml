@@ -3,9 +3,9 @@
 <mapper namespace="com.known.manager.mapper.CommentMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Comment" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="pid" property="pid" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -27,12 +27,12 @@
      	<if test="null!= articleType">
      		and article_type = #{articleType.type}
      	</if>
-    	<if test="null!= startDate and ''!= startDate">
+    	<if test="null!= startDate">
      		<![CDATA[ 
      				and create_time >= STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s')
      				]]>
      	</if>
-     	 <if test="null!= endDate and ''!= endDate">
+     	 <if test="null!= endDate">
      		<![CDATA[ 
      				and create_time <= STR_TO_DATE('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')		
      				]]>
@@ -69,8 +69,8 @@
       user_id, create_time, source_from, 
       article_type, user_name, user_icon, 
       content)
-    values (#{pid,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{sourceFrom,jdbcType=CHAR}, 
+    values (#{pid,jdbcType=VARCHAR}, #{articleId,jdbcType=VARCHAR},
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{sourceFrom,jdbcType=CHAR},
       #{articleType.type,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>

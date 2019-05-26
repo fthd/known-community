@@ -9,17 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LikeQuery extends BaseQuery {
-	private Integer articleId;
+	private String articleId;
 	
 	private ArticleTypeEnum articleType;
 	
-	private Integer userId;
+	private String userId;
 	
 	private String title;
 
 
-	public LikeQuery(Integer articleId, ArticleTypeEnum articleType,
-			Integer userId) {
+	public LikeQuery(String articleId, ArticleTypeEnum articleType,
+		String userId) {
 		super();
 		this.articleId = articleId;
 		this.articleType = articleType;

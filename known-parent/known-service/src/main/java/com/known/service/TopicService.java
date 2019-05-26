@@ -17,10 +17,10 @@ public interface TopicService {
 	void addTopic(Topic topic, TopicVote topicVote, String[] voteTitle, Attachment file)throws BussinessException;
 	
 	
-	Topic showTopic(Integer topicId) throws BussinessException;
+	Topic showTopic(String topicId) throws BussinessException;
 	
 	
-	Topic getTopic(Integer topicId);
+	Topic getTopic(String topicId);
 	
 	List<Topic> findActiveUsers();
 	
@@ -28,10 +28,10 @@ public interface TopicService {
 	
 	List<Topic> findTopicList();
 	
-	void updateTopicEssence(Integer[] topicId, int essence)throws BussinessException;
+	void updateTopicEssence(String[] topicId, int essence)throws BussinessException;
 	
-	void updateTopicStick(Integer[] topicId, int stick)throws BussinessException;
+	void updateTopicStick(String[] topicId, int stick)throws BussinessException;
 	
-	void deleteBatch(Integer[] topicIds) throws BussinessException;
+	void deleteBatch(String[] topicIds) throws BussinessException;
 	
 }

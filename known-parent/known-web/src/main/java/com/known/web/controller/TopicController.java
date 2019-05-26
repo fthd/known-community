@@ -10,6 +10,7 @@ import com.known.common.enums.VoteTypeEnum;
 import com.known.common.model.*;
 import com.known.common.utils.Constants;
 import com.known.common.utils.DateUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -70,17 +71,17 @@ public class TopicController extends BaseController {
 		view.addObject("categories", categoryService.findCategory4TopicCount(categoryQuery));
 		view.addObject("activeUser", topicService.findActiveUsers());
 		//获取总话题数
-		view.addObject("count", this.topicService.findCount(null));
+		view.addObject("count", topicService.findCount(null));
 		//获取今日话题
 		TopicQuery topicQuery = new TopicQuery();
 		topicQuery.setStartDate(curDate);
 		topicQuery.setEndDate(curDate);
-		view.addObject("today", this.topicService.findCount(topicQuery));
+		view.addObject("today", topicService.findCount(topicQuery));
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		topicQuery.setStartDate(DateUtil.format(calendar.getTime(), DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		topicQuery.setEndDate(DateUtil.format(calendar.getTime(), DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		Integer yesterdayCount = this.topicService.findCount(topicQuery);
+		Integer yesterdayCount = topicService.findCount(topicQuery);
 		view.addObject("yesterdayCount",  yesterdayCount);
 		return view;
 	}
@@ -105,7 +106,7 @@ public class TopicController extends BaseController {
 	public OutResponse<List<Category>> loadCategories(){
 		OutResponse<List<Category>> outResponse = new OutResponse<>();
 		try {
-			outResponse.setData(this.categoryCache.getTopicCategories());
+			outResponse.setData(categoryCache.getTopicCategories());
 			outResponse.setCode(CodeEnum.SUCCESS);
 			return outResponse;
 		} catch (Exception e) {
@@ -118,13 +119,14 @@ public class TopicController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/publicTopic")
-	public OutResponse<Integer> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
+	public OutResponse<String> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
 											 String[] voteContent, Attachment attachment){
-		OutResponse<Integer> outResponse = new OutResponse<>();
+		OutResponse<String> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
-			this.setUserBaseInfo(Topic.class, topic, session);
-			this.topicService.addTopic(topic, topicVote, voteContent, attachment);
+			setUserBaseInfo(Topic.class, topic, session);
+			topic.setTopicId(UUIDUtil.getUUID());
+			topicService.addTopic(topic, topicVote, voteContent, attachment);
 			outResponse.setCode(CodeEnum.SUCCESS);
 			outResponse.setData(topic.getTopicId());
 		} catch (BussinessException e) {
@@ -141,52 +143,52 @@ public class TopicController extends BaseController {
 	
 	
 	@RequestMapping(value = "/board/{pCategoryId}", method= RequestMethod.GET)
-	public ModelAndView board(@PathVariable Integer pCategoryId, TopicQuery topicQuery){
+	public ModelAndView board(@PathVariable String pCategoryId, TopicQuery topicQuery){
 		ModelAndView view = new ModelAndView("/page/topic/topic_list");
-		Category pCategory = this.categoryService.findCategoryBypCategoryId(pCategoryId);
+		Category pCategory = categoryService.findCategoryBypCategoryId(pCategoryId);
 		view.addObject("pCategory", pCategory);
 		
-		PageResult<Topic> result = this.topicService.findTopicByPage(topicQuery);
+		PageResult<Topic> result = topicService.findTopicByPage(topicQuery);
 		view.addObject("result", result);
 		
 		//获取分类总话题数
 		TopicQuery query = new TopicQuery();
 		query.setPCategoryId(pCategory.getCategoryId());
-		view.addObject("count", this.topicService.findCount(query));
+		view.addObject("count", topicService.findCount(query));
 		//获取今日话题数
 		Date date = new Date();
 		query.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		query.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		view.addObject("todayCount", this.topicService.findCount(query));
+		view.addObject("todayCount", topicService.findCount(query));
 		return view;
 	}
 	
 	
 	@RequestMapping(value = "/sub_board/{categoryId}", method= RequestMethod.GET)
-	public ModelAndView sub_board(@PathVariable Integer categoryId, TopicQuery topicQuery){
+	public ModelAndView sub_board(@PathVariable String categoryId, TopicQuery topicQuery){
 		ModelAndView view = new ModelAndView("/page/topic/topic_list");
-		Category pCategory = this.categoryService.findCategoryByCategoryId(categoryId);
+		Category pCategory = categoryService.findCategoryByCategoryId(categoryId);
 		view.addObject("pCategory", pCategory);
 		view.addObject("category", CategoryCache.getCategoryById(categoryId));
-		PageResult<Topic> result = this.topicService.findTopicByPage(topicQuery);
+		PageResult<Topic> result = topicService.findTopicByPage(topicQuery);
 		view.addObject("result", result);
 		//获取分类总话题数
 		TopicQuery query = new TopicQuery();
 		query.setPCategoryId(pCategory.getCategoryId());
-		view.addObject("count", this.topicService.findCount(query));
+		view.addObject("count", topicService.findCount(query));
 		//获取今日话题数
 		Date date = new Date();
 		query.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		query.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
-		view.addObject("todayCount", this.topicService.findCount(query));
+		view.addObject("todayCount", topicService.findCount(query));
 		return view;
 	}
 	
 	@RequestMapping("/{topicId}")
-	public ModelAndView topicDetail(@PathVariable Integer topicId){
+	public ModelAndView topicDetail(@PathVariable String topicId){
 		ModelAndView view = new ModelAndView("/page/topic/topic_detail");
 		try {
-			Topic topic = this.topicService.showTopic(topicId);
+			Topic topic = topicService.showTopic(topicId);
 			view.addObject("topic", topic);
 		} catch (Exception e) {
 			logger.error("{}话题加载出错", e);
@@ -197,13 +199,13 @@ public class TopicController extends BaseController {
 	
 
 	@RequestMapping("/loadVote")
-	public OutResponse<Object> loadVote(HttpSession session, Integer topicId){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadVote(HttpSession session, String topicId){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
-		Integer userId = null;
+		String userId = null;
 		try {
 			userId = sessionUser==null ? null : sessionUser.getUserid();
-			TopicVote topicVote = this.topicVoteService.getTopicVote(topicId, userId);
+			TopicVote topicVote = topicVoteService.getTopicVote(topicId, userId);
 			outResponse.setData(topicVote);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
@@ -215,8 +217,8 @@ public class TopicController extends BaseController {
 	}
 
 	@RequestMapping("/doVote")
-	public OutResponse<Object> doVote(HttpSession session, TopicVote  topicVote, Integer[] voteDtlId){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> doVote(HttpSession session, TopicVote  topicVote, String[] voteDtlId){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(CodeEnum.BUSSINESSERROR);
@@ -224,7 +226,7 @@ public class TopicController extends BaseController {
 			return outResponse;
 		}
 		try {
-			TopicVote topicVote2 = this.topicVoteService.doVote(topicVote.getVoteId(), 
+			TopicVote topicVote2 = topicVoteService.doVote(topicVote.getVoteId(), 
 					topicVote.getVoteType().getType(), voteDtlId, sessionUser.getUserid(), topicVote.getTopicId());
 			outResponse.setData(topicVote2);
 			outResponse.setCode(CodeEnum.SUCCESS);

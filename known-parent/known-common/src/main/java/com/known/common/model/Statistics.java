@@ -1,5 +1,6 @@
 package com.known.common.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Statistics {
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
     private Date statisticsDate;
 
     private Integer signinCount;
@@ -29,12 +32,6 @@ public class Statistics {
     private Integer askCount;
 
     private Integer askCommentCount;
-
-    private Integer blogCount;
-
-    private Integer blogCommentCount;
-
-    private Integer examCount;
 
     private Integer userCount;
 

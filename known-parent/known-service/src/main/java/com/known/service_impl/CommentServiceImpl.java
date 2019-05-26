@@ -3,6 +3,7 @@ package com.known.service_impl;
 import com.known.common.enums.*;
 import com.known.common.model.*;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -47,20 +48,20 @@ public class CommentServiceImpl implements CommentService {
 	private MessageService messageService;
 	
 	public PageResult<Comment> findCommentByPage(CommentQuery commentQuery) {
-		commentQuery.setPid(0);
+		commentQuery.setPid("");
 		int pageNum = commentQuery.getPageNum() == 1 ? 1 : commentQuery.getPageNum();
 		int pageSize = PageSizeEnum.PAGE_SIZE10.getSize();
 		int count = commentMapper.selectCount(commentQuery);
 		Page page = new Page(pageNum, count, pageSize);
 		commentQuery.setPage(page);
-		List<Comment> list = this.commentMapper.selectList(commentQuery);
-		return new PageResult<Comment>(page, list);
+		List<Comment> list = commentMapper.selectList(commentQuery);
+		return new PageResult<>(page, list);
 	}
 
-	public Comment getCommentById(Integer commentId) {
+	public Comment getCommentById(String commentId) {
 		CommentQuery commentQuery = new CommentQuery();
 		commentQuery.setCommentId(commentId);
-		List<Comment> list = this.commentMapper.selectList(commentQuery);
+		List<Comment> list = commentMapper.selectList(commentQuery);
 		if(!list.isEmpty()){
 			return list.get(0);
 		}
@@ -72,56 +73,57 @@ public class CommentServiceImpl implements CommentService {
 		String content = comment.getContent();
 		content = StringUtil.replaceLast(content.replaceFirst("<p>", ""), "</p>", "");
 		if(StringUtil.isEmpty(content) || content.length() > TextLengthEnum.LONGTEXT.getLength()
-				|| comment.getArticleId() == null || comment.getArticleType() == null){
+				||  StringUtil.isEmpty(comment.getArticleId()) || comment.getArticleType() == null){
 			throw new BussinessException("参数错误");
 		}
-		Integer pid = comment.getPid();
-		pid = pid == null ? 0 : pid;
-		if(pid!=0){
+		comment.setId(UUIDUtil.getUUID());
+		String pid = comment.getPid();
+		pid = pid == null ? "" : pid;
+		if(!pid.equals("")){
 			content = StringUtil.addLink(content);//给网页加链接
 			content = HtmlUtils.htmlEscape(content);
 		}
-		if(pid != 0 && content.length() > TextLengthEnum.TEXT_500_LENGTH.getLength()){
+		if(!pid.equals("") && content.length() > TextLengthEnum.TEXT_500_LENGTH.getLength()){
 			throw new BussinessException("参数错误");
 		}
 		
-		Set<Integer> userIds = new HashSet<Integer>();
-		String formatContent = this.formateAtService.generateRefererLinks(content, userIds);
+		Set<String> userIds = new HashSet<>();
+		String formatContent = formateAtService.generateRefererLinks(content, userIds);
 		//TODO给用户发消息
 		comment.setContent(formatContent);
 		comment.setCreateTime(new Date());
-		this.commentMapper.insert(comment);
+		commentMapper.insert(comment);
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddCommentCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(comment.getArticleId());
-		Integer articleUserId = null;
+		String articleUserId = null;
 		if(comment.getArticleType() == ArticleTypeEnum.TOPIC){
-			this.topicMapper.updateInfoCount(updateQuery4ArticleCount);
+			topicMapper.updateInfoCount(updateQuery4ArticleCount);
 			TopicQuery topicQuery = new TopicQuery();
 			topicQuery.setTopicId(comment.getArticleId());
-			articleUserId = this.topicMapper.selectList(topicQuery).get(0).getUserId();
+			articleUserId = topicMapper.selectList(topicQuery).get(0).getUserId();
 		}
 		else if(comment.getArticleType() == ArticleTypeEnum.KNOWLEDGE){
-			this.KnowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
+			KnowledgeMapper.updateInfoCount(updateQuery4ArticleCount);
 			KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
 			knowledgeQuery.setKnowledgeId(comment.getArticleId());
-			articleUserId = this.KnowledgeMapper.selectList(knowledgeQuery).get(0).getUserId();
+			articleUserId = KnowledgeMapper.selectList(knowledgeQuery).get(0).getUserId();
 		}
 		else if(comment.getArticleType() == ArticleTypeEnum.Ask){
-			this.askMapper.updateInfoCount(updateQuery4ArticleCount);
+			askMapper.updateInfoCount(updateQuery4ArticleCount);
 			AskQuery askQuery = new AskQuery();
 			askQuery.setAskId(comment.getArticleId());
-			articleUserId = this.askMapper.selectList(askQuery).get(0).getUserId();
+			articleUserId = askMapper.selectList(askQuery).get(0).getUserId();
 		}
 		else{
 			throw new BussinessException("参数错误");
 		}
-		this.userService.changeMark(comment.getUserId(), MarkEnum.MARK_COMMENT.getMark());
-		if(pid == 0){
+		userService.changeMark(comment.getUserId(), MarkEnum.MARK_COMMENT.getMark());
+		if(pid.equals("")){
 			userIds.add(articleUserId);
 		}
 		else{
-			Comment comment2 = this.getCommentById(pid);
+			Comment comment2 = getCommentById(pid);
 			userIds.add(comment2.getUserId());
 		}
 		MessageParams messageParams = new MessageParams();

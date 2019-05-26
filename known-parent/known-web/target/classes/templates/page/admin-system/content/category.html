@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse"> </a>
-                                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                    <a href="#portlet-config" data-toggle="tooltip" class="config"> </a>
                                     <a href="javascript:;" class="reload"> </a>
                                     <a href="javascript:;" class="remove"> </a>
                                 </div>
@@ -190,7 +190,7 @@ function askFormatter(value, row) {
  		dataType: 'json',
  		success:function(res){
  		   for(var i =0, _length=res.length; i < _length; i++){
- 		   	var option = $("<option value='" + res[i].id + "' >&nbsp;&nbsp;&nbsp;" + res[i].name + "</option>");
+ 		   	var option = $("<option value='" + res[i].categoryId + "' >&nbsp;&nbsp;&nbsp;" + res[i].name + "</option>");
  		   	option.appendTo(pid);
  		   }
  		}

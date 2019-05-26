@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.ShuoShuoMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.ShuoShuo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
@@ -54,9 +54,9 @@
   		select count(1) from known_shuoshuo <include refid="Base_Condition"/>
   </select>
   
-  <delete id="delete" parameterType="java.lang.Integer" >
+  <delete id="delete" parameterType="java.lang.String" >
     delete from known_shuoshuo
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   
   <insert id="insert" parameterType="com.known.common.model.ShuoShuo" >
@@ -67,7 +67,7 @@
       user_name, image_url, image_url_small, 
       music_url, create_time, comment_count, 
       like_count, content)
-    values (#{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{imageUrlSmall,jdbcType=VARCHAR}, 
       #{musicUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
@@ -78,7 +78,7 @@
     update known_shuoshuo
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="userIcon != null" >
         user_icon = #{userIcon,jdbcType=VARCHAR},

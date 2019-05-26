@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShuoShuo {
-    private Integer id;
+    private String id;
 
-    private Integer userId;
+    private String userId;
 
     private String userIcon;
 

@@ -80,7 +80,7 @@ function dispatchLoad(type) {
 	    loadShuoShuos(1);
 	}
 	break;
-    case "topic":// 主题
+    case "topic":// 话题
 	$(".tag-content").eq(1).show();
 	if($("#topic-content").children().length==0){
 	    loadTopic(1);
@@ -148,7 +148,7 @@ function dispatchLoad(type) {
 		});
 	}
 
-	/************主题******************/
+	/************话题******************/
 
 	$(document).on("click", "#shuoshuoload-more", function() {
 		$(this).remove();
@@ -351,7 +351,7 @@ function loadKnowledge(page){
 			   	$("#loading").remove();
 			    var list = res.data.list;
 			    if (list.length == 0) {
-				$("<span class='no-data'>没有知识话题</span>").appendTo(topic_content);
+				$("<span class='no-data'>没有知识库</span>").appendTo(topic_content);
 			    }
 			    var simplePage = res.data.page;
 			    for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {

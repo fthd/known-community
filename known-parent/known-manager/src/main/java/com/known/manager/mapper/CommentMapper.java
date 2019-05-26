@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface CommentMapper<T, Q> extends BaseMapper<T, Q> {
-   List<T> selectChildren(@Param("id") Integer id);
+   List<T> selectChildren(@Param("id") String id);
 }

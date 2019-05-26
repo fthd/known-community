@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserQuery extends BaseQuery {
 
-    private Integer userid;
+    private String userid;
 
     private String email;
 

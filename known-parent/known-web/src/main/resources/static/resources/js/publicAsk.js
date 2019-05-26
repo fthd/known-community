@@ -73,8 +73,7 @@ function addAsk(){
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
-				}
-				else{
+				} else{
 					layer.msg('发表成功', {
 						  icon: 1,
 						  time: 1500 //2秒关闭（如果不配置，默认是3秒）

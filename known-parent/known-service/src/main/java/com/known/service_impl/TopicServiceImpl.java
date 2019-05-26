@@ -7,6 +7,7 @@ import com.known.common.model.Topic;
 import com.known.common.model.TopicVote;
 import com.known.common.utils.ImageUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -46,7 +47,7 @@ public class TopicServiceImpl implements TopicService {
 	private MessageService messageService;
 
 	public PageResult<Topic> findTopicByPage(TopicQuery topicQuery) {
-		int count = this.topicMapper.selectCount(topicQuery);
+		int count = topicMapper.selectCount(topicQuery);
 		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
 		int pageNum = 1;
 		if (topicQuery.getPageNum() != 1) {
@@ -55,8 +56,8 @@ public class TopicServiceImpl implements TopicService {
 		Page page = new Page(pageNum, count, pageSize);
 		topicQuery.setPage(page);
 		topicQuery.setOrderBy(OrderByEnum.LAST_COMMENT_TIME_DESC_CREATE_TIME_DESC);
-		List<Topic> list = this.topicMapper.selectList(topicQuery);
-		PageResult<Topic> pageResult = new PageResult<Topic>(page, list);
+		List<Topic> list = topicMapper.selectList(topicQuery);
+		PageResult<Topic> pageResult = new PageResult<>(page, list);
 		return pageResult;
 	}
 
@@ -82,9 +83,8 @@ public class TopicServiceImpl implements TopicService {
 					(int) TextLengthEnum.TEXT_200_LENGTH.getLength())
 					+ "......";
 		}
-		Set<Integer> userIds = new HashSet<Integer>();
-		String formatContent = formateAtService.generateRefererLinks(content,
-				userIds);
+		Set<String> userIds = new HashSet<>();
+		String formatContent = formateAtService.generateRefererLinks(content, userIds);
 		// TODO 给用户发消息
 		topic.setSummary(summary);
 		topic.setContent(formatContent);
@@ -95,18 +95,18 @@ public class TopicServiceImpl implements TopicService {
 		Date curDate = new Date();
 		topic.setCreateTime(curDate);
 		topic.setLastCommentTime(curDate);
-		this.topicMapper.insert(topic);
-		this.userService.changeMark(topic.getUserId(),
+		topicMapper.insert(topic);
+		userService.changeMark(topic.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
 		if (topic.getTopicType() == TopicTypeEnum.VOTE) {// 判断是否是投票话题
 			topicVote.setTopicId(topic.getTopicId());
-			this.topicVoteService.addVote(topicVote, voteTitle);
+			topicVoteService.addVote(topicVote, voteTitle);
 		}
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setArticleId(topic.getTopicId());
 			attachment.setFileTopicType(FileTopicTypeEnum.TOPIC);
-			this.attachmentService.addAttachment(attachment);
+			attachmentService.addAttachment(attachment);
 		}
 		
 		MessageParams messageParams = new MessageParams();
@@ -120,27 +120,27 @@ public class TopicServiceImpl implements TopicService {
 		messageService.createMessage(messageParams);
 	}
 
-	public Topic showTopic(Integer topicId) throws BussinessException {
-		Topic topic = this.getTopic(topicId);
+	public Topic showTopic(String topicId) throws BussinessException {
+		Topic topic = getTopic(topicId);
 		if(topic == null){
 			throw new BussinessException("话题不存在或已删除");
 		}
-		topic.setAttachment(this.attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileTopicTypeEnum.TOPIC));
+		topic.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileTopicTypeEnum.TOPIC));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(topicId);
-		this.topicMapper.updateInfoCount(updateQuery4ArticleCount);
+		topicMapper.updateInfoCount(updateQuery4ArticleCount);
 		return topic;
 	}
 
-	public Topic getTopic(Integer topicId) {
+	public Topic getTopic(String topicId) {
 		if(topicId == null){
 			return null;
 		}
 		TopicQuery topicQuery = new TopicQuery();
 		topicQuery.setShowContent(Boolean.TRUE);
 		topicQuery.setTopicId(topicId);
-		List<Topic> list = this.topicMapper.selectList(topicQuery);
+		List<Topic> list = topicMapper.selectList(topicQuery);
 		if(list.isEmpty()){
 			return null;
 		}
@@ -148,11 +148,11 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	public List<Topic> findActiveUsers() {
-		return this.topicMapper.selectActiveUser4Topic();
+		return topicMapper.selectActiveUser4Topic();
 	}
 
 	public Integer findCount(TopicQuery topicQuery) {
-		return this.topicMapper.selectCount(topicQuery);
+		return topicMapper.selectCount(topicQuery);
 	}
 
 	@Override
@@ -164,12 +164,12 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public void updateTopicEssence(Integer[] topicId, int essence) throws BussinessException {
+	public void updateTopicEssence(String[] topicId, int essence) throws BussinessException {
 		if(topicId == null){
 			throw new BussinessException("参数错误");
 		}
 		
-		for(int id : topicId){
+		for(String id : topicId){
 			Topic topic = new Topic();
 			topic.setTopicId(id);
 			topic.setEssence(essence);
@@ -178,12 +178,12 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public void updateTopicStick(Integer[] topicId, int stick) throws BussinessException {
+	public void updateTopicStick(String[] topicId, int stick) throws BussinessException {
 		if(topicId == null){
 			throw new BussinessException("参数错误");
 		}
 		
-		for(int id : topicId){
+		for(String id : topicId){
 			Topic topic = new Topic();
 			topic.setTopicId(id);
 			topic.setGrade(stick);
@@ -193,7 +193,7 @@ public class TopicServiceImpl implements TopicService {
 	}
 	
 	@Override
-	public void deleteBatch(Integer[] topicIds) throws BussinessException {
+	public void deleteBatch(String[] topicIds) throws BussinessException {
 		if(topicIds == null){
 			throw new BussinessException("参数错误");
 		}

@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserFriendQuery extends BaseQuery{
 
-	private Integer userId;
+	private String userId;
 
-	private Integer friendUserId;
+	private String friendUserId;
 
 	
 }

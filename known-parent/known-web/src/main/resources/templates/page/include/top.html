@@ -2,7 +2,7 @@
     var known = {};
     known.realpath = "${realpath}";
     <#if Session["session_user_key"] ?exists>
-        known.userId = "${session_user_key.userid?c}";
+        known.userId = "${session_user_key.userid}";
     <#else>
         known.userId = 0;
     </#if>

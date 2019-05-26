@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KnowledgeMapper<T, Q> extends BaseMapper<T, Q> {
-	public void updateInfoCount(UpdateQuery4ArticleCount updateQuery4ArticleCount);
+	void updateInfoCount(UpdateQuery4ArticleCount updateQuery4ArticleCount);
 	
-	public void updateKnowledgeStatus(@Param("status") StatusEnum status, @Param("ids") Integer[] ids);
+	void updateKnowledgeStatus(@Param("status") StatusEnum status, @Param("ids") String[] ids);
 	
-	public void delete(@Param("id") Integer id);
+	void delete(@Param("id") String id);
 }

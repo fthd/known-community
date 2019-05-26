@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TopicVote {
-    private Integer voteId;
+    private String voteId;
 
-    private Integer topicId;
+    private String topicId;
 
     private VoteTypeEnum voteType;
     

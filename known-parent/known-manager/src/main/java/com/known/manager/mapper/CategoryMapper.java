@@ -10,7 +10,7 @@ public interface CategoryMapper<T, Q> extends BaseMapper<T, Q> {
 
 	List<T> selectCategory4TopicCount(Q q);
 
-	void deleteIds(@Param("ids") Integer[] ids);
+	void deleteIds(@Param("ids") java.lang.String[] ids);
 
-	void  deletePermission(@Param("ids") Integer[] ids) ;
+	void  deletePermission(@Param("ids") java.lang.String[] ids) ;
 }

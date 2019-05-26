@@ -9,10 +9,10 @@ import java.util.Set;
 @Repository
 public interface SysResMapper<T, Q> extends BaseMapper<T, Q>{
 	
-	void delete(@Param("ids") Integer[] ids);
+	void delete(@Param("ids") String[] ids);
 	
-	void  deletePermission(@Param("ids") Integer[] ids) ;
+	void  deletePermission(@Param("ids") String[] ids) ;
 	
-	List<SysRes> selectLimitByRoleIds(@Param("roleIds") Set<Integer> roleIds, @Param("type") Integer type);
+	List<SysRes> selectLimitByRoleIds(@Param("roleIds") Set<String> roleIds, @Param("type") Integer type);
 	
 }

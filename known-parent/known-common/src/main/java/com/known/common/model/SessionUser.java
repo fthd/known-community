@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SessionUser {
 
-	private Integer userid;
+	private String userid;
 	private String userName;
 	private String userIcon;
 

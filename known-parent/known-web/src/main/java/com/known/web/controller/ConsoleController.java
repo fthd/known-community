@@ -47,7 +47,7 @@ public class ConsoleController {
 	public OutResponse<Object> statisticsLoad(){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			List<Echart> list = this.iStatisticalDataService.findEcharts();
+			List<Echart> list = iStatisticalDataService.findEcharts();
 			outResponse.setData(list);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
@@ -71,7 +71,7 @@ public class ConsoleController {
 	public OutResponse<Object> taskLoad(){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			List<Task> tasks = this.taskService.findTaskList();
+			List<Task> tasks = taskService.findTaskList();
 			outResponse.setData(tasks);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
@@ -84,10 +84,10 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:task:delete")
 	@RequestMapping("/task/delete")
-	public OutResponse<Object> taskDelete(Integer[] ids){
+	public OutResponse<Object> taskDelete(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.taskService.deleteTask(ids);
+			taskService.deleteTask(ids);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
@@ -99,10 +99,10 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:task:pause")
 	@RequestMapping("/task/pause")
-	public OutResponse<Object> taskPause(Integer[] ids){
+	public OutResponse<Object> taskPause(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.taskService.pauseTask(ids);
+			taskService.pauseTask(ids);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
@@ -114,10 +114,10 @@ public class ConsoleController {
 	
 	@RequirePermissions(key="console:task:excute")
 	@RequestMapping("/task/excute")
-	public OutResponse<Object> taskExcute(Integer[] ids){
+	public OutResponse<Object> taskExcute(String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.taskService.excuteTask(ids);
+			taskService.excuteTask(ids);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();
@@ -133,10 +133,10 @@ public class ConsoleController {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			if(task.getId() == null){
-				this.taskService.addTask(task, isImmediateExcute);
+				taskService.addTask(task, isImmediateExcute);
 			}
 			else{
-				this.taskService.updateTask(task, isImmediateExcute);
+				taskService.updateTask(task, isImmediateExcute);
 			}
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
@@ -151,7 +151,7 @@ public class ConsoleController {
 	public OutResponse<Object> taskUpdate(Task task, boolean isImmediateExcute){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.taskService.updateTask(task, isImmediateExcute);
+			taskService.updateTask(task, isImmediateExcute);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			e.printStackTrace();

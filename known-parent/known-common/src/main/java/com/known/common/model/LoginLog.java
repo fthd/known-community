@@ -11,7 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginLog {
-    private Integer id;
+
+    private Long id;
 
     private String account;
 

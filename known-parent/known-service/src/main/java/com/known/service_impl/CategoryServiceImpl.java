@@ -2,7 +2,6 @@ package com.known.service_impl;
 
 import com.known.cache.CategoryCache;
 import com.known.common.model.Category;
-import com.known.common.model.SysRes;
 import com.known.common.utils.StringUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.CategoryMapper;
@@ -14,27 +13,29 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
 	@Autowired
 	private CategoryMapper<Category, CategoryQuery> categoryMapper;
 	
 	@Autowired
 	private CategoryCache categoryCache;
 
-	public List<Category> findCategoryList(CategoryQuery categoryQuery) {
+	public List<Category> findCategoryList(CategoryQuery categoryQuery, boolean isNeedChild) {
 		List<Category> list =  categoryMapper.selectList(categoryQuery);
-		list = getChildren(list, 0);
+		if(isNeedChild) {
+			list = getChildren(list, "");
+		}
 		return list;
 	}
 	
-	public static List<Category> getChildren(List<Category> categories, int id){
+	public static List<Category> getChildren(List<Category> categories,String id){
 		List<Category> children = new ArrayList<>();
 		for(Category category : categories){
-			if(category.getPid() == id){
+			if(category.getPid().equals(id)){
 				category.setChildren(getChildren(categories, category.getCategoryId()));
 				children.add(category);
 			}
@@ -44,11 +45,11 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public List<Category> findCategory4TopicCount(CategoryQuery categoryQuery) {
 		List<Category> list =  categoryMapper.selectCategory4TopicCount(categoryQuery);
-		list = getChildren(list, 0);
+		list = getChildren(list, null);
 		return list;
 	}
 
-	public Category findCategoryBypCategoryId(Integer pCategoryId) {
+	public Category findCategoryBypCategoryId(String pCategoryId) {
 		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			if(category.getCategoryId() == pCategoryId){
@@ -58,12 +59,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
-	public Category findCategoryByCategoryId(Integer categoryId) {
+	public Category findCategoryByCategoryId(String categoryId) {
 		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			List<Category> children = category.getChildren();
 			for(Category c : children){
-				if(c.getCategoryId() == categoryId){
+				if(c.getCategoryId() .equals(categoryId)){
 					return category;
 				}
 			}
@@ -71,12 +72,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
-	public Category findSingleCategoryByCategoryId(Integer categoryId) {
+	public Category findSingleCategoryByCategoryId(String categoryId) {
 		List<Category> bbCategories = categoryCache.getTopicCategories();
 		for(Category category : bbCategories){
 			List<Category> children = category.getChildren();
 			for(Category c : children){
-				if(c.getCategoryId() == categoryId){
+				if(c.getCategoryId().equals(categoryId)){
 					return c;
 				}
 			}
@@ -84,9 +85,8 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
-	@Override
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
-	public void deleteCategory(Integer[] ids) throws BussinessException {
+	public void deleteCategory(String[] ids) throws BussinessException {
 		if(ids == null || ids.length == 0){
 			throw new BussinessException("参数错误");
 		}
@@ -98,7 +98,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void addCategory(Category category) throws BussinessException {
-		if(StringUtil.isEmpty(category.getName()) || category.getPid() == null
+		if(StringUtil.isEmpty(category.getName()) || StringUtil.isEmpty(category.getPid())
 				|| StringUtil.isEmpty(category.getDesc())
 				|| category.getRank() == null) {
 			throw new BussinessException("参数错误");

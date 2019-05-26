@@ -2,6 +2,7 @@ package com.known.service_impl;
 
 import com.known.common.model.Task;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.TaskMapper;
 import com.known.manager.query.TaskQuery;
@@ -31,13 +32,13 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void deleteTask(Integer[] ids) throws BussinessException {
+	public void deleteTask(String[] ids) throws BussinessException {
 		if(ids == null || ids.length == 0){
 			throw new BussinessException("参数错误");
 		}
 		
 		taskMapper.delete(ids);
-		for(int id : ids){
+		for(String id : ids){
 			Task task = findTaskById(id);
 			TaskMessage taskMessage = convert2TaskMessage(task);
 			try {
@@ -53,7 +54,8 @@ public class TaskServiceImpl implements TaskService {
 		if(null == task){
 			throw new BussinessException("参数错误");
 		}
-		
+
+		task.setId(UUIDUtil.getUUID());
 		task.setLastUpdateTime(new Date());
 		if(StringUtil.isEmpty(task.getTaskClassz()) || StringUtil.isEmpty(task.getTaskMethod())
 				|| StringUtil.isEmpty(task.getTaskTime())
@@ -160,8 +162,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void pauseTask(Integer[] ids) throws BussinessException {
-		for(int id : ids){
+	public void pauseTask(String[] ids) throws BussinessException {
+		for(String id : ids){
 			Task task = findTaskById(id);
 			task.setLastUpdateTime(new Date());
 			task.setStatus(1);
@@ -177,7 +179,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 	
 	
-	public Task findTaskById(Integer id) throws BussinessException{
+	public Task findTaskById(String id) throws BussinessException{
 		if(id == null){
 			throw new BussinessException("参数错误");
 		}
@@ -191,8 +193,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 	
 	@Override
-	public void excuteTask(Integer[] ids) throws BussinessException {
-		for(int id : ids){
+	public void excuteTask(String[] ids) throws BussinessException {
+		for(String id : ids){
 			Task task = findTaskById(id);
 			task.setLastUpdateTime(new Date());
 			task.setStatus(0);

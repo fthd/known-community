@@ -65,7 +65,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：{}", e);
@@ -81,7 +81,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		user.setUserid(sessionUser.getUserid());
 		try {
-			this.userService.updateUserInfo(user);
+			userService.updateUserInfo(user);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			logger.error("修改出错", e);
@@ -104,7 +104,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：{}", e);
@@ -118,13 +118,13 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	@RequestMapping("/saveUserPage")
 	public OutResponse<Object> saveUserPage(HttpSession session, Integer userPage){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		Integer userId = this.getUserid(session);
+		String userId = getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
 		try {
 			userPage = userPage == null ? 0 : userPage;
 			user.setUserPage(userPage);
-			this.userService.updateUserWithoutValidate(user);
+			userService.updateUserWithoutValidate(user);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
@@ -144,7 +144,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：{}", e);
@@ -159,7 +159,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
-			this.userService.updatePassword(sessionUser.getUserid(), oldPassword, newPassword);
+			userService.updatePassword(sessionUser.getUserid(), oldPassword, newPassword);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			logger.error("修改出错", e);
@@ -182,7 +182,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：{}", e);
@@ -195,14 +195,14 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	@RequestMapping("/saveSysUserIcon")
 	public OutResponse<Object> saveSysUserIcon(HttpSession session, String userIcon){
 		OutResponse<Object> outResponse = new OutResponse<>();
-		Integer userId = this.getUserid(session);
+		String userId = getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
 		try {
 			String dest = "/resources/images/user_icon/" + userId + ".jpg";
-//			this.userService.copyUserIcon(user,userIcon, dest,userId+"");
+//			userService.copyUserIcon(user,userIcon, dest,userId+"");
 			//user.setUserIcon(dest);
-			this.userService.updateUserWithoutValidate(user);
+			userService.updateUserWithoutValidate(user);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
@@ -215,13 +215,13 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	@RequestMapping("/saveUserIcon")
 	public OutResponse<Object> saveUserIcon(HttpSession session, String img, Integer x1,
                                              Integer y1, Integer width, Integer height){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		if(StringUtil.isEmpty(img)){
 			outResponse.setMsg("修改出错,请重试");
 			outResponse.setCode(CodeEnum.SERVERERROR);
 			return outResponse;
 		}
-		Integer userId = this.getUserid(session);
+		String userId = getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
 		try {
@@ -236,7 +236,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
 			AliyunOSSClientUtil.uploadObject2OSS(ossClient, destFile, "user_icon/");
 			user.setUserIcon(AliyunOSSClientUtil.getUrl(ossClient,"user_icon/"+userId+".jpg"));*/
-			this.userService.updateUserWithoutValidate(user);
+			userService.updateUserWithoutValidate(user);
 			file.delete();
 			destFile.delete();
 			outResponse.setCode(CodeEnum.SUCCESS);
@@ -257,7 +257,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取用户信息失败：{}", e);
@@ -270,12 +270,12 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	@RequestMapping("/saveSysUserBg")
 	public OutResponse<Object> saveSysUserBg(HttpSession session, String background){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
-		Integer userId = this.getUserid(session);
+		String userId = getUserid(session);
 		User user = new User();
 		user.setUserid(userId);
 		try {
 			user.setUserBg(background);
-			this.userService.updateUserWithoutValidate(user);
+			userService.updateUserWithoutValidate(user);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改出错{}", e);
@@ -287,10 +287,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	
 
 	@RequestMapping("/deleteAttachment")
-	public OutResponse<Object> deleteBlogAttachment(HttpSession session, Integer attachmentId){
+	public OutResponse<Object> deleteBlogAttachment(HttpSession session, String attachmentId){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.attachmentService.deleteFile(attachmentId);
+			attachmentService.deleteFile(attachmentId);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
 			logger.error("删除文件失败{}", e);
@@ -309,7 +309,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 		} catch (BussinessException e) {
 			logger.error("获取消息列表失败：{}", e);
@@ -321,11 +321,11 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 
 	@RequestMapping("/load_user_message_list.action")
 	public OutResponse<Object> load_user_message_list(HttpSession session, MessageQuery messageQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			messageQuery.setReceivedUserId(this.getUserid(session));
+			messageQuery.setReceivedUserId(getUserid(session));
 			messageQuery.setOrderBy(OrderByEnum.MESSAGE_STATUS_ASC_CREATE_TIME_DESC);
-			PageResult<Message> result = this.messageService.findMessageByPage(messageQuery);
+			PageResult<Message> result = messageService.findMessageByPage(messageQuery);
 			outResponse.setData(result);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
@@ -337,10 +337,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 
 	@RequestMapping("/mark_message_read.action")
-	public OutResponse<Object> mark_message_read(HttpSession session, Integer[] ids){
+	public OutResponse<Object> mark_message_read(HttpSession session, String[] ids){
 		OutResponse<Object> outResponse = new OutResponse<Object>();
 		try {
-			this.messageService.update(ids, this.getUserid(session));
+			messageService.update(ids, getUserid(session));
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
 			logger.error("消息标记已读出错{}", e);
@@ -352,11 +352,11 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 
 	@RequestMapping("/load_user_message_count.action")
 	public OutResponse<Object> load_user_message_count(HttpSession session, MessageQuery messageQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			messageQuery.setReceivedUserId(this.getUserid(session));
+			messageQuery.setReceivedUserId(getUserid(session));
 			messageQuery.setOrderBy(OrderByEnum.MESSAGE_STATUS_ASC_CREATE_TIME_DESC);
-			Integer count = this.messageService.findMessageCount(messageQuery);
+			Integer count = messageService.findMessageCount(messageQuery);
 			outResponse.setData(count);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
@@ -368,10 +368,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 
 	@RequestMapping("/del_message.action")
-	public OutResponse<Object> del_message(HttpSession session, Integer[] ids){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> del_message(HttpSession session, String[] ids){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.messageService.delMessage(this.getUserid(session), ids);
+			messageService.delMessage(getUserid(session), ids);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
 			logger.error("消息删除出错{}", e);
@@ -382,7 +382,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 	
 	@RequestMapping("/readMessage.action")
-	public ModelAndView readMessage(HttpSession session, Integer id){
+	public ModelAndView readMessage(HttpSession session, String id){
 		ModelAndView view = new ModelAndView(urlConfig.getError_404());
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
@@ -390,10 +390,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
-			view.setViewName("redirect:" + this.messageService.getMessageById(id, this.getUserid(session)).getUrl());
-			this.messageService.update(new Integer[]{id}, this.getUserid(session));
+			view.setViewName("redirect:" + messageService.getMessageById(id, getUserid(session)).getUrl());
+			messageService.update(new String[]{id}, getUserid(session));
 		} catch (BussinessException e) {
 			logger.error("获取消息列表失败：{}", e);
 			view.setViewName("redirect:" + urlConfig.getError_404());
@@ -411,7 +411,7 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 			return view;
 		}
 		try {
-			User user = this.userService.findUserInfo4UserHome(sessionUser.getUserid());
+			User user = userService.findUserInfo4UserHome(sessionUser.getUserid());
 			view.addObject("user", user);
 			view.addObject("articleType", collectionQuery.getArticleType().getType());
 		} catch (BussinessException e) {
@@ -423,10 +423,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 
 	@RequestMapping("/load_collection.action")
-	public OutResponse<Object>load_collection(HttpSession session, CollectionQuery collectionQuery){
+	public OutResponse<Object>load_collection(CollectionQuery collectionQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			PageResult<Collection> result = this.collectionService.findCollectionByPage(collectionQuery);
+			PageResult<Collection> result = collectionService.findCollectionByPage(collectionQuery);
 			outResponse.setData(result);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
@@ -438,10 +438,10 @@ private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 	}
 
 	@RequestMapping("/del_collection.action")
-	public OutResponse<Object> del_collection(HttpSession session, Collection collection){
+	public OutResponse<Object> del_collection(Collection collection){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			this.collectionService.deleteCollection(collection);
+			collectionService.deleteCollection(collection);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		}catch (Exception e) {
 			logger.error("收藏删除出错{}", e);

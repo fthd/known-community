@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQuery extends BaseQuery {
 
-	private Integer id;
+	private String id;
 	
     private String taskClassz;
 

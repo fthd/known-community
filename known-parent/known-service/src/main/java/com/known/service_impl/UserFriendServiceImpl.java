@@ -35,7 +35,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		Page page = new Page(pageNum, count, size);
 		userFriendQuery.setPage(page);
 		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
-		return new PageResult<UserFriend>(page,	 list);
+		return new PageResult<>(page,	list);
 	}
 
 	public PageResult<UserFriend> findFansList(UserFriendQuery userFriendQuery) {
@@ -48,7 +48,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		Page page = new Page(pageNum, count, size);
 		userFriendQuery.setPage(page);
 		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
-		return new PageResult<UserFriend>(page,	 list);
+		return new PageResult<>(page,	 list);
 	}
 
 	public void addFocus(UserFriend userFriend) throws BussinessException {
@@ -76,7 +76,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 			return 1;
 		}
 		//本人
-		if(userFriendQuery.getUserId().intValue() == userFriendQuery.getFriendUserId().intValue()){
+		if(userFriendQuery.getUserId().equals(userFriendQuery.getFriendUserId())){
 			return 0;
 		}
 		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);

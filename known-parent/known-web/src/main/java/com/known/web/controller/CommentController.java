@@ -32,10 +32,10 @@ public class CommentController extends BaseController {
 	private UserConfig userConfig;
 
 	@RequestMapping("/loadComment")
-	public OutResponse<PageResult<Comment>> loadComment(HttpSession session, CommentQuery commentQuery){
+	public OutResponse<PageResult<Comment>> loadComment(CommentQuery commentQuery){
 		 OutResponse<PageResult<Comment>> outResponse = new OutResponse<>();
 		 try {
-			 PageResult<Comment> pageResult = this.commentService.findCommentByPage(commentQuery);
+			 PageResult<Comment> pageResult = commentService.findCommentByPage(commentQuery);
 			 outResponse.setData(pageResult);
 			 outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
@@ -55,9 +55,9 @@ public class CommentController extends BaseController {
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		this.setUserBaseInfo(Comment.class, comment, session);
+		setUserBaseInfo(Comment.class, comment, session);
 		try {
-			this.commentService.addComment(comment);
+			commentService.addComment(comment);
 			outResponse.setData(comment);
 			 outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
@@ -82,9 +82,9 @@ public class CommentController extends BaseController {
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		this.setUserBaseInfo(Comment.class, comment, session);
+		setUserBaseInfo(Comment.class, comment, session);
 		try {
-			this.commentService.addComment(comment);
+			commentService.addComment(comment);
 			outResponse.setData(comment);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {

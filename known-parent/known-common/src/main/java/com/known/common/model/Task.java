@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task {
-    private Integer id;
+    private String id;
 
     private String taskClassz;
 

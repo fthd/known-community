@@ -32,7 +32,7 @@ public class SysResServiceImpl implements SysResService {
 
 	@Override
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor= BussinessException.class)
-	public void deleteSysRes(Integer[] ids) throws BussinessException {
+	public void deleteSysRes(String[] ids) throws BussinessException {
 		if(ids == null || ids.length == 0){
 			throw new BussinessException("参数错误");
 		}
@@ -44,12 +44,10 @@ public class SysResServiceImpl implements SysResService {
 	@Override
 	public void addSysRes(SysRes sysRes) throws BussinessException {
 		if(StringUtil.isEmpty(sysRes.getName()) || sysRes.getPid() == null
-				|| StringUtil.isEmpty(sysRes.getUrl()) || sysRes.getType() == null
+				|| sysRes.getType() == null
 				|| sysRes.getEnabled() == null || StringUtil.isEmpty(sysRes.getKey())){
 			throw new BussinessException("参数错误");
 		}
-		
-		sysRes.setModifydate(new Date());
 		
 		sysResMapper.insert(sysRes);
 	}
@@ -57,14 +55,12 @@ public class SysResServiceImpl implements SysResService {
 	
 	@Override
 	public void updateSysRes(SysRes sysRes) throws BussinessException {
-		if(sysRes.getId() == null || StringUtil.isEmpty(sysRes.getName()) ||
-				sysRes.getPid() == null || StringUtil.isEmpty(sysRes.getUrl())
+		if(sysRes.getId() == null || StringUtil.isEmpty(sysRes.getName())
+				|| sysRes.getPid() == null
 				|| sysRes.getType() == null || sysRes.getEnabled() == null
 				|| StringUtil.isEmpty(sysRes.getKey())){
 				throw new BussinessException("参数错误");
 		}
-		
-		sysRes.setModifydate(new Date());
 		
 		sysResMapper.update(sysRes);
 	}
@@ -81,7 +77,7 @@ public class SysResServiceImpl implements SysResService {
 		List<Tree> trees = new ArrayList<>();
 		
 		SysResQuery sysResQuery = new SysResQuery();
-		sysResQuery.setPid(0);
+		sysResQuery.setPid("");
 		sysResQuery.setEnabled(1);
 		
 		List<SysRes> mainmenu = sysResMapper.selectList(sysResQuery);
@@ -135,7 +131,7 @@ public class SysResServiceImpl implements SysResService {
 	
 	
 	@Override
-	public List<SysRes> findLimitByRoleIds(Set<Integer> roleIds, Integer type) {
+	public List<SysRes> findLimitByRoleIds(Set<String> roleIds, Integer type) {
 		if(roleIds.isEmpty()){
 			return null;
 		}

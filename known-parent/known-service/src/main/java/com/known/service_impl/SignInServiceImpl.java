@@ -31,7 +31,7 @@ public class SignInServiceImpl implements SignInService {
 	private UserService userService;
 
 
-	public SignInfo findSignInfoByUserid(Integer userid) {
+	public SignInfo findSignInfoByUserid(String userid) {
 		SignInQuery signInQuery = new SignInQuery();
 		SignInfo signInfo = new SignInfo();
 		Date curDate = new Date();
@@ -71,7 +71,7 @@ public class SignInServiceImpl implements SignInService {
 	//签到是事物，配置开启新事物，并且只有在发生BussinessException才回滚
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
 	public SignIn doSignIn(SessionUser sessionUser) throws BussinessException {
-		Integer userid = sessionUser.getUserid();
+		String userid = sessionUser.getUserid();
 		Date curDate = new Date();
 		SignInQuery signInQuery = new SignInQuery();
 		signInQuery.setUserid(userid);
@@ -82,7 +82,7 @@ public class SignInServiceImpl implements SignInService {
 		}
 		SignIn signIn = new SignIn();
 		signIn.setUserid(sessionUser.getUserid());
-			signIn.setUserIcon(sessionUser.getUserIcon());
+		signIn.setUserIcon(sessionUser.getUserIcon());
 		signIn.setUserName(sessionUser.getUserName());
 		signIn.setSignDate(curDate);
 		signIn.setSignTime(curDate);

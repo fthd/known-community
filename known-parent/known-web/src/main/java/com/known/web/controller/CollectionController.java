@@ -45,7 +45,7 @@ public class CollectionController extends BaseController {
 			return outResponse;
 		}
 		try {
-			this.collectionService.addCollection(collection);
+			collectionService.addCollection(collection);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());

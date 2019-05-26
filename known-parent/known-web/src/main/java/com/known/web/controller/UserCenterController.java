@@ -58,7 +58,7 @@ public class UserCenterController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/{userId}")
-	public ModelAndView user(HttpSession session, @PathVariable Integer userId){
+	public ModelAndView user(HttpSession session, @PathVariable String userId){
 		ModelAndView view = new ModelAndView("/page/user/home");
 		try {
 			//用户基本信息
@@ -113,7 +113,7 @@ public class UserCenterController extends BaseController {
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		int userId = getUserid(session);
+		String userId = getUserid(session);
 		UserFriendQuery ufq = new UserFriendQuery();
 		ufq.setUserId(userId);
 		ufq.setPageNum(pageNum);
@@ -124,7 +124,7 @@ public class UserCenterController extends BaseController {
 
 
 	@RequestMapping("/loadShuoShuos")
-	public OutResponse<Object> loadShuoShuos(HttpSession session,ShuoShuoQuery shuoShuoQuery){
+	public OutResponse<Object> loadShuoShuos(ShuoShuoQuery shuoShuoQuery){
 
 		OutResponse<Object> outResponse = new OutResponse<>();
 
@@ -141,7 +141,7 @@ public class UserCenterController extends BaseController {
 	}
 
 	@RequestMapping("/loadTopic")
-	public OutResponse<Object> loadTopic(HttpSession session, TopicQuery topicQuery){
+	public OutResponse<Object> loadTopic(TopicQuery topicQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			PageResult<Topic> pageResult = topicService.findTopicByPage(topicQuery);
@@ -156,8 +156,8 @@ public class UserCenterController extends BaseController {
 	}
 
 	@RequestMapping("/loadAsk")
-	public OutResponse<Object> loadAsk(HttpSession session, AskQuery askQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadAsk( AskQuery askQuery){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			PageResult<Ask> pageResult = askService.findAskByPage(askQuery);
 			outResponse.setData(pageResult);
@@ -171,8 +171,8 @@ public class UserCenterController extends BaseController {
 	}
 
 	@RequestMapping("/loadKnowledge")
-	public OutResponse<Object> loadKnowledge(HttpSession session, KnowledgeQuery knowledgeQuery){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadKnowledge( KnowledgeQuery knowledgeQuery){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 			outResponse.setData(pageResult);
@@ -186,8 +186,8 @@ public class UserCenterController extends BaseController {
 	}
 
 	@RequestMapping("/loadFocus")
-	public OutResponse<Object> loadUserFriend(HttpSession session, UserFriendQuery ufq){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadUserFriend(UserFriendQuery ufq){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try{
 			PageResult<UserFriend> pageResult = userFriendService.findFriendList(ufq);
 			outResponse.setData(pageResult);
@@ -200,8 +200,8 @@ public class UserCenterController extends BaseController {
 	}
 
 	@RequestMapping("/loadFans")
-	public OutResponse<Object> loadUserFans(HttpSession session, UserFriendQuery ufq){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+	public OutResponse<Object> loadUserFans(UserFriendQuery ufq){
+		OutResponse<Object> outResponse = new OutResponse<>();
 		try{
 			PageResult<UserFriend> pageResult = userFriendService.findFansList(ufq);
 			outResponse.setData(pageResult);
@@ -214,7 +214,7 @@ public class UserCenterController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/{userId}/shuoshuo/{id}")
-	public ModelAndView shuoshuo(HttpSession session, @PathVariable Integer userId, @PathVariable Integer id){
+	public ModelAndView shuoshuo(HttpSession session, @PathVariable String userId, @PathVariable String id){
 		ModelAndView view = new ModelAndView("/page/user/shuoshuo");
 		try {
 			User user = userService.findUserInfo4UserHome(userId);

@@ -57,10 +57,10 @@ public class MessageServiceImpl implements MessageService {
 
 	private void changeMarkMessage(MessageParams messageParams) {
 		List<Message> messageList = new ArrayList<>();
-		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
+		Set<String> receiveUserIds = messageParams.getReceiveUserIds();
 		Date curDate = new Date();
 		Message message = null;
-		for(Integer receivedUserId : receiveUserIds){
+		for(String receivedUserId : receiveUserIds){
 			message = new Message();
 			message.setReceivedUserId(receivedUserId);
 			message.setUrl(Constants.DOMAIN +"/admin/messageList");
@@ -75,8 +75,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	private void adoptAnswerMessage(MessageParams messageParams) {
-		List<Message> messageList = new ArrayList<Message>();
-		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
+		List<Message> messageList = new ArrayList<>();
+		Set<String> receiveUserIds = messageParams.getReceiveUserIds();
 		AskQuery askQuery = new AskQuery();
 		askQuery.setAskId(messageParams.getArticleId());
 		Ask ask = this.askMapper.selectList(askQuery).get(0);
@@ -84,7 +84,7 @@ public class MessageServiceImpl implements MessageService {
 		Message message = null;
 		removeUser(receiveUserIds, messageParams.getSendUserId());
 		Date curDate = new Date();
-		for(Integer receivedUserId : receiveUserIds){
+		for(String receivedUserId : receiveUserIds){
 			message = new Message();
 			message.setReceivedUserId(receivedUserId);
 			message.setUrl(getUrl4CommentAndAt(messageParams));
@@ -101,11 +101,11 @@ public class MessageServiceImpl implements MessageService {
 
 	private void commentMessage(MessageParams messageParams) {
 		List<Message> messageList = new ArrayList<>();
-		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
+		Set<String> receiveUserIds = messageParams.getReceiveUserIds();
 		ArticleTypeEnum articleType = messageParams.getArticleType();
-		Integer articleId = messageParams.getArticleId();
+		String articleId = messageParams.getArticleId();
 		String title = "";
-		Integer articleUserId = null;
+		String articleUserId = null;
 		if(articleType == ArticleTypeEnum.TOPIC){
 			TopicQuery topicQuery = new TopicQuery();
 			topicQuery.setTopicId(articleId);
@@ -139,7 +139,7 @@ public class MessageServiceImpl implements MessageService {
 		Message message = null;
 		removeUser(receiveUserIds, messageParams.getSendUserId());
 		Date curDate = new Date();
-		for(Integer receivedUserId : receiveUserIds){
+		for(String receivedUserId : receiveUserIds){
 			message = new Message();
 			message.setReceivedUserId(receivedUserId);
 			message.setUrl(getUrl4CommentAndAt(messageParams));
@@ -155,12 +155,12 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	private void atMessage(MessageParams messageParams) {
-		List<Message> messageList = new ArrayList<Message>();
-		Set<Integer> receiveUserIds = messageParams.getReceiveUserIds();
+		List<Message> messageList = new ArrayList<>();
+		Set<String> receiveUserIds = messageParams.getReceiveUserIds();
 		Message message = null;
 		removeUser(receiveUserIds, messageParams.getSendUserId());
 		Date curDate = new Date();
-		for(Integer receivedUserId : receiveUserIds){
+		for(String receivedUserId : receiveUserIds){
 			message = new Message();
 			message.setReceivedUserId(receivedUserId);
 			message.setUrl(getUrl4CommentAndAt(messageParams));
@@ -174,16 +174,16 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
-	private void removeUser(Set<Integer> receiveUserIds, Integer sendUserId) {
-		Iterator<Integer> iterator = receiveUserIds.iterator();
+	private void removeUser(Set<String> receiveUserIds, String sendUserId) {
+		Iterator<String> iterator = receiveUserIds.iterator();
 		while(iterator.hasNext()){
-			if(iterator.next().intValue() == sendUserId){
+			if(iterator.next().equals(sendUserId)){
 				iterator.remove();
 			}
 		}
 	}
 
-	public Message getMessageById(Integer id, Integer userId) {
+	public Message getMessageById(String id, String userId) {
 		MessageQuery messageQuery = new MessageQuery();
 		messageQuery.setReceivedUserId(userId);
 		messageQuery.setId(id);
@@ -201,21 +201,21 @@ public class MessageServiceImpl implements MessageService {
 		Page page = new Page(pageNum, count, pageSize);
 		messageQuery.setPage(page);
 		List<Message> list = this.messageMapper.selectList(messageQuery);
-		return new PageResult<Message>(page, list);
+		return new PageResult<>(page, list);
 	}
 
 	public int findMessageCount(MessageQuery messageQuery) {
 		return this.messageMapper.selectCount(messageQuery).intValue();
 	}
 
-	public void update(Integer[] ids, Integer userId) throws BussinessException {
+	public void update(String[] ids, String userId) throws BussinessException {
 		if(ids == null || userId == null || ids.length == 0){
 			throw new BussinessException("参数错误");
 		}
 		this.messageMapper.update(userId, ids);
 	}
 
-	public void delMessage(Integer userId, Integer[] ids)
+	public void delMessage(String userId, String[] ids)
 			throws BussinessException {
 		if(ids == null || userId == null || ids.length == 0){
 			throw new BussinessException("参数错误");

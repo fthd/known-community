@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignIn {
-    private Integer userid;
+    private String userid;
 
     private String userIcon;
 

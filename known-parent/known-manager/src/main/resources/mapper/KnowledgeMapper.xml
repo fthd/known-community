@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.known.manager.mapper.KnowledgeMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Knowledge" >
-    <id column="knowledge_id" property="knowledgeId" jdbcType="INTEGER" />
-    <result column="p_category_id" property="pCategoryId" jdbcType="INTEGER" />
-    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <id column="knowledge_id" property="knowledgeId" jdbcType="VARCHAR" />
+    <result column="p_category_id" property="pCategoryId" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="knowledge_image" property="knowledgeImage" jdbcType="VARCHAR" />
     <result column="knowledge_image_thum" property="knowledgeImageThum" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -97,8 +97,8 @@
       read_count, collection_count, like_count, 
       content, summary, knowledge_image, 
       knowledge_image_thum,status)
-    values (#{pCategoryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR}, 
+    values (#{pCategoryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{readCount,jdbcType=INTEGER}, #{collectionCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
       #{content,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR}, #{knowledgeImage,jdbcType=LONGVARCHAR}, 

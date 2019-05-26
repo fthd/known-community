@@ -8,20 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttachmentDownload{
-	 private Integer attachmentId;
 
-	 private Integer userId;
+	 private String attachmentId;
+
+	 private String userId;
 	 
     private String userIcon;
 
     private String userName;
-    
 
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon == null ? null : userIcon.trim();
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
 }

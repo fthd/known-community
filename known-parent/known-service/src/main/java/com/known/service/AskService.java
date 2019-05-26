@@ -15,16 +15,16 @@ public interface AskService {
 	
 	void addAsk(Ask ask) throws BussinessException;
 	
-	void setBestAnswer(Integer bestAnswerId, Integer askId, Integer userId) throws BussinessException;
+	void setBestAnswer(String bestAnswerId, String askId, String userId) throws BussinessException;
 	
-	Ask getAskById(Integer askId);
+	Ask getAskById(String askId);
 	
-	Ask showAsk(Integer askId, String flag) throws BussinessException;
+	Ask showAsk(String askId, String flag) throws BussinessException;
 	
 	List<Ask> findTopUsers();
 	
 	List<Ask> findAskList();
 	
-	void deleteBatch(Integer[] ids) throws BussinessException;
+	void deleteBatch(String[] ids) throws BussinessException;
 	
 }

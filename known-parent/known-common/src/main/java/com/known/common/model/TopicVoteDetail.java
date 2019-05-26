@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TopicVoteDetail {
-    private Integer id;
+    private String id;
 
-    private Integer voteId;
+    private String voteId;
 
-    private Integer topicId = 0;
+    private String topicId;
 
     private String title;
 

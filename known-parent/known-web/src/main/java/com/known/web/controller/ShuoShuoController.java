@@ -59,8 +59,8 @@ public class ShuoShuoController extends BaseController {
 		}
 
 		try {
-			this.setUserBaseInfo(ShuoShuo.class, shuoShuo, session);
-			this.shuoShuoService.addShuoShuo(shuoShuo);
+			setUserBaseInfo(ShuoShuo.class, shuoShuo, session);
+			shuoShuoService.addShuoShuo(shuoShuo);
 			outResponse.setCode(CodeEnum.SUCCESS);
 			outResponse.setData(shuoShuo);
 		} catch (BussinessException e) {
@@ -81,8 +81,8 @@ public class ShuoShuoController extends BaseController {
 			return outResponse;
 		}
 		try {
-			this.setUserBaseInfo(ShuoShuoComment.class, shuoShuoComment, session);
-			this.shuoShuoService.addShuoShuoComment(shuoShuoComment);
+			setUserBaseInfo(ShuoShuoComment.class, shuoShuoComment, session);
+			shuoShuoService.addShuoShuoComment(shuoShuoComment);
 			outResponse.setCode(CodeEnum.SUCCESS);
 			outResponse.setData(shuoShuoComment);
 		} catch (BussinessException e) {
@@ -95,16 +95,16 @@ public class ShuoShuoController extends BaseController {
 
 	@RequestMapping("/doShuoShuoLike")
 	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
-		OutResponse<Object> outResponse = new OutResponse<Object>();
+		OutResponse<Object> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		if(sessionUser==null){
 			outResponse.setCode(CodeEnum.BUSSINESSERROR);
 			outResponse.setMsg("请先登录");
 			return outResponse;
 		}
-		this.setUserBaseInfo(ShuoShuoLike.class, shuoShuoLike, session);
+		setUserBaseInfo(ShuoShuoLike.class, shuoShuoLike, session);
 		try {
-			this.shuoShuoService.doShuoShuoLike(shuoShuoLike);
+			shuoShuoService.doShuoShuoLike(shuoShuoLike);
 			outResponse.setCode(CodeEnum.SUCCESS);
 			outResponse.setData(shuoShuoLike);
 		} catch (BussinessException e) {
