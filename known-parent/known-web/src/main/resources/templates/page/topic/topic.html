@@ -13,7 +13,7 @@
     <div class="left">
         <#list categories as category>
         <div class="cate-item">
-            <div class="p-cate"><a href="/topic/board/${(category.categoryId)?c}">${category.name}</a></div>
+            <div class="p-cate"><a href="/topic/board/${category.categoryId}">${category.name}</a></div>
             <#assign children = category.children>
             <#if (children?size>0)>
             <div class="sub-cate">
@@ -61,7 +61,7 @@
             <ul>
                 <#list activeUser as user>
                 <li>
-                    <a href="${realpath}/user/${(user.userId)?c}">
+                    <a href="${realpath}/userCenter/${user.userId}">
                         <img class="img-circle" src="${user.userIcon}" style="display:inline;"/>
                         <span>${user.userName}</span>
                         <span class="post-count">发布：${user.topicCount}</span>

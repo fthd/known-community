@@ -49,8 +49,8 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping("/register")
-    public String register() {
-        return "/page/register";
+    public ModelAndView register() {
+        return new ModelAndView("/page/register");
     }
 
     /**

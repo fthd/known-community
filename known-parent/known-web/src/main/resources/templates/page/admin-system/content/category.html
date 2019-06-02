@@ -75,7 +75,7 @@
 	</div>
 </div>
 
- <!-- responsive -->
+ <!-- response -->
 <div id="model" class="modal fade" tabindex="-1" data-width="760">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -182,7 +182,7 @@ function askFormatter(value, row) {
  function loadMenu(){
  	var pid =  $("#pid");
  	pid.html("");
- 	var root = $("<option value='0' >根目录</option>");
+ 	var root = $("<option value='' >根目录</option>");
  	root.appendTo(pid);
  	$.ajax({
  		url: '${realpath}/content/category/allmenu',
@@ -266,7 +266,7 @@ $(document).ready(function() {
    $("#btn_delete").click(function(){
    	var arr = getIds();
    	if(arr.length == 0){
-   		layer.msg("请选择要标记的行", {
+   		layer.msg("请选择要操作的ID", {
 				icon: 5,
 				time: 1500 //2秒关闭（如果不配置，默认是3秒）
 			});
@@ -299,7 +299,7 @@ $(document).ready(function() {
    function update(select){
    	$("#name").val(select.name);
    	$("#desc").val(select.desc);
-   	$("#id").val(select.id);
+   	$("#categoryId").val(select.categoryId);
    	$("#pid").val(select.pid);
    	$("#enabled").val(select.enabled);
    	$("#type").val(select.type);

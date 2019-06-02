@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Collection{
+
 	private String articleId;
 
     private ArticleTypeEnum articleType;

@@ -1,7 +1,7 @@
 package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.known.common.enums.FileTopicTypeEnum;
+import com.known.common.enums.FileArticleTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +22,7 @@ public class Attachment {
     private Integer downloadCount = 0;
 
     
-    private FileTopicTypeEnum fileTopicType;
+    private FileArticleTypeEnum fileArticleType;
     
 
 

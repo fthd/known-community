@@ -68,9 +68,9 @@ public class PermissionDirective implements TemplateDirectiveModel {
 				//查找角色结果集 sys_res
 				Integer type = 1; //菜单
 				List<SysRes> list = sysResService.findLimitByRoleIds(roleSet, type);
-				list.parallelStream().forEach( r -> {
+				/*list.parallelStream().forEach( r -> {
 					System.out.println(r);
-				});
+				});*/
 				if(list != null){
 					TemplateModel templateModel = getBeansWrapper().wrap(list);
 					env.setGlobalVariable("menu",templateModel);

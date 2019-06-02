@@ -49,11 +49,8 @@
   </delete>
  
   <insert id="insert" parameterType="com.known.common.model.Category" >
-  		<selectKey keyProperty="category_id" resultType="int" order="AFTER">
-  				SELECT LAST_INSERT_ID()
-  		</selectKey>
     insert into known_category (category_id, pid, name, 
-      desc, rank, show_in_topic, show_in_ask, show_in_knowledge)
+      `desc`, rank, show_in_topic, show_in_ask, show_in_knowledge)
     values (#{categoryId,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{desc,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, #{showInTopic,jdbcType=CHAR}, 
       #{showInAsk,jdbcType=CHAR}, #{showInKnowledge,jdbcType=CHAR})
@@ -69,6 +66,8 @@
       <if test="rank != null" >
         rank = #{rank,jdbcType=INTEGER},
       </if>
+        pid = #{pid,jdbcType=VARCHAR},
+        `desc` = #{desc,jdbcType=VARCHAR},
         show_in_topic = #{showInTopic,jdbcType=CHAR},
         show_in_ask = #{showInAsk,jdbcType=CHAR},
         show_in_knowledge = #{showInKnowledge,jdbcType=CHAR}

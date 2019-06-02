@@ -1,6 +1,8 @@
 package com.known.web.controller;
 
 import com.known.common.model.Category;
+import com.known.common.model.SysRes;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.manager.query.CategoryQuery;
@@ -237,6 +239,13 @@ public class ContentController {
 		return list;
 	}
 
+	@RequestMapping("/category/allmenu")
+	public Object getAllMenu() {
+		boolean isNeedChild = false; //是否需要children
+		List<Category> list =  categoryService.findCategoryList(new CategoryQuery(), isNeedChild);
+		return list;
+	}
+
 
 	@RequirePermissions(key="content:category:delete")
 	@RequestMapping("/category/delete")
@@ -258,10 +267,11 @@ public class ContentController {
 	public OutResponse<Object> categorySave(Category category) {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			if(category.getCategoryId() == null){
+			if(StringUtil.isEmpty(category.getCategoryId())){
 				categoryService.addCategory(category);
 			} else{
 				categoryService.updateCategory(category);
+
 			}
 		}catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());

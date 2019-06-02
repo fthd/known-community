@@ -3,30 +3,30 @@
 <mapper namespace="com.known.manager.mapper.AttachmentMapper" >
   <resultMap id="BaseResultMap" type="com.known.common.model.Attachment" >
     <id column="attachment_id" property="attachmentId" jdbcType="VARCHAR" />
-    <result column="topic_id" property="topicId" jdbcType="VARCHAR" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
     <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
     <result column="download_mark" property="downloadMark" jdbcType="INTEGER" />
     <result column="download_count" property="downloadCount" jdbcType="INTEGER" />
-    <result column="topic_type"  property="fileTopicType" jdbcType="VARCHAR" typeHandler="com.known.manager.handler.FileTopicTypeHandler"/>
+    <result column="article_type"  property="fileArticleType" jdbcType="VARCHAR" typeHandler="com.known.manager.handler.FileArticleTypeHandler"/>
   </resultMap>
   
    <sql id="Base_Condition" >
     <where >
-    		<if test="null!= topicId">
-     		and topic_id = #{topicId}
+    		<if test="null!= articleId">
+     		and article_id = #{articleId}
      	</if>
      	<if test="null!= attachmentId">
      		and attachment_id = #{attachmentId}
      	</if>
-     	<if test="null!= fileTopicType">
-     		and topic_type = #{fileTopicType.type}
+     	<if test="null!= fileArticleType">
+     		and article_type = #{fileArticleType.type}
      	</if>
     </where>
   </sql>
   
   <sql id="Base_Column_List" >
-    attachment_id, topic_id, file_name, topic_type, file_url, download_mark, download_count
+    attachment_id,  article_id, file_name, article_type, file_url, download_mark, download_count
   </sql>
   
   <delete id="delete" parameterType="java.lang.String" >
@@ -35,15 +35,15 @@
   </delete>
 
   <insert id="insert" parameterType="com.known.common.model.Attachment" >
-    insert into known_attachment (topic_id, file_name, 
+    insert into known_attachment (attachment_id, article_id, file_name,
       file_url, download_mark, download_count, 
-      topic_type)
-    values (#{topicId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+       article_type)
+    values (#{attachmentId,jdbcType=VARCHAR}, #{articleId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
       #{fileUrl,jdbcType=VARCHAR}, #{downloadMark,jdbcType=INTEGER}, #{downloadCount,jdbcType=INTEGER}, 
-      #{fileTopicType.type,jdbcType=CHAR})
+      #{fileArticleType.type,jdbcType=CHAR})
   </insert>
   
-   <select id="selectList" resultMap="BaseResultMap">
+   <select id="selectList" resultMap="BaseResultMap" parameterType="com.known.manager.query.AttachmentQuery">
   		select <include refid="Base_Column_List"/> from known_attachment <include refid="Base_Condition"/>
   </select>
   

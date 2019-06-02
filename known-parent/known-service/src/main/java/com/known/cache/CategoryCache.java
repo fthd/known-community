@@ -4,15 +4,19 @@ import com.known.common.model.Category;
 import com.known.common.utils.Constants;
 import com.known.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 加载分类到缓存中
+ * @author tangjunxiang
+ * @version 1.0
+ * @date 2019-06-01 16:24
+ */
 @Component
 public class CategoryCache {
 	
@@ -46,9 +50,12 @@ public class CategoryCache {
 		}
 		c.setChildren(filterChildren);
 	}
-	
+
+	/**
+	 * 刷新分类缓存
+	 */
 	public void refreshCategoryCache(){
-		List<Category> list = this.categoryService.findCategoryList(null, true);
+		List<Category> list = categoryService.findCategoryList(null, true);
 		for(Category category : list){
 			if(Constants.Y.equals(category.getShowInTopic())){
 				categoryCache.get(Constants.Cache_Key_Topic_Category).add(category);

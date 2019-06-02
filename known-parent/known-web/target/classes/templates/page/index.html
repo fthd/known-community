@@ -18,18 +18,18 @@
             </div>
             <#list topics.list as topic>
            <div class="data-item">
-               <#if (topic.grade > 0)>
+               <#if (topic.grade?? &&  topic.grade> 0)>
                      <span class="ding" style="float:left">置顶</span>
                 </#if>
-           <#if (topic.essence == 1)>
+           <#if (topic.essence?? &&  topic.essence == 1)>
                 <span class="jing" style="float:left">精华</span>
             </#if>
             <#if (topic.topicType.type == 1)>
                 <span class="vote" style="float:left">投票</span>
             </#if>
-            <a href="${realpath}/topic/${topic.topicId?c}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>">${topic.title}</a>
+            <a href="${realpath}/topic/${topic.topicId}" target="_blank" class="tit <#if topic.boolNew==1>new</#if>">${topic.title}</a>
             <span class="time">${topic.createTimeString} By ${topic.userName}</span>
-            <div class="read">${topic.commentCount}评/${topic.readCount}阅</div>
+            <div class="read">${topic.commentCount!'0'}评/${topic.readCount!'0'}阅</div>
         </div>
         <#if (topic_index>=10)>
             <#break>
@@ -43,9 +43,9 @@
         </div>
         <#list knowledges.list as knowledge>
         <div class="data-item">
-            <a href="${realpath}/knowledge/${knowledge.knowledgeId?c}" target="_blank" class="tit ">${knowledge.title}</a>
+            <a href="${realpath}/knowledge/${knowledge.knowledgeId}" target="_blank" class="tit ">${knowledge.title}</a>
             <span class="time">${knowledge.createTimeString} By ${knowledge.userName}</span>
-            <div class="read">${knowledge.commentCount}评/${knowledge.readCount}阅</div>
+            <div class="read">${knowledge.commentCount!'0'}评/${knowledge.readCount!'0'}阅</div>
         </div>
         <#if (knowledge_index>=10)>
             <#break>
@@ -60,9 +60,9 @@
         </div>
         <#list asks.list as ask>
             <div class="data-item">
-                <a href="${realpath}/ask/${ask.askId?c}" target="_blank" class="tit ">${ask.title}</a>
+                <a href="${realpath}/ask/${ask.askId}" target="_blank" class="tit ">${ask.title}</a>
                 <span class="time">${ask.createTimeString} By ${ask.userName}</span>
-                <div class="read">${ask.commentCount}评/${ask.readCount}阅</div>
+                <div class="read">${ask.commentCount!'0'}评/${ask.readCount!'0'}阅</div>
             </div>
             <#if (ask_index>=10)>
                 <#break>
@@ -77,7 +77,7 @@
     </div>
     <!--<#list topics.list as topic>
         <div class="data-item">
-            <a href="${realpath}/user/${topic.userId?c}/topic/${topic.topicId?c}" target="_blank" class="topic-tit ">${topic.title}</a>
+            <a href="${realpath}/user/${topic.userId}/topic/${topic.topicId}" target="_blank" class="topic-tit ">${topic.title}</a>
             <span class="topic-time">
                 <span class="topic-time-name">by&nbsp;&nbsp;${topic.userName}</span>
                 <span class="topic-time-time">${topic.createTimeString}</span>

@@ -27,7 +27,6 @@ public class CollectionQuery extends BaseQuery {
 
 	public CollectionQuery(String articleId, ArticleTypeEnum articleType,
 		 String userId) {
-		super();
 		this.articleId = articleId;
 		this.articleType = articleType;
 		this.userId = userId;

@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShuoShuo {
+
     private String id;
 
     private String userId;
@@ -49,33 +50,8 @@ public class ShuoShuo {
         return showContent;
     }
 
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon == null ? null : userIcon.trim();
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
-    }
-
-    public void setImageUrlSmall(String imageUrlSmall) {
-        this.imageUrlSmall = imageUrlSmall == null ? null : imageUrlSmall.trim();
-    }
-
-    public void setMusicUrl(String musicUrl) {
-        this.musicUrl = musicUrl == null ? null : musicUrl.trim();
-    }
-
     @JsonSerialize(using = CustomDateSerializer.class)
     public Date getCreateTime() {
         return createTime;
     }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
 }

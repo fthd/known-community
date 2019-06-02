@@ -53,10 +53,10 @@
   </delete>
   
   <insert id="insert" parameterType="com.known.common.model.ShuoShuoComment" >
-    insert into known_shuoshuo_comment (shuoshuo_id, content, 
+    insert into known_shuoshuo_comment (id, shuoshuo_id, content,
       create_time, user_id, user_icon, 
       user_name)
-    values (#{shuoShuoId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR}, #{shuoShuoId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR})
   </insert>

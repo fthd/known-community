@@ -11,11 +11,11 @@
     SyntaxHighlighter.all();
 </script>
 <script text="text/javascript">
-	known.topicId = "${(ask.askId)?c}"
+	known.topicId = "${ask.askId}"
 	known.articleType="A";
 	known.bestAnswerId="${ask.bestAnswerId!''}";
 	known.articleTitle="${ask.title}";
-	known.articleUserId="${ask.userId?c}";
+	known.articleUserId="${ask.userId}";
 </script>
 </head>
 <body>
@@ -34,14 +34,14 @@
 	
 		<div class="arc-shadow">
 				<div class="topic-info-con">
-					<div class="topic-icon"><a href="${realpath}/user/${(ask.userId)?c}"><img class="img-circle" src="${ask.userIcon}"></a></div>
+					<div class="topic-icon"><a href="${realpath}/userCenter/${ask.userId}"><img class="img-circle" src="${realpath}/${ask.userIcon}"></a></div>
 					<div class="topic-info">
 						<div class="topic-title">
-							<a href="${realpath}/ask/${(ask.askId)?c}" class="title">${ask.title}</a>
+							<a href="${realpath}/ask/${ask.askId}" class="title">${ask.title}</a>
 							<span class="time">${ask.createTimeString!''}</span>
 						</div>
 						<div class="topic-info-d topic-count-info">
-							<a href="${realpath}/ask/${(ask.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${ask.userName}</span></a>
+							<a href="${realpath}/userCenter/${ask.userId}" class="user-info"><i class="icon icon-user-name"></i><span>${ask.userName}</span></a>
 							<span class="count"><i class="icon icon-mark"></i><span>赏分：${ask.mark}</span></span>
 			       			<span class="count"><i class="icon icon-read"></i><span>阅读：${ask.readCount!'0'}</span></span>
 			       			<span class="count"><i class="icon icon-comment" data-garbage="true"></i><span>评论：<span id="comment-count" >${ask.commentCount!'0'}</span></span></span>
@@ -60,12 +60,12 @@
 					<div class="comment-item">
 						<div class="comment-panel">
 							<div class="user-icon">
-								<a href="${realpath}/user/${ask.bestAnswer.userId?c}">
+								<a href="${realpath}/user/${ask.bestAnswer.userId}">
 									<img src="${ask.bestAnswer.userIcon}"></a>
 							</div>
 							<div class="comment-con">
 								<div class="content_detail">
-									<a id="user-name-5667" href="${realpath}/user/${ask.bestAnswer.userId?c}">${ask.bestAnswer.userName}</a>
+									<a id="user-name-5667" href="${realpath}/user/${ask.bestAnswer.userId}">${ask.bestAnswer.userName}</a>
 									：${ask.bestAnswer.showContent}
 									<span>
 										
@@ -85,11 +85,11 @@
 								<#list ask.bestAnswer.children as item>
 							    	<div class="comment-panel">
 									    <div class="user-icon">
-									     <a href="${realpath}/user/${item.userId?c}"><img src="${item.userIcon}"></a>
+									     <a href="${realpath}/user/${item.userId}"><img src="${item.userIcon}"></a>
 									    </div>
 									    <div class="comment-con">
 									     <div class="content_detail">
-									      <a id="user-name-${item.id}" href="${realpath}/user/${item.userId?c}">${item.userName}</a>：
+									      <a id="user-name-${item.id}" href="${realpath}/user/${item.userId}">${item.userName}</a>：
 									      <span>${item.showContent}</span>
 									     </div>
 									     <div class="time-op">

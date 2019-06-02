@@ -9,6 +9,7 @@ import com.known.common.utils.DateUtil;
 import com.known.common.utils.Emotions;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.HtmlUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class Comment {
     
     public String getShowContent() {
     	this.showContent = Emotions.formatEmotion(this.content, Emotions.Dev.WEB);
+    	// 反转义内容
+    	this.showContent = HtmlUtils.htmlUnescape(showContent);
     	return showContent;
 	}
 
@@ -60,26 +63,8 @@ public class Comment {
     }
 
 
-
-    public void setSourceFrom(String sourceFrom) {
-        this.sourceFrom = sourceFrom == null ? null : sourceFrom.trim();
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon == null ? null : userIcon.trim();
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
 	public String getCreateTimeString() {
 		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
 		return DateUtil.friendly_time(sdf.format(createTime));
 	}
-	
 }

@@ -60,14 +60,11 @@
   </delete>
   
   <insert id="insert" parameterType="com.known.common.model.ShuoShuo" >
-  	<selectKey keyProperty="id" resultType="int" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-  	</selectKey>
-    insert into known_shuoshuo (user_id, user_icon, 
+    insert into known_shuoshuo (id,user_id, user_icon,
       user_name, image_url, image_url_small, 
       music_url, create_time, comment_count, 
       like_count, content)
-    values (#{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR},#{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{imageUrlSmall,jdbcType=VARCHAR}, 
       #{musicUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})

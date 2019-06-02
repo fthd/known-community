@@ -81,10 +81,8 @@ public class UserServiceImpl implements UserService {
         user.setLastLoginTime(date);
         user.setUserIcon(urlConfig.getUser_Icon_Url()+ StringUtil.getRandomUserIcon());
         user.setUserBg(urlConfig.getUser_Bg_Url()+ StringUtil.getRandomUserBg());
-
         //md5加密密码
         user.setPassword(StringUtil.encode(password));
-
         String activationCode = StringUtil.getActivationCode(6);
         user.setActivationCode(activationCode);
         // 发送激活邮件

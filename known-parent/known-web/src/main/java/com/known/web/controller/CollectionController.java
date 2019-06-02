@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  * @date 2019-05-24 00:09
  */
 @RestController
-@RequestMapping("/collention")
+@RequestMapping("/collection")
 public class CollectionController extends BaseController {
 	
 	private Logger logger = LoggerFactory.getLogger(CollectionController.class);

@@ -71,6 +71,12 @@ public class ShuoShuoController extends BaseController {
 		return outResponse;
 	}
 
+	/**
+	 * 说说评论
+	 * @param session
+	 * @param shuoShuoComment
+	 * @return
+	 */
 	@RequestMapping("/publicShuoShuoComment")
 	public OutResponse<Object> publicShuoShuo(HttpSession session, ShuoShuoComment shuoShuoComment){
 		OutResponse<Object> outResponse = new OutResponse<>();
@@ -93,6 +99,12 @@ public class ShuoShuoController extends BaseController {
 		return outResponse;
 	}
 
+	/**
+	 * 说说点赞
+	 * @param session
+	 * @param shuoShuoLike
+	 * @return
+	 */
 	@RequestMapping("/doShuoShuoLike")
 	public OutResponse<Object> doShuoShuoLike(HttpSession session, ShuoShuoLike shuoShuoLike){
 		OutResponse<Object> outResponse = new OutResponse<>();

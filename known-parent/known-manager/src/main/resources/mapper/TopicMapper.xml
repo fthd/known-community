@@ -67,7 +67,7 @@
   		<if test="null!= orderBy">
      		order by ${orderBy.orderBy}
      	</if>
-  		<if test="null!= page">
+  		<if test="null!= page and page.end!= 0">
      		limit #{page.start},#{page.end}
      	</if>
   </select>
@@ -82,10 +82,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.known.common.model.Topic" >
-  	<selectKey keyProperty="topicId" resultType="java.lang.Integer" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-  	</selectKey>
-    insert into known_topic (topic_type, p_category_id, 
+    insert into known_topic (topic_id, topic_type, p_category_id,
       category_id, title, user_id, 
       user_icon, user_name, create_time, 
       last_comment_time, read_count, grade, 
@@ -155,20 +152,20 @@
     where topic_id = #{topicId,jdbcType=INTEGER}
   </update>
   
-	<update id="updateInfoCount" >
+	<update id="updateInfoCount" parameterType="com.known.manager.query.UpdateQuery4ArticleCount" >
 	    update known_topic
 	    <set>
 	    		<if test="addReadCount">
-	    				read_count = read_count + 1
+	    				read_count = IFNULL(read_count, 0) + 1
 	    		</if>
 	    		<if test="addLikeCount">
-	    				like_count = like_count + 1
+	    				like_count = IFNULL(like_count, 0) + 1
 	    		</if>
 	    		<if test="addCommentCount">
-	    				comment_count = comment_count + 1
+	    				comment_count = IFNULL(comment_count, 0) + 1
 	    		</if>
 	    		<if test="addCollectionCount">
-	    				collection_count = collection_count + 1
+	    				collection_count = IFNULL(collection_count, 0) + 1
 	    		</if>
 	    </set>
 	    where topic_id = #{articleId}

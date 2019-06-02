@@ -8,6 +8,8 @@ import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.HtmlUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,13 +38,13 @@ public class Knowledge {
 
     private Date lastCommentTime;
 
-    private Integer readCount = 0;
+    private Integer readCount;
     
-    private Integer commentCount = 0;
+    private Integer commentCount;
     
-    private Integer likeCount = 0;
+    private Integer likeCount;
     
-    private Integer collectionCount = 0 ;
+    private Integer collectionCount;
 
     private String content;
 
@@ -63,14 +65,6 @@ public class Knowledge {
     private StatusEnum status;
 
 
-	public void setpCategoryId(String pCategoryId) {
-		this.pCategoryId = pCategoryId;
-	}
-
-    public String getpCategoryId() {
-        return pCategoryId;
-    }
-
     public String getCreateTimeString() {
 		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
 		return DateUtil.friendly_time(sdf.format(createTime));
@@ -83,11 +77,7 @@ public class Knowledge {
 		return knowledgeImage.split("\\|");
 	}
 
-	/*public String getCategoryName() {
-		return CategoryCache.getCategoryById(categoryId).getName();
-	}
-
-	public String getpCategoryName() {
-		return CategoryCache.getCategoryById(pCategoryId).getName();
-	}*/
+    public String getContent() {
+        return StringUtil.isEmpty(content)? null : HtmlUtils.htmlUnescape(content);
+    }
 }

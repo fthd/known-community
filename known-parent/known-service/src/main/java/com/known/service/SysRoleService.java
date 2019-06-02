@@ -22,6 +22,6 @@ public interface SysRoleService {
 	
 	void updateAuthority(String roleId, String[] resIds) throws BussinessException;
 	
-	Set<Integer> findRoleIdsByUserId(String userId);
+	Set<String> findRoleIdsByUserId(String userId);
 	
 }

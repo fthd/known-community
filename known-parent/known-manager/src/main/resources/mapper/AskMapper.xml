@@ -72,7 +72,7 @@
   		<if test="null!= orderBy">
      		order by ${orderBy.orderBy}
      	</if>
-  		<if test="null!= page">
+  		<if test="null!= page and page.end != 0">
      		limit #{page.start},#{page.end}
      	</if>
   </select>
@@ -87,10 +87,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.known.common.model.Ask" >
-  	<selectKey keyProperty="askId" resultType="java.lang.Integer" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-  	</selectKey>
-    insert into known_ask (p_category_id, category_id, 
+    insert into known_ask (ask_id, p_category_id, category_id,
       title, user_id, user_icon, 
       user_name, create_time, comment_count, 
       read_count, collection_count, like_count, 
@@ -98,7 +95,7 @@
       best_answer_user_name, best_answer_user_icon, solve_type, content, 
       summary, ask_image, ask_image_thum
       )
-    values (#{pCategoryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR},
+    values (#{askId,jdbcType=VARCHAR}, #{pCategoryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR},
       #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER}, 
       #{readCount,jdbcType=INTEGER}, #{collectionCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
@@ -112,16 +109,16 @@
 	    update known_ask
 	    <set>
 	    		<if test="addReadCount">
-	    				read_count = read_count + 1
+	    				read_count = IFNULL(read_count, 0) + 1
 	    		</if>
 	    		<if test="addLikeCount">
-	    				like_count = like_count + 1
+	    				like_count = IFNULL(like_count, 0) + 1
 	    		</if>
 	    		<if test="addCommentCount">
-	    				comment_count = comment_count + 1
+	    				comment_count = IFNULL(comment_count, 0) + 1
 	    		</if>
 	    		<if test="addCollectionCount">
-	    				collection_count = collection_count + 1
+	    				collection_count = IFNULL(collection_count, 0) + 1
 	    		</if>
 	    </set>
 	    where ask_id = #{articleId}

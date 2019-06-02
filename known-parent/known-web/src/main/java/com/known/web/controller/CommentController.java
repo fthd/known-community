@@ -4,6 +4,7 @@ import com.known.common.config.UserConfig;
 import com.known.common.enums.CodeEnum;
 import com.known.common.model.Comment;
 import com.known.common.model.SessionUser;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -38,9 +40,13 @@ public class CommentController extends BaseController {
 			 PageResult<Comment> pageResult = commentService.findCommentByPage(commentQuery);
 			 outResponse.setData(pageResult);
 			 outResponse.setCode(CodeEnum.SUCCESS);
+		 }catch (BussinessException e) {
+				 logger.error("{}加载评论出错", e);
+				 outResponse.setMsg(e.getLocalizedMessage());
+				 outResponse.setCode(CodeEnum.BUSSINESSERROR);
 		} catch (Exception e) {
 			logger.error("{}加载评论出错", e);
-			outResponse.setMsg("加载评论出错");
+			outResponse.setMsg(e.getLocalizedMessage());
 			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		 return outResponse;
@@ -57,6 +63,8 @@ public class CommentController extends BaseController {
 		}
 		setUserBaseInfo(Comment.class, comment, session);
 		try {
+			// 生成评论id
+			comment.setId(UUIDUtil.getUUID());
 			commentService.addComment(comment);
 			outResponse.setData(comment);
 			 outResponse.setCode(CodeEnum.SUCCESS);

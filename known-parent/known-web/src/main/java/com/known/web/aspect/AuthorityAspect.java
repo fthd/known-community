@@ -37,9 +37,6 @@ public class AuthorityAspect {
     @Resource
     private UserConfig userConfig;
 
-    @Resource
-    private UrlConfig urlConfig;
-
     @Around(value = "@annotation(com.known.web.annotation.RequirePermissions)&&@annotation(perm)")
     public Object hasPermission(ProceedingJoinPoint point, RequirePermissions perm) throws Throwable {
 

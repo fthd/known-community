@@ -3,12 +3,12 @@ package com.known.common.enums;
 
 import com.known.common.utils.StringUtil;
 
-public enum FileTopicTypeEnum {
+public enum FileArticleTypeEnum {
 	TOPIC("T", "话题附件"), KNOWLEDGE("K", "知识库附件");
 	private String type;
 	private String desc;
 
-	private FileTopicTypeEnum(String type, String desc) {
+	private FileArticleTypeEnum(String type, String desc) {
 		this.type = type;
 		this.desc = desc;
 	}
@@ -25,13 +25,13 @@ public enum FileTopicTypeEnum {
 		this.desc = desc;
 	}
 	
-	public static FileTopicTypeEnum getFileTopicTypeByType(String type){
+	public static FileArticleTypeEnum getFileArticleTypeByType(String type){
 		if(StringUtil.isEmpty(type)){
 			return null;
 		}
-		for(FileTopicTypeEnum fileTopicType : FileTopicTypeEnum.values()){
-			if(fileTopicType.getType().equals(type)){
-				return fileTopicType;
+		for(FileArticleTypeEnum fileArticleType : FileArticleTypeEnum.values()){
+			if(fileArticleType.getType().equals(type)){
+				return fileArticleType;
 			}
 		}
 		return null;

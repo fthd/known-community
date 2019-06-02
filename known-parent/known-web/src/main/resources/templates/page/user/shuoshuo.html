@@ -19,7 +19,7 @@
 	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/laypage/laypage.js"></script>
 	<script type="text/javascript">
 		known.center = {
-			userId: "${user.userid?c}",
+			userId: "${user.userid}",
 		};
 	</script>
 	<title></title>
@@ -40,13 +40,13 @@
 		<div class="right">
 			<div class="user-home-tag">
 				<ul class="tag" id="tag">
-					<li type="shuoshuo"  class="active"><a href="${realpath}/user/${user.userid?c}">吐槽</a></li>
-					<li type="topic" ><a href="${realpath}/user/${user.userid?c}#topic">讨论</a></li>
-					<li type="ask" ><a href="${realpath}/user/${user.userid?c}#ask">问答</a></li>
-					<li type="knowledge" ><a href="${realpath}/user/${user.userid?c}#knowledge">知识库</a></li>
-					<li type="topic" style="border-bottom: 1px solid #fff;"><a href="${realpath}/user/${user.userid?c}/topic">话题</a></li>
-					<li type="fans" ><a href="${realpath}/user/${user.userid?c}#fans">Ta的粉丝</a></li>
-					<li type="focus" ><a href="${realpath}/user/${user.userid?c}#focus">Ta关注的人</a></li>
+					<li type="shuoshuo"  class="active"><a href="${realpath}/user/${user.userid}">吐槽</a></li>
+					<li type="topic" ><a href="${realpath}/user/${user.userid}#topic">讨论</a></li>
+					<li type="ask" ><a href="${realpath}/user/${user.userid}#ask">问答</a></li>
+					<li type="knowledge" ><a href="${realpath}/user/${user.userid}#knowledge">知识库</a></li>
+					<li type="topic" style="border-bottom: 1px solid #fff;"><a href="${realpath}/user/${user.userid}/topic">话题</a></li>
+					<li type="fans" ><a href="${realpath}/user/${user.userid}#fans">Ta的粉丝</a></li>
+					<li type="focus" ><a href="${realpath}/user/${user.userid}#focus">Ta关注的人</a></li>
 				</ul>
 			</div>
 			<!-- 说说 -->
@@ -73,7 +73,7 @@ function loadShuoShuo(){
 			type: 'POST',
 			dataType: 'json',
 			data: { id : ${id!''},
-				userId:${user.userid?c}},
+				userId:${user.userid}},
 			success:function(res){
 				$("#loading").remove();
 				new ShuoShuoItem(res.data).appendTo($("#cd-timeline"));	

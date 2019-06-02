@@ -56,7 +56,7 @@ public class KnowledgeController extends BaseController {
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
 		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
-		view.addObject("KnwoledgeTitleCategory", CategoryCache.getCategoryById(pCategoryId));
+		view.addObject("knowledgeTitleCategory", CategoryCache.getCategoryById(pCategoryId));
 		view.addObject("result", pageResult);
 		return view;
 	}
@@ -66,7 +66,7 @@ public class KnowledgeController extends BaseController {
 		ModelAndView view = new ModelAndView("/page/knowledge/knowledge");
 		PageResult<Knowledge> pageResult = knowledgeService.findKnowledgeByPage(knowledgeQuery);
 		view.addObject("categories", categoryCache.getKnowledgeCategories());
-		view.addObject("KnwoledgeTitleCategory", CategoryCache.getCategoryById(categoryId));
+		view.addObject("knowledgeTitleCategory", CategoryCache.getCategoryById(categoryId));
 		view.addObject("result", pageResult);
 		return view;
 	}
@@ -78,10 +78,12 @@ public class KnowledgeController extends BaseController {
 		String userId = null;
 		try {
 			userId = sessionUser==null ? null : sessionUser.getUserid();
-			Knowledge topic = knowledgeService.showKnowledge(knowledgeId, userId);
-			view.addObject("topic", topic);
+			Knowledge knowledge = knowledgeService.showKnowledge(knowledgeId, userId);
+			knowledge.setPCategoryName(CategoryCache.getCategoryById(knowledge.getPCategoryId()).getName());
+			knowledge.setCategoryName(CategoryCache.getCategoryById(knowledge.getCategoryId()).getName());
+			view.addObject("topic", knowledge);
 		} catch (Exception e) {
-			logger.error("{}话题加载出错", e);
+			logger.error("{}知识库加载出错", e);
 			view.setViewName("redirect:"+urlConfig.getError_404());
 		}
 		return view;
@@ -110,6 +112,7 @@ public class KnowledgeController extends BaseController {
 
 	@RequestMapping("/publicKnowledge")
 	public OutResponse<String> publicKnowledge(HttpSession session, Knowledge knowledge, Attachment attachment){
+
 		OutResponse<String> outResponse = new OutResponse<>();
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());
 		try {
@@ -117,7 +120,6 @@ public class KnowledgeController extends BaseController {
 			knowledge.setKnowledgeId(UUIDUtil.getUUID());
 			knowledgeService.addKnowledge(knowledge, attachment);
 			outResponse.setCode(CodeEnum.SUCCESS);
-			outResponse.setData(knowledge.getKnowledgeId());
 		} catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());
 			outResponse.setCode(CodeEnum.BUSSINESSERROR);

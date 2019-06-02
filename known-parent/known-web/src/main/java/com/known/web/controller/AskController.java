@@ -9,6 +9,7 @@ import com.known.common.model.Ask;
 import com.known.common.model.SessionUser;
 import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -46,11 +47,10 @@ public class AskController extends BaseController {
 	private UserService userService;
 
 	@Resource
-	private UserConfig userConfig;
+	private UrlConfig urlConfig;
 
 	@Resource
-	private UrlConfig urlConfig;
-	
+	private UserConfig userConfig;
 	
 	private Logger logger = LoggerFactory.getLogger(AskController.class);
 
@@ -97,7 +97,10 @@ public class AskController extends BaseController {
 		OutResponse<String> outResponse = new OutResponse<>();
 		setUserBaseInfo(Ask.class, ask, session);
 		try {
+			// 生成askId
+			ask.setAskId(UUIDUtil.getUUID());
 			askService.addAsk(ask);
+			System.out.println(ask.getAskId());
 			outResponse.setData(ask.getAskId());
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
@@ -112,7 +115,7 @@ public class AskController extends BaseController {
 		return outResponse;
 	}
 	
-	@RequestMapping(value="/{askId}", method= RequestMethod.GET)
+	@RequestMapping(value="/{askId}")
 	public ModelAndView askDetail(@PathVariable String askId, HttpSession session){
 		ModelAndView view = new ModelAndView("/page/ask/ask_detail");
 		SessionUser sessionUser = (SessionUser) session.getAttribute(userConfig.getSession_User_Key());

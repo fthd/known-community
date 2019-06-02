@@ -113,7 +113,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public Set findRoleIdsByUserId(String userId) {
+	public Set<String> findRoleIdsByUserId(String userId) {
 		return userId != null ? sysUserRoleMapper.selectRoleIdsByUserId(userId) :  null;
 	}
 }

@@ -68,7 +68,7 @@ $(function(){
 			url: url,
 			type: 'POST',
 			dataType: 'json',
-			data: {friendUserId:"${user.userid?c}"},
+			data: {friendUserId:"${user.userid}"},
 			success:function(res){
 			   if(focusType=="1"){
 			       that.attr("focusType",2);

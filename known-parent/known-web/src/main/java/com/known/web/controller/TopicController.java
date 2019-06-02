@@ -16,14 +16,12 @@ import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
 import com.known.manager.query.CategoryQuery;
 import com.known.manager.query.TopicQuery;
-import com.known.service.AttachmentService;
 import com.known.service.CategoryService;
 import com.known.service.TopicService;
 import com.known.service.TopicVoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -117,6 +115,15 @@ public class TopicController extends BaseController {
 		return outResponse;
 	}
 
+	/**
+	 * 发布话题
+	 * @param session
+	 * @param topic
+	 * @param topicVote
+	 * @param voteContent
+	 * @param attachment
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/publicTopic")
 	public OutResponse<String> publicTopic(HttpSession session, Topic topic, TopicVote topicVote,
@@ -140,8 +147,13 @@ public class TopicController extends BaseController {
 		}
 		return outResponse;
 	}
-	
-	
+
+	/**
+	 * 父级分类列表
+	 * @param pCategoryId
+	 * @param topicQuery
+	 * @return
+	 */
 	@RequestMapping(value = "/board/{pCategoryId}", method= RequestMethod.GET)
 	public ModelAndView board(@PathVariable String pCategoryId, TopicQuery topicQuery){
 		ModelAndView view = new ModelAndView("/page/topic/topic_list");
@@ -162,8 +174,13 @@ public class TopicController extends BaseController {
 		view.addObject("todayCount", topicService.findCount(query));
 		return view;
 	}
-	
-	
+
+	/**
+	 * 子模块分类列表
+	 * @param categoryId
+	 * @param topicQuery
+	 * @return
+	 */
 	@RequestMapping(value = "/sub_board/{categoryId}", method= RequestMethod.GET)
 	public ModelAndView sub_board(@PathVariable String categoryId, TopicQuery topicQuery){
 		ModelAndView view = new ModelAndView("/page/topic/topic_list");
@@ -183,12 +200,20 @@ public class TopicController extends BaseController {
 		view.addObject("todayCount", topicService.findCount(query));
 		return view;
 	}
-	
+
+	/**
+	 * 加载话题详情
+	 * @param topicId
+	 * @return
+	 */
 	@RequestMapping("/{topicId}")
 	public ModelAndView topicDetail(@PathVariable String topicId){
 		ModelAndView view = new ModelAndView("/page/topic/topic_detail");
 		try {
 			Topic topic = topicService.showTopic(topicId);
+			// 设置分类名称
+			topic.setCategoryName(CategoryCache.getCategoryById(topic.getCategoryId()).getName());
+			topic.setPCategoryName(CategoryCache.getCategoryById(topic.getPCategoryId()).getName());
 			view.addObject("topic", topic);
 		} catch (Exception e) {
 			logger.error("{}话题加载出错", e);
@@ -238,7 +263,7 @@ public class TopicController extends BaseController {
 		return outResponse;
 	}
 
-	@RequestMapping("refreshCategoryCache")
+	@RequestMapping("/refreshCategoryCache")
 	public String refreshCategoryCache(){
 		categoryCache.refreshCategoryCache();
 		return "ok";

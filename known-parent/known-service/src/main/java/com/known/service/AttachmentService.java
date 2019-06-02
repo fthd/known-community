@@ -1,6 +1,6 @@
 package com.known.service;
 
-import com.known.common.enums.FileTopicTypeEnum;
+import com.known.common.enums.FileArticleTypeEnum;
 import com.known.common.model.Attachment;
 import com.known.common.model.SessionUser;
 import com.known.exception.BussinessException;
@@ -9,7 +9,7 @@ public interface AttachmentService {
 	
 	void addAttachment(Attachment attachment) throws BussinessException;
 	
-	Attachment getAttachmentByTopicIdAndFileType(String topicId, FileTopicTypeEnum fileTopicType);
+	Attachment getAttachmentByTopicIdAndFileType(String topicId, FileArticleTypeEnum fileArticleType);
 	
 	Attachment getAttachmentById(String attachmentId);
 	

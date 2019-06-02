@@ -7,7 +7,7 @@ import com.known.manager.query.CommentQuery;
 
 public  interface CommentService {
 	
-	PageResult<Comment> findCommentByPage(CommentQuery commentQuery);
+	PageResult<Comment> findCommentByPage(CommentQuery commentQuery) throws BussinessException;
 	
 	Comment getCommentById(String commentId);
 	

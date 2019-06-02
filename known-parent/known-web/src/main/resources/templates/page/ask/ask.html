@@ -24,7 +24,7 @@
 			<#list result.list as item>
 				<div class="title-item">
 		                	<div class="title">
-		                		<a href="${realpath}/ask/${(item.askId)?c}">${item.title}</a>
+		                		<a href="${realpath}/ask/${item.askId}">${item.title}</a>
 		                		<span class="mark"><i class="icon icon-mark"></i>&nbsp;赏金&nbsp;${item.mark}</span>
 		                		<span class="time">${item.createTimeString}</span>
 		                		<span class="answer">${item.commentCount!'0'}人回答</span>
@@ -57,7 +57,7 @@
 				<#if (topUsers?size>0)>
 				<#list topUsers as topUser>
 					<div class="rang-item">
-						<div class="rang-user"><span class="rang-num rang-num1">1</span><a href="${realpath}/user/${(topUser.userId)?c}">${topUser.userName}</a></div>
+						<div class="rang-user"><span class="rang-num rang-num1">1</span><a href="${realpath}/user/${topUser.userId}">${topUser.userName}</a></div>
 						<span class="rang-item-count">${topUser.solveCount}</span>
 						<div class="clear"></div>
 					</div>

@@ -7,6 +7,7 @@ import com.known.common.enums.SolveEnum;
 import com.known.common.utils.DateUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.HtmlUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,15 +35,15 @@ public class Ask {
     
     private String createTimeString;
 
-    private Integer readCount = 0;
+    private Integer readCount;
     
-    private Integer commentCount = 0;
+    private Integer commentCount;
     
-    private Integer likeCount = 0;
+    private Integer likeCount;
     
-    private Integer collectionCount = 0 ;
+    private Integer collectionCount;
 
-    private Integer mark = 0;
+    private Integer mark;
 
     private String bestAnswerId;
 
@@ -66,8 +67,15 @@ public class Ask {
     
     private Integer solveCount;
 
-	
-	public String getCreateTimeString() {
+    public String getTitle() {
+        return HtmlUtils.htmlUnescape(title);
+    }
+
+    public String getContent() {
+        return HtmlUtils.htmlUnescape(content);
+    }
+
+    public String getCreateTimeString() {
 		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
 		return DateUtil.friendly_time(sdf.format(createTime));
 	}

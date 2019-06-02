@@ -1,6 +1,6 @@
 package com.known.manager.handler;
 
-import com.known.common.enums.FileTopicTypeEnum;
+import com.known.common.enums.FileArticleTypeEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
@@ -10,44 +10,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@MappedTypes({FileTopicTypeEnum.class})
-public class FileTopicTypeHandler extends BaseTypeHandler<FileTopicTypeEnum> {
+@MappedTypes({FileArticleTypeEnum.class})
+public class FileArticleTypeHandler extends BaseTypeHandler<FileArticleTypeEnum> {
 
 	
 
 	@Override
-	public FileTopicTypeEnum getNullableResult(ResultSet rs, String columnName)
+	public FileArticleTypeEnum getNullableResult(ResultSet rs, String columnName)
 			throws SQLException {
 		String type = rs.getString(columnName);
 		if(type != null){
-			return FileTopicTypeEnum.getFileTopicTypeByType(type);
+			return FileArticleTypeEnum.getFileArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
-	public FileTopicTypeEnum getNullableResult(ResultSet rs, int columnIndex)
+	public FileArticleTypeEnum getNullableResult(ResultSet rs, int columnIndex)
 			throws SQLException {
 		String type = rs.getString(columnIndex);
 		if(type != null){
-			return FileTopicTypeEnum.getFileTopicTypeByType(type);
+			return FileArticleTypeEnum.getFileArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
-	public FileTopicTypeEnum getNullableResult(CallableStatement cs,
+	public FileArticleTypeEnum getNullableResult(CallableStatement cs,
                                                int columnIndex) throws SQLException {
 		String type = cs.getString(columnIndex);
 		if(type != null){
-			return FileTopicTypeEnum.getFileTopicTypeByType(type);
+			return FileArticleTypeEnum.getFileArticleTypeByType(type);
 		}
 		return null;
 	}
 
 	@Override
 	public void setNonNullParameter(PreparedStatement ps, int i,
-                                    FileTopicTypeEnum parameter, JdbcType jdbcType) throws SQLException {
+                                    FileArticleTypeEnum parameter, JdbcType jdbcType) throws SQLException {
 		ps.setString(i, parameter.getType().toString());
 	}
 

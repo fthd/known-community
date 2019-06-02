@@ -42,7 +42,7 @@
 							<#else>
 							<#assign class="">
 						</#if>	
-						<a href="${realpath}/topic/sub_board/${(item.categoryId)?c}" ${class}>${item.name}</a>
+						<a href="${realpath}/topic/sub_board/${item.categoryId}" ${class}>${item.name}</a>
 					</#list>
 				</div>
 							
@@ -52,14 +52,14 @@
 				<#list result.list as item>
 					<div class="topic-item">
 						<div class="user-icon">
-							<a href="${realpath}/user/${(item.userId)?c}"><img class="img-circle" src="${item.userIcon}" /></a>
+							<a href="${realpath}/userCenter/${item.userId}"><img class="img-circle" src="${realpath}/${item.userIcon}" /></a>
 						</div>
 						<div class="topic-item-info">
 							<div class="topic-item-title">
-							<#if (item.grade>0)>
+							<#if (item.grade?? && item.grade>0)>
 	                		    <span class="ding">置顶</span>
 	                		</#if>
-	                		<#if (item.essence==1)>
+	                		<#if (item.essence?? && item.essence==1)>
 	                		    <span class="jing">精华</span>
 	                		 </#if>
 	                		 <#if (item.topicType.getType()==1)>
@@ -73,7 +73,7 @@
 							<#if item.topicImageArray??>
 							<div class="image-thum topic-item-images">
 								<#list item.topicImageArray as img>
-								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${img}" /></a>
+								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${realpath}/${img}" /></a>
 								<#if (img_index>=2)>
 									<#break>
 								</#if>
@@ -82,7 +82,7 @@
 							</div>
 							</#if>
 							<div class="topic-count-info">
-								<a href="${realpath}/user/${(item.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${item.userName}</span></a>
+								<a href="${realpath}/userCenter/${item.userId}" class="user-info"><i class="icon icon-user-name"></i><span>${item.userName}</span></a>
 								<span class="count"><i class="icon icon-read"></i><span>阅读：${item.readCount!'0'}</span></span>
 								<span class="count"><i class="icon icon-comment"></i><span>评论：${item.commentCount!'0'}</span></span>
 								<span class="count"><i class="icon icon-like"></i><span>喜欢：${item.likeCount!'0'}</span></span>

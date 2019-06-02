@@ -17,7 +17,7 @@ import javax.servlet.annotation.WebListener;
 import java.util.List;
 
 @WebListener
-public class FzqBloContextLoaderListener implements ServletContextListener {
+public class KnownContextLoaderListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {

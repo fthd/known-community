@@ -273,3 +273,9 @@ function goLogin() {
 	url = encodeURI(url);
 	document.location.href = known.realpath + "/user/login?redirect=" + url;
 }
+
+// 对数据库转义字符转义
+function escapeHtml(str) {
+    var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+    return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+}

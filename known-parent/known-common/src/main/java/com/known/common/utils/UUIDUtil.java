@@ -1,5 +1,7 @@
 package com.known.common.utils;
 
+import com.known.common.model.Ask;
+
 import java.util.UUID;
 
 /**
@@ -16,8 +18,11 @@ public class UUIDUtil {
     }
 
     public static void main(String[] args) {
+        Ask ask = new Ask();
+
         for(int i =0; i< 10; i++) {
-            System.out.println(UUIDUtil.getUUID());
+            ask.setAskId(UUIDUtil.getUUID());
+            System.out.println(ask.getAskId());
         }
     }
 }

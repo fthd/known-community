@@ -72,8 +72,6 @@ public class AskServiceImpl implements AskService {
 		if(user.getMark() < ask.getMark()){
 			throw new BussinessException("积分不足 " + user.getMark() + " 分");
 		}
-		// 生成askId
-		ask.setAskId(UUIDUtil.getUUID());
 		String title = ask.getTitle();
 		ask.setTitle(HtmlUtils.htmlEscape(title));
 		String content = ask.getContent();
@@ -96,7 +94,7 @@ public class AskServiceImpl implements AskService {
 		ask.setCreateTime(new Date());
 		ask.setSolveType(SolveEnum.WAIT_SOLVE);
 		askMapper.insert(ask);
-		userService.changeMark(ask.getUserId(), -ask.getMark());
+		userService.changeMark(ask.getUserId(), ask.getMark());
 		MessageParams messageParams = new MessageParams();
 		messageParams.setArticleId(ask.getAskId());
 		messageParams.setArticleType(ArticleTypeEnum.Ask);

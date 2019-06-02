@@ -11,10 +11,10 @@
 </script>
 <script text="text/javascript">
 	known.topicType=${topic.topicType.getType()};
-	known.topicId = ${topic.topicId};
+	known.topicId="${topic.topicId}";
 	known.articleType="T";
 	known.articleTitle="${topic.title}";
-	known.articleUserId="${topic.userId?c}";
+	known.articleUserId="${topic.userId}";
 </script>
 <title></title>
 </head>
@@ -22,22 +22,22 @@
 	<#include "../include/header.html">
 		<div class="main">
 		<div class="navigation">
-		<a href="${realpath}/topic">话题中心</a>&nbsp;&gt;&nbsp;
-		<a href="${realpath}/topic/board/${topic.pCategoryId}">${topic.pCategoryName}</a>&nbsp;&gt;&nbsp;
+		<a href="${realpath}/topic/topic">话题中心</a>&nbsp;&gt;&nbsp;
+		<a href="${realpath}/topic/board/${topic.PCategoryId}">${topic.PCategoryName}</a>&nbsp;&gt;&nbsp;
 		<a href="${realpath}/topic/sub_board/${topic.categoryId}">${topic.categoryName}</a>&nbsp;&gt;&nbsp;
 		<span>${topic.title}</span>
 		</div>
 			<div class="arc-shadow">
 				<div class="topic-info-con">
-					<div class="topic-icon"><a href="${realpath}/user/${(topic.userId)?c}"><img class="img-circle" src="${topic.userIcon}"></a></div>
+					<div class="topic-icon"><a href="${realpath}/userCenter/${topic.userId}"><img class="img-circle" src="${realpath}/${topic.userIcon}"></a></div>
 					<div class="topic-info">
 						<div class="topic-title">
-							<a href="${realpath}/topic/${(topic.topicId)?c}" class="title">${topic.title}</a>
+							<a href="${realpath}/topic/${topic.topicId}" class="title">${topic.title}</a>
 							<span class="time">${topic.createTimeString!''}</span>
-				            <a class="topic-cate-tag" href="${realpath}/topic/sub_board/${(topic.categoryId)?c}"><span>${topic.categoryName}</span></a>
+				            <a class="topic-cate-tag" href="${realpath}/topic/sub_board/${topic.categoryId}"><span>${topic.categoryName}</span></a>
 						</div>
 						<div class="topic-info-d topic-count-info">
-							<a href="${realpath}/user/${(topic.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${topic.userName}</span></a>
+							<a href="${realpath}/userCenter/${topic.userId}" class="user-info"><i class="icon icon-user-name"></i><span>${topic.userName}</span></a>
 			       			<span class="count"><i class="icon icon-read"></i><span>阅读：${topic.readCount!'0'}</span></span>
 			       			<span class="count"><i class="icon icon-comment" data-garbage="true"></i><span>评论：<span id="comment-count" >${topic.commentCount!'0'}</span></span></span>
 			       			<span class="count"><i class="icon icon-like"></i><span>喜欢：<span id="like-count">${topic.likeCount!'0'}</span></span></span>

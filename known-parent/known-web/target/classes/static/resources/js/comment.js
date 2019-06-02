@@ -26,7 +26,7 @@ $(function(){
 
     // 发表一级回复
     $("#post-p-comment-btn").click(function() {
-    	if(known.userId=="" || known.userId == 0){
+    	if(known.userId==""){
     		goLogin();
     	    return;
     	}
@@ -34,7 +34,7 @@ $(function(){
     });
     //发表二级回复
     $(document).on("click", ".reply", function() {
-    	if(known.userId=="" || known.userId == 0){
+    	if(known.userId==""){
     		goLogin();
     	    return;
     	}
@@ -43,7 +43,7 @@ $(function(){
     //初始化评论数
     var comment_count = parseInt($("#comment-count").text());
     $("#comment-title-count").text(comment_count);
-    
+
     initOperation();
 });
 
@@ -54,7 +54,7 @@ function initOperation(){
 }
 //分页
 function demo(curr,message4CommentId){
-    $.getJSON(known.realpath + '/loadComment', {
+    $.getJSON(known.realpath + '/comment/loadComment', {
         pageNum: curr || 1 ,//向服务端传的参数，此处只是演示
         articleId : known.topicId, 
 	    articleType : known.articleType
@@ -124,7 +124,7 @@ function showAtUser(targetObj, textarea){
 	});
 	var at_panel = $("<div></div>");
 	$.ajax({
-		url: known.realpath+ '/loadUserFriend',
+		url: known.realpath+ '/userFriend/loadUserFriend',
 		type: 'POST',
 		dataType: 'json',
 		data: {"pageNum": 1},
@@ -198,11 +198,11 @@ function CommentItem(data) {
 function CommentCon(data, pid,pComment) {
     var comment_panel = $("<div class='comment-panel' id='comment"+data.id+"'></div>");
     // 头像
-    $("<div class='user-icon'><a href='" + known.realpath + "/user/" + data.userId + "'><img   src='"  + data.userIcon + "'></a></div>").appendTo(comment_panel);
+    $("<div class='user-icon'><a href='" + known.realpath + "/userCenter/" + data.userId + "'><img   src='"  + data.userIcon + "'></a></div>").appendTo(comment_panel);
     var comment_con = $("<div class='comment-con'></div>").appendTo(comment_panel);
     $("<div class='clear'></div>").appendTo(comment_panel);
     // 内容
-    $("<div class='content_detail'><a id='user-name-" + data.id + "' href='" + known.realpath + "/user/" + data.userId + "'>" + data.userName + "</a>：<span>" + data.showContent + "</span></div>")
+    $("<div class='content_detail'><a id='user-name-" + data.id + "' href='" + known.realpath + "/userCenter/" + data.userId + "'>" + data.userName + "</a>：<span>" + data.showContent + "</span></div>")
 	    .appendTo(comment_con);
     // 时间，回复
    var op = $("<div class='time-op'><span class='time'>" + data.createTime + "</span><a href='javascript:;'  pid='" + pid + "' comment-id = '" + data.id + "' class='comment-btn'><i class='icon icon-re'></i>回复</a></div>").appendTo(
@@ -212,6 +212,8 @@ function CommentCon(data, pid,pComment) {
    }
     return comment_panel;
 }
+
+
 //发表一级回复
 function postPComment() {
 
@@ -225,14 +227,13 @@ function postPComment() {
     var content = known.ueditor == null ? $.trim($("#comment-content").val()) : known.ueditor.getContent();
     console.log(content);
     $.ajax({
-	url : known.realpath + "/addComment",
+	url : known.realpath + "/comment/addComment",
 	type: 'POST',
 	dataType: 'json',
 	data : {
 	    content : content,
 	    articleId : known.topicId, 
-	    articleType : known.articleType, 
-	    pid : 0,
+	    articleType : known.articleType,
 	    pageNum:known.commentPageNum
 	},
 	success : function(res) {
@@ -276,7 +277,7 @@ function postComment(curObj) {
     }
 
    $.ajax({
-	url : known.realpath + "/addComment2",
+	url : known.realpath + "/comment/addComment2",
 	type: 'POST',
 	dataType: 'json',
 	data : {

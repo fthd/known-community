@@ -1,10 +1,12 @@
 package com.known.service_impl;
 
 
+import com.known.cache.CategoryCache;
 import com.known.common.enums.*;
 import com.known.common.model.Attachment;
 import com.known.common.model.Knowledge;
 import com.known.common.model.MessageParams;
+import com.known.common.model.SysRes;
 import com.known.common.utils.ImageUtil;
 import com.known.common.utils.StringUtil;
 import com.known.common.utils.UUIDUtil;
@@ -42,12 +44,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	
 	@Autowired
 	private MessageService messageService;
-	
-	@Autowired
-	private SysResService sysResService;
-	
-	@Autowired
-	private SysRoleService sysRoleService;
+
 	
 	public PageResult<Knowledge> findKnowledgeByPage(
 			KnowledgeQuery knowledgeQuery) {
@@ -59,7 +56,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		knowledgeQuery.setPage(page);
 		knowledgeQuery.setOrderBy(OrderByEnum.CREATE_TIME_DESC);
 		List<Knowledge> list = knowledgeMapper.selectList(knowledgeQuery);
-		PageResult<Knowledge> pageResult = new PageResult<Knowledge>(page, list);
+		list.parallelStream().forEach(knowledge -> {
+			knowledge.setCategoryName(CategoryCache.getCategoryById(knowledge.getCategoryId()).getName());
+		});
+		PageResult<Knowledge> pageResult = new PageResult<>(page, list);
 		return pageResult;
 	}
 
@@ -78,20 +78,12 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	}
 
 	public Knowledge showKnowledge(String knowledgeId, String userId) throws BussinessException {
+
 		Knowledge knowledge = getKnowledge(knowledgeId);
-	/*	Set<Integer> roleSet = sysRoleService.findRoleIdsByUserId(userId);
-		List<SysRes> list = sysResService.findMenuByRoleIds(roleSet);
-		Set<String> permkey = new HashSet<>();
-		if(list != null){
-			for(SysRes sysRes : list){
-				permkey.add(sysRes.getKey());
-			}
-		}*/
-		if(knowledge == null || knowledge.getStatus() == StatusEnum.INIT
-				){
-			throw new BussinessException("话题不存在,或已删除");
+		if(knowledge == null || knowledge.getStatus() == StatusEnum.INIT){
+			throw new BussinessException("知识库不存在或未审核");
 		}
-		knowledge.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileTopicTypeEnum.KNOWLEDGE));
+		knowledge.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(knowledge.getKnowledgeId(), FileArticleTypeEnum.KNOWLEDGE));
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(knowledgeId);
@@ -102,7 +94,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	@Transactional(propagation= Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
 	public void addKnowledge(Knowledge knowledge, Attachment attachment) throws BussinessException {
 		if(knowledge.getTitle() == null || knowledge.getTitle().length() > TextLengthEnum.TEXT_300_LENGTH.getLength()
-				|| knowledge.getpCategoryId() == null || knowledge.getCategoryId() == null ||
+				|| knowledge.getPCategoryId() == null || knowledge.getCategoryId() == null ||
 				StringUtil.isEmpty(knowledge.getContent()) || knowledge.getContent().length() > TextLengthEnum.LONGTEXT.getLength()
 				){
 			throw new BussinessException("参数错误");
@@ -117,28 +109,26 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		}
 		Set<String> userIds = new HashSet<>();
 		//TODO给用户发消息
-		String formatContent = formateAtService.generateRefererLinks(content,
-				userIds);
+		String formatContent = formateAtService.generateRefererLinks(content, userIds);
 		knowledge.setSummary(summary);
 		knowledge.setTitle(title);
 		knowledge.setContent(formatContent);
 		String knowledgeImage = ImageUtil.getImages(content);
 		knowledge.setKnowledgeImage(knowledgeImage);
-//		String knowledgeImageSmall = ImageUtil.createThumbnail(knowledgeImage, true);
-//		knowledge.setKnowledgeImageThum(knowledgeImageSmall);
+		String knowledgeImageSmall = ImageUtil.createThumbnail(knowledgeImage, true);
+ 		knowledge.setKnowledgeImageThum(knowledgeImageSmall);
 		Date curDate = new Date();
 		knowledge.setCreateTime(curDate);
 		knowledge.setLastCommentTime(curDate);
 		knowledge.setStatus(StatusEnum.INIT);
 		knowledgeMapper.insert(knowledge);
-		userService.changeMark(knowledge.getUserId(),
-				MarkEnum.MARK_TOPIC.getMark());
+		userService.changeMark(knowledge.getUserId(), MarkEnum.MARK_TOPIC.getMark());
 		
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setAttachmentId(UUIDUtil.getUUID());
 			attachment.setArticleId(knowledge.getKnowledgeId());
-			attachment.setFileTopicType(FileTopicTypeEnum.KNOWLEDGE);
+			attachment.setFileArticleType(FileArticleTypeEnum.KNOWLEDGE);
 			attachmentService.addAttachment(attachment);
 		}
 		
@@ -156,9 +146,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	@Override
 	public List<Knowledge> findKnowledgeList() {
 		KnowledgeQuery knowledgeQuery = new KnowledgeQuery();
-		knowledgeQuery.setStatus(StatusEnum.INIT);
 		knowledgeQuery.setOrderBy(OrderByEnum.CREATE_TIME_DESC);
-		return knowledgeMapper.selectList(knowledgeQuery);
+		List<Knowledge> list = knowledgeMapper.selectList(knowledgeQuery);
+		return list;
 	}
 
 	@Override
@@ -175,8 +165,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	public void updateStatusBatch(String[] ids) throws BussinessException {
 		if(ids == null){
 			throw new BussinessException("参数错误");
-		}		
-		
+		}
 		knowledgeMapper.updateKnowledgeStatus(StatusEnum.AUDIT, ids);
 	}
 

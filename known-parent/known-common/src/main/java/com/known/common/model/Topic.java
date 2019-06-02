@@ -8,6 +8,7 @@ import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.HtmlUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,9 +71,14 @@ public class Topic {
     private Integer topicCount;
     
     private Integer boolNew;
-    
 
-	public Integer getBoolNew() {
+
+    public String getContent() {
+        this.content = HtmlUtils.htmlUnescape(content);
+        return content;
+    }
+
+    public Integer getBoolNew() {
 		if(DateUtil.daysBetween(createTime, new Date()) > 2){
 					return 0;
 			}
@@ -87,15 +93,6 @@ public class Topic {
 		}
 		return topicImage.split("\\|");
 	}
-
-
-	/*public String getCategoryName() {
-		return CategoryCache.getCategoryById(categoryId).getName();
-	}
-
-	public String getpCategoryName() {
-		return CategoryCache.getCategoryById(pCategoryId).getName();
-	}*/
 
 
 	public String getCreateTimeString() {

@@ -35,13 +35,13 @@ $(function() {
 					d.close().remove();
 				}, 1000);		
 		$.ajax({
-			url: known.realpath + '/doCollection',
+			url: known.realpath + '/collection/doCollection',
 			type: 'POST',
 			dataType: 'json',
 			data: {
 					userId:known.userId,
 				   "articleType": known.articleType,
-				   "articleId": known.topicId,
+				   "articleId":known.topicId,
 				   "title":known.articleTitle,
 				   "articleUserId":known.articleUserId
 			},
@@ -52,8 +52,7 @@ $(function() {
 					  skin: 'layer-ext-moon' 
 					});
 					return;
-				}
-				else{
+				} else{
 					layer.msg('收藏成功', {icon: 6,time:1000});
 					$("#collection-count").text(parseInt($("#collection-count").text()) + 1);
 				}
@@ -75,13 +74,13 @@ $(function() {
 					d.close().remove();
 				}, 1000);		
 		$.ajax({
-			url: known.realpath + '/doLike',
+			url: known.realpath + '/like/doLike',
 			type: 'POST',
 			dataType: 'json',
 			data: {
 					userId:known.userId,
 				   "articleType": known.articleType,
-				   "articleId": known.topicId,
+				   "articleId":known.topicId,
 				   "title":known.articleTitle
 			},
 			success:function(res){

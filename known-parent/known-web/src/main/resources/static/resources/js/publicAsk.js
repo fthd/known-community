@@ -7,7 +7,7 @@ $(document).ready(function() {
 });
 
 function addAsk(){
-	if(known.userId=="" || known.userId == 0){
+	if(known.userId==""){
 		goLogin();
 	    return;
 	}
@@ -73,11 +73,12 @@ function addAsk(){
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					});
-				} else{
+				} else {
 					layer.msg('发表成功', {
 						  icon: 1,
 						  time: 1500 //2秒关闭（如果不配置，默认是3秒）
 						}, function(){
+							alert(res.data);
 							document.location.href = known.realpath + "/ask/" + res.data ;
 						});
 				}

@@ -22,16 +22,16 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `known_ask`;
 CREATE TABLE `known_ask`  (
-  `ask_id` varchar(32) NOT NULL COMMENT '问答ID',
-  `p_category_id` varchar(32) NULL DEFAULT NULL COMMENT '组ID',
-  `category_id` varchar(32) NULL DEFAULT NULL COMMENT '类型ID',
+  `ask_id` varchar(64) NOT NULL COMMENT '问答ID',
+  `p_category_id` varchar(64) NULL DEFAULT NULL COMMENT '组ID',
+  `category_id` varchar(64) NULL DEFAULT NULL COMMENT '类型ID',
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '标题',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   `summary` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容摘要',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '作者ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '作者ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '作者头像',
   `user_name` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '作者名字',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发表时间',
+  `create_time` timestamp(0) DEFAULT CURRENT_TIMESTAMP COMMENT '发表时间',
   `comment_count` int(11) NULL DEFAULT 0 COMMENT '评论人数',
   `read_count` int(11) NULL DEFAULT 0 COMMENT '阅读人数',
   `collection_count` int(11) NULL DEFAULT 0 COMMENT '收藏人数',
@@ -39,8 +39,8 @@ CREATE TABLE `known_ask`  (
   `ask_image` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '问答配图',
   `ask_image_thum` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '问答缩列图',
   `mark` int(11) NULL DEFAULT 0 COMMENT '赏分',
-  `best_answer_id` varchar(32) NULL DEFAULT NULL COMMENT '最佳回复id',
-  `best_answer_user_id` varchar(32) NULL DEFAULT NULL COMMENT '最佳答案作者ID',
+  `best_answer_id` varchar(64) NULL DEFAULT NULL COMMENT '最佳回复id',
+  `best_answer_user_id` varchar(64) NULL DEFAULT NULL COMMENT '最佳答案作者ID',
   `best_answer_user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '最佳作者头像',
   `best_answer_user_name` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '最佳答案作者',
   `solve_type` int(1) NULL DEFAULT 0 COMMENT '0为已解决1为解决',
@@ -55,12 +55,12 @@ CREATE TABLE `known_ask`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_attachment`;
 CREATE TABLE `known_attachment`  (
-  `attachment_id` varchar(32) NOT NULL COMMENT '附件ID',
-  `article_id` varchar(32) NULL DEFAULT NULL COMMENT '文章ID',
+  `attachment_id` varchar(64) NOT NULL COMMENT '附件ID',
+  `article_id` varchar(64) NULL DEFAULT NULL COMMENT '文章ID',
   `file_name` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '文件名',
   `file_url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '文件地址',
-  `download_mark` varchar(32) NULL DEFAULT NULL COMMENT '下载所需积分',
-  `download_count` varchar(32) NULL DEFAULT 0 COMMENT '下载次数',
+  `download_mark` varchar(64) NULL DEFAULT NULL COMMENT '下载所需积分',
+  `download_count` varchar(64) NULL DEFAULT 0 COMMENT '下载次数',
   `article_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'T' COMMENT 'T附件属于话题 K属于知识库',
   PRIMARY KEY (`attachment_id`) USING BTREE,
   INDEX `attachment_id`(`attachment_id`) USING BTREE,
@@ -72,8 +72,8 @@ CREATE TABLE `known_attachment`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_attachment_download`;
 CREATE TABLE `known_attachment_download`  (
-  `attachment_id` varchar(32) NOT NULL COMMENT '附件ID',
-  `user_id` varchar(32) NOT NULL  COMMENT '下载用户ID',
+  `attachment_id` varchar(64) NOT NULL COMMENT '附件ID',
+  `user_id` varchar(64) NOT NULL  COMMENT '下载用户ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户头像',
   `user_name` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户名',
   PRIMARY KEY (`attachment_id`, `user_id`) USING BTREE,
@@ -85,11 +85,11 @@ CREATE TABLE `known_attachment_download`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_category`;
 CREATE TABLE `known_category`  (
-  `category_id` varchar(32) NOT NULL COMMENT '分类ID',
-  `pid` varchar(32) NULL DEFAULT NULL COMMENT '父节点ID',
+  `category_id` varchar(64) NOT NULL COMMENT '分类ID',
+  `pid` varchar(64) NULL DEFAULT NULL COMMENT '父节点ID',
   `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类名称',
   `desc` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类描述',
-  `rank` varchar(32) NULL DEFAULT NULL COMMENT '分类排名',
+  `rank` varchar(64) NULL DEFAULT NULL COMMENT '分类排名',
   `show_in_topic` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Y' COMMENT '是否是话题分类Y是N不是',
   `show_in_ask` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Y' COMMENT '是否是问答分类Y是N不是',
   `show_in_knowledge` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Y' COMMENT '是否是知识库分类Y是N不是',
@@ -111,10 +111,10 @@ INSERT INTO `known_category` VALUES ('14', '13', 'Java', '二级分类', NULL, '
 -- ----------------------------
 DROP TABLE IF EXISTS `known_collection`;
 CREATE TABLE `known_collection`  (
-  `article_id` varchar(32) NOT NULL COMMENT '文章ID',
+  `article_id` varchar(64) NOT NULL COMMENT '文章ID',
   `article_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章类型',
-  `article_user_id` varchar(32) NULL DEFAULT NULL COMMENT '文章作者',
-  `user_id` varchar(32) NOT NULL COMMENT '用户ID',
+  `article_user_id` varchar(64) NULL DEFAULT NULL COMMENT '文章作者',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   `title` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '文章标题',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`article_id`, `article_type`, `user_id`) USING BTREE,
@@ -127,11 +127,11 @@ CREATE TABLE `known_collection`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_comment`;
 CREATE TABLE `known_comment`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `pid` varchar(32) NULL DEFAULT NULL COMMENT '父节点ID',
-  `article_id` varchar(32) NULL DEFAULT NULL COMMENT '文章ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `pid` varchar(64) NULL DEFAULT NULL COMMENT '父节点ID',
+  `article_id` varchar(64) NULL DEFAULT NULL COMMENT '文章ID',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '评论内容',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '用户ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '用户ID',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '评论时间',
   `source_from` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'P' COMMENT 'P代表PC端发出',
   `article_type` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'T' COMMENT '文章类型',
@@ -148,20 +148,20 @@ CREATE TABLE `known_comment`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_knowledge`;
 CREATE TABLE `known_knowledge`  (
-  `knowledge_id` varchar(32) NOT NULL COMMENT '知识库ID',
-  `p_category_id` varchar(32) NULL DEFAULT NULL COMMENT '组ID',
-  `category_id` varchar(32) NULL DEFAULT NULL COMMENT '类型ID',
+  `knowledge_id` varchar(64) NOT NULL COMMENT '知识库ID',
+  `p_category_id` varchar(64) NULL DEFAULT NULL COMMENT '组ID',
+  `category_id` varchar(64) NULL DEFAULT NULL COMMENT '类型ID',
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '标题',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   `summary` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容摘要',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '作者ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '作者ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者头像',
   `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者名字',
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发表时间',
-  `comment_count` varchar(32) NULL DEFAULT 0 COMMENT '评论人数',
-  `read_count` varchar(32) NULL DEFAULT 0 COMMENT '阅读人数',
-  `collection_count` varchar(32) NULL DEFAULT 0 COMMENT '收藏人数',
-  `like_count` varchar(32) NULL DEFAULT 0 COMMENT '喜欢人数',
+  `comment_count` varchar(64) NULL DEFAULT 0 COMMENT '评论人数',
+  `read_count` varchar(64) NULL DEFAULT 0 COMMENT '阅读人数',
+  `collection_count` varchar(64) NULL DEFAULT 0 COMMENT '收藏人数',
+  `like_count` varchar(64) NULL DEFAULT 0 COMMENT '喜欢人数',
   `knowledge_image` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '知识库图片',
   `knowledge_image_thum` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '知识库缩列图',
   `status` int(1) NULL DEFAULT 0 COMMENT '0-未审核 1-审核',
@@ -175,9 +175,9 @@ CREATE TABLE `known_knowledge`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_like`;
 CREATE TABLE `known_like`  (
-  `article_id` varchar(32) NOT NULL COMMENT '文章ID',
+  `article_id` varchar(64) NOT NULL COMMENT '文章ID',
   `article_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章类型',
-  `user_id` varchar(32) NOT NULL COMMENT '用户ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   `title` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文章标题',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`article_id`, `article_type`, `user_id`) USING BTREE,
@@ -190,8 +190,8 @@ CREATE TABLE `known_like`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_message`;
 CREATE TABLE `known_message`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `received_user_id` varchar(32) NULL DEFAULT NULL COMMENT '接收人ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `received_user_id` varchar(64) NULL DEFAULT NULL COMMENT '接收人ID',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `status` int(1) NULL DEFAULT 0 COMMENT '0-未读 1-已读',
   `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '信息详情',
@@ -207,8 +207,8 @@ CREATE TABLE `known_message`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_shuoshuo`;
 CREATE TABLE `known_shuoshuo`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '用户ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '用户ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '头像',
   `user_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户名',
   `image_url` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配图URL',
@@ -228,11 +228,11 @@ CREATE TABLE `known_shuoshuo`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_shuoshuo_comment`;
 CREATE TABLE `known_shuoshuo_comment`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `shuoshuo_id` varchar(32) NULL DEFAULT NULL COMMENT '说说ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `shuoshuo_id` varchar(64) NULL DEFAULT NULL COMMENT '说说ID',
   `content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论内容',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '评论时间',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '用户ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '用户ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '头像',
   `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`) USING BTREE,
@@ -244,9 +244,9 @@ CREATE TABLE `known_shuoshuo_comment`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_shuoshuo_like`;
 CREATE TABLE `known_shuoshuo_like`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `shuoshuo_id` varchar(32) NOT NULL COMMENT '说说ID',
-  `user_id` varchar(32) NOT NULL COMMENT '用户ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `shuoshuo_id` varchar(64) NOT NULL COMMENT '说说ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '头像',
   `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '点赞时间',
@@ -259,7 +259,7 @@ CREATE TABLE `known_shuoshuo_like`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_sign_in`;
 CREATE TABLE `known_sign_in`  (
-  `userid` varchar(32) NOT NULL COMMENT '用户ID',
+  `userid` varchar(64) NOT NULL COMMENT '用户ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
   `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `sign_date` date NOT NULL COMMENT '签到日期',
@@ -295,7 +295,7 @@ CREATE TABLE `known_statistics`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_task`;
 CREATE TABLE `known_task`  (
-  `id` varchar(32) NOT NULL,
+  `id` varchar(64) NOT NULL,
   `task_classz` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `task_method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `task_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -310,14 +310,14 @@ CREATE TABLE `known_task`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_topic`;
 CREATE TABLE `known_topic`  (
-  `topic_id` varchar(32) NOT NULL COMMENT '话题ID',
+  `topic_id` varchar(64) NOT NULL COMMENT '话题ID',
   `topic_type` int(1) NULL DEFAULT 0 COMMENT '0是普通话题 1是投票话题',
-  `p_category_id` varchar(32) NULL DEFAULT NULL COMMENT '组ID',
-  `category_id` varchar(32) NULL DEFAULT NULL COMMENT '类型ID',
+  `p_category_id` varchar(64) NULL DEFAULT NULL COMMENT '组ID',
+  `category_id` varchar(64) NULL DEFAULT NULL COMMENT '类型ID',
   `title` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '标题',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   `summary` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容摘要',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '作者ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '作者ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '作者头像',
   `user_name` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '作者名字',
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发表时间',
@@ -341,8 +341,8 @@ CREATE TABLE `known_topic`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_topic_vote`;
 CREATE TABLE `known_topic_vote`  (
-  `vote_id` varchar(32) NOT NULL COMMENT 'ID',
-  `topic_id` varchar(32) NOT NULL COMMENT '话题ID',
+  `vote_id` varchar(64) NOT NULL COMMENT 'ID',
+  `topic_id` varchar(64) NOT NULL COMMENT '话题ID',
   `vote_type` int(1) NOT NULL COMMENT '1是单选 2是多选',
   `end_date` date NOT NULL COMMENT '结束时间',
   PRIMARY KEY (`vote_id`) USING BTREE,
@@ -354,9 +354,9 @@ CREATE TABLE `known_topic_vote`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_topic_vote_detail`;
 CREATE TABLE `known_topic_vote_detail`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `vote_id` varchar(32) NULL DEFAULT NULL COMMENT '投票ID',
-  `topic_id` varchar(32) NULL DEFAULT NULL COMMENT '话题ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `vote_id` varchar(64) NULL DEFAULT NULL COMMENT '投票ID',
+  `topic_id` varchar(64) NULL DEFAULT NULL COMMENT '话题ID',
   `title` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '话题标题',
   `count` int(11) NULL DEFAULT 0 COMMENT '投票数量',
   PRIMARY KEY (`id`) USING BTREE,
@@ -368,8 +368,8 @@ CREATE TABLE `known_topic_vote_detail`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_topic_vote_user`;
 CREATE TABLE `known_topic_vote_user`  (
-  `vote_detail_id` varchar(32) NOT NULL COMMENT '话题详情ID',
-  `user_id` varchar(32) NOT NULL COMMENT '用户ID',
+  `vote_detail_id` varchar(64) NOT NULL COMMENT '话题详情ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   `vote_date` datetime(0) NOT NULL COMMENT '投票日期',
   INDEX `idx_user_id`(`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -379,7 +379,7 @@ CREATE TABLE `known_topic_vote_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `known_user`;
 CREATE TABLE `known_user`  (
-  `userid` varchar(32) NOT NULL COMMENT '用户ID',
+  `userid` varchar(64) NOT NULL COMMENT '用户ID',
   `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
@@ -413,8 +413,8 @@ INSERT INTO `known_user` VALUES ('10086', '2829266028@qq.com', 'will', '7402d37e
 -- ----------------------------
 DROP TABLE IF EXISTS `known_user_friend`;
 CREATE TABLE `known_user_friend`  (
-  `user_id` varchar(32) NOT NULL COMMENT '用户ID',
-  `friend_user_id` varchar(32) NOT NULL COMMENT '好友ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
+  `friend_user_id` varchar(64) NOT NULL COMMENT '好友ID',
   `user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
   `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `friend_user_icon` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '好友头像',
@@ -459,8 +459,8 @@ CREATE TABLE `sys_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_res`;
 CREATE TABLE `sys_res`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
-  `pid` varchar(32) NULL DEFAULT NULL COMMENT '父节点ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `pid` varchar(64) NULL DEFAULT NULL COMMENT '父节点ID',
   `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `des` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -468,7 +468,7 @@ CREATE TABLE `sys_res`  (
   `type` int(1) NULL DEFAULT 2 COMMENT '1 菜单 2 权限',
   `modifydate` timestamp(0) NULL DEFAULT NULL,
   `enabled` int(1) NULL DEFAULT 1 COMMENT '是否启用 1：启用  0：禁用',
-  `level` varchar(32) NULL DEFAULT 0,
+  `level` varchar(64) NULL DEFAULT 0,
   `key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -538,12 +538,12 @@ INSERT INTO `sys_res` VALUES ('181', NULL, NULL, NULL, NULL, 'am-icon-file', 2, 
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `id` varchar(32) NOT NULL COMMENT 'ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
   `name` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '权限名称',
   `des` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `seq` int(11) NULL DEFAULT 1 COMMENT '序列',
   `createdate` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `status` varchar(32) NULL DEFAULT 1 COMMENT '0-禁用  1-启用',
+  `status` varchar(64) NULL DEFAULT 1 COMMENT '0-禁用  1-启用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -613,8 +613,8 @@ INSERT INTO `sys_role` VALUES ('60', '', NULL, 1, NULL, 1);
 DROP TABLE IF EXISTS `sys_role_res`;
 CREATE TABLE `sys_role_res`  (
   `id` int(11)NOT NULL COMMENT 'ID',
-  `role_id` varchar(32) NULL DEFAULT NULL COMMENT '权限表ID',
-  `res_id` varchar(32) NULL DEFAULT NULL COMMENT '系统权限详情表ID',
+  `role_id` varchar(64) NULL DEFAULT NULL COMMENT '权限表ID',
+  `res_id` varchar(64) NULL DEFAULT NULL COMMENT '系统权限详情表ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK_sys_ROLE_RES_RES_ID`(`res_id`) USING BTREE,
   INDEX `FK_sys_ROLE_RES_ROLE_ID`(`role_id`) USING BTREE
@@ -686,8 +686,8 @@ INSERT INTO `sys_role_res` VALUES (56, '60', '181');
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
   `id` int(11) NOT NULL COMMENT 'ID',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '用户表ID',
-  `role_id` varchar(32) NULL DEFAULT NULL COMMENT '系统权限表ID',
+  `user_id` varchar(64) NULL DEFAULT NULL COMMENT '用户表ID',
+  `role_id` varchar(64) NULL DEFAULT NULL COMMENT '系统权限表ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user_role_index`(`user_id`, `role_id`) USING BTREE,
   INDEX `FK_SYSTME_USER_ROLE_USER_ID`(`user_id`) USING BTREE,

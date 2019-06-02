@@ -47,9 +47,9 @@
 		<div class="rightKnowledge whitebk">
 			<div class="rightContent">
 				<div class="knowledgeTitle" style="cursor: default">
-					<div class="title"><a href="">${(KnwoledgeTitleCategory.name)!'JAVA情书'}</a></div>
+					<div class="title"><a href="">${(knowledgeTitleCategory.name)!'JAVA情书'}</a></div>
 					<div class="clear"></div>
-					<p style="text-indent: 2em;">${(KnwoledgeTitleCategory.desc)!'你是静态代码块，执行在类加载，我是局部变量i，无限循环，爱你，痴心不改。'}</p>
+					<p style="text-indent: 2em;">${(knowledgeTitleCategory.desc)!'你是静态代码块，执行在类加载，我是局部变量i，无限循环，爱你，痴心不改。'}</p>
 					<div class="mainRightContent">
 						<div class="tab_title" id="tab_title">
 						    <span class="xian bordercolor"></span>最新收录
@@ -63,7 +63,7 @@
 					<div class="topic-item">
 						<div class="topic-item-info">
 							<div class="topic-item-title">
-	                			<a href="${realpath}/knowledge/${(item.topicId)?c}" class="title">${item.title}</a>
+	                			<a href="${realpath}/knowledge/${item.knowledgeId}" class="title">${item.title}</a>
 	                			<span class="time">${item.createTimeString!''}</span>
 	                			<a class="topic-cate-tag" href="${realpath}/knowledge/categoryId/${item.categoryId}"><span>${item.categoryName!''}</span></a>
 	                		</div>
@@ -80,7 +80,7 @@
 							</div>
 							</#if>
 							<div class="topic-count-info">
-								<a href="${realpath}/user/${(item.userId)?c}" class="user-info"><i class="icon icon-user-name"></i><span>${item.userName}</span></a>
+								<a href="${realpath}/userCenter/${item.userId}" class="user-info"><i class="icon icon-user-name"></i><span>${item.userName}</span></a>
 								<span class="count"><i class="icon icon-read"></i><span>阅读：${item.readCount!'0'}</span></span>
 								<span class="count"><i class="icon icon-comment"></i><span>评论：${item.commentCount!'0'}</span></span>
 								<span class="count"><i class="icon icon-like"></i><span>喜欢：${item.likeCount!'0'}</span></span>
@@ -92,7 +92,7 @@
 
 					</#list>
 					<#else>
-						<div class="no-data">没有话题，赶紧抢沙发吧</div>
+						<div class="no-data">没有知识库，赶紧抢沙发吧</div>
 					</#if>
 						<div class="clear"></div>				
 					</div>

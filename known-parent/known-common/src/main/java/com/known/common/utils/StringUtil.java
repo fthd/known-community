@@ -1,7 +1,5 @@
 package com.known.common.utils;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

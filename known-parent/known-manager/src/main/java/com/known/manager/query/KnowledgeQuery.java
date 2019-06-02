@@ -22,9 +22,9 @@ public class KnowledgeQuery extends BaseQuery{
 	
 	private String endDate;
 	
-	private Integer pCategoryId;
+	private String pCategoryId;
 	
-	private Integer categoryId;
+	private String categoryId;
 	
 	private StatusEnum status;
 

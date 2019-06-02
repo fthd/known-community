@@ -48,8 +48,9 @@
                                         <thead>
                                             <tr>
                                                 <th data-checkbox="true"></th>
-                                                <th data-field="topicId" data-sortable="true">ID</th>
+                                                <th data-field="knowledgeId" data-sortable="true">ID</th>
                                                 <th data-field="title" data-sortable="true"  data-formatter="titleFormatter">标题</th>
+                                                <th data-field="status" data-sortable="true"  data-formatter="statusFormatter">审核状态</th>
                                                 <th data-field="commentCount" data-sortable="true" >评论数</th>
                                                 <th data-field="likeCount" data-sortable="true" >赞数</th>
                                                 <th data-field="userName" data-sortable="true" >发布人</th>
@@ -78,34 +79,33 @@ function titleFormatter(value,row){
 	return "<a href='${realpath}/knowledge/"  + row.topicId +"' target='_blank'>" + row.title + "</a>"; 
 }
 
+function statusFormatter(value, row) {
 
+    if (row.status == "INIT") {
+        return ' <span class="label label-sm label-success"> 未审核</span>';
+    } else {
+        return ' <span class="label label-sm label-danger"> 已审核</span>';
+    }
 
-
-//
-
-   
+}
 
    function getIds(){
  	  var ids = "";
  	 var selects = $('#table').bootstrapTable('getSelections');
  		for(var i = 0, _length=selects.length; i < _length ; i++){
  			if(i == _length-1){
-                   ids = ids +"ids=" + selects[i].topicId;
-               }
-               else{
-             	  ids = ids + "ids=" + selects[i].topicId + "&";
+                   ids = ids +"ids=" + selects[i].knowledgeId;
+               }else{
+             	  ids = ids + "ids=" + selects[i].knowledgeId + "&";
                }
  		}
  	return ids;
     }
-   
 
-   
-   //
    $("#btn_delete").click(function(){
    	var arr = getIds();
    	if(arr.length == 0){
-   		layer.msg("请选择要标记的行", {
+   		layer.msg("请选择要操作的ID", {
 				icon: 5,
 				time: 1500 //2秒关闭（如果不配置，默认是3秒）
 			});
@@ -114,21 +114,31 @@ function titleFormatter(value,row){
        del(arr);
    });
    
-   //
+
    $("#btn_edit").click(function(){
 	   	var arr = getIds();
 	   	if(arr.length == 0){
-	   		layer.msg("请选择要标记的行", {
+	   		layer.msg("请选择要操作的ID", {
 					icon: 5,
 					time: 1500 //2秒关闭（如果不配置，默认是3秒）
 				});
 				return;
 	   	}
-	       update(arr);
+
+       var selects = $('#table').bootstrapTable('getSelections');
+       for(var i = 0, _length=selects.length; i < _length ; i++){
+           if(selects[i].status == "AUDIT") {
+               layer.msg("请选择未审核的ID", {
+                   icon: 5,
+                   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+               });
+               return;
+           }
+       }
+       update(arr);
 	   });
    
-   
-   //
+
    function del(arr){
            layer.confirm('是否删除？', {
        btn: ['是', '否'], //按钮
@@ -162,19 +172,14 @@ function titleFormatter(value,row){
                }
            }
        });
-
-
    }, function() {
 
    });
 
    }
-   
-   //
-   
-    //
+
    function update(arr){
-           layer.confirm('是否全部审核通过？', {
+       layer.confirm('是否全部审核通过？', {
        btn: ['是', '否'], //按钮
        shade: false //不显示遮罩
    }, function() {
@@ -189,7 +194,10 @@ function titleFormatter(value,row){
            url: '${realpath}/content/knowledge/updateStatus',
            type: 'POST',
            dataType: 'json',
-           data: arr,
+           data: {
+               ids:arr,
+               stats: stat
+           },
            success: function(res) {
                if (res.msg != null) {
                    layer.msg(res.msg, {
@@ -213,8 +221,6 @@ function titleFormatter(value,row){
    });
 
    }
-   
-   //
 
 </script>
 

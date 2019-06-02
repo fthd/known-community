@@ -204,8 +204,7 @@ function publicShuoShuoComment(curObj){
                     icon: 5,
                     skin: 'layer-ext-moon'
                 })
-            }
-            else{
+            } else{
                 textarea.val("");
                 commentform.hide();
                 commentcount.text(parseInt(comentCountSpan) + 1);

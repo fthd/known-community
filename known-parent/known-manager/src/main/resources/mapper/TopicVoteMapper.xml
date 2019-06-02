@@ -20,9 +20,6 @@
   </delete>
 
   <insert id="insert" parameterType="com.known.common.model.TopicVote" >
-  <selectKey keyProperty="voteId" resultType="java.lang.Integer" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-  	</selectKey>
     insert into known_topic_vote (topic_id, vote_type, 
       end_date)
     values (#{topicId,jdbcType=VARCHAR}, #{voteType.type,jdbcType=INTEGER},

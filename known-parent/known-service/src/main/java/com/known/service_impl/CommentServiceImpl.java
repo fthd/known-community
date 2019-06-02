@@ -3,7 +3,6 @@ package com.known.service_impl;
 import com.known.common.enums.*;
 import com.known.common.model.*;
 import com.known.common.utils.StringUtil;
-import com.known.common.utils.UUIDUtil;
 import com.known.common.vo.Page;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -47,7 +46,10 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private MessageService messageService;
 	
-	public PageResult<Comment> findCommentByPage(CommentQuery commentQuery) {
+	public PageResult<Comment> findCommentByPage(CommentQuery commentQuery) throws BussinessException {
+		if(StringUtil.isEmpty(commentQuery.getArticleId()) ||commentQuery.getArticleType() == null) {
+			throw new BussinessException("加载评论出错");
+		}
 		commentQuery.setPid("");
 		int pageNum = commentQuery.getPageNum() == 1 ? 1 : commentQuery.getPageNum();
 		int pageSize = PageSizeEnum.PAGE_SIZE10.getSize();
@@ -76,7 +78,6 @@ public class CommentServiceImpl implements CommentService {
 				||  StringUtil.isEmpty(comment.getArticleId()) || comment.getArticleType() == null){
 			throw new BussinessException("参数错误");
 		}
-		comment.setId(UUIDUtil.getUUID());
 		String pid = comment.getPid();
 		pid = pid == null ? "" : pid;
 		if(!pid.equals("")){
@@ -121,8 +122,7 @@ public class CommentServiceImpl implements CommentService {
 		userService.changeMark(comment.getUserId(), MarkEnum.MARK_COMMENT.getMark());
 		if(pid.equals("")){
 			userIds.add(articleUserId);
-		}
-		else{
+		} else{
 			Comment comment2 = getCommentById(pid);
 			userIds.add(comment2.getUserId());
 		}

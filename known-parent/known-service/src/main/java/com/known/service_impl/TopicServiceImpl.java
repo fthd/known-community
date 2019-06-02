@@ -105,7 +105,7 @@ public class TopicServiceImpl implements TopicService {
 		if(!StringUtil.isEmpty(attachment.getFileName()) &&
 				!StringUtil.isEmpty(attachment.getFileUrl())){
 			attachment.setArticleId(topic.getTopicId());
-			attachment.setFileTopicType(FileTopicTypeEnum.TOPIC);
+			attachment.setFileArticleType(FileArticleTypeEnum.TOPIC);
 			attachmentService.addAttachment(attachment);
 		}
 		
@@ -125,7 +125,10 @@ public class TopicServiceImpl implements TopicService {
 		if(topic == null){
 			throw new BussinessException("话题不存在或已删除");
 		}
-		topic.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileTopicTypeEnum.TOPIC));
+		// 获取话题附件信息
+		topic.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileArticleTypeEnum.TOPIC));
+
+		//更新阅读次数
 		UpdateQuery4ArticleCount updateQuery4ArticleCount = new UpdateQuery4ArticleCount();
 		updateQuery4ArticleCount.setAddReadCount(Boolean.TRUE);
 		updateQuery4ArticleCount.setArticleId(topicId);
@@ -141,10 +144,8 @@ public class TopicServiceImpl implements TopicService {
 		topicQuery.setShowContent(Boolean.TRUE);
 		topicQuery.setTopicId(topicId);
 		List<Topic> list = topicMapper.selectList(topicQuery);
-		if(list.isEmpty()){
-			return null;
-		}
-		return list.get(0);
+
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 	public List<Topic> findActiveUsers() {

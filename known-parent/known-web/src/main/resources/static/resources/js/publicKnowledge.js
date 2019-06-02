@@ -120,7 +120,7 @@ for (var i = 0, _len = children.length; i < _len; i++) {
 
 function initCategory() {
 $.ajax({
-	url : known.realpath + "/topic/loadCategories" ,
+	url : known.realpath + "/knowledge/loadCategories" ,
 	type:"POST",
 	dataType:"json",
 	success : function(res) {
@@ -221,13 +221,12 @@ function addKnowledge(){
 					  icon: 5,
 					  skin: 'layer-ext-moon' 
 					})
-				}
-				else{
+				} else {
 					layer.msg('投稿成功,等待审核', {
 						  icon: 1,
 						  time: 1500 //2秒关闭（如果不配置，默认是3秒）
 						}, function(){
-							document.location.href = known.realpath + "/knowledge/" + res.data ;
+							document.location.href = known.realpath + "/knowledge/knowledge";
 						});
 				}
 			}

@@ -40,10 +40,10 @@
   </select>
   
   <insert id="insert" parameterType="com.known.common.model.ShuoShuoLike" >
-    insert into known_shuoshuo_like (shuoshuo_id, user_id, 
+    insert into known_shuoshuo_like (id, shuoshuo_id, user_id,
       user_icon, user_name, create_time
       )
-    values (#{shuoShuoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR}, #{shuoShuoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
       #{userIcon,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>

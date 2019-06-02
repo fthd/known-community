@@ -47,9 +47,6 @@
   </delete>
 
   <insert id="insert" parameterType="com.known.common.model.Task" >
-    <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-  	</selectKey>
     insert into known_task (task_classz, task_method, 
       task_time, last_update_time, status, 
       des)
