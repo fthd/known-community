@@ -9,9 +9,9 @@
         <li><a href="${realpath}/manage/manage">后台管理</a></li>
         <form class="navbar-form navbar-left" role="search" id="searchForm" action="${realpath}/search/search" method="POST">
 			<select class="form-control" id="select" name="articleType">
-			  <option value="K" <#if articleType??&&articleType=='K'>selected="selected"</#if>>知识库</option>
-			  <option value="T" <#if articleType??&&articleType=='T'>selected="selected"</#if>>话题</option>
-			  <option value="A" <#if articleType??&&articleType=='A'>selected="selected"</#if>>问答</option>
+				<option value="T" <#if articleType??&&articleType=='T'>selected="selected"</#if>>话题</option>
+			  	<option value="K" <#if articleType??&&articleType=='K'>selected="selected"</#if>>知识库</option>
+			  	<option value="A" <#if articleType??&&articleType=='A'>selected="selected"</#if>>问答</option>
 			</select>
 			<div class="form-group">
 			  <input type="text" class="form-control" name="keyword" id="keyWord" value="${keyword!''}" style="width: 300px;">

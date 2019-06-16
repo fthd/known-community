@@ -13,10 +13,10 @@
   
    <sql id="Base_Condition" >
     <where >
-    	<if test="null!= userId">
+    	<if test="null!= userId and '' != userId">
      		and user_id = #{userId,jdbcType=VARCHAR}
      	</if>
-     	<if test="null!= friendUserId">
+     	<if test="null!= friendUserId and '' != friendUserId">
      		and friend_user_id = #{friendUserId,jdbcType=VARCHAR}
      	</if>
     </where>
@@ -30,7 +30,7 @@
   <select id="selectList" resultMap="BaseResultMap" >
  		select <include refid="Base_Column_List"/> from known_user_friend <include refid="Base_Condition"/>
  		order by create_time desc 
- 		<if test="null!= page">
+ 		<if test="null!= page and page.end != 0">
      		limit #{page.start},#{page.end}
      	</if>
   </select>

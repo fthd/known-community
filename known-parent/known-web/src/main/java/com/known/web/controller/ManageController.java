@@ -3,6 +3,7 @@ package com.known.web.controller;
 
 import com.known.common.model.SysRes;
 import com.known.common.model.SysRole;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.Tree;
 import com.known.exception.BussinessException;
@@ -37,8 +38,10 @@ public class ManageController {
 	public ModelAndView noperm(){
 		return new ModelAndView("page/admin-system/noperm");
 	}
-	
+
+
 	@RequestMapping("/manage")
+	@RequirePermissions(key="manage:sys:index")
 	public ModelAndView index(){
 		return new ModelAndView("page/admin-system/index");
 	}
@@ -248,6 +251,7 @@ public class ManageController {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			List<Integer> list = sysRoleService.findResourceIdByRoleId(id);
+			list.removeAll(null);
 			outResponse.setData(list);
 		}catch (BussinessException e) {
 			outResponse.setMsg(e.getLocalizedMessage());

@@ -17,6 +17,9 @@
 </head>
 <body>
 	<#include "./header.html">
+	<link rel="stylesheet" href="${realpath}/resources/Jcrop/css/jquery.Jcrop.min.css">
+	<script src="${realpath}/resources/Jcrop/js/jquery.Jcrop.min.js"></script>
+	<script src="${realpath}/resources/Jcrop/js/jQuery.UtrialAvatarCutter.js"></script>
 	<div class="mainFrame">
 
         <div id="user-avatar">
@@ -26,18 +29,23 @@
             <a href="javascript:;" class="btn btn-sm btn-info" id="save-btn">保存头像</a>
         </div>
         <ul class="tag"  id="tag">
-            <li class="active"><a href="javascript:void(0)">自定义头像</a></li>
-            <li><a href="javascript:void(0)">系统头像</a></li>
+			<li  class="active"><a href="javascript:void(0)">系统头像</a></li>
+			<li ><a href="javascript:void(0)">自定义头像</a></li>
         </ul>
+		<div class="tag-content">
+			<div id="sys-user-icon">
+
+			</div>
+		</div>
         <div class="tag-content">
-            <div class="file_upload" id="file_upload">
+			<!--<div class="file_upload" id="file_upload">
                    <div class="file-uploader">
                        <div id="filePicker">上传图片</div>
                        <div id="loading-upload"><img src="${realpath}/resources/images/loading.gif"></div>
                    </div>
                    <div class="file-info"><span class="info">图片不能超过2M，高宽不能超过1000px，不能低于180px</span></div>
                    <div class="clear"></div>
-             </div>
+             </div>-->
              <div id="imgarea">
 				<div id="picture_original">
 					<img src="" id="target-img"/>
@@ -48,11 +56,7 @@
 				<div style="clear:left;"></div>
 			</div>
         </div>
-        <div class="tag-content">
-            <div id="sys-user-icon">
-            
-            </div>
-        </div>
+
 
 	</div>
 </div>

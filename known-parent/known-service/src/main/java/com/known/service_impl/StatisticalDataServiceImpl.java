@@ -51,18 +51,18 @@ public class StatisticalDataServiceImpl implements IStatisticalDataService {
 
 	@Override
 	public void caculateData() {
-		System.out.println("统计中。。。。。。");
+
 		Statistics statistics = new Statistics();
 		
 		Date date = new Date();
 		
 		statistics.setStatisticsDate(date);
-		
+
 		SignInQuery signInQuery = new SignInQuery();
 		signInQuery.setCurDate(date);
 		int signInCount = signInMapper.selectCount(signInQuery);
 		statistics.setSigninCount(signInCount);
-		
+
 		ShuoShuoQuery shuoShuoQuery = new ShuoShuoQuery();
 		shuoShuoQuery.setStartDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));
 		shuoShuoQuery.setEndDate(DateUtil.format(date, DateTimePatternEnum.YYYY_MM_DD.getPattern()));

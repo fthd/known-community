@@ -4,7 +4,7 @@
     <#if Session["session_user_key"] ?exists>
         known.userId = "${session_user_key.userid}";
     <#else>
-        known.userId = 0;
+        known.userId = '';
     </#if>
     known.curUrl = window.location.href;
 </script>
@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="${realpath}/resources/animate/animate.css">
 <meta name="keywords" content="知会问答社区 ，说说，话题中心，知识库，问答，投票于一身的互联网平台"/>
 <meta name="description" content="知会问答社区 ，说说，话题中心，知识库，问答，投票于一身的互联网平台"/>
-<link rel="shortcut icon" href="${realpath}/resources/images/favicon.ico"/>
+<link rel="icon" type="image/png" href="${realpath}/resources/images/favicon.png">
 <script>
 
     // 百度统计异步安装
@@ -79,7 +79,7 @@
         var op = $("<div class='message-op'></div>").appendTo(item);
         $("<span class='time'>发送：" + data.createTime + "</span>").appendTo(op);
         if (data.url != "") {
-            $('<a href="' + known.realpath + '/admin/readMessage.action?id=' + data.id + '" class="message-detail" class="read-message" url="' + data.url + '" messageId="' + data.id + '">查看详情</a>').appendTo(op);
+            $('<a href="' + known.realpath + '/userAdmin/readMessage.action?id=' + data.id + '" class="message-detail" class="read-message" url="' + data.url + '" messageId="' + data.id + '">查看详情</a>').appendTo(op);
         }
         return item;
     }

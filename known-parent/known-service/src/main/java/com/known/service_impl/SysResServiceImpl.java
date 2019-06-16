@@ -77,7 +77,7 @@ public class SysResServiceImpl implements SysResService {
 		List<Tree> trees = new ArrayList<>();
 		
 		SysResQuery sysResQuery = new SysResQuery();
-		sysResQuery.setPid("");
+		sysResQuery.setPid(null);
 		sysResQuery.setEnabled(1);
 		
 		List<SysRes> mainmenu = sysResMapper.selectList(sysResQuery);

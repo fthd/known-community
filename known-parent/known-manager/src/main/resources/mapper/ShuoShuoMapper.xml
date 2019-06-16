@@ -18,10 +18,10 @@
 
    <sql id="Base_Condition" >
     <where>
-        <if test="null!= id">
+        <if test="null!= id and '' != id">
             and id = #{id}
         </if>
-        <if test="null!= userId">
+        <if test="null!= userId and '' != userId">
             and user_id = #{userId}
         </if>
         <if test="null!= startDate">
@@ -74,22 +74,22 @@
   <update id="update" parameterType="com.known.common.model.ShuoShuo" >
     update known_shuoshuo
     <set >
-      <if test="userId != null" >
+      <if test="userId != null and '' != userId" >
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userIcon != null" >
+      <if test="userIcon != null  and '' != userIcon" >
         user_icon = #{userIcon,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null and '' != userName" >
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null" >
+      <if test="imageUrl != null  and '' != imageUrl" >
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrlSmall != null" >
+      <if test="imageUrlSmall != null and '' != imageUrlSmall" >
         image_url_small = #{imageUrlSmall,jdbcType=VARCHAR},
       </if>
-      <if test="musicUrl != null" >
+      <if test="musicUrl != null and '' !=  musicUrl" >
         music_url = #{musicUrl,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
@@ -101,20 +101,20 @@
       <if test="likeCount != null" >
         like_count = #{likeCount,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="content != null and '' != content" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   
     
   <update id="updateShuoShuoCommentCount">
-  	update known_shuoshuo set comment_count = (comment_count + 1) where id = #{id,jdbcType=INTEGER}
+  	update known_shuoshuo set comment_count = (IFNULL(comment_count, 0) + 1) where id = #{id,jdbcType=VARCHAR}
   </update>
   
     <update id="updateShuoShuoLikeCount">
-  	update known_shuoshuo set like_count = (like_count + 1) where id = #{id,jdbcType=INTEGER}
+  	update known_shuoshuo set like_count = (IFNULL(like_count, 0) + 1) where id = #{id,jdbcType=VARCHAR}
   </update>
 
 	<select id="selectActiveUser4ShuoShuo" resultMap="BaseResultMap">

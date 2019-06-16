@@ -1,11 +1,14 @@
 package com.known.common.utils;
 
+import com.known.common.config.MailConfig;
+import com.known.common.config.UrlConfig;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.ArrayUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,10 +19,8 @@ public class ImageUtil {
 
 	private static final String[] static_ext = {"jpg", "png", "gif", "bmp", "JPG", "PNG", "GIF", "BMP"};
 
-	@Value("${Absolute_Path}")
-	private static String Absolute_Path;
 
-	public static String createThumbnail(String topicImage, boolean isFullPath) {
+	public static String createThumbnail(String topicImage) {
 
 		StringBuilder topicImageSmall = new StringBuilder();
 		if (!StringUtil.isEmpty(topicImage)) {
@@ -31,10 +32,7 @@ public class ImageUtil {
 			}
 			for (int i = 0; i < smallCount; i++) {
 				String img = topicImaes[i];
-				if (false) {
-					img = img.substring(img.indexOf("upload"));
-				}
-				String sourcePath = Absolute_Path + "/upload/" + img;
+				String sourcePath =  AbsolutePathUtil.getAbsoluteStaticPath()+ img;
 				String smallSavePath = sourcePath + "_s.jpg";
 				String smallPath = img + "_s.jpg";
 				try {
@@ -46,10 +44,7 @@ public class ImageUtil {
 							.of(sourcePath)
 							.size(Constants.SMALL_IMAGE_WIDTH,
 									Constants.SMALL_IMAGE_HEIGHT)
-							.toFile(smallSavePath); 
-//					CompressPic compressPic = new CompressPic(sourcePath, smallSavePath, Constants.SMALL_IMAGE_WIDTH, Constants.SMALL_IMAGE_HEIGHT);
-//					// 缩放图片
-//					compressPic.compressPic();.
+							.toFile(smallSavePath);
 
 				} catch (Exception e) {
 					
@@ -61,7 +56,6 @@ public class ImageUtil {
 		return topicImageSmall.toString();
 	}
 	public static String getImages(String content) {
-		//content = HtmlUtils.htmlUnescape(content);
 		StringBuilder sbf = new StringBuilder();
 		HtmlCleaner htmlCleaner = new HtmlCleaner();
 		TagNode allNode = htmlCleaner.clean(content);
@@ -83,8 +77,5 @@ public class ImageUtil {
 			sbf.substring(sbf.lastIndexOf("|"));
 		}
 		return sbf.toString();
-	}
-	public static void main(String[] args) throws IOException {
-		System.out.println(getImages("&lt;p&gt;&lt;img src=&quot;http://localhost:8091/upload/201608/1470326891368.png&quot;/&gt;GOOD&lt;/p&gt;"));
 	}
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<#include "../include/top.html">
+	<link rel="stylesheet" href="${realpath}/resources/css/admin-public.css" />
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script type="text/javascript" src="${realpath}/resources/webuploader/webuploader.min.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="${realpath}/resources/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${realpath}/resources/ueditor/MyActionUrl.js"></script>
+	<link rel="stylesheet" type="text/css" href="${realpath}/resources/webuploader/webuploader.css">
+	<script language="javascript" type="text/javascript" src="${realpath}/resources/datePicker/WdatePicker.js"></script>
+
+	<title>后台管理</title>
+</head>
+<body>
+<#include "./header.html">
+	<div class="mainFrame">
+		<div class="container">
+		<form id="updateUserForm"> 
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						唯一ID:
+					</label>
+					<div class="col-xs-10">
+						${user.userid}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						邮箱:
+					</label>
+					<div class="col-xs-10">
+						${user.email!''}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						用户名:
+					</label>
+					<div class="col-xs-10">
+						${user.userName}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="form-group">
+				<label class="col-xs-1 control-label">性别:</label>
+				<div class="col-xs-8">
+				<#assign sex="${user.sex!''}">
+					<label class="checkbox-inline" style="padding-left: 0;">
+						<input type="radio" <#if sex=="男">checked="checked"</#if> name="sex" value="男">男</label>
+					<label class="checkbox-inline" style="padding-left: 0;">
+						<input type="radio" <#if sex=="女">checked="checked"</#if> name="sex" value="女">女</label>
+				</div>
+			</div>
+			</div>
+			<div class="row" id="enddate">
+					<div class="form-group">
+					<label class="col-xs-1 control-label">出生日期:</label>
+						<div class="col-xs-2">
+								<input  id="birthday" value="${(user.birthday?date)!''}" name="birthday" class="form-control" type="text" onFocus="WdatePicker({isShowClear:false,readOnly:true})"/>
+						</div>
+					</div>				
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						居住地:
+					</label>
+					<div class="col-xs-10">
+						<input name="address" class="form-control" type="text" value="${user.address!''}" />	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						职业:
+					</label>
+					<div class="col-xs-10">
+						<input  name="work" class="form-control" type="text" value="${user.work!''}"/>	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="topicTitle">
+					<label class="col-xs-1 control-label">
+						个性签名:
+					</label>
+					<div class="col-xs-10">
+						<input name="characters" class="form-control" type="text" value="${user.characters!''}" />	
+					</div>
+				</div>
+			</div>
+		</form>
+			<div class="row">
+				<div class="col-xs-10"></div>
+				<a href="javascript:;" id="saveUserInfo" class="btn btn-info">保存信息</a>
+			</div>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="${realpath}/resources/js/admin-public.js"></script>
+</body>
+</html>

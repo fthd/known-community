@@ -8,6 +8,7 @@ import com.known.common.model.TopicVoteDetail;
 import com.known.common.model.TopicVoteUser;
 import com.known.common.utils.DateUtil;
 import com.known.common.utils.StringUtil;
+import com.known.common.utils.UUIDUtil;
 import com.known.exception.BussinessException;
 import com.known.manager.mapper.TopicVoteDetailMapper;
 import com.known.manager.mapper.TopicVoteMapper;
@@ -60,6 +61,7 @@ public class TopicVoteServiceImpl implements TopicVoteService {
 		List<TopicVoteDetail> topicVoteDetails = new ArrayList<>();
 		for(String title : voteTitle){
 			TopicVoteDetail topicVoteDetail = new TopicVoteDetail();
+			topicVoteDetail.setId(UUIDUtil.getUUID());
 			topicVoteDetail.setTitle(title);
 			topicVoteDetail.setVoteId(topicVote.getVoteId());
 			topicVoteDetails.add(topicVoteDetail);

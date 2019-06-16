@@ -1,6 +1,6 @@
 known.url = {
-	loadCollection: known.realpath+"/admin/load_collection.action",
-	delCollection: known.realpath+"/admin/del_collection.action"
+	loadCollection: known.realpath+"/userAdmin/load_collection.action",
+	delCollection: known.realpath+"/userAdmin/del_collection.action"
 }
 $(function(){
     demo(1);
@@ -85,8 +85,6 @@ function search(){
 			    url = known.realpath+"/knowledge/"+d.articleId;
 			}else if(d.articleType.type=="A"){
 			    url = known.realpath+"/ask/"+d.articleId;
-			}else if(d.articleType.type=="B"){
-			    url = known.realpath+"/user/"+d.articleUserId+"/topic/"+d.articleId;
 			}
 			$("<tr><td valign='center'><a href='"+url+"' target='_blank'>"+d.title+"</a></td><td>"+d.createTimeString+"</td><td>" + edit + "</td></tr>").appendTo($("#data-list"));
 		    }

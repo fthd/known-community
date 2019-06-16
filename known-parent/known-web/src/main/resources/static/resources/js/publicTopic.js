@@ -29,7 +29,7 @@ var uploader = WebUploader.create({
     fileSingleSizeLimit : 10 * 1024 * 1024
 });
 uploader.on('fileQueued', function(file) {
-	if(known.userId=="" || known.userId == 0){
+	if(known.userId==""){
 		goLogin();
 	    return;
 	}
@@ -147,7 +147,7 @@ function voteChooseItem(){
  * 添加话题
  */
 function addTopic(){
-	if(known.userId=="" || known.userId == 0){
+	if(known.userId==""){
 		goLogin();
 	    return;
 	}

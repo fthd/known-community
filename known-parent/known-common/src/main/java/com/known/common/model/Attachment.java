@@ -19,7 +19,7 @@ public class Attachment {
 
     private Integer downloadMark;
 
-    private Integer downloadCount = 0;
+    private Integer downloadCount;
 
     
     private FileArticleTypeEnum fileArticleType;

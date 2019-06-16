@@ -12,7 +12,8 @@ import java.util.List;
 public interface TopicService {
 	
 	PageResult<Topic> findTopicByPage(TopicQuery topicQuery);
-	
+
+	PageResult<Topic> findTopicByPage4(TopicQuery topicQuery);
 	
 	void addTopic(Topic topic, TopicVote topicVote, String[] voteTitle, Attachment file)throws BussinessException;
 	

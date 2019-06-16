@@ -29,7 +29,7 @@ $(document).ready(function() {
 	});
 
 	$("#publicKnowledgeBtn").click(function(event) {
-		if(known.userId=="" || known.userId == 0){
+		if(known.userId==""){
     		goLogin();
     	    return;
     	}

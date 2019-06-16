@@ -89,7 +89,7 @@ public class AskServiceImpl implements AskService {
 		ask.setContent(formatContent);
 		String askImage = ImageUtil.getImages(content);
 		ask.setAskImage(askImage);
-		String askImageSmall = ImageUtil.createThumbnail(askImage, false);
+		String askImageSmall = ImageUtil.createThumbnail(askImage);
 		ask.setAskImageThum(askImageSmall);
 		ask.setCreateTime(new Date());
 		ask.setSolveType(SolveEnum.WAIT_SOLVE);
@@ -107,15 +107,14 @@ public class AskServiceImpl implements AskService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
-	public void setBestAnswer(String bestAnswerId, String askId,
-		String userId) throws BussinessException {
+	public void setBestAnswer(String bestAnswerId, String askId, String userId) throws BussinessException {
 		Ask ask = getAskById(askId);
 		if(ask == null || bestAnswerId == null || userId == null || ask.getSolveType() == SolveEnum.SOLVED){
-			throw new BussinessException("参数错误");
+			throw new BussinessException("问答参数错误");
 		}
 		Comment comment = commentService.getCommentById(bestAnswerId);
-		if(comment == null || comment.getArticleId().equals(askId)){
-			throw new BussinessException("参数错误");
+		if(comment == null || !comment.getArticleId().equals(askId)){
+			throw new BussinessException("评论参数错误");
 		}
 		ask.setBestAnswerId(bestAnswerId);
 		ask.setAskId(askId);

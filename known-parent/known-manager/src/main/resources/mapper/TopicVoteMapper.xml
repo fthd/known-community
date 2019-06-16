@@ -20,9 +20,9 @@
   </delete>
 
   <insert id="insert" parameterType="com.known.common.model.TopicVote" >
-    insert into known_topic_vote (topic_id, vote_type, 
+    insert into known_topic_vote (vote_id, topic_id, vote_type,
       end_date)
-    values (#{topicId,jdbcType=VARCHAR}, #{voteType.type,jdbcType=INTEGER},
+    values (#{voteId,jdbcType=VARCHAR}, #{topicId,jdbcType=VARCHAR}, #{voteType.type,jdbcType=INTEGER},
       #{endDate,jdbcType=DATE})
   </insert>
   

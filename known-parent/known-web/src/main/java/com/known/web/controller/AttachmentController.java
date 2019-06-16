@@ -5,6 +5,7 @@ import com.known.common.config.UserConfig;
 import com.known.common.enums.CodeEnum;
 import com.known.common.model.Attachment;
 import com.known.common.model.SessionUser;
+import com.known.common.utils.AbsolutePathUtil;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.AttachmentService;
@@ -12,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,11 +20,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * 评论
+ * 附件信息
  * @author tangjunxiang
  * @version 1.0
  * @date 2019-05-24 00:08
@@ -53,7 +55,7 @@ public class AttachmentController extends BaseController{
 			return outResponse;
 		}
 		try {
-			this.attachmentService.checkDownload(attachmentId, topicId, sessionUser);
+			attachmentService.checkDownload(attachmentId, topicId, sessionUser);
 			outResponse.setData(Boolean.TRUE);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (BussinessException e) {
@@ -78,14 +80,11 @@ public class AttachmentController extends BaseController{
 		InputStream in = null;
 		OutputStream os = null;
 		try {
-			Attachment attachment = this.attachmentService.downloadAttachment(sessionUser, attachmentId);
-			/*OSSClient ossClient= AliyunOSSClientUtil.getOSSClient();
-			Attachment attachment = this.attachmentService.downloadAttachment(sessionUser, attachmentId);
-			 in = AliyunOSSClientUtil.getOSS2InputStream(ossClient,attachment.getFileUrl());*/
-			//String realpath = session.getServletContext().getRealPath("/") + "/upload/";
-			//String filepath = realpath + attachment.getFileUrl();
-		//	File file = new File(filepath);
-			//in = new FileInputStream(file);
+			Attachment attachment = attachmentService.downloadAttachment(sessionUser, attachmentId);
+
+			String filepath = AbsolutePathUtil.getAbsoluteStaticPath() + attachment.getFileUrl();
+			File file = new File(filepath);
+			in = new FileInputStream(file);
 			os = response.getOutputStream();
 			 response.setContentType("application/x-msdownload; charset=utf-8"); 
 			 String fileName = attachment.getFileName();

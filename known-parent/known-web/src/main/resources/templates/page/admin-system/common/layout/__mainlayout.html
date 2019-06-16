@@ -9,6 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <style type="text/css">
+        .table td, .table th{
+            color:#337ab7;
+        }
+    </style>
     <#include "../inc/_css.html">
     <#include "../inc/_header_js.html">
 </head>
@@ -20,6 +25,11 @@
  		<header>
 	    	<#include "../inc/_navbarusermenu.html">
 	    </header>
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <#include "../inc/_settingbox.html">
+        </div>
+        <!-- 侧边导航栏 -->
         <div class="left-sidebar">
             <#include "../inc/_sidebar.html">
         </div>

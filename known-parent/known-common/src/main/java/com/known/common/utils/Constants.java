@@ -24,7 +24,11 @@ public class Constants {
 
     public static final String N = "N";
 
-    public static final String DOMAIN = "http://localhost:8080";
+
+    //public static final String DOMAIN = "http://118.24.86.244:80";
+    public static final String DOMAIN = "http://localhost:80";
+
+    public static  final  String TaskKey = "TaskKey";
 
     public static final String Cache_Key_Topic_Category = "bbsCategoryCache";
 

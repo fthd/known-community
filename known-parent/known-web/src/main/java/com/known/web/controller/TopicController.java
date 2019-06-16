@@ -143,7 +143,7 @@ public class TopicController extends BaseController {
 		} catch (Exception e) {
 			outResponse.setMsg("服务器出错,话题发表失败");
 			outResponse.setCode(CodeEnum.SERVERERROR);
-			logger.error("{}发表话题失败", sessionUser.getUserName());
+			logger.error("{}发表话题失败2", sessionUser.getUserName());
 		}
 		return outResponse;
 	}

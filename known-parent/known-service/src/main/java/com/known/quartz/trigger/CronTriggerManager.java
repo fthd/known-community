@@ -2,11 +2,11 @@ package com.known.quartz.trigger;
 
 
 import com.known.common.config.Config;
-import com.known.common.utils.Constants;
 import com.known.quartz.TaskMessage;
 import com.known.quartz.job.MyJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,7 +25,7 @@ public class CronTriggerManager {
 	private static final String GROUPNAME = "group_";
 
 	@Resource
-    private Config config;
+	private Config config;
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ public class CronTriggerManager {
 		}
 		
 		if(isImmediateExcute){
-			triggerJob(task, scheduler	);
+			triggerJob(task, scheduler);
 		}
 		
 	}

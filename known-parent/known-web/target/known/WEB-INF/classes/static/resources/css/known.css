@@ -1,0 +1,303 @@
+#pager {
+    text-align: center;
+    padding-top: 20px;
+    background-color: #fff;
+    padding-right: 20px;
+}
+#headicon{
+	transition: all 1.5s;  
+}
+#headicon:hover{
+	transform: rotate(360deg);  
+}
+.message a{
+	border:none;
+}
+.form-control{
+	height: auto;
+}
+#dropdownmenu{min-width:300px;position: absolute;top:61px;right: 0px;z-index: 9999;background: #fff;}
+#message-op{text-align: right;margin-top: 10px;}
+.message-item{border-bottom: 1px solid #E7E7E7;padding: 5px 5px 10px 5px;}
+.message-op{margin-top: 5px;}
+.message-op .time{font-size: 12px;color: #A5A6A8}
+.message-op a.message-detail{display: inline-block;margin-left: 10px;}
+
+	textarea{
+		border:1px solid #66afe9;
+	}
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+input:focus,textarea:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+img:hover{
+	border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.no-data {
+    text-align: center;
+    color: #9A9B9A;
+    padding: 10px;
+    display: block;
+}
+a:hover, a:focus{
+	    text-decoration: none;
+}
+.clear{
+	clear:both;
+}
+body {
+    margin: 0px auto;
+    padding: 0px;
+    font-family: 'Microsoft Yahei','Helvetica Neue',sans-serif,SimHei;
+    font-size: 13px;
+}
+a:focus {
+outline: none;
+}
+*{
+	outline: none;
+	
+}
+input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus,.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus{
+    outline: none;
+
+}
+
+.main {
+    width: 1100px;
+    margin: 0px auto;
+    padding: 20px 0px;
+    min-height: 500px;
+}
+ul, li {
+    padding: 0px;
+    margin: 0px;
+    -webkit-box-sizing: border-box;content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+ul.tag{
+	list-style: none;
+	height: 40px;
+	border-bottom: 1px solid #B3B4B3;
+	
+}
+
+ul.tag li {
+    float: left;
+    text-align: center;
+}
+
+ul.tag li a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0px 15px;
+    color: #9A9B9A;
+    font-size: 14px;
+    line-height: 39px;
+}
+
+
+ul.tag li.active a {
+    color: #4590CE;
+}
+
+ul.tag li.active {
+    border: 1px solid #B3B4B3;
+    border-bottom: 1px solid #fff;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.footer {
+    background: #F8F9FB;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    width: 1100px;
+    margin: 20px auto;
+}
+
+.footer-con {
+    width: 1100px;
+    margin: 0px auto;
+    text-align: left;
+}
+
+.footer-part {
+    text-align: center;
+}
+
+.footer-part-title {
+    display: inline-block;
+    padding: 0px 8px;
+}
+
+.footer-part-title a {
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.footer-right {
+    text-align: center;
+    margin: 10px;
+}
+.logincontainer{
+	margin-top:-40px;
+}
+.login{
+    padding: 40px 80px;
+    box-shadow: 0 3px 3px rgba(0,0,0,.2);
+    background-color: #fff;
+	width: 500px;
+	max-width: 500px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+h3{
+	font-size: 16px;
+	font-weight: 600;
+}
+.full-width{
+	width: 100%;
+	background-color: #1ab394;
+	border-color: #1ab394;
+}
+
+.foot{
+	margin-top: 10px;
+}
+.foot a{
+    color:blue;
+}
+
+.container-findpassword{
+	margin:20px auto;
+}
+
+.findpassword{
+	padding:20px 40px;
+	background-color:#fff;
+	box-shadow: 0 3px 3px rgba(0,0,0,.2);
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 50px;
+    text-align: center;
+}
+		#mypanel{
+			display: none;
+			position: absolute;
+    		right: 0px;
+    		z-index: 10000;
+		}
+		.panel-username{
+			font-size: 14px;
+		}
+		.usermark{
+		 	font-size: 18px;
+    		color: #eeac03;
+		}
+		.signinimage{
+			margin-top: 10px;
+			height: 69px;
+		    width: 69px;
+		    float: left;
+		    background: url(../images/signin.png) no-repeat  0 0;
+		}
+		.unsigninimage{
+			margin-top: 10px;
+			height: 69px;
+		    width: 69px;
+		    float: left;
+		    background: url(../images/signin.png) no-repeat  -117px -228px;
+		    cursor:pointer;
+		}
+		.panel-user-info{
+			height: 80px;
+			border-bottom: 1px solid #ededed;
+		}
+		.panel-user-info img{
+				float: left;
+		}
+		.main-user-info{
+			float:left;
+		}
+		.main-user-info div{
+			margin: 5px;
+		}
+		.panel-user-signin-info{
+			float: left;
+			display: inline;
+			margin-left: 15px;
+
+		}
+		.signindate{
+			display: block;
+		    font-size: 14px;
+		    color: #555;
+		}
+		.signindate em{
+			font-style: normal;
+			font-size: 26px;
+		}
+		.usertotalsignin{
+			font-size: 14px;
+		    color: #909090;
+		    margin-top: 10px;
+		    display: block;
+		}
+		.usertotalsignin em{
+			color: #1dabfd;
+    		margin: 0 5px;
+    		font-size: 26px;
+      		font-style: normal;
+		}
+		div.user-action-center a{
+			float: left;
+			color: #9A9B9A;
+		}
+
+		div.usre-action-panel a{
+			float: right;
+		}
+		div.user-action-center a:hover, div.usre-action-panel a:hover{
+			color: #428bca;
+		}
+		
+		.nav li a{
+			font-size:15px;
+		}	
+.icon {
+    background: url("../images/icon.png");
+    vertical-align: middle;
+}
+
+/*******搜索********/
+.seartch-con{background: #F3F3F3 none repeat scroll 0% 0%;margin-top: 20px;padding: 10px 15px;}
+.seartch-con-inner{background: #FFF none repeat scroll 0% 0%;padding: 5px;}
+.seartch-tit{border-bottom: 1px solid #DDDEDD;padding:10px;font-size: 16px;padding-bottom: 5px;}
+.search-data-list{margin: 10px 0px}
+.search-item{padding: 10px;border-bottom: 1px dashed #D5D5D5;margin: 10px}
+.search-item .red{color: red}
+.search-item-title{color: #336A9A;font-size: 16px;text-decoration: none}
+.search-item-title span{font-size: 16px;text-decoration: none}
+.search-item span.time{color: #AAA;font-size: 12px;margin-left: 20px;}
+.search-summary{font-size: 12px;color: #5F5F5F;margin-top: 10px;}
+span.search-by{padding: 0px 10px;color: #888}
+.search-user{margin-top: 5px;display: inline-block;}

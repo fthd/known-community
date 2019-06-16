@@ -24,7 +24,7 @@ var uploader = WebUploader.create({
     fileSingleSizeLimit : 2 * 1024 * 1024
 });
 uploader.on('fileQueued', function(file) {
-	if(known.userId=="" || known.userId == 0){
+	if(known.userId==""){
 		goLogin();
 	    return;
 	}
@@ -154,7 +154,7 @@ $(document).ready(function() {
 });
 
 function addKnowledge(){
-	if(known.userId=="" || known.userId == 0){
+	if(known.userId==""){
 		goLogin();
 	    return;
 	}

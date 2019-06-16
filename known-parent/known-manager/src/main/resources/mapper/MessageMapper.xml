@@ -51,7 +51,7 @@
   		<if test="null!= orderBy">
      		order by ${orderBy.orderBy}
      	</if>
-  		<if test="null!= page">
+  		<if test="null!= page and 0 != page.end">
      		limit #{page.start},#{page.end}
      	</if>
   </select>
@@ -64,10 +64,10 @@
   
   
    	<insert id="insertBatch" parameterType="java.util.List">
-  	insert into known_message (received_user_id, create_time, description, url)values
+  	insert into known_message (id, received_user_id, create_time, description, url)values
   		<foreach collection="list" separator=","  item="item">
   	(		
-  		#{item.receivedUserId}, #{item.createTime}, #{item.description}, #{item.url}
+  		#{item.id}, #{item.receivedUserId}, #{item.createTime}, #{item.description}, #{item.url}
   	)
   	</foreach>
   </insert>

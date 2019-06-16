@@ -50,11 +50,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MessageService messageService;
 
-    @Value("${Absolute_Path}")
-    private String Absolute_Path;
-
-    @Value("${Mail_Real_Path}")
-    private String Mail_Real_Path;
 
     public void register(User user) throws BussinessException {
         String userName = user.getUserName();
@@ -89,7 +84,7 @@ public class UserServiceImpl implements UserService {
         String subject = "知会问答社区系统通知邮件";
         StringBuffer content = new StringBuffer("亲爱的 【" + user.getUserName() + "】用户<br><br>");
         content.append("欢迎您使用知会问答社区！<br><br>");
-        content.append("点击<a href='" + Mail_Real_Path + "/user/activate?userName=" + user.getUserName() +
+        content.append("点击<a href='" + mailConfig.getGlob_Real_Path() + "/user/activate?userName=" + user.getUserName() +
                 "&activationCode=" + activationCode + "'>知会问答社区账号激活</a>激活您的账号！");
         try {
             MailUtil.sendMail(mailConfig.getSendUserName(), mailConfig.getSendPassword(), email,
@@ -220,7 +215,7 @@ public class UserServiceImpl implements UserService {
                 throw new BussinessException("密码错误");
             }
         }
-        if (user.getUserPage() == 0) {
+        if (user.getStatus() == 0) {
             throw new BussinessException("请查收邮件, 激活账户后登录");
         }
         user.setLastLoginTime(new Date());
@@ -243,9 +238,10 @@ public class UserServiceImpl implements UserService {
         String subject = "知会问答社区系统通知邮件";
 
         StringBuffer content = new StringBuffer("亲爱的 【" + user.getUserName() + "】用户<br><br>");
-        content.append("欢迎您使用<a href='#'>知会问答社区</a>的找回密码功能<br><br>");
+        content.append("欢迎您使用<a href='"+mailConfig.getGlob_Real_Path()+"'>知会问答社区</a>的找回密码功能<br><br>");
         content.append("您的验证码是<h3 style='color:red;'>" + checkCode + "</h3>");
         try {
+            System.out.println("======================"+checkCode);
             MailUtil.sendMail(mailConfig.getSendUserName(), mailConfig.getSendPassword(), email,
                     subject, new String(content));
         } catch (Exception e) {

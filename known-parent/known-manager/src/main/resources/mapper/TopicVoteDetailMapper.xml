@@ -11,10 +11,10 @@
   
      <sql id="Base_Condition" >
     <where >
-    	<if test="null!= voteId">
+    	<if test="null!= voteId and '' != voteId">
      		and vote_id = #{voteId}
      	</if>
-     	<if test="null!= id">
+     	<if test="null!= id and '' != id">
      		and id = #{voteDetailId}
      	</if>
     </where>
@@ -30,10 +30,10 @@
   </select>
   
     <insert id="insertBatch" parameterType="java.util.List">
-  	insert into known_topic_vote_detail (vote_id, title) values
+  	insert into known_topic_vote_detail (id, vote_id, title) values
   		<foreach collection="voteDetailList" separator=","  item="item">
-  	(		
-  		#{item.voteId,  jdbcType=VARCHAR}, #{item.title,  jdbcType=VARCHAR}
+  	(
+			#{item.id,  jdbcType=VARCHAR}, #{item.voteId,  jdbcType=VARCHAR}, #{item.title,  jdbcType=VARCHAR}
   	)
   	</foreach>
   </insert>

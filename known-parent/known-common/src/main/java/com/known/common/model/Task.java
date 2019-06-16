@@ -2,8 +2,10 @@ package com.known.common.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.Date;
 
@@ -26,23 +28,8 @@ public class Task {
 
     private String des;
 
-    public void setTaskClassz(String taskClassz) {
-        this.taskClassz = taskClassz == null ? null : taskClassz.trim();
-    }
-
-    public void setTaskMethod(String taskMethod) {
-        this.taskMethod = taskMethod == null ? null : taskMethod.trim();
-    }
-
-    public void setTaskTime(String taskTime) {
-        this.taskTime = taskTime == null ? null : taskTime.trim();
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public void setDes(String des) {
-        this.des = des == null ? null : des.trim();
+    public String getTaskTime() {
+        // 替换前台转义字符
+        return StringUtil.isEmpty(taskTime) ? null : taskTime.replaceAll("&nbsp;", " ").trim();
     }
 }

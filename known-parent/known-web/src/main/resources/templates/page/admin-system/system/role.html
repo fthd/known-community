@@ -317,9 +317,11 @@ function statusFormatter(value, row) {
                         });
                     } else {
                       var data = res.data;
-                       for(var i = 0, _length = data.length; i < _length; i++){
-                           $('#mytree').jstree('select_node',data[i]);
-                       }
+                      if(data != null) {
+                          for (var i = 0, _length = data.length; i < _length; i++) {
+                              $('#mytree').jstree('select_node', data[i]);
+                          }
+                      }
                     } 
             }
         });

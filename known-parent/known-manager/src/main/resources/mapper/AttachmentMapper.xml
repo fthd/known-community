@@ -13,10 +13,10 @@
   
    <sql id="Base_Condition" >
     <where >
-    		<if test="null!= articleId">
+    		<if test="null!= articleId and '' != articleId">
      		and article_id = #{articleId}
      	</if>
-     	<if test="null!= attachmentId">
+     	<if test="null!= attachmentId and '' != attachmentId">
      		and attachment_id = #{attachmentId}
      	</if>
      	<if test="null!= fileArticleType">
@@ -48,7 +48,7 @@
   </select>
   
   <update id="updateDownloadCount">
-  				update known_attachment set download_count = download_count +1
+  				update known_attachment set download_count = IFNULL(download_count, 0) +1
   				where attachment_id = #{attachmentId}
   </update>
  

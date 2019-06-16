@@ -125,7 +125,6 @@ public class AuthorityFilter implements Filter {
                         if ("login".equals(req_uri.substring(req_uri.lastIndexOf("/") + 1))) {
                             return true;
                         }
-
                     }
                 }
             }

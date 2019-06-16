@@ -1,0 +1,35 @@
+
+div{
+	-webkit-box-sizing: border-box;content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+form.u-form .item-tit {width: 90px;}
+form.u-form .item-input input.title-input{width:200px;}
+label{padding: 0px;}
+
+/*******修改头像******/
+.file-uploader{width: 90px;float: left;}
+#loading-upload{display: none;}
+.file-info{float: left;margin-top: 10px;}
+.save-btn{margin-bottom: 20px;}
+#picture_original{display: inline-block;float: left;}
+#imgarea{margin-top: 10px;display: none;}
+#preview{display: inline-block;float: left;margin-left: 10px;border: 1px solid #9A9B9A;}
+.system-user-icon-s img{width: 80px;}
+.system-user-icon-s{float: left;width: 80px;border: 2px solid #fff;margin-right: 5px;margin-bottom: 5px;position: relative;cursor: pointer;}
+/***修改背景图片****/
+.icon-tag{float:left;width:105px;background:#EDEDED;margin-top: 5px}
+.icon-tag a{display:block;padding:10px 0px;text-align: center;text-decoration: none;text-align: center;color: #000}
+.icon-tag a:hover{color: #fff;}
+.icon-tag a.cur{background: #10AF88;color: #fff;}
+.system-icon-s{float:left;width:500px;border: 2px solid #fff;margin-right: 5px;margin-bottom: 5px;position: relative;cursor: pointer;height:100px;}
+.system-icon-s img{width:500px;height:100px;}
+#system-icon{padding-top:10px;}
+.save-btn{margin-top: 10px;}
+
+.theme-item{float: left;width:49%;margin-left:1%;}
+.theme-item img{width:99%;}
+
+/****选中****/
+span.icon-check{position:absolute;right: 0px;bottom: 0px;display: block;width: 40px;height: 40px;background:url("../images/check.png");}

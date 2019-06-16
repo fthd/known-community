@@ -29,10 +29,14 @@ public class UrlConfig {
     @Value("${RealPath}")
     private String RealPath;
 
-    @Value("${Absolute_Path}")
-    private String Absolute_Path;
-
     @Value("${LoginAbsolutePath}")
     private String LoginAbsolutePath;
+
+    @Value("${Upload_Url}")
+    private String FileUpload_Url;
+
+    @Value("${ImgUpload_Url}")
+    private String ImgUpload_Url;
+
 
 }

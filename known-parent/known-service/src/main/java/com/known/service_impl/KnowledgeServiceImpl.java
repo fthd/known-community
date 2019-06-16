@@ -115,7 +115,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 		knowledge.setContent(formatContent);
 		String knowledgeImage = ImageUtil.getImages(content);
 		knowledge.setKnowledgeImage(knowledgeImage);
-		String knowledgeImageSmall = ImageUtil.createThumbnail(knowledgeImage, true);
+		String knowledgeImageSmall = ImageUtil.createThumbnail(knowledgeImage);
  		knowledge.setKnowledgeImageThum(knowledgeImageSmall);
 		Date curDate = new Date();
 		knowledge.setCreateTime(curDate);

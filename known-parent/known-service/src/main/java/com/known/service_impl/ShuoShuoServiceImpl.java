@@ -56,8 +56,7 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		Set<String> userIdSet = new HashSet<>();
 		String formatContent = formateAtService.generateRefererLinks(content, userIdSet);
 		//TODO给用户发消息
-		String thumnail = ImageUtil.createThumbnail(shuoShuo.getImageUrl(), false);
-		shuoShuo.setImageUrlSmall(thumnail);
+		shuoShuo.setImageUrlSmall(shuoShuo.getImageUrl());
 		shuoShuo.setContent(formatContent);
 		shuoShuo.setCreateTime(new Date());
 		shuoShuo.setLikeCount(0);
@@ -97,8 +96,12 @@ public class ShuoShuoServiceImpl implements ShuoShuoService {
 		//TODO给用户发消息
 		shuoShuoComment.setContent(formatContent);
 		shuoShuoComment.setCreateTime(new Date());
+
+		// 更新说说评论数量
 		shuoShuoMapper.updateShuoShuoCommentCount(shuoShuoComment.getShuoShuoId());
+		// 插入说说评论信息
 		shuoShuoCommentMapper.insert(shuoShuoComment);
+		// 修改用户积分
 		userService.addMark(MarkEnum.MARK_COMMENT.getMark(), shuoShuoComment.getUserId());	
 		
 		String  shuoShuoId= shuoShuoComment.getShuoShuoId();

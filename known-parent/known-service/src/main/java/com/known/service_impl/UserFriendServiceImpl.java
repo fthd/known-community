@@ -24,8 +24,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 	@Autowired
 	private UserService userService;
 	
-	public PageResult<UserFriend> findFriendList(
-			UserFriendQuery userFriendQuery) {
+	public PageResult<UserFriend> findFriendList(UserFriendQuery userFriendQuery) {
 		int count = userFriendMapper.selectCount(userFriendQuery);
 		int size = PageSizeEnum.PAGE_SIZE21.getSize();
 		int pageNum = 1;
@@ -81,8 +80,10 @@ public class UserFriendServiceImpl implements UserFriendService {
 		}
 		List<UserFriend> list = userFriendMapper.selectList(userFriendQuery);
 		if(list.isEmpty()){
+			// 未关注
 			return 1;
 		} else{
+			// 已关注
 			return 2;
 		}
 	}

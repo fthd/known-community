@@ -25,8 +25,7 @@ function acceptAnswer(commentid){
 			  skin: 'layer-ext-moon' 
 			});
 			return;
-			}
-		else{
+			} else {
 			layer.msg('采纳成功', {icon: 6,time:1000});
 				location.reload(true);
 			}

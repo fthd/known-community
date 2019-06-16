@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.known.common.enums.DateTimePatternEnum;
 import com.known.common.enums.SolveEnum;
 import com.known.common.utils.DateUtil;
+import com.known.common.utils.StringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.util.HtmlUtils;
@@ -68,16 +69,16 @@ public class Ask {
     private Integer solveCount;
 
     public String getTitle() {
-        return HtmlUtils.htmlUnescape(title);
+        return StringUtil.isEmpty(title)  ? null :  HtmlUtils.htmlUnescape(title);
     }
 
     public String getContent() {
-        return HtmlUtils.htmlUnescape(content);
+        return StringUtil.isEmpty(content) ? null : HtmlUtils.htmlUnescape(content);
     }
 
     public String getCreateTimeString() {
 		SimpleDateFormat sdf = new SimpleDateFormat(DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern());
-		return DateUtil.friendly_time(sdf.format(createTime));
+		return this.createTime != null ? DateUtil.friendly_time(sdf.format(createTime)) : null;
 	}
 
 }

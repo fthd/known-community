@@ -47,10 +47,10 @@
   </delete>
 
   <insert id="insert" parameterType="com.known.common.model.Task" >
-    insert into known_task (task_classz, task_method, 
+    insert into known_task (id, task_classz, task_method,
       task_time, last_update_time, status, 
       des)
-    values (#{taskClassz,jdbcType=VARCHAR}, #{taskMethod,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{taskClassz,jdbcType=VARCHAR}, #{taskMethod,jdbcType=VARCHAR},
       #{taskTime,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
       #{des,jdbcType=VARCHAR})
   </insert>
@@ -59,22 +59,22 @@
   <update id="update" parameterType="com.known.common.model.Task" >
     update known_task
     <set >
-      <if test="taskClassz != null" >
+      <if test="taskClassz != null and '' != taskClassz" >
         task_classz = #{taskClassz,jdbcType=VARCHAR},
       </if>
-      <if test="taskMethod != null" >
+      <if test="taskMethod != null and '' != taskMethod" >
         task_method = #{taskMethod,jdbcType=VARCHAR},
       </if>
-      <if test="taskTime != null" >
+      <if test="taskTime != null and '' != taskTime" >
         task_time = #{taskTime,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null" >
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
+      <if test="status != null " >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="des != null" >
+      <if test="des != null and '' != des" >
         des = #{des,jdbcType=VARCHAR},
       </if>
     </set>

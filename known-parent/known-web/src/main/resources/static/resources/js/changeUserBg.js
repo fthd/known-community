@@ -1,6 +1,6 @@
 known.backgroundName = known.background.substring(known.background.lastIndexOf("/")+1);
 known.userUrl={
-	saveBackground:known.realpath+"/admin/saveSysUserBg"
+	saveBackground:known.realpath+"/userAdmin/saveSysUserBg"
 }
 $(function(){
 	initSystemBackground();

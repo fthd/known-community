@@ -72,6 +72,19 @@
      	</if>
   </select>
 
+    <select id="selectList4" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        <if test="showContent">
+            ,content
+        </if>
+        from known_topic <include refid="Base_Condition"/>
+        order by read_count desc, comment_count desc,
+        like_count desc, collection_count desc
+        <if test="null!= page and page.end!= 0">
+            limit #{page.start},#{page.end}
+        </if>
+    </select>
+
  <select id="selectCount" resultType="java.lang.Integer">
   		select count(1) from known_topic <include refid="Base_Condition"/>
   </select>

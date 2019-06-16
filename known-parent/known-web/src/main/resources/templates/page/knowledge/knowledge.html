@@ -71,7 +71,7 @@
 							<#if item.topicImageArray??>
 							<div class="image-thum topic-item-images">
 								<#list item.topicImageArray as img>
-								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${img}" /></a>
+								<a class="showImage" href="javascript:;"><img class="img-thumbnail" src="${realpath}/${img}" /></a>
 								<#if (img_index>=2)>
 									<#break>
 								</#if>

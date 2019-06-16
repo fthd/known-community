@@ -181,6 +181,7 @@ public class UserController extends BaseController {
     public OutResponse<Object> sendCheckCode(String email) {
         OutResponse<Object> outResponse = new OutResponse<>();
         try {
+            System.out.println("--------------------kajsfdlkjaslkfd");
             userService.sendCheckCode(email);
             outResponse.setCode(CodeEnum.SUCCESS);
         } catch (BussinessException e) {

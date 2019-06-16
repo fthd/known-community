@@ -23,7 +23,7 @@ $(function() {
 	});
 	//收藏
 	$(document).on("click", ".collection", function() {
-		if(known.userId=="" || known.userId == 0){
+		if(known.userId==""){
     		goLogin();
     	    return;
     	}
@@ -62,7 +62,7 @@ $(function() {
 	});
 	//赞
 	$(document).on("click", ".like", function() {
-		if(known.userId=="" || known.userId == 0){
+		if(known.userId==""){
     		goLogin();
     	    return;
     	}

@@ -4,6 +4,7 @@ import com.known.common.echart.Echart;
 import com.known.common.model.LoginLog;
 import com.known.common.model.SysLog;
 import com.known.common.model.Task;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.exception.BussinessException;
 import com.known.service.IStatisticalDataService;
@@ -96,7 +97,12 @@ public class ConsoleController {
 		}
 		return outResponse;
 	}
-	
+
+	/**
+	 * 暂停任务
+	 * @param ids
+	 * @return
+	 */
 	@RequirePermissions(key="console:task:pause")
 	@RequestMapping("/task/pause")
 	public OutResponse<Object> taskPause(String[] ids){
@@ -111,7 +117,12 @@ public class ConsoleController {
 		}
 		return outResponse;
 	}
-	
+
+	/**
+	 * 执行任务
+	 * @param ids
+	 * @return
+	 */
 	@RequirePermissions(key="console:task:excute")
 	@RequestMapping("/task/excute")
 	public OutResponse<Object> taskExcute(String[] ids){
@@ -132,10 +143,9 @@ public class ConsoleController {
 	public OutResponse<Object> taskAdd(Task task, boolean isImmediateExcute){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
-			if(task.getId() == null){
+			if(StringUtil.isEmpty(task.getId())){
 				taskService.addTask(task, isImmediateExcute);
-			}
-			else{
+			} else {
 				taskService.updateTask(task, isImmediateExcute);
 			}
 		} catch (BussinessException e) {
@@ -146,21 +156,7 @@ public class ConsoleController {
 		}
 		return outResponse;
 	}
-	
-	@RequestMapping("/task/update")
-	public OutResponse<Object> taskUpdate(Task task, boolean isImmediateExcute){
-		OutResponse<Object> outResponse = new OutResponse<>();
-		try {
-			taskService.updateTask(task, isImmediateExcute);
-		} catch (BussinessException e) {
-			outResponse.setMsg(e.getLocalizedMessage());
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return outResponse;
-	}
-	
+
 	@RequirePermissions(key="console:loginlog:list")
 	@RequestMapping("/loginlog/list")
 	public ModelAndView loginlog() {
@@ -179,8 +175,8 @@ public class ConsoleController {
 		}
 		return outResponse;
 	}
-	
-	
+
+
 
 	
 	@RequirePermissions(key="console:syslog:list")

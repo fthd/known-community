@@ -1,8 +1,14 @@
-package com.known.model;
+package com.known.common.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.web.util.HtmlUtils;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 问答搜索
@@ -13,13 +19,28 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Data
 @NoArgsConstructor
 @Document(indexName = "known_ask", type = "known")
-public class AskEsModel {
+public class AskEsModel implements Serializable {
 
-    private String askId;
+    @Id
+    private String ask_id;
     private String title;
     private String summary;
     private String content;
     private String type;
-    private String createTime;
+    private String user_id;
+    private String user_name;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date create_time;
 
+    public String getTitle() {
+        return title != null ? HtmlUtils.htmlUnescape(title) : null;
+    }
+
+    public String getSummary() {
+        return summary  != null ? HtmlUtils.htmlUnescape(summary) : null;
+    }
+
+    public String getContent() {
+        return content != null ? HtmlUtils.htmlUnescape(content) : null;
+    }
 }

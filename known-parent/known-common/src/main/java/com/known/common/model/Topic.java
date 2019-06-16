@@ -73,9 +73,13 @@ public class Topic {
     private Integer boolNew;
 
 
+    public String getTitle() {
+        return StringUtil.isEmpty(title) ? null : HtmlUtils.htmlUnescape(title);
+    }
+
+
     public String getContent() {
-        this.content = HtmlUtils.htmlUnescape(content);
-        return content;
+        return StringUtil.isEmpty(content) ? null : HtmlUtils.htmlUnescape(content);
     }
 
     public Integer getBoolNew() {

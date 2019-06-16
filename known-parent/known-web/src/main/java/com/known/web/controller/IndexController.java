@@ -54,6 +54,8 @@ public class IndexController extends  BaseController {
             view.addObject("signInfo", signInfo);
         }
         view.addObject("topics", topicService.findTopicByPage(new TopicQuery()));
+        // 热点话题
+        view.addObject("htopics", topicService.findTopicByPage4(new TopicQuery()));
         view.addObject("knowledges", knowledgeService.findKnowledgeByPage(new KnowledgeQuery()));
         view.addObject("asks", askService.findAskByPage(new AskQuery()));;
         return view;

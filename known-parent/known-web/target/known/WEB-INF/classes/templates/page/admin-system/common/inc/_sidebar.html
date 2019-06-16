@@ -1,0 +1,52 @@
+<!-- 用户信息 -->
+<div class="tpl-sidebar-user-panel">
+	<div class="tpl-user-panel-slide-toggleable">
+		<div class="tpl-user-panel-profile-picture">
+			<#if !Session["session_user_key"]?exists>
+			<#else>
+				<img src="${session_user_key.userIcon}" alt="" onclick="avatar_update()" onerror="javascript:this.src='${realpath!}/resources/amazeuiadmin/assets/img/11.jpg';">
+			</#if>
+		</div>
+		<span class="user-panel-logged-in-text">
+		 <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+		</span> 
+		<a href="javascript:;" class="tpl-user-panel-action-link">
+		<span class="am-icon-pencil"></span> 账号设置
+		</a>
+	</div>
+</div>
+
+
+<!-- 菜单 -->
+<ul class="sidebar-nav">
+	<a>
+		<i class="am-icon-calendar sidebar-nav-link-logo"></i> 资源列表
+	</a>
+</ul>
+<@perm>
+<#if menu ??>
+	<#list menu as m>
+		<#if m.pid ??>
+		<#else>
+		<li class="sidebar-nav-link">
+			<a href="javascript:;" class="sidebar-nav-sub-title <#if navLink?contains(m.key)>active</#if>">
+				<i class="${m.iconcls!} sidebar-nav-link-logo" ></i> ${m.name}
+				<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico <#if navLink?contains(m.key)>sidebar-nav-sub-ico-rotate</#if>"></span>
+			</a>
+			<#list menu as m2>
+			<#if m2.pid ?? && m.id == m2.pid>
+			<ul class="sidebar-nav sidebar-nav-sub" <#if navLink?contains(m.key)>style="display: block;"</#if>>
+				<li class=" sidebar-nav-link">
+				<a href="<#if m2.url ??>${realpath}${m2.url}</#if>" <#if navLink?contains(m2.key)>class="sub-active"</#if>>
+					<span class="am-icon-angle-right sidebar-nav-link-logo"></span>${m2.name}
+				</a>
+				</li>
+			</ul>
+		</#if>
+		</#list>
+		</li>
+		</#if>
+	</#list>
+</#if>
+</@perm>
+</ul>

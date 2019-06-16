@@ -1,6 +1,5 @@
 known.userIconUrl={
-	saveCustomerUserIcon:known.realpath+"/admin/saveUserIcon",
-	saveSysUserIcon:known.realpath+"/admin/saveSysUserIcon"
+	saveSysUserIcon:known.realpath+"/userAdmin/saveSysUserIcon"
 	
 }
 function tag(config) {
@@ -44,7 +43,7 @@ var uploader = WebUploader.create({
     swf : known.realpath + '/resources/webuploader/Uploader.swf',
 
     // 文件接收服务端。
-    server : known.realpath + '/imageUpload2Temp.action',
+    server : known.realpath + '/imageUploader/imageUpload.action',
 
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -67,8 +66,7 @@ uploader.on('uploadSuccess', function(file, response) {
     if (response.code == "SUCCESS") {
 	$("#imgarea").show();
 
-	cutter.reload(known.realpath+"/upload/"+response.savePath);
-       // cutter.reload(response.savePath);
+	cutter.reload(known.realpath+"/"+response.savePath);
     }
     $("#file_upload").hide();
     $("#uploading").hide();
@@ -83,10 +81,8 @@ uploader.on('error', function(handler) {
 var cutter = new jQuery.UtrialAvatarCutter({
 		//主图片所在容器ID
 		content : "picture_original",
-		
 		//缩略图配置,ID:所在容器ID;width,height:缩略图大小
 		purviews : [{id:"picture_200",width:180,height:180}],
-		
 		//选择器默认大小
 		selector : {width:180,height:180}
 	}
@@ -139,7 +135,6 @@ function saveUserIcon(){
 	}
 	var start = imgPath.lastIndexOf("upload")+7;
 	var imgSavePath = imgPath.substring(start,data.s.size);
-	console.log(start+"============="+imgSavePath+"================="+imgPath);
 		$.ajax({
 		url : known.userIconUrl.saveCustomerUserIcon,
 		type: 'POST',
@@ -163,8 +158,7 @@ function saveUserIcon(){
 			}
 		}
 	});
-    }
-    else if(known.iconType==1){//系统头像
+    } else if(known.iconType==1){//系统头像
 	if($(".system-user-icon-s span.icon-check").length==0){
 	    layer.msg("请选择头像", {icon: 5,time:1500});   
 	    return;

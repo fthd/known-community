@@ -61,6 +61,21 @@ public class TopicServiceImpl implements TopicService {
 		return pageResult;
 	}
 
+	public PageResult<Topic> findTopicByPage4(TopicQuery topicQuery) {
+		int count = topicMapper.selectCount(topicQuery);
+		int pageSize = PageSizeEnum.PAGE_SIZE20.getSize();
+		int pageNum = 1;
+		if (topicQuery.getPageNum() != 1) {
+			pageNum = topicQuery.getPageNum();
+		}
+		Page page = new Page(pageNum, count, pageSize);
+		topicQuery.setPage(page);
+		topicQuery.setOrderBy(OrderByEnum.LAST_COMMENT_TIME_DESC_CREATE_TIME_DESC);
+		List<Topic> list = topicMapper.selectList4(topicQuery);
+		PageResult<Topic> pageResult = new PageResult<>(page, list);
+		return pageResult;
+	}
+
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BussinessException.class)
 	public void addTopic(Topic topic, TopicVote topicVote, String[] voteTitle,
 						 Attachment attachment) throws BussinessException {
@@ -90,7 +105,7 @@ public class TopicServiceImpl implements TopicService {
 		topic.setContent(formatContent);
 		String topicImage = ImageUtil.getImages(content);
 		topic.setTopicImage(topicImage);
-		String topicImageSmall = ImageUtil.createThumbnail(topicImage, true);
+		String topicImageSmall = ImageUtil.createThumbnail(topicImage);
 		topic.setTopicImageThum(topicImageSmall);
 		Date curDate = new Date();
 		topic.setCreateTime(curDate);
@@ -99,11 +114,12 @@ public class TopicServiceImpl implements TopicService {
 		userService.changeMark(topic.getUserId(),
 				MarkEnum.MARK_TOPIC.getMark());
 		if (topic.getTopicType() == TopicTypeEnum.VOTE) {// 判断是否是投票话题
+			topicVote.setVoteId(UUIDUtil.getUUID());
 			topicVote.setTopicId(topic.getTopicId());
 			topicVoteService.addVote(topicVote, voteTitle);
 		}
-		if(!StringUtil.isEmpty(attachment.getFileName()) &&
-				!StringUtil.isEmpty(attachment.getFileUrl())){
+		if(!StringUtil.isEmpty(attachment.getFileName()) && !StringUtil.isEmpty(attachment.getFileUrl())){
+			attachment.setAttachmentId(UUIDUtil.getUUID());
 			attachment.setArticleId(topic.getTopicId());
 			attachment.setFileArticleType(FileArticleTypeEnum.TOPIC);
 			attachmentService.addAttachment(attachment);
@@ -125,6 +141,7 @@ public class TopicServiceImpl implements TopicService {
 		if(topic == null){
 			throw new BussinessException("话题不存在或已删除");
 		}
+
 		// 获取话题附件信息
 		topic.setAttachment(attachmentService.getAttachmentByTopicIdAndFileType(topic.getTopicId(), FileArticleTypeEnum.TOPIC));
 

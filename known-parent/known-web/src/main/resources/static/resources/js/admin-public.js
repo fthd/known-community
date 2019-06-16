@@ -12,7 +12,7 @@ $(document).ready(function() {
 	});
 });
 $("#saveUserInfo").click(function(event) {
-		if(known.userId=="" || known.userId == 0){
+		if(known.userId==""){
     		goLogin();
     	    return;
     	}
@@ -24,7 +24,7 @@ $("#saveUserInfo").click(function(event) {
 					d.close().remove();
 				}, 1000);	
 	$.ajax({
-		url: '/admin/updateUserInfo',
+		url: '/userAdmin/updateUserInfo',
 		type: 'POST',
 		dataType: 'json',
 		data: $("#updateUserForm").serialize(),
@@ -96,7 +96,7 @@ $("#updatePWD").click(function(event) {
 				}, 1000);	
 
 		$.ajax({
-			url: '/admin/modifyPassword',
+			url: '/userAdmin/modifyPassword',
 			type: 'POST',
 			dataType: 'json',
 			data: {

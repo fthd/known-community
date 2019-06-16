@@ -14,6 +14,7 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
 		if(ids == null || ids.length == 0){
 			throw new BussinessException("参数错误");
 		}
-		
+
 		taskMapper.delete(ids);
 		for(String id : ids){
 			Task task = findTaskById(id);
@@ -49,8 +50,16 @@ public class TaskServiceImpl implements TaskService {
 		}
 	}
 
+public static void main(String[] args) throws UnsupportedEncodingException {
+
+		System.out.println(CronExpression.isValidExpression("0 0/5 * * * ?"));
+		System.out.println("0 0/5 * * * ?".equals("0 0/5 * * * ?".trim()));
+		System.out.println(new String("0 0/5 * * * ?".getBytes("UTF-8"), "UTF-8"));
+  		System.out.println(CronExpression.isValidExpression(new String("0 0/5 * * * ?".getBytes("UTF-8"), "ISO8859-1")));
+}
+
 	@Override
-	public Task addTask(Task task, boolean isImmediateExcute) throws BussinessException {
+	public Task addTask(Task task, boolean isImmediateExcute) throws BussinessException, UnsupportedEncodingException {
 		if(null == task){
 			throw new BussinessException("参数错误");
 		}
@@ -62,9 +71,9 @@ public class TaskServiceImpl implements TaskService {
 				) {
 			throw new BussinessException("参数错误");
 		}
-		
+
 		if(!CronExpression.isValidExpression(task.getTaskTime())){
-			throw new BussinessException("时间格式错误");
+			throw new BussinessException("任务执行周期格式错误");
 		}
 		
 		Class<?> clazz = null;

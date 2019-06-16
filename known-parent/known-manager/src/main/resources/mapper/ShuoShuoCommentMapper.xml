@@ -13,7 +13,7 @@
   
    <sql id="Base_Condition" >
     <where >
-    	<if test="null!= shuoShuoId">
+    	<if test="null!= shuoShuoId and '' != shuoShuoId">
      		and shuoshuo_id = #{shuoShuoId}
      	</if>
      	<if test="null!= startDate">

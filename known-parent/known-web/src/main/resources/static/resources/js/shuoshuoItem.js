@@ -20,7 +20,7 @@ var uploader = WebUploader.create({
     fileSingleSizeLimit: 3 * 1024 * 1024
 });
 uploader.on('fileQueued', function(file) {
-    if(known.userId=="" || known.userId == 0){
+    if(known.userId==""){
         goLogin();
         return;
     }
@@ -59,7 +59,7 @@ $(document).on("click","#image-con span a",function(){
 
 function ImageItem(img) {
     var span = $('<span class="imageItem" data =' + img + ' ></span>');
-    $('<img src="'+ known.realpath  + '/upload/' + img + '" class="showimg">').appendTo(span);
+    $('<img src="'+ known.realpath  + '/' + img + '" class="showimg">').appendTo(span);
     $('<a href="javascript:void(0)"><img src="' + known.realpath + '/resources/images/icon/icon-del.png"></a>').appendTo(span);
     return span;
 }
@@ -74,7 +74,7 @@ $(document).on("click", ".user-thumbnail img", function() {
     // d.showModal();
     layer.open({
         maxWidth:1300,
-        content: '<div style="text-align:center;"><a href="' + bimg + '" target="_blank"><img src="' + bimg + '"style="max-width:1300px;"></a></div>'
+        content: '<div style="text-align:center;"><a href="'+bimg + '" target="_blank"><img src="'+  bimg + '"style="max-width:1300px;"></a></div>'
     });
 
 });
@@ -110,21 +110,21 @@ $(document).on("click", ".comment-at", function() {
     showCommentPost4At($(this));
 });
 $(document).on("click", ".reply", function() {
-    if(known.userId=="" || known.userId == 0){
+    if(known.userId==""){
         goLogin();
         return;
     }
     publicShuoShuoComment($(this));
 });
 $(document).on("click", ".shuoshuo-item-info .like-info", function() {
-    if(known.userId=="" || known.userId == 0){
+    if(known.userId==""){
         goLogin();
         return;
     }
     doShuoShuoLike($(this));
 });
 $("#publicShuoShuo").click(function(event) {
-    if(known.userId=="" || known.userId == 0){
+    if(known.userId==""){
         goLogin();
         return;
     }
@@ -367,7 +367,10 @@ function loadShuoShuos(pageNum){
         url: known.realpath + '/userCenter/loadShuoShuos',
         type: 'POST',
         dataType: 'json',
-        data: {"pageNum": pageNum},
+        data: {
+            "pageNum": pageNum,
+            "userId": known.center.userId
+        },
         success:function(res){
             var list = res.data.list;
             var simplePage = res.data.page;
@@ -391,7 +394,7 @@ function ShuoShuoItem(data){
         for (var i = 0, _len = imageSmallArray.length, img; i < _len, img = imageSmallArray[i]; i++){
             if (img !== ""){
                 // $('<img  layer-src="../upload/' + img.split("_s")[0] +'" src="../upload/' + img + '" alt="图片名">').appendTo(userthumbnail)
-                $('<img src="' + known.realpath + img + '" class="img-thumbnail" style="width: 150px;height: 100px;">').appendTo(userthumbnail);
+                $('<img src="' +known.realpath+'/'+ img + '" class="img-thumbnail" style="width: 150px;height: 100px;">').appendTo(userthumbnail);
             }
         }
     }

@@ -1,9 +1,11 @@
 package com.known.web.controller;
 
+import com.known.cache.CategoryCache;
 import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
 import com.known.common.enums.CodeEnum;
 import com.known.common.model.*;
+import com.known.common.utils.StringUtil;
 import com.known.common.vo.OutResponse;
 import com.known.common.vo.PageResult;
 import com.known.exception.BussinessException;
@@ -58,7 +60,7 @@ public class UserCenterController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/{userId}")
-	public ModelAndView user(HttpSession session, @PathVariable String userId){
+	public ModelAndView user(@PathVariable String userId, HttpSession session){
 		ModelAndView view = new ModelAndView("/page/user/home");
 		try {
 			//用户基本信息
@@ -87,22 +89,6 @@ public class UserCenterController extends BaseController {
 		}
 		return view;
 	}
-	
-
-	@RequestMapping("/loadShuoShuoDetail")
-	public OutResponse<Object> loadShuoShuoDetail(ShuoShuoQuery shuoShuoQuery){
-		OutResponse<Object> outResponse = new OutResponse<>();
-		try {
-			ShuoShuo shuoShuo = shuoShuoService.findShuoShuo(shuoShuoQuery);
-			outResponse.setData(shuoShuo);
-			outResponse.setCode(CodeEnum.SUCCESS);
-		} catch (Exception e) {
-			logger.error("加载说说异常", e);
-			outResponse.setMsg("加载说说出错");
-			outResponse.setCode(CodeEnum.SERVERERROR);
-		}
-		return outResponse;
-	}
 
 	@RequestMapping("/loadUserFriend")
 	public OutResponse<Object> loadUserFriend(HttpSession session, int pageNum){
@@ -125,7 +111,6 @@ public class UserCenterController extends BaseController {
 
 	@RequestMapping("/loadShuoShuos")
 	public OutResponse<Object> loadShuoShuos(ShuoShuoQuery shuoShuoQuery){
-
 		OutResponse<Object> outResponse = new OutResponse<>();
 
 		try {
@@ -145,6 +130,10 @@ public class UserCenterController extends BaseController {
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
 			PageResult<Topic> pageResult = topicService.findTopicByPage(topicQuery);
+			// 设置二级分类
+			pageResult.getList().parallelStream().forEach(topic -> {
+				topic.setCategoryName(CategoryCache.getCategoryById(topic.getCategoryId()).getName());
+			});
 			outResponse.setData(pageResult);
 			outResponse.setCode(CodeEnum.SUCCESS);
 		} catch (Exception e) {
@@ -159,6 +148,7 @@ public class UserCenterController extends BaseController {
 	public OutResponse<Object> loadAsk( AskQuery askQuery){
 		OutResponse<Object> outResponse = new OutResponse<>();
 		try {
+			System.out.println(askQuery+"=========");
 			PageResult<Ask> pageResult = askService.findAskByPage(askQuery);
 			outResponse.setData(pageResult);
 			outResponse.setCode(CodeEnum.SUCCESS);
@@ -211,33 +201,6 @@ public class UserCenterController extends BaseController {
 			outResponse.setCode(CodeEnum.SERVERERROR);
 		}
 		return outResponse;
-	}
-	
-	@RequestMapping(value = "/{userId}/shuoshuo/{id}")
-	public ModelAndView shuoshuo(HttpSession session, @PathVariable String userId, @PathVariable String id){
-		ModelAndView view = new ModelAndView("/page/user/shuoshuo");
-		try {
-			User user = userService.findUserInfo4UserHome(userId);
-			view.addObject("user", user);
-			view.addObject("id", id);
-			UserFriendQuery ufq = new UserFriendQuery();
-			ufq.setUserId(getUserid(session));
-			ufq.setFriendUserId(userId);
-			view.addObject("focusType", userFriendService.findFocusType4UserHome(ufq));
-			
-			//获取粉丝和关注数量
-			ufq = new UserFriendQuery();
-			ufq.setFriendUserId(userId);
-			view.addObject("fansCount", userFriendService.findCount(ufq));
-			ufq = new UserFriendQuery();
-			ufq.setUserId(userId);
-			view.addObject("focusCount", userFriendService.findCount(ufq));
-		} catch (Exception e) {
-			logger.error("获取说说信息失败：", e);
-			view.setViewName("redirect:" + urlConfig.getError_404());
-			return view;
-		}
-		return view;
 	}
 	
 	@ResponseBody

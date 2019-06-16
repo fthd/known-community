@@ -1,8 +1,13 @@
-package com.known.model;
+package com.known.common.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.web.util.HtmlUtils;
+
+import java.util.Date;
 
 /**
  * 知识库搜索
@@ -15,11 +20,27 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "known_knowledge", type = "known")
 public class KnowledgeEsModel {
 
-    private String knowledgeId;
+    @Id
+    private String knowledge_id;
     private String title;
     private String summary;
     private String content;
     private String type;
-    private String createTime;
+    private String user_id;
+    private String user_name;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
+    private Date create_time;
+
+    public String getTitle() {
+        return title != null ? HtmlUtils.htmlUnescape(title) : null;
+    }
+
+    public String getSummary() {
+        return summary  != null ? HtmlUtils.htmlUnescape(summary) : null;
+    }
+
+    public String getContent() {
+        return content != null ? HtmlUtils.htmlUnescape(content) : null;
+    }
 
 }

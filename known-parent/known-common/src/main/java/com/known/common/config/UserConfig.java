@@ -21,5 +21,5 @@ public class UserConfig {
 
     @Value("${Cookie_User_Info}")
     private String Cookie_User_Info;
-    
+
 }

@@ -75,28 +75,19 @@
     <div class="part-title">
         <a href="${realpath}/topic/topic" class="part">最新话题</a>
     </div>
-    <!--<#list topics.list as topic>
+    <#list htopics.list as htopic>
         <div class="data-item">
-            <a href="${realpath}/user/${topic.userId}/topic/${topic.topicId}" target="_blank" class="topic-tit ">${topic.title}</a>
+            <a href="${realpath}/topic/${htopic.topicId}" target="_blank" class="topic-tit ">${htopic.title}</a>
             <span class="topic-time">
-                <span class="topic-time-name">by&nbsp;&nbsp;${topic.userName}</span>
-                <span class="topic-time-time">${topic.createTimeString}</span>
+                <span class="topic-time-name">by&nbsp;&nbsp;${htopic.userName}</span>
+                <span class="topic-time-time">${htopic.createTimeString}</span>
                 <div class="clear"></div>
             </span>
         </div>
-    </#list>-->
-    <!--<div class="part-title">
-        <a href="javascript:;" class="part">常用工具</a>
-    </div>
-    <div class="home-tools">
-            <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">JDK下载</a>
-            <a href="http://dlsw.baidu.com/sw-search-sp/soft/ea/12585/mysql_installer_community_V5.6.21.1_setup.1418020972.msi" target="_blank">MySQL下载</a>
-            <a href="http://c1.cr173.com/xl/JDK_API_1_6_zh_CN.zip" target="_blank">JDK6中文文档</a>
-            <a href="http://pan.baidu.com/s/1kTyYOsf" target="_blank">Jquery中文文档</a>
-            <a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(32位)</a>
-            <a href="http://eclipse.stu.edu.tw/technology/epp/downloads/release/mars/1/eclipse-jee-mars-1-win32.zip" target="_blank">Eclipse(64位)</a>
-            <a href="https://pan.baidu.com/s/1o6soaj4" target="_blank">Sqlyog破解版(64位)</a>
-    </div>-->
+    <#if (htopic_index>=8)>
+        <#break>
+    </#if>
+    </#list>
 </div>
 
 

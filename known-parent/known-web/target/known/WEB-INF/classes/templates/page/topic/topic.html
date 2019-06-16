@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "../include/top.html">
+    <script type="text/javascript" src="${realpath}/resources/js/topic.js"></script>
+    <link rel="stylesheet" type="text/css" href="${realpath}/resources/css/topic.css">
+    <title>话题中心</title>
+</head>
+<body>
+<#include "../include/header.html">
+<div class="main">
+    <div class="left">
+        <#list categories as category>
+        <div class="cate-item">
+            <div class="p-cate"><a href="/topic/board/${category.categoryId}">${category.name}</a></div>
+            <#assign children = category.children>
+            <#if (children?size>0)>
+            <div class="sub-cate">
+                <#list children as child>
+                <div class="sub-cate-item">
+                    <div class="sub-cate-item-icon"><img src="${realpath}/resources/images/topic.png"></div>
+                    <div class="sub-cate-item-info">
+                        <div>
+                            <div class="sub-cate-item-name">
+                                <a href="${realpath}/topic/sub_board/${child.categoryId}">${child.name}</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="sub-cate-item-count">
+                                <span class="topic-count">主题：${child.count!'0'}</span>
+                                今日：<span>${child.todayCount!'0'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </#list>
+            <div class="clear"></div>
+        </div>
+    </#if>
+</div>
+</#list>
+</div>
+
+
+<div class="right">
+    <div class="count-info">
+        <p><span class="day-count">今日话题：${today} </span><span>昨日话题：${yesterdayCount}</span></p>
+        <p>总话题：${count}</p>
+    </div>
+    <div>
+        <a href="javascript:;" class="btn btn-info public-btn" id="publicTopicBtn">
+            <i class="icon icon-post-topic"></i>
+            <span>发布话题</span>
+        </a>
+    </div>
+    <div class="active-user">
+        <div class="active-user-title"><i class="icon active-user-title-icon"></i>活跃用户(TOP20)</div>
+        <div class="active-user-icon">
+            <ul>
+                <#list activeUser as user>
+                <li>
+                    <a href="${realpath}/userCenter/${user.userId}">
+                        <img class="img-circle" src="${user.userIcon}" style="display:inline;"/>
+                        <span>${user.userName}</span>
+                        <span class="post-count">发布：${user.topicCount}</span>
+                    </a>
+                </li>
+            </#list>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="clear"></div>
+</div>
+
+<#include "../include/footer.html">
+</body>
+</html>

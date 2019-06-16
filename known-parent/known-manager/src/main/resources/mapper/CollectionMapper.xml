@@ -47,7 +47,7 @@
  	<if test="null!= orderBy">
      		order by ${orderBy.orderBy}
      	</if>
- 	<if test="page!=null">
+ 	<if test="page!=null and page.end != 0">
  		limit #{page.start},#{page.end}
  	</if>
  </select>

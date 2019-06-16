@@ -169,7 +169,7 @@ function demo(curr) {
 			for (var i = 0, _len = list.length, d; i < _len, d = list[i]; i++) {
 				var edit = "";
 				if (d.url != "") {
-					edit = edit + '<a href="' + known.realpath + '/userAdmin/readMessage.action?id=' + d.id + '" title="查看" target="_blank" class="read-btn" url="' + d.url + '" messageId="' + d.id + '"><i class="icon i-preview"></i>&nbsp;&nbsp;&nbsp;&nbsp;'
+					edit = edit + '<a href="' + known.realpath + '/userAdmin/readMessage.action?id=' + d.id + '" title="查看" target="_blank" class="read-btn" url="' +known.realpath+ d.url + '"><i class="icon i-preview"></i>&nbsp;&nbsp;&nbsp;&nbsp;'
 				}
 				edit = edit + '<a href="javascript:;" title="标记为已读" class="mark-btn" messageId="' + d.id + '"><i class="icon i-start"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;'
 				edit = edit + '<a href="javascript:;" title="删除" class="del-btn"  messageId="' + d.id + '"><i class="icon i-del"></i></a>';

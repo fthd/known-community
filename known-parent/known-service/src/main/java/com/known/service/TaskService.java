@@ -5,6 +5,7 @@ import com.known.common.model.Task;
 import com.known.exception.BussinessException;
 import com.known.quartz.TaskMessage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface TaskService {
@@ -13,7 +14,7 @@ public interface TaskService {
 	
 	void deleteTask(String[] ids) throws BussinessException;
 	
-	Task addTask(Task task, boolean isImmediateExcute) throws BussinessException;
+	Task addTask(Task task, boolean isImmediateExcute) throws BussinessException, UnsupportedEncodingException;
 	
 	void updateTask(Task task, boolean isImmediateExcute) throws BussinessException;
 	

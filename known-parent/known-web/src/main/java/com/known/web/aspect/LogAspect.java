@@ -81,7 +81,10 @@ public class LogAspect {
 					while (paraNames.hasMoreElements()) {
 						key = paraNames.nextElement();
 						value = request.getParameter(key);
-						bfParams.append(key).append("=").append(value).append("&");
+						bfParams.append(key).append("=").append(value);
+						if (paraNames.hasMoreElements()) {
+							bfParams.append("&");
+						}
 					}
 					if (StringUtil.isEmpty(bfParams.toString())) {
 						// 获取查询字符串, 只对get请求有效
@@ -109,12 +112,11 @@ public class LogAspect {
 						}
 					}
 
-
-					String account = request.getParameter("account");
-					// 用户名
-					loginLog.setAccount(account);
+					// 截取用户名
+					loginLog.setAccount(bfParams.substring(8,bfParams.indexOf("&")));
 					loginLogService.addLoginLog(loginLog);
 				} else {
+					// 系统日志记录
 					SysLog sysLog = new SysLog();
 					String ip = request.getRemoteAddr();
 					String strMessage = String.format("[类名]:%s,[方法]:%s,[参数]:%s", strClassName, strMethodName,

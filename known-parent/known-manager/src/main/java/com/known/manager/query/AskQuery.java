@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class AskQuery extends BaseQuery {
 	private String askId;
 	
-	private Integer userId;
+	private String userId;
 	
 	private SolveEnum solveType;
 	

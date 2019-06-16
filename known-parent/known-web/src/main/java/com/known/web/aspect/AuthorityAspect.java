@@ -1,6 +1,5 @@
 package com.known.web.aspect;
 
-import com.known.common.config.UrlConfig;
 import com.known.common.config.UserConfig;
 import com.known.common.enums.LogicalEnum;
 import com.known.common.model.SessionUser;
@@ -49,6 +48,7 @@ public class AuthorityAspect {
             // 获取资源列表
             Integer type = 2; //权限
             List<SysRes> list = sysResService.findLimitByRoleIds(roleSet, type);
+            System.out.println(list);
             Set<String> permkey = new HashSet<>();
             if (list != null) {
                 for (SysRes sysRes : list) {
