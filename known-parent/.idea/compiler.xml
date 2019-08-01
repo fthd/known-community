@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="known-common" />
+        <module name="known-web" />
         <module name="known-manager" />
         <module name="known-service" />
-        <module name="known-web" />
+        <module name="known-common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,5 +22,13 @@
       <module name="known-service" target="1.8" />
       <module name="known-web" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="known-common" options="-parameters" />
+      <module name="known-manager" options="-parameters" />
+      <module name="known-service" options="-parameters" />
+      <module name="known-web" options="-parameters" />
+    </option>
   </component>
 </project>
